@@ -1,13 +1,24 @@
 {
-  "sections": {
-    "main": {
-      "type": "main-list-collections",
-      "settings": {
-        "image_ratio": "square"
-      }
-    }
-  },
-  "order": [
-    "main"
-  ]
+    "sections": {
+        "main": {
+            "type": "main-list-collections",
+            "settings": {
+                "title": "Collections",
+                "sort": "products_high",
+                "image_ratio": "adapt",
+                "color_scheme": "background-1",
+                "image_padding": false
+            }
+        },
+        "16389882674409b238": {
+            "type": "custom-liquid",
+            "settings": {
+                "custom_liquid": "<script>\nvar links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }\n}<\/script>"
+            }
+        }
+    },
+    "order": [
+        "main",
+        "16389882674409b238"
+    ]
 }

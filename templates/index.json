@@ -1,106 +1,325 @@
 {
-  "sections": {
-    "image_banner": {
-      "type": "image-banner",
-      "settings": {
-        "desktop_text_box_position": "flex-end"
-      },
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Talk about your brand"
-          }
+    "sections": {
+        "image_banner": {
+            "type": "image-banner",
+            "blocks": {
+                "heading": {
+                    "type": "heading",
+                    "disabled": true,
+                    "settings": {
+                        "heading": "Embrace the feeling of vacation, every day!",
+                        "heading_size": "large"
+                    }
+                },
+                "5f238155-161b-48ff-8d2f-52318f6a6b69": {
+                    "type": "text",
+                    "disabled": true,
+                    "settings": {
+                        "text": "With our printed collection, Give your wardrobe a touch of JOY."
+                    }
+                },
+                "button": {
+                    "type": "buttons",
+                    "settings": {
+                        "button_label_1": "Buy Family Combo",
+                        "button_link_1": "shopify:\/\/collections\/family-combo",
+                        "button_style_secondary_1": false,
+                        "button_label_2": "Buy Couple Combo",
+                        "button_link_2": "shopify:\/\/collections\/couple-combo",
+                        "button_style_secondary_2": false
+                    }
+                }
+            },
+            "block_order": [
+                "heading",
+                "5f238155-161b-48ff-8d2f-52318f6a6b69",
+                "button"
+            ],
+            "settings": {
+                "image": "shopify:\/\/shop_images\/New_DSC8733_copy.jpg",
+                "image_height": "small",
+                "adapt_height_first_image": true,
+                "desktop_text_box_position": "flex-end",
+                "show_text_box": false,
+                "image_overlay_opacity": 0,
+                "color_scheme": "background-1",
+                "stack_images_on_mobile": true,
+                "show_text_below": true
+            }
         },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_label_2": ""
-          }
+        "1638983280ac495639": {
+            "type": "custom-liquid",
+            "settings": {
+                "custom_liquid": "<style>@media screen and (min-width: 750px){\n.grid--2-col .grid__item {\n    max-width: calc(33.33% - 1rem * 2 \/ 3);\nmax-width: 25%;\n}}<\/style>\n<script defer>\nfunction li(){var links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }}\n if(window.onload) {\n        var curronload = window.onload;\n        var newonload = function(evt) {\n            curronload(evt);\n            li(evt);\n        };\n        window.onload = newonload;\n    } else {\n        window.onload = li;\n    }}<\/script>"
+            }
+        },
+        "41ceab7f-ab59-4cf9-bc40-7d202647f945": {
+            "type": "featured-collection",
+            "custom_css": [
+                ".small-hide {display: block !important;}",
+                "a.link.underlined-link.large-up-hide {display: none;}"
+            ],
+            "settings": {
+                "title": "Just Arrived - Family Combos",
+                "collection": "just-arrived-family-combo",
+                "products_to_show": 8,
+                "show_view_all": true,
+                "swipe_on_mobile": true,
+                "image_ratio": "adapt",
+                "show_secondary_image": true,
+                "add_image_padding": false,
+                "show_image_outline": true,
+                "show_vendor": true,
+                "show_rating": true
+            }
+        },
+        "featured_collection_warLmJ": {
+            "type": "featured-collection",
+            "settings": {
+                "title": "Just Arrived - T-shirt Combos",
+                "collection": "just-arrived-t-shirt-combo",
+                "products_to_show": 8,
+                "show_view_all": true,
+                "swipe_on_mobile": true,
+                "image_ratio": "adapt",
+                "show_secondary_image": true,
+                "add_image_padding": false,
+                "show_image_outline": true,
+                "show_vendor": true,
+                "show_rating": true
+            }
+        },
+        "featured_products": {
+            "type": "featured-collection",
+            "custom_css": [
+                ".small-hide {display: block !important;}",
+                "a.link.underlined-link.large-up-hide {display: none;}"
+            ],
+            "settings": {
+                "title": "Just Arrived - Couple Combos",
+                "collection": "just-arrived",
+                "products_to_show": 8,
+                "show_view_all": true,
+                "swipe_on_mobile": true,
+                "image_ratio": "adapt",
+                "show_secondary_image": true,
+                "add_image_padding": false,
+                "show_image_outline": true,
+                "show_vendor": true,
+                "show_rating": true
+            }
+        },
+        "1643531842fa933328": {
+            "type": "featured-collection",
+            "disabled": true,
+            "custom_css": [
+                ".small-hide {display: block !important;}",
+                "a.link.underlined-link.large-up-hide {display: none;}"
+            ],
+            "settings": {
+                "title": "Just Arrived - Shirts",
+                "collection": "just-arrived-vacation-printed-shirts",
+                "products_to_show": 8,
+                "show_view_all": true,
+                "swipe_on_mobile": true,
+                "image_ratio": "adapt",
+                "show_secondary_image": true,
+                "add_image_padding": false,
+                "show_image_outline": true,
+                "show_vendor": true,
+                "show_rating": true
+            }
+        },
+        "6be150fb-d045-4418-afad-341bebf92fa7": {
+            "type": "image-banner",
+            "settings": {
+                "image": "shopify:\/\/shop_images\/Twin_in_Starting_from.jpg",
+                "image_height": "small",
+                "adapt_height_first_image": true,
+                "desktop_text_box_position": "flex-end",
+                "show_text_box": false,
+                "image_overlay_opacity": 0,
+                "color_scheme": "background-1",
+                "stack_images_on_mobile": true,
+                "show_text_below": true
+            }
+        },
+        "recently_viewed_KnfwTB": {
+            "type": "recently-viewed",
+            "settings": {
+                "title": "Recently Viewed Products",
+                "products_to_show": 12,
+                "swipe_on_mobile": true,
+                "image_ratio": "adapt"
+            }
+        },
+        "8de74d03-b254-4e74-8ed7-69cc410780d2": {
+            "type": "image-banner",
+            "blocks": {
+                "template--15339231477910__8de74d03-b254-4e74-8ed7-69cc410780d2-1668327727cc236ec5-0": {
+                    "type": "heading",
+                    "settings": {
+                        "heading": "The most awaited , Tusok Family Combo is finally here.",
+                        "heading_size": "large"
+                    }
+                },
+                "template--15339231477910__8de74d03-b254-4e74-8ed7-69cc410780d2-1668327727cc236ec5-2": {
+                    "type": "buttons",
+                    "settings": {
+                        "button_label_1": "Shop Now",
+                        "button_link_1": "shopify:\/\/collections\/family-combo",
+                        "button_style_secondary_1": false,
+                        "button_label_2": "",
+                        "button_link_2": "",
+                        "button_style_secondary_2": false
+                    }
+                }
+            },
+            "block_order": [
+                "template--15339231477910__8de74d03-b254-4e74-8ed7-69cc410780d2-1668327727cc236ec5-0",
+                "template--15339231477910__8de74d03-b254-4e74-8ed7-69cc410780d2-1668327727cc236ec5-2"
+            ],
+            "settings": {
+                "image": "shopify:\/\/shop_images\/DSC8014_-_for_banner.jpg",
+                "image_height": "small",
+                "adapt_height_first_image": true,
+                "desktop_text_box_position": "center",
+                "show_text_box": false,
+                "image_overlay_opacity": 20,
+                "color_scheme": "background-1",
+                "stack_images_on_mobile": false,
+                "show_text_below": false
+            }
+        },
+        "1651608135d2e65720": {
+            "type": "apps",
+            "blocks": {
+                "5e96c138-18da-45bd-8df9-2b42f1bb6717": {
+                    "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/verified_badge\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+                    "settings": {}
+                },
+                "be4ce9de-3e64-46d8-8796-d810c60619a9": {
+                    "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/featured_carousel\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+                    "settings": {
+                        "maxwidth": 2800
+                    }
+                },
+                "83a885db-ea5b-4edd-83f0-1e7963f3f87d": {
+                    "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/medals\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+                    "settings": {}
+                }
+            },
+            "block_order": [
+                "5e96c138-18da-45bd-8df9-2b42f1bb6717",
+                "be4ce9de-3e64-46d8-8796-d810c60619a9",
+                "83a885db-ea5b-4edd-83f0-1e7963f3f87d"
+            ],
+            "settings": {
+                "include_margins": false
+            }
+        },
+        "1640181905051002ce": {
+            "type": "featured-blog",
+            "settings": {
+                "heading": "We love Vacations and Reading about Vacations",
+                "blog": "blog",
+                "post_limit": 4,
+                "show_image": true,
+                "show_date": false,
+                "show_author": false,
+                "soft_background": false,
+                "show_view_all": true
+            }
+        },
+        "1664792578ad103e04": {
+            "type": "page",
+            "settings": {
+                "page": "our-office"
+            }
+        },
+        "social_widget_3713": {
+            "type": "social-widget",
+            "settings": {
+                "social_widget_id": "3713",
+                "social_product_id": "none",
+                "social_widget_type": "none"
+            }
+        },
+        "163863905506cd174d": {
+            "type": "multicolumn",
+            "blocks": {
+                "16386390551a7989df-0": {
+                    "type": "column",
+                    "disabled": true,
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/amazon.png",
+                        "title": "",
+                        "text": "",
+                        "link_label": "Explore on Amazon",
+                        "link": "https:\/\/www.amazon.in\/stores\/node\/22115457031?_encoding=UTF8&field-lbr_brands_browse-bin=Tusok"
+                    }
+                },
+                "16386390551a7989df-1": {
+                    "type": "column",
+                    "disabled": true,
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/download.png",
+                        "title": "",
+                        "text": "",
+                        "link_label": "Explore on Myntra",
+                        "link": "https:\/\/www.myntra.com\/men-clothing?f=Brand%3ATusok%3A%3ACategories%3AShirts&plaEnabled=false"
+                    }
+                },
+                "16386390551a7989df-2": {
+                    "type": "column",
+                    "disabled": true,
+                    "settings": {
+                        "title": "Column",
+                        "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
+                        "link_label": "",
+                        "link": ""
+                    }
+                }
+            },
+            "block_order": [
+                "16386390551a7989df-0",
+                "16386390551a7989df-1",
+                "16386390551a7989df-2"
+            ],
+            "disabled": true,
+            "settings": {
+                "title": "Also available on",
+                "image_width": "half",
+                "image_ratio": "adapt",
+                "column_alignment": "center",
+                "background_style": "none",
+                "button_label": "",
+                "button_link": "",
+                "swipe_on_mobile": false
+            }
+        },
+        "168379915569efec32": {
+            "type": "apps",
+            "settings": {
+                "include_margins": true
+            }
         }
-      },
-      "block_order": [
-        "heading",
-        "button"
-      ]
     },
-    "rich_text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading"
-        },
-        "text": {
-          "type": "text"
-        },
-        "button": {
-          "type": "button"
-        }
-      },
-      "block_order": [
-        "heading",
-        "text",
-        "button"
-      ]
-    },
-    "featured_products": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "collection": "all",
-        "image_ratio": "square"
-      }
-    },
-    "collage": {
-      "type": "collage",
-      "blocks": {
-        "video": {
-          "type": "video"
-        },
-        "product": {
-          "type": "product"
-        },
-        "collection": {
-          "type": "collection"
-        }
-      },
-      "block_order": [
-        "video",
-        "product",
-        "collection"
-      ]
-    },
-    "video": {
-      "type": "video"
-    },
-    "multi_column": {
-      "type": "multicolumn",
-      "blocks": {
-        "column1": {
-          "type": "column"
-        },
-        "column2": {
-          "type": "column"
-        },
-        "column3": {
-          "type": "column"
-        }
-      },
-      "block_order": [
-        "column1",
-        "column2",
-        "column3"
-      ]
-    }
-  },
-  "order": [
-    "image_banner",
-    "rich_text",
-    "featured_products",
-    "collage",
-    "video",
-    "multi_column"
-  ]
+    "order": [
+        "image_banner",
+        "1638983280ac495639",
+        "41ceab7f-ab59-4cf9-bc40-7d202647f945",
+        "featured_collection_warLmJ",
+        "featured_products",
+        "1643531842fa933328",
+        "6be150fb-d045-4418-afad-341bebf92fa7",
+        "recently_viewed_KnfwTB",
+        "8de74d03-b254-4e74-8ed7-69cc410780d2",
+        "1651608135d2e65720",
+        "1640181905051002ce",
+        "1664792578ad103e04",
+        "social_widget_3713",
+        "163863905506cd174d",
+        "168379915569efec32"
+    ]
 }

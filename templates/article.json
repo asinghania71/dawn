@@ -1,30 +1,66 @@
 {
-  "sections": {
-    "main": {
-      "type": "main-article",
-      "blocks": {
-        "featured_image": {
-          "type": "featured_image"
+    "sections": {
+        "main": {
+            "type": "main-article",
+            "blocks": {
+                "title": {
+                    "type": "title",
+                    "settings": {
+                        "blog_show_date": true,
+                        "blog_show_author": false
+                    }
+                },
+                "featured_image": {
+                    "type": "featured_image",
+                    "settings": {
+                        "image_height": "small"
+                    }
+                },
+                "share": {
+                    "type": "share",
+                    "settings": {
+                        "share_label": "Share"
+                    }
+                },
+                "content": {
+                    "type": "content",
+                    "settings": {}
+                }
+            },
+            "block_order": [
+                "title",
+                "featured_image",
+                "share",
+                "content"
+            ],
+            "settings": {}
         },
-        "title": {
-          "type": "title"
+        "501941ad-f575-4fc2-b838-bb2342a67b12": {
+            "type": "featured-collection",
+            "settings": {
+                "title": "Couple Combos",
+                "collection": "couple-combo",
+                "products_to_show": 12,
+                "show_view_all": true,
+                "swipe_on_mobile": true,
+                "image_ratio": "adapt",
+                "show_secondary_image": true,
+                "add_image_padding": false,
+                "show_image_outline": true,
+                "show_vendor": true,
+                "show_rating": true
+            }
         },
-        "content": {
-          "type": "content"
-        },
-        "share": {
-          "type": "share"
+        "16389883350ba6ef1f": {
+            "type": "custom-liquid",
+            "settings": {
+                "custom_liquid": "<script>\nvar links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }\n}<\/script>"
+            }
         }
-      },
-      "block_order": [
-        "featured_image",
-        "title",
-        "share",
-        "content"
-      ]
-    }
-  },
-  "order": [
-    "main"
-  ]
+    },
+    "order": [
+        "main",
+        "501941ad-f575-4fc2-b838-bb2342a67b12",
+        "16389883350ba6ef1f"
+    ]
 }

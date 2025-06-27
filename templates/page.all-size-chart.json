@@ -1,0 +1,27 @@
+{
+    "sections": {
+        "main": {
+            "type": "main-page",
+            "disabled": true,
+            "custom_css": [],
+            "settings": {}
+        },
+        "6be4eea5-248c-4880-9e0f-8e39b9fe27ec": {
+            "type": "custom-liquid",
+            "settings": {
+                "custom_liquid": "<!-- Tab links -->\n<div class=\"tab\">\n<button class=\"tablinks\" id=\"defaultOpen\" onclick=\"openCity(event, 'HalfSleeveShirt')\">Half Sleeve Shirts<\/button> <button class=\"tablinks\" onclick=\"openCity(event, 'WomensDress')\">Women's Dress<\/button> <button class=\"tablinks\" onclick=\"openCity(event, 'Tops')\">Women's Tops<\/button> <button class=\"tablinks\" onclick=\"openCity(event, 'FrontKnotShirt')\">Women's Front Knot Shirt<\/button> <button class=\"tablinks\" onclick=\"openCity(event, 'KidsTshirt')\">Kid's Unisex T-Shirt<\/button>\n<\/div>\n<!-- Tab content -->\n<div id=\"HalfSleeveShirt\" class=\"tabcontent\">\n{{pages['size-chart-half-sleeve-shirt'].content}}\n<\/div>\n<div id=\"WomensDress\" class=\"tabcontent\">\n{{pages['size-chart-women-dress'].content}}\n<\/div>\n<div id=\"Tops\" class=\"tabcontent\">\n{{pages['size-chart-womens-top'].content}}\n<\/div>\n<div id=\"FrontKnotShirt\" class=\"tabcontent\">{{pages['size-chart-womens-front-knot-shirt'].content}}\n<\/div>\n<div id=\"KidsTshirt\" class=\"tabcontent\">{{pages['size-chart-kids-unisex-t-shirt'].content}}\n<\/div>\n<style><!--\n\/* Style the tab *\/\n\n  .tab {\n    overflow: hidden;\n    border: 1px solid #ccc;\n    background-color: #f1f1f1;\n  }\n\n  \/* Style the buttons that are used to open the tab content *\/\n  .tab button {\n    background-color: inherit;\n    float: left;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    padding: 14px 16px;\n    transition: 0.3s;\n  }\n\n  \/* Change background color of buttons on hover *\/\n  .tab button:hover {\n    background-color: #ddd;\n  }\n\n  \/* Create an active\/current tablink class *\/\n  .tab button.active {\n    background-color: #ccc;\n  }\n\n  \/* Style the tab content *\/\n  .tabcontent {\n    display: none;\n    padding: 0;\n    border: 1px solid #ccc;\n    border-top: none;\n  }\n  .sizechart{\n      max-width: 100%;\n      \/* min-width: 100%; *\/\n      border-collapse: collapse;\n      border-spacing: 0px;\n      margin: 0 auto;\n      width: 100%;\n  }\n\n  th{\n    padding: 10px 5px;\n      font-size: 14px;\n      text-align: center;\n      text-transform: capitalize;\n      vertical-align: top;\n  }\n\n  .sizechart-row{\n      position: relative;\n      border: 1px solid #eaeaec;\n  }\n  \n--><\/style>\n<script>\/\/ <![CDATA[\nfunction openCity(evt, cityName) {\n    \/\/ Declare all variables\n    var i, tabcontent, tablinks;\n\n    \/\/ Get all elements with class=\"tabcontent\" and hide them\n    tabcontent = document.getElementsByClassName(\"tabcontent\");\n    for (i = 0; i < tabcontent.length; i++) {\n      tabcontent[i].style.display = \"none\";\n    }\n\n    \/\/ Get all elements with class=\"tablinks\" and remove the class \"active\"\n    tablinks = document.getElementsByClassName(\"tablinks\");\n    for (i = 0; i < tablinks.length; i++) {\n      tablinks[i].className = tablinks[i].className.replace(\" active\", \"\");\n    }\n\n    \/\/ Show the current tab, and add an \"active\" class to the button that opened the tab\n    document.getElementById(cityName).style.display = \"block\";\n    evt.currentTarget.className += \" active\";\n  }\n\n  document.getElementById(\"defaultOpen\").click();\n\/\/ ]]><\/script>"
+            }
+        },
+        "163898828768ab4b2c": {
+            "type": "custom-liquid",
+            "settings": {
+                "custom_liquid": "<script>\nvar links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }\n}<\/script>"
+            }
+        }
+    },
+    "order": [
+        "main",
+        "6be4eea5-248c-4880-9e0f-8e39b9fe27ec",
+        "163898828768ab4b2c"
+    ]
+}
