@@ -2,6 +2,9 @@
     "sections": {
         "image_banner": {
             "type": "image-banner",
+            "settings": {
+                  "desktop_content_position": "middle-center"
+            },
             "blocks": {
                 "heading": {
                     "type": "heading",

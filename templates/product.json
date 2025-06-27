@@ -156,6 +156,13 @@
                 "include_margins": true
             }
         },
+        "caption": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.metafields.descriptors.subtitle.value }}",
+            "text_style": "subtitle"
+          }
+        },
         "163864062740e68236": {
             "type": "apps",
             "blocks": {
