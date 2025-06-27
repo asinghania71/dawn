@@ -1,0 +1,422 @@
+
+
+<style>
+  .combowise {
+    margin: 15px 0 15px 0;
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+  }
+  .combowise-header {
+    font-weight: 500;
+    font-size: 24px;
+    padding: 24px 0 0 24px;
+    text-align: center;
+  }
+  .combowise-body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .combowise-row {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+  }
+  .combowise-col {
+    position: relative;
+    padding: 0;
+    height: 100%;
+    box-shadow: none;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    border-radius: 2px;
+    min-width: auto;
+    max-width: 33%;
+
+  }
+  .combowise-thumb {
+    height: 100%;
+    padding: 16px;
+    position: relative;
+    transition: box-shadow .2s ease-in-out;
+    -webkit-filter: none!important;
+    filter: none!important;
+  }
+  .combowise-thumb:after {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+    display: inline-block;
+    content: "+";
+    font-size: 40px;
+    z-index: 1;
+    margin: 0;
+    right: -7px;
+    color: #c2c2c2;
+  }
+  .combowise-col:last-child .combowise-thumb:after {
+    content: ""
+  }
+  .combowise-thumb-wrap {
+    position: relative;
+    display: block;
+    padding-bottom: 5px;
+  }
+  .combowise-thumb-wrap-inner {
+    padding-bottom: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: opacity .3s;
+    opacity: 1;
+  }
+  .combowise-thumb-img {
+    opacity: 1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .combowise-centrize {
+    position: relative;
+    margin: 0 auto;
+  }
+  .combowise-caption-title {
+    padding-bottom: 5px;
+    overflow: hidden;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+  .combowise-caption-price {
+    display: block;
+    padding: 0 10px 0 0;
+    margin: 3px 0;
+  }
+  .combowise-caption-price-original {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #212121;
+  }
+  .combowise-caption-compare {
+    display: inline-block;
+    margin-left: 8px;
+    text-decoration: line-through;
+    font-size: 14px;
+    color: #878787;
+  }
+  .combowise-caption-disc {
+    color: #388e3c;
+    font-size: 13px;
+    letter-spacing: -.2px;
+    font-weight: 500;
+    display: inline-block;
+    margin-left: 8px;
+  }
+  .combowise-footer {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    border-top: 1px solid #f0f0f0;
+  }
+  .combowise-footer-left {
+    -webkit-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
+  }
+  .combowise-footer-right {
+    -webkit-flex: 0;
+    -ms-flex: 0;
+    flex: 0;
+    padding: 0 0px;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .combowise-footer-btn {
+    color: #fff !important;
+    background-color: #ff9f00 !important;
+    padding: 16px !important;
+    text-transform: uppercase;
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    border: none;
+    display: inline-block;
+    border-radius: 2px;
+    font-weight: 500;
+    transition: box-shadow .2s ease;
+    vertical-align: super;
+    cursor: pointer;
+    outline: none;
+  }
+  .combowise-footer-btn svg {
+    argin-right: 8px;
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+  }
+  .vmNv7S {
+    float: right;
+    z-index: 1;
+    position: relative;
+  }
+  ._2kFyHg {
+    cursor: pointer;
+    width: 100%;
+    position: relative;
+  }
+  ._2kFyHg ._3uUUD5 {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  ._2kFyHg ._3uUUD5:checked+._1p7h2j {
+    background: #2874f0;
+    border: #2874f0;
+  }
+  ._2kFyHg._1z8Hgj ._1p7h2j {
+    width: 20px;
+    height: 20px;
+  }
+  ._2kFyHg ._1p7h2j {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    background-color: transparent;
+    border: 1.4px solid #c2c2c2;
+    border-radius: 1.5px;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+  ._2kFyHg ._3uUUD5:checked+._1p7h2j:before {
+    display: block;
+  }
+
+  ._2kFyHg._1z8Hgj ._1p7h2j:before {
+    left: 6px;
+    top: 1px;
+    width: 5px;
+    height: 12px;
+    border-width: 0 3px 3px 0;
+  }
+  ._2kFyHg ._1p7h2j:before {
+    position: absolute;
+    content: "";
+    left: 5px;
+    top: 3px;
+    width: 2px;
+    height: 6px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: none;
+  }
+  ._2Olu9b .dqYkSG {
+    display: inline-block;
+    padding: 20px 0;
+  }
+
+
+  ._2Olu9b ._2-0gbE {
+    color: #878787;
+    display: inline;
+    font-size: 1em;
+  }
+
+  ._2Olu9b ._3O-aY3 {
+    font-size: 18px;
+    font-weight: 500;
+    position: relative;
+    padding: 0 28px;
+  }
+  ._2Olu9b .dqYkSG._2MbfEI ._3O-aY3:after, ._2Olu9b .dqYkSG._2MbfEI ._3O-aY3:before, ._2Olu9b .dqYkSG._3nECRW ._3O-aY3:after, ._2Olu9b .dqYkSG._3nECRW ._3O-aY3:before {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: #878787;
+    font-size: 22px;
+  }
+
+  ._2Olu9b .dqYkSG._2MbfEI ._3O-aY3:after {
+    content: "+";
+    right: 0;
+  }
+
+  @media only screen and (max-width: 500px) {
+    .combowise-col {
+    	max-width: 100%;
+    }
+  }
+</style>
+
+<div class="combowise">
+  <div class="combowise-header">
+    <span>Select individual product</span>
+  </div>
+  <div class="combowise-body">
+    <div class="combowise-row">  
+      {% assign comboTitles = '' %}
+      {% for meta in cp_metas %}
+      {% assign variantId = meta|first|plus: 0 %}
+      {% assign handle = meta|last %}
+
+      {% assign p = all_products[handle] %}
+
+      {% for v in p.variants %}
+      {% assign vid = v.id|plus: 0 %}
+
+      {% if variantId == vid %}
+      {% if v.available %}
+      <div class="combowise-col">
+        <div class="combowise-thumb">
+          <div class="vmNv7S">
+            <div class="_2kFyHg _1z8Hgj">
+              <label>
+                <input type="checkbox" name="id[]" value="{{ v.id }}" class="_3uUUD5">
+                <div class="_1p7h2j"></div>
+              </label>
+            </div>
+          </div>
+          <div class="combowise-thumb-wrap" title="{{ p.title }} - {{ v.title }}">
+            {% assign comboTitles = comboTitles | append: p.title | append: ' - ' | append: v.title | replace: '- Default Title', '' | append: ', ' %}
+            <div class="combowise-thumb-wrap-inner">
+              <div class="centrize" style="height:112px;width:112px">
+                <img class="combowise-thumb-img" alt="{{ p.title }}" src="{{ p.featured_image | img_url: '180x' }}">
+              </div>
+            </div>
+          </div>
+          <div class="combowise-caption">
+            <a title="{{ p.title }}" class="combowise-caption-title" target="_blank" rel="noopener noreferrer" href="{{ p.handle }}">{{ p.title }} {{ v.title| replace: 'Default Title', '' }}</a>
+            <div class="combowise-caption-price">
+              <div class="">
+                <div class="combowise-caption-price-original">{% if v.price > 0 %}{{ v.price | money }}{% endif %}</div>
+                <div class="combowise-caption-compare">
+                  {% if v.compare_at_price_min > 0 %}
+                  {{ v.compare_at_price_min | money }}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% break %}
+      {% endif %}
+      {% endfor %}
+
+      {% endfor %}
+    </div>
+  </div>
+  <div class="combowise-footer">
+    <div class="combowise-footer-left">
+      <div class="_2Olu9b">
+        <div class="dqYkSG _3nECRW">
+          <div class="_3O-aY3">
+            <div class="combowise-caption-price">
+              <div class="">
+                <div class="_2-0gbE">Get this combo deal at </div>
+                <div class="combowise-caption-price-original">{{ product.price | money }}</div>
+                <div class="combowise-caption-compare">
+                  {{ product.compare_at_price | money }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="combowise-footer-right">
+      <input id="combo_property" type="hidden" name="properties[Bundle]" value="{{ comboTitles }}">
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+
+    const state = document.readyState;
+
+    if (state === "interactive" || state === "complete") {
+
+      console.log("dom is ready");
+
+      const checkboxElements = document.querySelectorAll('input[name="id[]"]');
+      const checkboxLength = checkboxElements.length;
+
+      let noOfChecks = 0;
+      console.log('no of checks:', noOfChecks);
+      
+      let parentSelector = 'select[name="id"]';
+      
+      let selectorIdElement = document.querySelector(parentSelector);
+      
+      if (! selectorIdElement) {
+      	selectorIdElement = document.querySelector('input[name="id"]');
+        parentSelector = 'input[name="id"]';
+      }
+      
+      const selectorIdElementParent = selectorIdElement.parentNode;
+
+      const comboPropertyElement = document.querySelector('#combo_property');
+      const comboPropertyElementParent = comboPropertyElement.parentNode;
+      
+      console.log('Combowise: parent selector is: ', parentSelector);
+
+      checkboxElements.forEach((e => { 
+        e.addEventListener('click', (f) => {
+          console.log(f.target.checked);
+          if(f.target.checked == false) { 
+            noOfChecks --; 
+          }
+
+          if(f.target.checked == true) { 
+            noOfChecks ++;
+          }
+
+          console.log(noOfChecks);
+
+          if(!noOfChecks || noOfChecks == checkboxLength) {
+            console.log('Appending original selection id');
+            selectorIdElementParent.appendChild(selectorIdElement);
+            comboPropertyElementParent.appendChild(comboPropertyElement);
+          } else {
+            console.log('removing original selection id');
+            console.log(document.querySelector(parentSelector));
+            const originalId = document.querySelector(parentSelector);
+            if (originalId) {
+              selectorIdElementParent.removeChild(document.querySelector(parentSelector));
+              comboPropertyElementParent.removeChild(document.querySelector('#combo_property'));
+            }
+          }
+        });
+      }));
+
+    } else setTimeout(arguments.callee, 100)
+
+      })();
+
+</script>
+

@@ -1,216 +1,229 @@
 {
-  "sections": {
-    "main": {
-      "type": "main-product",
-      "blocks": {
-        "vendor": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          }
+    "sections": {
+        "c8d312ff-2245-4f58-b96d-0b4dbf5a35d4": {
+            "type": "custom-liquid",
+            "settings": {
+                "custom_liquid": ""
+            }
         },
-        "title": {
-          "type": "title"
+        "main": {
+            "type": "main-product",
+            "blocks": {
+                "vendor": {
+                    "type": "text",
+                    "settings": {
+                        "text": "{{ product.vendor }}",
+                        "text_style": "uppercase"
+                    }
+                },
+                "title": {
+                    "type": "title",
+                    "settings": {}
+                },
+                "share": {
+                    "type": "share",
+                    "settings": {
+                        "share_label": "Share"
+                    }
+                },
+                "variant_picker": {
+                    "type": "variant_picker",
+                    "disabled": true,
+                    "settings": {
+                        "picker_type": "button"
+                    }
+                },
+                "judgeme_preview_badge_product_page_146baf29": {
+                    "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/preview_badge\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+                    "settings": {}
+                },
+                "ce8c3988-42dc-458f-9501-8ab2d84afcfc": {
+                    "type": "custom_liquid",
+                    "disabled": true,
+                    "settings": {
+                        "custom_liquid": "{% assign p = product %}\n   {% assign product_type = p.type %}\n{% assign size_chart_id = \"\" %}\n{% if product_type == \"Kids's Tshirt\" %}\n  {% assign size_chart_id = \"popup-size-chart-kids-unisex-t-shirt\" %}\n{% elsif product_type == \"Men's Shirts\" %}\n  {% assign size_chart_id = \"popup-size-chart-half-sleeve-shirt\" %}\n  {% elsif p.type == \"Shirts\" %}\n                       {% assign size_chart_id = \"popup-size-chart-half-sleeve-shirt\" %}\n                      {% elsif p.type == \"Women's Gown\" %}\n                       {% assign size_chart_id = \"popup-size-chart-womens-gown\" %}\n\n {% elsif p.type == \"Women Tshirt\" %}\n                       {% assign size_chart_id = \"popup-size-chart-womens-tshirt-quote\" %}\n\n {% elsif p.type == \"Girls Tshirt\" %}\n                       {% assign size_chart_id = \"popup-size-chart-girls-t-shirt-quote\" %}\n                      {% elsif p.type == \"Women's Dresses\" %}\n                        {% assign size_chart_id = \"popup-size-chart-women-dress\" %}\n\n                      {% elsif p.type == \"Women's Shirts\" %}\n                       {% assign size_chart_id = \"popup-size-chart-womens-front-knot-shirt\" %}\n\n                      {% elsif p.type == \"Women's Tops\" %}\n                         {% assign size_chart_id = \"popup-size-chart-womens-top\" %}\n                      {% elsif p.type == \"Women's Puff Sleeve Tops\" %}\n                       {% assign size_chart_id = \"popup-size-chart-womens-puff-sleeve-tops\" %}\n\n{% elsif p.type == \"Women's Puffed Sleeve Knee Long Dresses\" %}\n                           {% assign size_chart_id = \"popup-size-chart-puffed-shoulder-knee-length-womens-dress\" %}\n\n                      {% elsif p.type == \"Anarkali Women's Collar Dress with Belt\" %}\n                       {% assign size_chart_id = \"popup-size-chart-anarkali-womens-collar-dress-with-belt\" %}\n\n                        {% elsif p.type == \"Mens Short Kurta\" %}\n                       {% assign size_chart_id = \"popup-size-chart-mens-full-sleeve-short-kurta\" %}\n                 {% elsif p.type == \"Men's Full Sleeve Shirts\" %}\n                          {% assign size_chart_id = \"popup-size-chart-mens-full-sleeve-shirts\" %}\n               {% elsif p.type == \"Girls Frock\" %}\n                          {% assign size_chart_id = \"popup-size-chart-girls-frock\" %}\n               {% elsif p.type == \"Mens Tshirt\" %}\n                      {% assign size_chart_id = \"popup-size-chart-mens-tshirt\" %}\n                {% elsif p.type == \"Boy Tshirt\" %}\n                      {% assign size_chart_id = \"popup-size-chart-boys-t-shirt\" %}\n                 {% elsif p.type == \"Girls Tshirt Dress\" %}\n                      {% assign size_chart_id = \"popup-size-chart-girls-t-shirt\" %}\n                  {% elsif p.type == \"Women Tshirt Dress\" %}\n                      {% assign size_chart_id = \"popup-size-chart-womens-tshirt\" %}\n{% endif %}\n\n{% if size_chart_id != \"\" %}\n<a\n  class=\"sizeChartButton\"\n  onclick=\"$('#{{size_chart_id}}').show(); return false;\"\n  href=\"#\"\n                        ><svg class=\"icon icon-accordion color-foreground-text\" aria-hidden=\"true\" focusable=\"false\" role=\"presentation\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\"><path d=\"M14.93 4.11L12.1 1.28a1 1 0 00-1.41 0L6.8 5.17.78 11.18a1 1 0 000 1.42l2.82 2.82a1 1 0 001.42 0l9.9-9.9a1 1 0 000-1.4zm-10.6 10.6L1.48 11.9l1.41-1.41 1.06 1.06a.5.5 0 00.71-.71L3.61 9.77l1.42-1.42 1.05 1.06a.5.5 0 00.71-.7L5.73 7.65l1.42-1.42L8.2 7.3c.2.2.5.2.7 0s.2-.5 0-.7L7.85 5.53 9.27 4.1l1.06 1.06a.5.5 0 00.71-.7L9.98 3.4 11.39 2l2.83 2.83-9.9 9.9z\"><\/path><\/svg><h2 class=\"h4 accordion__title sizechart_title\" onclick=\"$('#{{size_chart_id}}').show(); return false;\">Size Chart<\/h2><\/a>\n{% endif %}"
+                    }
+                },
+                "price": {
+                    "type": "price",
+                    "disabled": true,
+                    "settings": {}
+                },
+                "e29aa685-4407-4f27-bbfd-75014edf40d2": {
+                    "type": "custom_liquid",
+                    "settings": {
+                        "custom_liquid": "{% liquid\n  assign show_widget_border = true\n%}\n<style>\n  .showClose>div>div {\n    display: block !important;\n  }\n\n  .span_nowrap {\n    text-wrap: nowrap;\n  }\n\n  div#delProd {\n    float: left;\n  }\n\n  h6.accordion__title.sizechart_title {\n    max-width: calc(100% - 1rem);\n  }\n\n\n  .price-combo {\n    padding: 10px;\n  }\n\n  .tusokcombo-mixmatch {\n    padding: 0.5rem;\n    margin: 15px 0 15px 0;\n\n      {\n      % if show_widget_border %\n    }\n\n    border: 1px solid #f0f0f0;\n    border-radius: 2px;\n\n      {\n      % endif %\n    }\n\n    width: 100%;\n    background : #f0f0f0;\n    transition: .2s ease-in-out;\n  }\n\n  .tusokcombo-mixmatch_heading {\n    font-weight: 500;\n    font-size: 24px;\n    padding: 15px 0 0 15px;\n    text-align: center;\n  }\n\n  .tusokcombo-mixmatch_pcs_div {\n    display: none;\n    font-size: small;\n    text-align: -webkit-center;\n    font-weight: bold;\n  }\n\n  .tusokcombo-mixmatch_X {\n    font-size: small;\n  }\n\n  .tusokcombo-mixmatch_pcs {\n    text-wrap: nowrap;\n    font-size: small;\n  }\n\n  .tusokcombo-mixmatch_row_flex {\n    display: flex;\n    float: left;\n    width: -webkit-fill-available;\n  }\n\n  .tusokcombo-mixmatch_row {\n\n    padding: 10px;\n    box-shadow: none;\n    position: relative;\n    float: left;\n    width: 100%;\n    background: white;\n    margin-bottom: 10px;\n    display: flex;\n  }\n\n  .tusokcombo-mixmatch_thumbnail {\n    position: relative;\n    -webkit-filter: none !important;\n    filter: none !important;\n    overflow: hidden;\n    min-width: 30%;\n    max-width: 30%;\n\n    margin-right: 10px;\n  }\n\n  .tusokcombo-mixmatch_image {\n    width: 100%;\n  }\n\n  .tusokcombo-mixmatch_caption {\n    padding-top: 10px;\n  }\n\n  .tusokcombo-mixmatch_footer {\n\n    text-align: left;\n  }\n\n  .tusokcombo-mixmatch_price {\n    font-size: 1.6rem;\n    line-height: calc(1 + .5 \/ var(--font-body-scale));\n    letter-spacing: .13rem;\n    color: rgb(var(--color-foreground));\n  }\n  }\n\n  .tusokcombo-mixmatch_compare {\n    margin-left: 8px;\n    text-decoration: line-through;\n    color: #878787;\n  }\n\n  .tusokcombo-mixmatch_ATC {\n    width: 100%;\n    display: inline-block;\n  }\n\n  .tusokcombo-mixmatch_ATC:hover {\n    border-color: black;\n  }\n\n  .tusokcombo-mixmatch_ATC:disabled {\n    cursor: not-allowed;\n  }\n\n  .tusokcombo-mixmatch_error-message {\n    color: red !important;\n    margin: 0 !important;\n    padding: 5px 10px;\n  }\n\n  .tusokcombo-mixmatch_hide {\n    display: none;\n  }\n\n  .tusokcombo-mixmatch_soldout {\n    border: 1px solid red;\n    color: red;\n  }\n\n  @media only screen and (max-width: 500px) {\n\n    .tusokcombo-mixmatch_thumbnail,\n    .tusokcombo-mixmatch_caption,\n    .tusokcombo-mixmatch_footer-left,\n    .tusokcombo-mixmatch_footer-right {}\n\n  }\n\n  .tusokcombo-mixmatch_title {\n    text-align: left;\n    font-size: small;\n    color: #333;\n    flex-grow: 2;\n  }\n\n  .deleteProd {\n    display: contents;\n    color: red;\n    cursor: pointer;\n  }\n\n  .tusokcombo-mixmatch_titlebar {\n    display: flex;\n    width: -webkit-fill-available;\n    align-items: center;\n  }\n\n  .tusokcombo-mixmatch_sizechart {\n    white-space: nowrap;\n    color: #007BFF;\n    text-decoration: none;\n  }\n\n  span.addProductText {\n    font-size: small;\n    display: inline-block;\n    padding-left: 5px;\n  }\n\n  .addProduct {\n    color: blue;\n    cursor: pointer;\n    text-align: center;\n    vertical-align: -webkit-baseline-middle;\n    float: right;\n    display: flex;\n    height: 22px;\n    padding: 5px;\n  }\n\n  .tusokcombo-mixmatch_right {\n    flex-grow: 2;\n  }\n<\/style>\n<div class=\"tusokcombo-mixmatch\" id=\"tusokcombo-mixmatch_{{ product.id }}\">\n  <div class=\"tusokcombo-mixmatch_footer\">\n    <div class=\"tusokcombo-mixmatch_footer-left\">\n      <div class=\"tusokcombo-mixmatch_compare tusokcombo-mixmatch_hide\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"tusokcombo-mixmatch_body\">\n    {% assign soldout = false %}\n    {% if product.metafields.custom.iscomboproduct %}\n      {% assign cp_metas = product.metafields.combo %}\n\n      {% for meta in cp_metas %}\n        {% assign handle = meta[1] %}\n        {% assign isRequired = 1 | plus: 0 %}\n        {% assign defaultVariantId = 0 %}\n        {% assign selectPlaceholder = '' %}\n        {% assign sequence = 0 %}\n        {% assign p = all_products[handle] %}\n        {% if p.available == false and isRequired == 1 %}\n          {% assign soldout = true %}\n        {% endif %}\n\n        <script type=\"text\/javascript\">\n          function addProduct_{{p.id}}(ele){\n          clone = createElementFromHTML('<div class=\"tusokcombo-mixmatch_caption\">             <div class=\"tusokcombo-mixmatch_select_wrap select\">               <select                 value=\"{{ defaultVariantId }}\"                 id=\"d\"                 class=\"tusokcombo-mixmatch_select select__select {% if p.available == false and isRequired == 1 %}tusokcombo-mixmatch_soldout{% endif %}\"                 {% if isRequired == 1 %}                   required                 {% endif %}                 onChange=\"tusokcomboVariantChange(this)\"               >                 {% if isRequired == 0 %}                   <option                     value=\"\"                     {% if defaultVariantId == 0 %}                       selected                     {% endif %}                   >                     {{ selectPlaceholder }}                   <\/option>                 {% endif %}                 {% if p.has_only_default_variant %}                   <option                     value=\"{{ p.variants[0].id }}\"                     data-image=\"\"                     data-price=\"{{ p.variants[0].price }}\"                     data-available=\"{{ v.available }}\"                     data-compare=\"{% if p.variants[0].compare_at_price %}{{ p.variants[0].compare_at_price  }}{% else %}{{ p.variants[0].price }}{% endif %}\"                     {% if p.available == false %}                       disabled                     {% endif %}                     {% if p.variants[0].id == defaultVariantId %}                       selected                     {% endif %}                   >                     {{ p.title -}}                     {%- if p.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}                   <\/option>                 {% else %}                   {% for v in p.variants %}                     <option                       value=\"{{ v.id }}\"                       data-image=\"{{ v.image.src | img_url: '300x'  }}\"                       data-price=\"{{ v.price }}\"                       data-available=\"{{ v.available }}\"                       data-compare=\"{% if v.compare_at_price %}{{ v.compare_at_price  }}{% else %}{{ v.price }}{% endif %}\"                       {% if v.available == false %}                         disabled                       {% endif %}                       {% if v.id == defaultVariantId %}                         selected                       {% endif %}                     >                       {{ v.title -}}                       {%- if v.available == false %} - {{ 'products.product.sold_out' | t }} {% else %}  - {{ v.price | money_with_currency }} {% endif %}                     <\/option>                   {% endfor %}                 {% endif %}               <\/select>               <svg aria-hidden=\"true\" focusable=\"false\" role=\"presentation\" class=\"icon icon-caret\" viewBox=\"0 0 10 6\">                   <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z\" fill=\"currentColor\">                 <\/path>               <\/svg>             <\/div> <\/div>');\n          remove = createElementFromHTML('<div id=\"delProd\" onclick=\"deleteProduct(this)\"><button class=\"deleteProd\">x Remove<\/button><\/div>');\n          clone.classList.add('showClose');\n          ele.parentElement.insertBefore(clone, ele);\n          ele.parentElement.insertBefore(remove, ele);\n          tusokcomboUpdateBundlePrice();\n          updatePcs(ele.parentElement,0);\n          }\n        <\/script>\n\n        <div class=\"tusokcombo-mixmatch_row {% unless forloop.last %}has-plus{% endunless %}\">\n          <div class=\"tusokcombo-mixmatch_thumbnail\">\n            <img class=\"tusokcombo-mixmatch_image\" alt=\"{{ p.title }}\" src=\"{{ p.featured_image | img_url: '300x' }}\">\n            <div class=\"tusokcombo-mixmatch_pcs_div\">\n              <span class=\"tusokcombo-mixmatch_X\"> Quantity : <\/span>\n              <span class=\"tusokcombo-mixmatch_pcs\"> 1 <\/span>\n            <\/div>\n          <\/div>\n\n          <div class=\"tusokcombo-mixmatch_right\">\n            <div class=\"tusokcombo-mixmatch_title\">{{ p.title }}<\/div>\n            {% assign product_type = p.type %}\n            {% assign size_chart_id = '' %}\n            {% if product_type == \"Kids's Tshirt\" %}\n              {% assign size_chart_id = 'popup-size-chart-kids-unisex-t-shirt' %}\n            {% elsif product_type == \"Men's Shirts\" %}\n              {% assign size_chart_id = 'popup-size-chart-half-sleeve-shirt' %}\n            {% elsif p.type == 'Shirts' %}\n              {% assign size_chart_id = 'popup-size-chart-half-sleeve-shirt' %}\n            {% elsif p.type == \"Women's Gown\" %}\n              {% assign size_chart_id = 'popup-size-chart-womens-gown' %}\n\n            {% elsif p.type == \"Women's Dresses\" %}\n              {% assign size_chart_id = 'popup-size-chart-women-dress' %}\n\n {% elsif p.type == \"Women Tshirt\" %}\n                       {% assign size_chart_id = \"popup-size-chart-womens-tshirt-quote\" %}\n \n\n{% elsif p.type == \"Girls Tshirt\" %}\n                       {% assign size_chart_id = \"popup-size-chart-girls-t-shirt-quote\" %}\n\n            {% elsif p.type == \"Women's Shirts\" %}\n              {% assign size_chart_id = 'popup-size-chart-womens-front-knot-shirt' %}\n\n            {% elsif p.type == \"Women's Tops\" %}\n              {% assign size_chart_id = 'popup-size-chart-womens-top' %}\n            {% elsif p.type == \"Women's Puff Sleeve Tops\" %}\n              {% assign size_chart_id = 'popup-size-chart-womens-puff-sleeve-tops' %}\n\n            {% elsif p.type == \"Women's Puffed Sleeve Knee Long Dresses\" %}\n              {% assign size_chart_id = 'popup-size-chart-puffed-shoulder-knee-length-womens-dress' %}\n\n            {% elsif p.type == \"Anarkali Women's Collar Dress with Belt\" %}\n              {% assign size_chart_id = 'popup-size-chart-anarkali-womens-collar-dress-with-belt' %}\n\n            {% elsif p.type == 'Mens Short Kurta' %}\n              {% assign size_chart_id = 'popup-size-chart-mens-full-sleeve-short-kurta' %}\n            {% elsif p.type == \"Men's Full Sleeve Shirts\" %}\n              {% assign size_chart_id = 'popup-size-chart-mens-full-sleeve-shirts' %}\n            {% elsif p.type == 'Girls Frock' %}\n              {% assign size_chart_id = 'popup-size-chart-girls-frock' %}\n            {% elsif p.type == 'Mens Tshirt' %}\n              {% assign size_chart_id = 'popup-size-chart-mens-tshirt' %}\n            {% elsif p.type == 'Boy Tshirt' %}\n              {% assign size_chart_id = 'popup-size-chart-boys-t-shirt' %}\n            {% elsif p.type == 'Girls Tshirt Dress' %}\n              {% assign size_chart_id = 'popup-size-chart-girls-t-shirt' %}\n            {% elsif p.type == 'Women Tshirt Dress' %}\n              {% assign size_chart_id = 'popup-size-chart-womens-tshirt' %}\n            {% endif %}\n\n            {% if size_chart_id != '' %}\n              <a\n                class=\"sizeChartButton\"\n                onclick=\"$('#{{size_chart_id}}').show(); return false;\"\n                href=\"#\"\n              ><svg\n                  class=\"icon icon-accordion color-foreground-text\"\n                  aria-hidden=\"true\"\n                  focusable=\"false\"\n                  role=\"presentation\"\n                  xmlns=\"http:\/\/www.w3.org\/2000\/svg\"\n                  width=\"16\"\n                  height=\"16\"\n                  viewBox=\"0 0 16 16\"\n                >\n                  <path d=\"M14.93 4.11L12.1 1.28a1 1 0 00-1.41 0L6.8 5.17.78 11.18a1 1 0 000 1.42l2.82 2.82a1 1 0 001.42 0l9.9-9.9a1 1 0 000-1.4zm-10.6 10.6L1.48 11.9l1.41-1.41 1.06 1.06a.5.5 0 00.71-.71L3.61 9.77l1.42-1.42 1.05 1.06a.5.5 0 00.71-.7L5.73 7.65l1.42-1.42L8.2 7.3c.2.2.5.2.7 0s.2-.5 0-.7L7.85 5.53 9.27 4.1l1.06 1.06a.5.5 0 00.71-.7L9.98 3.4 11.39 2l2.83 2.83-9.9 9.9z\"><\/path>\n                <\/svg><h6 class=\"h6 accordion__title sizechart_title\" onclick=\"$('#{{size_chart_id}}').show(); return false;\">\n                  Size Chart\n                <\/h6>\n              <\/a>\n            {% endif %}\n\n            <div class=\"tusokcombo-mixmatch_caption\">\n              <div class=\"tusokcombo-mixmatch_select_wrap select\">\n                <select\n                  value=\"{{ defaultVariantId }}\"\n                  id=\"d\"\n                  class=\"tusokcombo-mixmatch_select select__select {% if p.available == false and isRequired == 1 %}tusokcombo-mixmatch_soldout{% endif %}\"\n                  {% if isRequired == 1 %}\n                    required\n                  {% endif %}\n                  onChange=\"tusokcomboVariantChange(this)\"\n                >\n                  {% if isRequired == 0 %}\n                    <option\n                      value=\"\"\n                      {% if defaultVariantId == 0 %}\n                        selected\n                      {% endif %}\n                    >\n                      {{ selectPlaceholder }}\n                    <\/option>\n                  {% endif %}\n                  {% if p.has_only_default_variant %}\n                    <option\n                      value=\"{{ p.variants[0].id }}\"\n                      data-image=\"\"\n                      data-price=\"{{ p.variants[0].price }}\"\n                      data-available=\"{{ v.available }}\"\n                      data-compare=\"{% if p.variants[0].compare_at_price %}{{ p.variants[0].compare_at_price  }}{% else %}{{ p.variants[0].price }}{% endif %}\"\n                      {% if p.available == false %}\n                        disabled\n                      {% endif %}\n                      {% if p.variants[0].id == defaultVariantId %}\n                        selected\n                      {% endif %}\n                    >\n                      {{ p.title -}}\n                      {%- if p.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}\n                    <\/option>\n                  {% else %}\n                    {% for v in p.variants %}\n                      <option\n                        value=\"{{ v.id }}\"\n                        data-image=\"{{ v.image.src | img_url: '300x'  }}\"\n                        data-price=\"{{ v.price }}\"\n                        data-available=\"{{ v.available }}\"\n                        data-compare=\"{% if v.compare_at_price %}{{ v.compare_at_price  }}{% else %}{{ v.price }}{% endif %}\"\n                        {% if v.available == false %}\n                          disabled\n                        {% endif %}\n                        {% if v.id == defaultVariantId %}\n                          selected\n                        {% endif %}\n                      >\n                        {{ v.title -}}\n                        {%- if v.available == false %}\n                          - {{ 'products.product.sold_out' | t }}\n                        {% else %}\n                          - {{ v.price | money_with_currency }}\n                        {% endif %}\n                      <\/option>\n                    {% endfor %}\n                  {% endif %}\n                <\/select>\n                <svg\n                  aria-hidden=\"true\"\n                  focusable=\"false\"\n                  role=\"presentation\"\n                  class=\"icon icon-caret\"\n                  viewBox=\"0 0 10 6\"\n                >\n                    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z\" fill=\"currentColor\">\n                  <\/path>\n                <\/svg>\n              <\/div>\n            <\/div>\n            <div id=\"delProd\" onclick=\"deleteProduct(this)\"><button class=\"deleteProd\">x Remove<\/button><\/div>\n\n            <div class=\"addProduct\" onclick=\"addProduct_{{p.id}}(this)\">\n              <span>\n                <svg width=\"22px\" height=\"22px\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n                  <rect width=\"24\" height=\"24\" fill=\"white\"\/>\n                  <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M13 9C13 8.44772 12.5523 8 12 8C11.4477 8 11 8.44772 11 9V11H9C8.44772 11 8 11.4477 8 12C8 12.5523 8.44772 13 9 13H11V15C11 15.5523 11.4477 16 12 16C12.5523 16 13 15.5523 13 15V13H15C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11H13V9ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z\" fill=\"blue\"\/>\n                <\/svg>\n              <\/span>\n              <span class=\"addProductText\">Add More<\/span>\n            <\/div>\n          <\/div>\n        <\/div>\n      {% endfor %}\n    {% else %}\n      {% comment %} {% for meta in cp_metas %} {% endcomment %}\n        <style>\n        .forset{\n          display : none;\n        }\n        <\/style>\n        {% assign handle = product[handle] %}\n        {% assign isRequired = 1 | plus: 0 %}\n        {% assign defaultVariantId = 0 %}\n        {% assign selectPlaceholder = '' %}\n        {% assign sequence = 0 %}\n        {% assign p = product %}\n        {% if p.available == false and isRequired == 1 %}\n          {% assign soldout = true %}\n        {% endif %}\n\n        <div class=\"tusokcombo-mixmatch_row {% unless forloop.last %}has-plus{% endunless %}\">\n\n          <div class=\"tusokcombo-mixmatch_right\">\n            {% assign product_type = p.type %}\n            {% assign size_chart_id = '' %}\n            {% if product_type == \"Kids's Tshirt\" %}\n              {% assign size_chart_id = 'popup-size-chart-kids-unisex-t-shirt' %}\n            {% elsif product_type == \"Men's Shirts\" %}\n              {% assign size_chart_id = 'popup-size-chart-half-sleeve-shirt' %}\n            {% elsif p.type == 'Shirts' %}\n              {% assign size_chart_id = 'popup-size-chart-half-sleeve-shirt' %}\n            {% elsif p.type == \"Women's Gown\" %}\n              {% assign size_chart_id = 'popup-size-chart-womens-gown' %}\n\n            {% elsif p.type == \"Women's Dresses\" %}\n              {% assign size_chart_id = 'popup-size-chart-women-dress' %}\n\n            {% elsif p.type == \"Women's Shirts\" %}\n              {% assign size_chart_id = 'popup-size-chart-womens-front-knot-shirt' %}\n\n            {% elsif p.type == \"Women's Tops\" %}\n              {% assign size_chart_id = 'popup-size-chart-womens-top' %}\n            {% elsif p.type == \"Women's Puff Sleeve Tops\" %}\n              {% assign size_chart_id = 'popup-size-chart-womens-puff-sleeve-tops' %}\n\n            {% elsif p.type == \"Women's Puffed Sleeve Knee Long Dresses\" %}\n              {% assign size_chart_id = 'popup-size-chart-puffed-shoulder-knee-length-womens-dress' %}\n\n            {% elsif p.type == \"Anarkali Women's Collar Dress with Belt\" %}\n              {% assign size_chart_id = 'popup-size-chart-anarkali-womens-collar-dress-with-belt' %}\n\n            {% elsif p.type == 'Mens Short Kurta' %}\n              {% assign size_chart_id = 'popup-size-chart-mens-full-sleeve-short-kurta' %}\n            {% elsif p.type == \"Men's Full Sleeve Shirts\" %}\n              {% assign size_chart_id = 'popup-size-chart-mens-full-sleeve-shirts' %}\n            {% elsif p.type == 'Girls Frock' %}\n              {% assign size_chart_id = 'popup-size-chart-girls-frock' %}\n            {% elsif p.type == 'Mens Tshirt' %}\n              {% assign size_chart_id = 'popup-size-chart-mens-tshirt' %}\n            {% elsif p.type == 'Boy Tshirt' %}\n              {% assign size_chart_id = 'popup-size-chart-boys-t-shirt' %}\n            {% elsif p.type == 'Girls Tshirt Dress' %}\n              {% assign size_chart_id = 'popup-size-chart-girls-t-shirt' %}\n            {% elsif p.type == 'Women Tshirt Dress' %}\n              {% assign size_chart_id = 'popup-size-chart-womens-tshirt' %}\n            {% endif %}\n\n            {% if size_chart_id != '' %}\n              <a\n                class=\"sizeChartButton\"\n                onclick=\"$('#{{size_chart_id}}').show(); return false;\"\n                href=\"#\"\n              ><svg\n                  class=\"icon icon-accordion color-foreground-text\"\n                  aria-hidden=\"true\"\n                  focusable=\"false\"\n                  role=\"presentation\"\n                  xmlns=\"http:\/\/www.w3.org\/2000\/svg\"\n                  width=\"16\"\n                  height=\"16\"\n                  viewBox=\"0 0 16 16\"\n                >\n                  <path d=\"M14.93 4.11L12.1 1.28a1 1 0 00-1.41 0L6.8 5.17.78 11.18a1 1 0 000 1.42l2.82 2.82a1 1 0 001.42 0l9.9-9.9a1 1 0 000-1.4zm-10.6 10.6L1.48 11.9l1.41-1.41 1.06 1.06a.5.5 0 00.71-.71L3.61 9.77l1.42-1.42 1.05 1.06a.5.5 0 00.71-.7L5.73 7.65l1.42-1.42L8.2 7.3c.2.2.5.2.7 0s.2-.5 0-.7L7.85 5.53 9.27 4.1l1.06 1.06a.5.5 0 00.71-.7L9.98 3.4 11.39 2l2.83 2.83-9.9 9.9z\"><\/path>\n                <\/svg><h6 class=\"h6 accordion__title sizechart_title\" onclick=\"$('#{{size_chart_id}}').show(); return false;\">\n                  Size Chart\n                <\/h6>\n              <\/a>\n            {% endif %}\n\n            <div class=\"tusokcombo-mixmatch_caption\">\n              <div class=\"tusokcombo-mixmatch_select_wrap select\">\n                <select\n                  value=\"{{ defaultVariantId }}\"\n                  id=\"d\"\n                  class=\"tusokcombo-mixmatch_select select__select {% if p.available == false and isRequired == 1 %}tusokcombo-mixmatch_soldout{% endif %}\"\n                  {% if isRequired == 1 %}\n                    required\n                  {% endif %}\n                  onChange=\"tusokcomboVariantChange(this)\"\n                >\n                  {% if isRequired == 0 %}\n                    <option\n                      value=\"\"\n                      {% if defaultVariantId == 0 %}\n                        selected\n                      {% endif %}\n                    >\n                      {{ selectPlaceholder }}\n                    <\/option>\n                  {% endif %}\n                  {% if p.has_only_default_variant %}\n                    <option\n                      value=\"{{ p.variants[0].id }}\"\n                      data-image=\"\"\n                      data-price=\"{{ p.variants[0].price }}\"\n                      data-available=\"{{ v.available }}\"\n                      data-compare=\"{% if p.variants[0].compare_at_price %}{{ p.variants[0].compare_at_price  }}{% else %}{{ p.variants[0].price }}{% endif %}\"\n                      {% if p.available == false %}\n                        disabled\n                      {% endif %}\n                      {% if p.variants[0].id == defaultVariantId %}\n                        selected\n                      {% endif %}\n                    >\n                      {{ p.title -}}\n                      {%- if p.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}\n                    <\/option>\n                  {% else %}\n                    {% for v in p.variants %}\n                      <option\n                        value=\"{{ v.id }}\"\n                        data-image=\"{{ v.image.src | img_url: '300x'  }}\"\n                        data-price=\"{{ v.price }}\"\n                        data-available=\"{{ v.available }}\"\n                        data-compare=\"{% if v.compare_at_price %}{{ v.compare_at_price  }}{% else %}{{ v.price }}{% endif %}\"\n                        {% if v.available == false %}\n                          disabled\n                        {% endif %}\n                        {% if v.id == defaultVariantId %}\n                          selected\n                        {% endif %}\n                      >\n                        {{ v.title -}}\n                        {%- if v.available == false %}\n                          - {{ 'products.product.sold_out' | t }}\n                        {% else %}\n                          - {{ v.price | money_with_currency }}\n                        {% endif %}\n                      <\/option>\n                    {% endfor %}\n                  {% endif %}\n                <\/select>\n                <svg\n                  aria-hidden=\"true\"\n                  focusable=\"false\"\n                  role=\"presentation\"\n                  class=\"icon icon-caret\"\n                  viewBox=\"0 0 10 6\"\n                >\n                    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z\" fill=\"currentColor\">\n                  <\/path>\n                <\/svg>\n              <\/div>\n            <\/div>\n          <\/div>\n        <\/div>\n      {% comment %} {% endfor %} {% endcomment %}\n    {% endif %}\n\n\n    <div class=\"price-combo\">\n      <div class=\"tusokcombo-mixmatch_price\"><\/div>\n      <div class=\"caption rte\">{{ 'products.product.include_taxes' | t }}<\/div>\n\n      <p class=\"tusokcombo-mixmatch_error-message tusokcombo-mixmatch_hide\"><\/p>\n    <\/div>\n    <button\n      type=\"button\"\n      class=\"tusokcombo-mixmatch_ATC button button--full-width button--primary\"\n      onClick=\"{% if soldout == false %}tusokcomboATCSubmit(){% endif %}\"\n    >\n      {% if soldout -%}\n        {{- 'products.product.sold_out' | t -}}\n      {%- else -%}\n        {{- 'products.product.add_to_cart' | t -}}\n      {%- endif %}\n    <\/button>\n  <\/div>\n  <script>\n             const MIXMATCH_IMG_SELECT = '#tusokcombo-mixmatch_{{ product.id }} .tusokcombo-mixmatch_image';\n             const MIXMATCH_CHILD_SELECT = '#tusokcombo-mixmatch_{{ product.id }} .tusokcombo-mixmatch_select';\n             const MIXMATCH_PRICE_SELECT = '#tusokcombo-mixmatch_{{ product.id }} .tusokcombo-mixmatch_price';\n             const MIXMATCH_COMPARE_SELECT = '#tusokcombo-mixmatch_{{ product.id }} .tusokcombo-mixmatch_compare';\n             const MIXMATCH_ATC = '#tusokcombo-mixmatch_{{ product.id }} .tusokcombo-mixmatch_ATC';\n             const MIXMATCH_QUANTITY = '[name=\"quantity\"]';\n             const NATIVE_THINGS_TO_REMOVE = [\n             '.product__price',\n             '.product__tax',\n             '#AddToCart-product-template',\n             '[name=\"add\"]',\n             '.product-single__prices',\n             '.shopify-payment-button',\n             '.tt-price',\n             '.btn-addtocart',\n             'variant-radios',\n             '.price',\n             '#productPrice-product-template',\n             '[data-price-container]',\n             '.product-single__meta-list',\n             '.product-single__price',\n             '.product-form__add-button',\n             '.price-list'\n             ];\n\n             function tusokcomboMoney(price) {\n               const format = '{{ 0 | money_with_currency }}';\n               return format.replace('0.00', price.toFixed(2));\n             }\n\n             function tusokcomboVariantChange(e) {\n               {% if show_child_image %}\n               tusokcomboUpdateChildImage(e);\n               {% endif %}\n               tusokcomboUpdateBundlePrice();\n               tusokcomboEnableATCforSubmission();\n             }\n\n             function tusokcomboUpdateChildImage(e) {\n               const img_src = e.options[e.selectedIndex].getAttribute('data-image');\n\n               if (img_src && img_src.indexOf('no-image') == -1) {\n                 const imgEle = e.parentNode.parentNode.parentNode.querySelector(MIXMATCH_IMG_SELECT);\n                 if (imgEle) {\n                   imgEle.src = img_src;\n                 }\n               }\n             }\n\n              function updatePcs(ele2,n) {\n                 var x = Number(n)\n                  ele2.previousElementSibling.lastElementChild.lastElementChild.innerHTML = ele2.childElementCount-3-x;\n              }\n\n\n             function tusokcomboUpdateBundlePrice() {\n               let price = 0;\n               let compare = 0;\n               const childs = document.querySelectorAll(MIXMATCH_CHILD_SELECT);\n\n               for (let i = 0; i < childs.length; i++) {\n                 const obj = childs[i];\n                 const selectedIndex = obj.options[obj.selectedIndex];\n                 if (selectedIndex) {\n                   price += (selectedIndex.getAttribute('data-price') \/ 100);\n                   compare += (selectedIndex.getAttribute('data-compare') \/ 100);\n                 }\n               }\n\n               {% raw %}\n               document.querySelector(MIXMATCH_PRICE_SELECT).innerHTML = tusokcomboMoney(price) {% endraw %}\n               \/\/ {%- if shop.taxes_included -%}\n               \/\/ + \" {{ 'products.product.include_taxes' | t }}\"\n               \/\/ {%- endif -%};\n               {% raw %}\n               document.querySelector(MIXMATCH_PRICE_SELECT).innerHTML = tusokcomboMoney(price) + \" <span class='forset'>(For set of \" + childs.length + \" pieces)<\/span>\" {% endraw %}\n\n               if (price < compare) {\n                 document.querySelector(MIXMATCH_COMPARE_SELECT).classList.remove('tusokcombo-mixmatch_hide');\n               } else {\n                 document.querySelector(MIXMATCH_COMPARE_SELECT).classList.add('tusokcombo-mixmatch_hide');\n               }\n             }\n\n             function tusokcomboEnableATCforSubmission() {\n               const childs = document.querySelectorAll(MIXMATCH_CHILD_SELECT);\n               let disabled = false;\n               for (let i = 0; i < childs.length; i++) {\n                 const obj = childs[i];\n                 const selectedIndex = obj.options[obj.selectedIndex];\n\n                 if (selectedIndex) {\n                   const isRequired = childs[i].hasAttribute(\"required\");\n\n                   if (isRequired && !selectedIndex.value) {\n                     disabled = true;\n                   }\n                 }\n               }\n\n               document.querySelector(MIXMATCH_ATC).disabled = disabled;\n             }\n\n             function tusokcomboShowErrorMessage(message) {\n               const el = document.querySelector('.tusokcombo-mixmatch_error-message');\n               el.innerText = message;\n               el.classList.remove('tusokcombo-mixmatch_hide');\n\n               setTimeout(function() {\n                 el.innerText = '';\n                 el.classList.add('tusokcombo-mixmatch_hide');\n               }, 4000);\n             }\n\n             function tusokcomboSyncImages() {\n               const selectedVariants = document.querySelectorAll(MIXMATCH_CHILD_SELECT);\n               for (let i = 0; i < selectedVariants.length; i++) {\n                 const e = selectedVariants[i];\n                 const img_src = e.options[e.selectedIndex].getAttribute('data-image');\n                 if (img_src && img_src.indexOf('no-image') == -1) {\n                   const imgEle = e.parentNode.parentNode.parentNode.querySelector(MIXMATCH_IMG_SELECT);\n                   imgEle.src = img_src;\n                 }\n               }\n             }\n\n\n          function deleteProduct(elen){\n              ele = elen.previousElementSibling\n              ele2 = ele.parentElement;\n              updatePcs(ele2,1);\n              ele.remove();\n              elen.remove();\n              tusokcomboUpdateBundlePrice();\n          }\n\n\n\n             function tusokcomboATCSubmit() {\n               const selectedVariants = document.querySelectorAll(MIXMATCH_CHILD_SELECT);\n               const nodes = Array.prototype.slice.call(selectedVariants, 0);\n               let cpqty = document.querySelector(MIXMATCH_QUANTITY);\n               cpqty = cpqty ? cpqty.value : 1;\n\n               let variantIds = nodes.map(e => e.options[e.selectedIndex].value);\n               variantIds = variantIds.filter(id => id);\n\n               if (! variantIds.length) {\n                 return;\n               }\n\n               let meta = {};\n\n               variantIds.map(id => {\n                 if (meta[id]) {\n                   meta[id] += cpqty;\n                 } else {\n                   meta[id] = cpqty;\n                 }\n               });\n\n               let items = [];\n\n               for (let key in meta) {\n                 items.push({ id: +key, quantity: meta[key] });\n               }\n\n               let tusokcomboForm = {\n                 items\n               };\n\n               fetch('\/cart\/add.js', {\n                 method: 'POST',\n                 headers: {\n                   'Content-Type': 'application\/json'\n                 },\n                 body: JSON.stringify(tusokcomboForm)\n               })\n               .then(response => {\n                 return response.json();\n               })\n               .then(data => {\n                 if (data.description) {\n                   tusokcomboShowErrorMessage(data.description);\n                 } else {\n                   window.location.href = '\/cart';\n                 }\n               })\n               .catch((error) => {\n                 console.error('Error:', error);\n               });\n             }\n\n\n             document.addEventListener(\"DOMContentLoaded\", function(event) {\n               console.info('Combowise: Dom loaded');\n\n               \/\/ Trigger on change so price and images get updated\n               document.querySelector(MIXMATCH_CHILD_SELECT).dispatchEvent(new Event('change'));\n\n               \/\/ Remove native things\n              \/\/ NATIVE_THINGS_TO_REMOVE.map(function(selector) {\n\n                \/\/ const els = document.querySelectorAll(selector);\n\n                \/\/ for (let i = 0; i < els.length; i++) {\n                  \/\/ els[i].parentNode.removeChild(els[i]);\n                 \/\/}\n              \/\/ });\n\n               {% if show_child_image %}\n               \/\/ sync images\n               tusokcomboSyncImages();\n               {% endif %}\n             });\n             function createElementFromHTML(htmlString) {\n      var div = document.createElement('div');\n      div.innerHTML = htmlString.trim();\n\n      \/\/ Change this to div.childNodes to support multiple top-level nodes.\n      return div.firstChild;\n    }\n  <\/script>\n<\/div>"
+                    }
+                },
+                "buy_buttons": {
+                    "type": "buy_buttons",
+                    "disabled": true,
+                    "settings": {
+                        "show_dynamic_checkout": false
+                    }
+                },
+                "0c08ca19-e019-4d97-bcdc-d3b84f3c2a05": {
+                    "type": "shopify:\/\/apps\/razorpay-trusted-business\/blocks\/rtb-widget\/a54835d4-011c-47fe-94db-3731e39152d6",
+                    "disabled": true,
+                    "settings": {}
+                },
+                "7181a8c2-6a5c-4c8f-bbc7-85dfb3cf162d": {
+                    "type": "custom_liquid",
+                    "settings": {
+                        "custom_liquid": "<a onclick=\"$('#popup-refund-policy').show(); return false;\" href=\"#\"><span onclick=\"$('#popup-size-refund-policy').show(); return false\">Easy 7 days exchange\/return policy<\/span><\/a>"
+                    }
+                },
+                "29d2f746-420e-4291-88b9-67ac70f3f82d": {
+                    "type": "custom_liquid",
+                    "settings": {
+                        "custom_liquid": "<fieldset>\n<legend>Specifications<\/legend>\n{% if product.metafields.filter_fields.color.value %} Color : {{ product.metafields.filter_fields.color.value }} <\/br> {% endif %}\n{% if product.metafields.filter_fields.fabric.value %} Fabric : {{ product.metafields.filter_fields.fabric.value }} <\/br> {% endif %}\nCare Instructions : Machine Wash <\/br>\n{% if product.metafields.filter_fields.combo_type.value %} Combo Contents : {{ product.metafields.filter_fields.combo_type.value }} <\/br> {% endif %}\n\n{% if product.metafields.filter_fields.sleeve_length.value %}\n{% if product.metafields.filter_fields.Lining.value or product.metafields.filter_fields.Style.value or product.metafields.filter_fields.lining.value or product.metafields.filter_fields.style.value %}\n<\/br><b>Men's<\/b><\/br>\n{% endif %}\nFit Type : Regular Fit<\/br>\n{% if product.metafields.filter_fields.sleeve_length.value %} Sleeve Length : {{ product.metafields.filter_fields.sleeve_length.value }} <\/br>{% endif %}\n{% endif %}\n{% if product.metafields.filter_fields.Lining.value or product.metafields.filter_fields.Style.value or product.metafields.filter_fields.lining.value or product.metafields.filter_fields.style.value %}\n{% if product.metafields.filter_fields.sleeve_length.value %}<\/br><b>Women's<\/b><\/br>{% endif %}\n{% if product.metafields.filter_fields.Lining.value or product.metafields.filter_fields.lining.value %} Lining : {{ product.metafields.filter_fields.Lining.value }} {{ product.metafields.filter_fields.lining.value }}  <\/br>{% endif %}\n{% if product.metafields.filter_fields.Style.value or product.metafields.filter_fields.style.value %} Style : {{ product.metafields.filter_fields.Style.value }}{{ product.metafields.filter_fields.style.value }}<\/br> {% endif %}\n{% endif %}\n\n<\/fieldset>"
+                    }
+                },
+                "41f5a7c2-1086-44fe-a623-31e55fac8fdb": {
+                    "type": "custom_liquid",
+                    "settings": {
+                        "custom_liquid": "<fieldset><legend>Delivery Timeline<\/legend>                      <b>Bangalore<\/b> - 2-3 days (excluding Holiday\/Sunday)      <\/br> <b>Rest of India <\/b>- 4-6 days (excluding Holiday\/Sunday) <\/fieldset>"
+                    }
+                },
+                "a3ac8d73-ca4b-4d32-813e-f5003a4d0b9d": {
+                    "type": "custom_liquid",
+                    "settings": {
+                        "custom_liquid": "{% render 'combowise' %}\n{% render 'combowise-mix-match' %}"
+                    }
+                },
+                "description": {
+                    "type": "description",
+                    "settings": {}
+                },
+                "custom_liquid_Gm6H6X": {
+                    "type": "custom_liquid",
+                    "settings": {
+                        "custom_liquid": ""
+                    }
+                },
+                "custom_liquid_J8erHB": {
+                    "type": "custom_liquid",
+                    "settings": {
+                        "custom_liquid": ""
+                    }
+                }
+            },
+            "block_order": [
+                "vendor",
+                "title",
+                "share",
+                "variant_picker",
+                "judgeme_preview_badge_product_page_146baf29",
+                "ce8c3988-42dc-458f-9501-8ab2d84afcfc",
+                "price",
+                "e29aa685-4407-4f27-bbfd-75014edf40d2",
+                "buy_buttons",
+                "0c08ca19-e019-4d97-bcdc-d3b84f3c2a05",
+                "7181a8c2-6a5c-4c8f-bbc7-85dfb3cf162d",
+                "29d2f746-420e-4291-88b9-67ac70f3f82d",
+                "41f5a7c2-1086-44fe-a623-31e55fac8fdb",
+                "a3ac8d73-ca4b-4d32-813e-f5003a4d0b9d",
+                "description",
+                "custom_liquid_Gm6H6X",
+                "custom_liquid_J8erHB"
+            ],
+            "custom_css": [
+                ".product-popup-modal__content {padding: 10px;}",
+                ".product-popup-modal__content-info {padding-right: 10px;}",
+                ".sizeChartButton {font-size: 1.4rem; color: red;}",
+                "svg.icon.icon-accordion.color-foreground-text {margin-right: 0.7rem;}",
+                ".sizechart_title {vertical-align: text-top !important;}"
+            ],
+            "settings": {
+                "enable_sticky_info": true,
+                "disable_unavailable": true,
+                "hide_variants": false,
+                "enable_video_looping": false
+            }
         },
-        "caption": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.metafields.descriptors.subtitle.value }}",
-            "text_style": "subtitle"
-          }
+        "judgeme_section_review_widget_aacd": {
+            "type": "apps",
+            "blocks": {
+                "judgeme_review_widget_71a5dced": {
+                    "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+                    "settings": {}
+                }
+            },
+            "block_order": [
+                "judgeme_review_widget_71a5dced"
+            ],
+            "settings": {
+                "include_margins": true
+            }
         },
-        "price": {
-          "type": "price"
+        "163864062740e68236": {
+            "type": "apps",
+            "blocks": {
+                "091fa395-01a8-4766-a86d-b6fff52c7771": {
+                    "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/medals\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+                    "settings": {}
+                }
+            },
+            "block_order": [
+                "091fa395-01a8-4766-a86d-b6fff52c7771"
+            ],
+            "settings": {
+                "include_margins": false
+            }
         },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button"
-          }
+        "16389822093a59de67": {
+            "type": "custom-liquid",
+            "custom_css": [],
+            "settings": {
+                "custom_liquid": "<style>\nspan.badge.price__badge-sold-out.color-inverse {\n    color: red;\n    padding: 2px;\n    font-weight: 900;\n}\n@media screen and (min-width: 750px){\n.product__media-item:first-child {\n    width: calc(50% - 1rem \/ 2)!important;\n}\n.grid--1-col .grid__item {\n    max-width: 50%;\n}}\n\n\n<\/style>\n\n<script>\nvar links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }\n}\ndocument.querySelectorAll(\".product__accordion > details > summary\").forEach((a)=>a.click());\n<\/script>"
+            }
         },
-        "quantity_selector": {
-          "type": "quantity_selector"
+        "recently_viewed_xnt4Ey": {
+            "type": "recently-viewed",
+            "settings": {
+                "title": "Recently Viewed Products",
+                "products_to_show": 12,
+                "swipe_on_mobile": true,
+                "image_ratio": "adapt"
+            }
         },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
-          }
+        "product-recommendations": {
+            "type": "product-recommendations",
+            "settings": {
+                "heading": "You may also like",
+                "image_ratio": "adapt",
+                "show_secondary_image": true,
+                "add_image_padding": false,
+                "show_image_outline": true,
+                "show_vendor": true,
+                "show_rating": false
+            }
         },
-        "description": {
-          "type": "description"
+        "06fbc7c9-48b8-4f5c-a145-c38a233841ab": {
+            "type": "custom-liquid",
+            "custom_css": [
+                ".tabcontent {display: block !important;}"
+            ],
+            "settings": {
+                "custom_liquid": "{% assign sizecharts = \"size-chart;size-chart-puffed-shoulder-knee-length-womens-dress;size-chart-half-sleeve-shirt;size-chart-women-dress;size-chart-womens-top;size-chart-womens-puff-sleeve-tops;size-chart-womens-tshirt-quote;size-chart-girls-t-shirt-quote;size-chart-womens-front-knot-shirt;size-chart-womens-gown;size-chart-mens-full-sleeve-short-kurta;size-chart-mens-full-sleeve-shirts;size-chart-kids-unisex-t-shirt;size-chart-anarkali-womens-collar-dress-with-belt;size-chart-womens-tshirt;size-chart-girls-t-shirt;size-chart-boys-t-shirt;size-chart-mens-tshirt;size-chart-girls-frock;size-chart-boys-t-shirt;\" | split:  \";\" %}\n {% for i in sizecharts %}\n      <div class=\"popup-wrapper\" id=\"popup-{{i}}\" style=\"display:none;\">\n        <div id=\"popup-cont-formContainer\" style=\"color: rgb(32, 34, 35); background: rgb(255, 251, 251); font-family: OpenSans;\">\n           <a id=\"popup-cont-formContainer-Close\" onclick=\"this.parentElement.parentElement.style.display='none'; return false;\"><span onclick=\"close(); return false\">x<\/span><\/a>\n           <div id=\"popup-cont-form-Registration-Container\">\n              <div id=\"popup-cont-form-Header-Container\">\n                 <h2 id=\"popup-cont-form-Header-Text\" style=\"color: rgb(32, 34, 35);\">{{pages[i].title}}<\/h1>\n              <\/div>\n              <div class=\"popup-cont-form-Items-Container\">{{pages[i].content}}\n              <\/div>\n           <\/div>\n        <\/div>\n      <\/div>\n {% endfor %}\n\n     <!-- Critical CSS -->\n     <style type=\"text\/css\">\n        @font-face {\n        font-family: \"OpenSans\";\n        font-weight: 200;\n        src: url(https:\/\/d382hokyqag45a.cloudfront.net\/assets\/OpenSans-Light.woff);\n        }\n        @font-face {\n        font-family: \"OpenSans\";\n        font-weight: 300;\n        src: url(https:\/\/d382hokyqag45a.cloudfront.net\/assets\/OpenSans-Regular.woff);\n        }\n        @font-face {\n        font-family: \"OpenSans\";\n        font-weight: 600;\n        src: url(https:\/\/d382hokyqag45a.cloudfront.net\/assets\/OpenSans-SemiBold.woff);\n        }\n        .popup-launcher {\n        cursor: pointer;\n        background: #ccc;\n        border: 0px;\n        min-width: 40px;\n        height: 40px;\n        line-height: 40px;\n        display: inline-block;\n        box-shadow: none !important;\n        z-index: 999999;\n        padding: 0 10px;\n        position: fixed;\n        font-family: inherit;\n        font-size: inherit;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        }\n        .launcher-bottom-right {\n        bottom: 60px;\n        right: 10px;\n        }\n        .launcher-bottom-left {\n        bottom: 60px;\n        left: 10px;\n        }\n        .launcher-center-right {\n        right: 10px;\n        top: 50%;\n        left: auto;\n        transform: translateY(-50%);\n        bottom: auto;\n        }\n        .launcher-center-left {\n        left: 10px;\n        top: 50%;\n        right: auto;\n        transform: translateY(-50%);\n        bottom: auto;\n        } \n        .popup-button-container-image {\n        position: absolute;\n        right: 0px;\n        z-index: 2;\n        top: 0px;\n        }\n        .popup-button-container-float-right {\n        position: fixed;\n        top: calc(50% - 200px);\n        right: 0px;\n        transform: rotate(270deg);\n        transform-origin: bottom right;\n        }\n        .popup-button-container-float-left {\n        position: fixed;\n        top: calc(50% - 200px);\n        left: 50px;\n        transform: rotate(90deg);\n        transform-origin: top left;\n        }\n        .popup-button-container:hover, .popup-button-container-float-right:hover, .popup-button-container-float-left:hover {\n        opacity: 0.9 !important;\n        }\n        .popup-icon-collection, .popup-icon-index {\n        width:20px;\n        height:20px;\n        clip-rule: evenodd;\n        fill-rule: evenodd;\n        }\n        .popup-icon-float-launcher {\n        width: 16px;\n        height: 16px;\n        display: inline-block;\n        margin-right: 5px;\n        clip-rule: evenodd;\n        fill-rule: evenodd;\n        }\n        .popup-icon-product {\n        display: inline-block;\n        clip-rule: evenodd;\n        fill-rule: evenodd;\n        }\n        .icon-with-text {\n        height: 18px;\n        width: 18px;\n        margin-right: 5px;\n        }\n        .icon-without-text {\n        height: 24px;\n        width: 24px;\n        }\n        .popup-button {\n        opacity: 1 !important;\n        cursor: pointer !important;\n        background-image: none !important;\n        box-shadow: none !important;\n        height: 50px;\n        padding: 20px 20px;\n        line-height: 0px;\n        margin-top: 10px;\n        margin-bottom: 10px;\n        font-family: inherit;\n        font-size: 14px;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        }\n        .popup-button-float {\n        opacity: 1 !important;\n        cursor: pointer !important;\n        background-image: none !important;\n        box-shadow: none !important;\n        height: 50px;\n        padding: 10px 20px;\n        line-height: 0px;\n        width: 100%;\n        font-family: inherit;\n        font-size: 16px;\n        }\n        .popup-button:hover, .popup-button-float:hover {\n        opacity: 0.8 !important;\n        }\n        .popup-button-collection {\n        position: absolute;\n        top: 10px;\n        right: 10px;\n        font-size: 13px;\n        line-height: 1;\n        padding: 0px;\n        height: auto;\n        border: none;\n        width: auto;\n        z-index: 2;\n        margin: 0;\n        background: transparent;\n        }\n        .popup-wrapper {\n        background-color: rgba(0,0,0,0.5);\n        z-index: 123123123;\n        width: 100%;\n        height: 100%;\n        overflow: auto;\n        position: fixed;\n        right: 0px;\n        top: 0px;\n        padding-top: 50px;\n        transition-property: all;\n        transition-duration: 0.3s;\n        }\n        .popup-icon-launcher {\n        position: relative;\n        height: auto;\n        width: 30px;\n        padding-left: 5px;\n        padding-right: 5px;\n        }\n        .popup-icon-launcher-svg {\n        position: absolute;\n        top: 50%;\n        transform: translateY(-50%);\n        -ms-transform: translateY(-50%);\n        -moz-transform: translateY(-50%);\n        -webkit-transform: translateY(-50%);\n        -o-transform: translateY(-50%);\n        height: 20px;\n        width: 20px;\n        display: block;\n        stroke-width: 1.5px;\n        }\n        #popup-cont-formContainer {\n        background: #fff;\n        border: none!important;\n        border-radius: 15px;\n        font-family: OpenSans;\n        letter-spacing: 0!important;\n        margin: 0 auto;\n        padding: 0ps;\n        position: relative;\n        width: 1000px\n        }\n        #popup-cont-form-Registration-Container * {\n        font-family: inherit\n        }\n        #popup-cont-formContainer-Close {\n        all: revert;\n        cursor: pointer;\n        font-size: 20px;\n        font-weight: 200;\n        position: absolute;\n        right: 35px;\n        top: 15px\n        }\n        #popup-cont-form-Header-Container {\n        all: revert;\n        min-height: 50px;\n        padding: 20px 30px 10px\n        }\n        #popup-cont-form-Header-Text {\n        all: revert;\n        color: #202223;\n        font-size: 20px;\n        font-weight: 600;\n        line-height: 30px;\n        margin: 0\n        }\n        .popup-cont-form-Items-Container {\n        display: block;\n        height: 700px;\n        overflow: auto;\n        padding: 0 30px\n        }\n        .popup-cont-form-Item {\n        margin-bottom: 40px;\n        margin-right: 30px;\n        width: 200px\n        }\n        .Item-Link {\n        text-decoration: none\n        }\n        .popup-cont-form-Item-Image {\n        height: 200px;\n        -o-object-fit: cover;\n        object-fit: cover;\n        width: 200px\n        }\n        .popup-cont-form-Item-Image-Placeholder {\n        background: #f1f1f1;\n        display: block!important;\n        height: 200px;\n        margin-bottom: 10px;\n        width: 200px\n        }\n        .popup-cont-form-Item-Product-Name {\n        all: revert;\n        color: #202223;\n        font-size: 16px;\n        font-weight: 500;\n        font-weight: 300;\n        height: 40px;\n        line-height: 24px;\n        margin-bottom: 0;\n        margin-top: 0;\n        overflow: hidden;\n        text-align: left;\n        text-overflow: ellipsis;\n        white-space: nowrap;\n        word-break: break-all\n        }\n        .popup-cont-form-Item-Price {\n        color: #202223;\n        font-size: 14px;\n        font-weight: 300;\n        margin: 0;\n        min-height: 25px\n        }\n        .popup-cont-form-Item-Variant {\n        color: #676767;\n        display: block!important;\n        font-size: 14px;\n        font-weight: 200;\n        margin: 0 0 10px;\n        min-height: 25px\n        }\n        .popup-cont-form-Button {\n        all: revert;\n        background: #202223;\n        border: none;\n        border-radius: 4px;\n        color: #fff;\n        cursor: pointer;\n        font-size: 16px;\n        font-weight: 300;\n        height: 40px;\n        line-height: 40px;\n        text-align: center;\n        width: 100%\n        }\n        .popup-cont-form-Button:hover {\n        opacity: .8\n        }\n        .popup-cont-form-Button+.popup-cont-form-Button {\n        margin-top: 8px\n        }\n        .popup-cont-form-Item-Remove {\n        color: #202223;\n        cursor: pointer;\n        font-size: 12px;\n        margin-bottom: 0;\n        text-align: center\n        }\n        .popup-cont-form-Item-Remove:hover {\n        opacity: .8\n        }\n        .Empty-State-Container {\n        margin: 80px auto 0\n        }\n        .Empty-State-Title {\n        all: revert;\n        color: #202223;\n        font-size: 16px;\n        font-weight: 600;\n        text-align: center\n        }\n        .Empty-State-Subtitle {\n        all: revert;\n        font-size: 14px;\n        font-weight: 200;\n        margin: 0 auto;\n        text-align: center;\n        width: 450px\n        }\n        .Empty-State-Button {\n        margin: 30px auto 0!important;\n        width: 200px!important\n        }\n        .Customer-Container {\n        align-items: center;\n        border-radius: 10px;\n        display: flex;\n        justify-content: space-between;\n        margin: 20px 0;\n        padding: 10px 20px\n        }\n        .Customer-Text {\n        all: revert;\n        color: #202223;\n        font-size: 16px;\n        font-weight: 200;\n        margin: 0!important\n        }\n        .Buttons-Container {\n        align-items: center;\n        display: flex\n        }\n        .Customer-Button {\n        all: revert;\n        color: #202223;\n        font-size: 16px;\n        font-weight: 600;\n        margin: 0 0 0 20px!important;\n        text-decoration: none\n        }\n        .Customer-Button:hover {\n        opacity: .8\n        }\n        @media only screen and (min-width: 431px) and (max-width:820px) {\n        #popup-cont-formContainer {\n        width:90%;\n        }\n        .popup-cont-form-Item {\n        margin-bottom: 40px;\n        margin-right: 30px;\n        width: 170px\n        }\n        .popup-cont-form-Item-Image,.popup-cont-form-Item-Image-Placeholder {\n        height: 170px;\n        width: 170px\n        }\n        .popup-cont-form-Item-Product-Name {\n        font-size: 14px\n        }\n        }\n        @media only screen and (max-width: 430px) {\n        #popup-cont-formContainer {\n        border-radius:0;\n        height: 100%;\n        position: fixed;\n        top: 0;\n        width: 100%\n        }\n        #popup-cont-form-Header-Container {\n        padding: 20px 20px 10px\n        }\n        #popup-cont-form-Header-Text {\n        font-size: 20px\n        }\n        #popup-cont-formContainer-Close {\n        font-size: 15px;\n        top: 15px\n        }\n        #popup-cont-form-Registration-Container {\n        height: 100%\n        }\n        .popup-cont-form-Items-Container {\n        display: block!important;\n        height: 100%;\n        overflow-y: scroll;\n        padding: 0 20px\n        }\n        .popup-cont-form-Item {\n        border-bottom: 1px solid #ededed;\n        display: flex;\n        height: 170px;\n        justify-content: space-between;\n        margin-bottom: 20px;\n        margin-right: 0;\n        padding-bottom: 20px;\n        width: 100%\n        }\n        .popup-cont-form-Item:last-of-type {\n        margin-bottom: 200px\n        }\n        .popup-cont-form-Item-Image {\n        height: 100px;\n        -o-object-fit: cover;\n        object-fit: cover;\n        width: 100px\n        }\n        .popup-cont-form-Item-Image-Placeholder {\n        height: 100px;\n        width: 100px\n        }\n        .popup-cont-form-Item-Details {\n        margin-left: 30px;\n        width: 100%\n        }\n        .popup-cont-form-Item-Product-Name {\n        height: 30px;\n        max-width: 240px\n        }\n        .popup-cont-form-Item-Price {\n        height: 20px\n        }\n        .popup-cont-form-Item-Variant {\n        height: 20px;\n        margin-bottom: 5px\n        }\n        .Empty-State-Subtitle,.popup-cont-form-Button {\n        width: 100%\n        }\n        .Customer-Container {\n        display: block\n        }\n        .Customer-Text {\n        font-size: 14px\n        }\n        .Customer-Button {\n        font-size: 14px;\n        margin: 0 20px 0 0!important\n        }\n        }\n     <\/style>"
+            }
         },
-        "collapsible-row-0": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Materials",
-            "icon": "leather",
-            "content": "",
-            "page": ""
-          }
-        },
-        "collapsible-row-1": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Shipping & Returns",
-            "icon": "truck",
-            "content": "",
-            "page": ""
-          }
-        },
-        "collapsible-row-2": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Dimensions",
-            "icon": "ruler",
-            "content": "",
-            "page": ""
-          }
-        },
-        "collapsible-row-3": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Care Instructions",
-            "icon": "heart",
-            "content": "",
-            "page": ""
-          }
-        },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
+        "85b0a1c8-459b-4976-a15b-3a80d50351f2": {
+            "type": "custom-liquid",
+            "settings": {
+                "custom_liquid": "<div class=\"popup-wrapper\" id=\"popup-refund-policy\" style=\"display:none;\">\n        <div id=\"popup-cont-formContainer\" style=\"color: rgb(32, 34, 35); background: rgb(255, 251, 251); font-family: OpenSans;\">\n           <a id=\"popup-cont-formContainer-Close\" onclick=\"this.parentElement.parentElement.style.display='none'; return false;\"><span onclick=\"close(); return false\">x<\/span><\/a>\n           <div id=\"popup-cont-form-Registration-Container\">\n              <div id=\"popup-cont-form-Header-Container\">\n                 <h1 id=\"popup-cont-form-Header-Text\" style=\"color: rgb(32, 34, 35);\">{{shop.refund_policy.title}}<\/h1>\n              <\/div>\n              <div class=\"popup-cont-form-Items-Container\">{{shop.refund_policy.body}}\n              <\/div>\n           <\/div>\n        <\/div>\n      <\/div>"
+            }
         }
-      },
-      "block_order": [
-        "vendor",
-        "title",
-        "caption",
-        "price",
-        "variant_picker",
-        "quantity_selector",
-        "buy_buttons",
-        "description",
-        "collapsible-row-0",
-        "collapsible-row-1",
-        "collapsible-row-2",
-        "collapsible-row-3",
-        "share"
-      ],
-      "settings": {
-        "enable_sticky_info": true,
-        "gallery_layout": "stacked",
-        "media_size": "large",
-        "constrain_to_viewport": true,
-        "mobile_thumbnails": "hide",
-        "hide_variants": true,
-        "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 12
-      }
     },
-    "image-with-text": {
-      "type": "image-with-text",
-      "blocks": {
-        "image-with-text-0": {
-          "type": "heading",
-          "settings": {
-            "heading": "Image with text",
-            "heading_size": "h1"
-          }
-        },
-        "image-with-text-1": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "text_style": "body"
-          }
-        }
-      },
-      "block_order": [
-        "image-with-text-0",
-        "image-with-text-1"
-      ],
-      "settings": {
-        "height": "small",
-        "desktop_image_width": "medium",
-        "layout": "text_first",
-        "desktop_content_position": "top",
-        "desktop_content_alignment": "left",
-        "content_layout": "no-overlap",
-        "color_scheme": "scheme-2",
-        "mobile_content_alignment": "left",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "multicolumn": {
-      "type": "multicolumn",
-      "blocks": {
-        "column-0": {
-          "type": "column",
-          "settings": {
-            "title": "Free Shipping",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column-1": {
-          "type": "column",
-          "settings": {
-            "title": "Hassle-Free Exchanges",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column-0",
-        "column-1"
-      ],
-      "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "full",
-        "image_ratio": "adapt",
-        "columns_desktop": 2,
-        "column_alignment": "left",
-        "background_style": "none",
-        "button_label": "",
-        "button_link": "",
-        "swipe_on_mobile": false,
-        "color_scheme": "scheme-1",
-        "columns_mobile": "1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "related-products": {
-      "type": "related-products",
-      "settings": {
-        "heading": "You may also like",
-        "heading_size": "h2",
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "image_ratio": "square",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "columns_mobile": "2",
-        "padding_top": 36,
-        "padding_bottom": 28
-      }
-    }
-  },
-  "order": [
-    "main",
-    "image-with-text",
-    "multicolumn",
-    "related-products"
-  ]
+    "order": [
+        "c8d312ff-2245-4f58-b96d-0b4dbf5a35d4",
+        "main",
+        "judgeme_section_review_widget_aacd",
+        "163864062740e68236",
+        "16389822093a59de67",
+        "recently_viewed_xnt4Ey",
+        "product-recommendations",
+        "06fbc7c9-48b8-4f5c-a145-c38a233841ab",
+        "85b0a1c8-459b-4976-a15b-3a80d50351f2"
+    ]
 }

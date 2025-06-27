@@ -1,0 +1,25 @@
+<script>
+	$(function() {
+		let lists = document.getElementsByTagName("UL");
+
+		Object.keys(lists).forEach(function(key) {
+			if (typeof lists[key].previousElementSibling !== 'undefined'
+				&& lists[key].previousElementSibling !== null
+				&& typeof lists[key].previousElementSibling.tagName != 'undefined'
+				&& !['iframe', 'body', 'head', 'div'].includes(lists[key].previousElementSibling.localName)
+				&& lists[key].previousElementSibling.innerText.match(/quick links/i)
+			) {
+				let li = document.createElement("li"),
+					trackInfoLink = document.createElement("a");
+
+				li.className = lists[key].firstElementChild.className;
+				trackInfoLink.setAttribute('href', wsClientDomain);
+				trackInfoLink.setAttribute('target', '_blank');
+				trackInfoLink.innerText = 'Tracking info';
+
+				li.appendChild(trackInfoLink);
+				lists[key].appendChild(li);
+			}
+		})
+	})
+</script>

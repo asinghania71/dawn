@@ -1,19 +1,24 @@
 {
-  "sections": {
-    "main": {
-      "type": "main-blog",
-      "settings": {
-        "layout": "collage",
-        "show_image": true,
-        "image_height": "medium",
-        "show_date": true,
-        "show_author": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    }
-  },
-  "order": [
-    "main"
-  ]
+    "sections": {
+        "main": {
+            "type": "main-blog",
+            "settings": {
+                "layout": "collage",
+                "show_image": true,
+                "image_height": "medium",
+                "show_date": true,
+                "show_author": false
+            }
+        },
+        "1638988311a1c0b30f": {
+            "type": "custom-liquid",
+            "settings": {
+                "custom_liquid": "<script>\nvar links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }\n}<\/script>"
+            }
+        }
+    },
+    "order": [
+        "main",
+        "1638988311a1c0b30f"
+    ]
 }

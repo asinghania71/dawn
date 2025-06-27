@@ -1,0 +1,9 @@
+
+var ETS_SN_CONFIG = {
+	config: {"login_page":{"title":"Display Social Login buttons in \"Login\" form","active":1,"id":1109,"position":"login_page","display_title":1,"btn_rounded":1,"btn_size":"large","login_title":"Login with","login_desc":"","popup_type":"click","hide_on_mobile":"","sn_use":"","temp_type":"","nets":[]},"register_page":{"title":"Display Social Login buttons in \"Create account\" form","active":1,"id":1110,"position":"register_page","display_title":1,"btn_rounded":1,"btn_size":"large","login_title":"Login with","login_desc":"","popup_type":"click","hide_on_mobile":"","sn_use":"","temp_type":"","nets":[]},"login_popup":{"title":"Display Social Login buttons on popup","active":"","id":1111,"position":"login_popup","display_title":"","btn_rounded":1,"btn_size":"medium","login_title":"Login with social account","login_desc":"","popup_type":"click","hide_on_mobile":"","sn_use":"","temp_type":"","nets":[]},"embedded_code":{"title":"Display Social Login buttons anywhere using embedded code","active":"","id":1112,"position":"embedded_code","display_title":"","btn_rounded":1,"btn_size":"medium","login_title":"Login with social account","login_desc":"","popup_type":"click","hide_on_mobile":"","sn_use":"","temp_type":"","nets":[]}},
+	popup_discount_title: "Congratulations!",
+	popup_discount_content: "<p style=\"text-align: center;\"> You have received a discount code for your next order</p><p style=\"text-align: center;\">Here is your discount code</p><p style=\"text-align: center;\">[discount_code]</p><p style=\"text-align: center;\">You will get [reduction]&nbsp; when using this discount code</p><p style=\"text-align: center;\">The discount code is available from [discount_from] to [discount_to]</p>",
+	base_path: "https://social-login.pro",
+	gdpr: "",
+
+};

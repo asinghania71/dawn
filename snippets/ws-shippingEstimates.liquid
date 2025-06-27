@@ -1,0 +1,244 @@
+<div class="ws-estimation-wrapper">
+    <div class="estimation-wrapper-heading">
+        <p class="strong">Estimated arrival</p>
+        <img src="{{ 'ws-loader.gif' | asset_url }}" alt="Loading...">
+    </div>
+    <div class="estimation-wrapper-content">
+        <p id="ws_estimate_date"></p>
+        <p>at ZIP</p>
+        <p id="ws_estimate_post_code" class="strong post-code"></p>
+        <div class="input-wrapper">
+            <input id="ws_estimate_editable_post_code" type="text"/>
+        </div>
+
+        <p id="ws_estimate_country_code" class="strong"></p>
+        <div class="order-within-content">
+            <p>Order within</p>
+            <p id="ws_estimate_order_within" class="strong"></p>
+        </div>
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+	$(function () {
+		const timeZoneMap = new Map([
+			[-11, 'Pacific/Niue'], [-10, 'Pacific/Tahiti'], [-9, 'Pacific/Gambier'], [-8, 'Pacific/Pitcairn'],
+			[-7, 'America/Vancouver'], [-6, 'America/Denver'], [-5, 'America/Rio_Branco'], [-4, 'America/Manaus'],
+			[-3, 'America/Cayenne'], [-2, 'Atlantic/South_Georgia'], [-1, 'Atlantic/Azores'], [0, 'GMT'],
+			[1, 'Europe/Brussels'], [2, 'Europe/Helsinki'], [3, 'Asia/Riyadh'], [4, 'Asia/Dubai'], [5, 'Asia/Tashkent'],
+			[6, 'Asia/Urumqi'], [7, 'Asia/Bangkok'], [8, 'Asia/Singapore'], [9, 'Asia/Chita'], [10, 'Pacific/Chuuk'],
+			[11, 'Pacific/Pohnpei'], [12, 'Pacific/Wake'],
+		]);
+		let wrapper = $('.ws-estimation-wrapper'),
+			selectorWrapper = $('.selector-wrapper select'),
+			loader = $('.ws-estimation-wrapper .estimation-wrapper-heading img'),
+			estimatePostCode = $('#ws_estimate_post_code'),
+			estimateEditablePostCode = $('#ws_estimate_editable_post_code'),
+			estimateDate = $('#ws_estimate_date'),
+			estimateCountryCode = $('#ws_estimate_country_code'),
+			estimateOrderWithin = $('#ws_estimate_order_within'),
+			cookieEstimatePostalCode = 'ws_estimate_postal_code',
+			cookieEstimateCountryCode = 'ws_estimate_country_code';
+
+		/* Verify is variable is not empty */
+		function varIsNotEmpty(varName) {
+			return typeof varName !== 'undefined'
+				&& varName !== null
+				&& varName !== ''
+				&& varName.length !== 0;
+		}
+
+		/* Get estimate post data */
+		function getEstimatePostData() {
+			let customerDefaultAddress = {{ customer.default_address | json }},
+                customerEmail = '{{ customer.email }}',
+                date = new Date(),
+                product = {{ product | json }},
+                productVariant = {{ product.selected_or_first_available_variant | json }},
+                categoryIds = [],
+                categoryNames = [],
+                measurements = "{{ product.selected_or_first_available_variant.weight | weight_with_unit }}".split(" "),
+                variantRegex = new RegExp('(variant=)(.*)'),
+                windowUrl = window.location.href,
+                variantRegexResult = variantRegex.exec(windowUrl),
+                variantId = '';
+
+			if (varIsNotEmpty(variantRegexResult)) {
+				variantId = varIsNotEmpty(variantRegexResult[2]) ? variantRegexResult[2]:'';
+			}
+
+			for (let i = 0; i < product.variants.length; i++) {
+				categoryIds.push(product.variants[i].id);
+				categoryNames.push(product.variants[i].name);
+
+				if (varIsNotEmpty(variantId) && product.variants[i].id == variantId) {
+					productVariant = product.variants[i];
+				}
+			}
+
+			let postData = {};
+			postData['location_type'] = ((varIsNotEmpty(customerDefaultAddress) && varIsNotEmpty(customerDefaultAddress.zip))
+				|| (getCookie(cookieEstimatePostalCode) !== '' && getCookie(cookieEstimateCountryCode) !== ''))
+				? 'zip_code' : 'ip_address';
+			postData['location_id'] = postData['location_type'] === 'zip_code' ? {
+				'zip_code': getCookie(cookieEstimatePostalCode) !== '' ? getCookie(cookieEstimatePostalCode) : customerDefaultAddress.zip,
+				'country_code': getCookie(cookieEstimateCountryCode) !== '' ? getCookie(cookieEstimateCountryCode) : customerDefaultAddress.country_code
+			} : '';
+			postData['user_type'] = varIsNotEmpty(customerEmail) ? 'email' : 'session';
+			postData['user_id'] = postData['user_type'] === 'email' ? customerEmail : (getCookie('__ssid') !== '' ? getCookie('__ssid') : (Math.random() + 1).toString(36).substring(2));
+			postData['lists'] = {
+				'customer_group': (postData['user_type'] === 'email' ? 'General' : 'NOT LOGGED IN')
+			};
+			postData['time'] = {
+				'timestamp': date.getTime(),
+				'timezone': timeZoneMap.get(date.getTimezoneOffset() / 60 * (-1))
+			};
+			postData['product'] = {
+				'id': productVariant.id,
+				'key': productVariant.sku !== null ? productVariant.sku : "sku",
+				'name': productVariant.name,
+				'url': windowUrl,
+				'image_url': varIsNotEmpty(productVariant.featured_image) && typeof productVariant.featured_image.src !== 'undefined'
+					? productVariant.featured_image.src : ('https:' + product.featured_image),
+				'price': productVariant.price / 100,
+				'currency': '{{ shop.currency }}',
+				'stock_status': 'in_stock',
+				'category_ids': categoryIds,
+				'category_names': categoryNames,
+				'attributes': {
+					'sku': productVariant.sku
+				},
+				'measurements': {
+					'length': '',
+					'width': '',
+					'height': '',
+					'measure_unit': 'in',
+					'weight': typeof measurements[0] !== 'undefined' ? measurements[0] : '',
+					'weight_unit': typeof measurements[1] !== 'undefined' ? measurements[1] : 'lb'
+				}
+			};
+
+			for (let i = 1; i <= 3; i++) {
+				if (varIsNotEmpty(product.options[i - 1]) && varIsNotEmpty(productVariant['option' + i])) {
+					postData['product']['attributes'][product.options[i - 1]] = productVariant['option' + i];
+				}
+			}
+
+			return postData;
+		}
+
+		/* Format date for display */
+		function formatDate(date) {
+			if (Number.isInteger(date)) {
+			    date = date * 1000;
+            }
+
+			const newDate = new Date(date);
+			const month = newDate.toLocaleString('default', {month: 'long'});
+
+			return ('0' + newDate.getDate()).slice(-2) + ' ' + month;
+		}
+
+		/* Format order within for display */
+		function formatOrderWithin(orderWithin) {
+			orderWithin = orderWithin.substring(0, orderWithin.lastIndexOf(','));
+
+			return orderWithin.replace('days', 'd').replace('hours', 'hrs').replace('minutes', 'mins');
+		}
+
+		/* Show estimate on page */
+		function showEstimate(estimate) {
+			if (estimate.length === 0) {
+				wrapper.hide();
+                wrapper.parent().css('padding-top', '2rem');
+				return;
+			}
+
+			wrapper.removeClass('loading');
+			wrapper.show();
+			loader.hide();
+			estimateEditablePostCode.hide();
+			estimatePostCode.show();
+            wrapper.parent().css('padding-top', '0');
+
+			estimateDate.html(formatDate(estimate.estimated_delivery_date));
+			estimatePostCode.html(estimate.delivery_address.zip);
+			estimateCountryCode.html(estimate.delivery_address.country);
+
+			if (typeof estimate.display_remaining_time !== 'undefined' && estimate.display_remaining_time) {
+				estimateOrderWithin.parent().show();
+
+				estimateOrderWithin.html(formatOrderWithin(estimate.estimate_time_cutoff_remaining));
+			} else {
+				estimateOrderWithin.parent().hide();
+			}
+
+			if (getCookie(cookieEstimatePostalCode) === "") {
+				setCookie(cookieEstimatePostalCode, estimate.delivery_address.zip);
+			}
+
+			if (getCookie(cookieEstimateCountryCode) === "") {
+				setCookie(cookieEstimateCountryCode, estimate.delivery_address.country);
+			}
+		}
+
+		/* Get estimate */
+		function getEstimate() {
+			if (typeof permissions['estimation'] === 'undefined' || !permissions['estimation']) {
+				loader.hide();
+				return;
+            }
+
+			wrapper.addClass('loading');
+			loader.show();
+
+			$.post('/apps/wesupply/shipping-estimate?wsClient=' + wsClientName,
+				{data: JSON.stringify(getEstimatePostData())},
+				function (response) {
+					let result = JSON.parse(response);
+
+					showEstimate(result);
+				}
+			).fail(function (err) {
+				loader.hide();
+				wrapper.removeClass('loading');
+			});
+		}
+
+		/* Estimate post code on click event */
+		estimatePostCode.on('click', function () {
+			$(this).hide();
+			estimateEditablePostCode.val($(this).text());
+			estimateEditablePostCode.show();
+		});
+
+		/* Estimate post code input on blur event */
+		estimateEditablePostCode.on('blur', function () {
+			setCookie(cookieEstimatePostalCode, $(this).val());
+			getEstimate();
+		});
+
+		/* Variant change event */
+		selectorWrapper.on('change', function () {
+			getEstimate();
+		});
+
+		/* EventListener for pressing ENTER */
+		document.addEventListener('keypress', function(e) {
+			if (e.keyCode === 13 && estimatePostCode.val() !== estimateEditablePostCode.val()) {
+				e.preventDefault();
+				setCookie(cookieEstimatePostalCode, estimateEditablePostCode.val());
+				getEstimate();
+			}
+		});
+
+		switch (true) {
+			case (typeof permissions['estimation'] === 'undefined'):
+				checkPermissions('estimation', getEstimate);
+				break;
+            default:
+            	getEstimate();
+            	break;
+        }
+	})
+</script>

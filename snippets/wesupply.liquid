@@ -1,0 +1,63 @@
+{{ 'jquery-3.2.1.min.js' | asset_url | script_tag }}
+{{ 'ws-css.css' | asset_url | stylesheet_tag }}
+
+<script language="javascript" type="text/javascript">
+	const wsClientName = 'tusok-shirts',
+		wsClientDomain = 'https://tusok-shirts.labs.wesupply.xyz/',
+		permissions = {};
+
+	/* Set cookie in browser */
+	const setCookie = function (cname, cvalue, exdays) {
+		let d = new Date();
+		d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+		let expires = "expires=" + d.toUTCString();
+		document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	};
+
+	/* Get cookie from browser */
+	const getCookie = function (cname) {
+		let name = cname + "=",
+			decodedCookie = decodeURIComponent(document.cookie),
+			ca = decodedCookie.split(';');
+
+		for (let i = 0; i < ca.length; i++) {
+			let c = ca[i];
+
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+
+		return "";
+	}
+
+	/* Check app permissions */
+	const checkPermissions = function (type, cbk) {
+		if (typeof type === 'undefined') {
+			return;
+		}
+
+		$.post('/apps/wesupply/permissions?wsClient=' + wsClientName,
+			{type: type},
+			function(response) {
+				let result = JSON.parse(response);
+
+				permissions[type] = typeof result.allowed !== 'undefined' ? result.allowed : false;
+
+				if (typeof cbk !== 'undefined' && cbk instanceof Function) {
+					cbk();
+				}
+			}
+		).fail(function (err) {
+			permissions[type] = false;
+
+			if (typeof cbk !== 'undefined' && cbk instanceof Function) {
+				cbk();
+			}
+		});
+	}
+</script>

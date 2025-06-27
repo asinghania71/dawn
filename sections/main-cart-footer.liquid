@@ -105,6 +105,13 @@
               </div>
             {%- else -%}
               <div class="cart__ctas" {{ block.shopify_attributes }}>
+                <noscript>
+                  <button type="submit" class="cart__update-button button button--secondary" form="cart">
+                    {{ 'sections.cart.update' | t }}
+                  </button>
+                </noscript>
+
+                {% comment %}
                 <button
                   type="submit"
                   id="checkout"
@@ -117,6 +124,8 @@
                 >
                   {{ 'sections.cart.checkout' | t }}
                 </button>
+                {% endcomment %}
+                {% render 'gokwik-checkout' %}
               </div>
 
               {%- if additional_checkout_buttons -%}

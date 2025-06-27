@@ -1,32 +1,44 @@
 {
-  "sections": {
-    "banner": {
-      "type": "main-collection-banner",
-      "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false,
-        "color_scheme": "scheme-1"
-      }
+    "sections": {
+        "banner": {
+            "type": "main-collection-banner",
+            "settings": {
+                "show_collection_description": true,
+                "show_collection_image": false
+            }
+        },
+        "1638984011b58bff19": {
+            "type": "custom-liquid",
+            "settings": {
+                "custom_liquid": "<style>@media screen and (min-width: 750px){\n.grid__item {\n    max-width: calc(33.33% - 1rem * 2 \/ 3);\nmax-width: 33.33%;\n}}<\/style><script>\nvar links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }\n}<\/script>"
+            }
+        },
+        "product-grid": {
+            "type": "main-collection-product-grid",
+            "settings": {
+                "products_per_page": 24,
+                "image_ratio": "adapt",
+                "show_secondary_image": true,
+                "add_image_padding": false,
+                "show_image_outline": true,
+                "show_vendor": true,
+                "show_rating": false,
+                "enable_filtering": true,
+                "enable_sorting": true,
+                "collapse_on_larger_devices": true
+            }
+        },
+        "1683798784876a6182": {
+            "type": "apps",
+            "settings": {
+                "include_margins": true
+            }
+        }
     },
-    "product-grid": {
-      "type": "main-collection-product-grid",
-      "settings": {
-        "products_per_page": 16,
-        "columns_desktop": 4,
-        "image_ratio": "adapt",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "enable_filtering": true,
-        "enable_sorting": true,
-        "columns_mobile": "2",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    }
-  },
-  "order": [
-    "banner",
-    "product-grid"
-  ]
+    "order": [
+        "banner",
+        "1638984011b58bff19",
+        "product-grid",
+        "1683798784876a6182"
+    ]
 }

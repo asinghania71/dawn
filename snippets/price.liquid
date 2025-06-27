@@ -38,6 +38,9 @@
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
+  if target == product and product.metafields.custom.iscomboproduct and product.metafields.combo.zunisex_kids
+    assign money_price = 'products.product.price.from_price_html' | t: price: money_price
+  endif
 -%}
 
 {%- unless target == null and placeholder == null -%}
@@ -91,7 +94,18 @@
         {%- endif -%}
       </div>
       <div class="price__sale">
-        {%- unless product.price_varies == false and product.compare_at_price_varies %}
+        {% assign price_varies = product.price_varies %}
+        {% if product.metafields.custom.iscomboproduct %}
+          {% assign cp_metas = product.metafields.combo %}
+          {% for meta in cp_metas %}
+            {% assign handle = meta[1] %}
+            {% assign p = all_products[handle] %}
+            {% if p.price_varies %}
+              {% assign price_varies = true %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        {%- unless price_varies == false and product.compare_at_price_varies %}
           <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
           <span>
             <s class="price-item price-item--regular">
@@ -109,7 +123,10 @@
         </span>
       </div>
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
-        {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}
+        {% render 'unit-price',
+          price: product.selected_or_first_available_variant.unit_price,
+          measurement: product.selected_or_first_available_variant.unit_price_measurement
+        %}
       {%- endif -%}
     </div>
     {%- if show_badges -%}
@@ -120,6 +137,10 @@
       <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
         {{ 'products.product.sold_out' | t }}
       </span>
+    {%- endif -%}
+
+    {%- if product.metafields.custom.iscomboproduct and product.metafields.combo.zunisex_kids -%}
+      <small><span class="h5">(1 Men + 1 Women + 1 Kid)</span></small>
     {%- endif -%}
   </div>
 {% endunless %}

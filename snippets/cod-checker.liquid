@@ -1,0 +1,62 @@
+<div>
+  {% comment %}
+    Start of Cash on Delivery postal code checker snippet
+    Instructions:
+      1.Customize title, available, unavailable and placeholder messages below.
+      2.Customize success and failure colors.
+      3.Adjust the pixel spacing value (default 20) to best match the surroundings of the snippet.
+        This will adjust spacing above and below the snippet.
+  {% endcomment %}
+  {% assign title                   = 'Check COD Availability' %}
+  {% assign cod_available_message   = 'Cash on Delivery is available!' %}
+  {% assign cod_unavailable_message = 'Cash on Delivery is not available to this postal code.' %}
+  {% assign placeholder_message     = 'Postal code e.g. 414001' %}
+  {% assign check_button_text       = 'Check' %}
+  {% assign success_color           = '#468847' %}
+  {% assign failure_color           = '#FF0000' %}
+  {% assign spacing_in_pixels       = 20 %}
+  <h3 style='margin: {{ spacing_in_pixels | append: 'px' }} 0'>{{ title | escape }}</h3>
+  <div style='display: flex; margin-bottom: {{ spacing_in_pixels | append: 'px' }};'>
+    <input type='text' id='PostalCode' name='PostalCode' placeholder='{{ placeholder_message | escape }}' style='margin: 0 {{ spacing_in_pixels | divided_by: 2 | append: 'px' }} 0 0;' onkeypress='return event.keyCode != 13;' />
+    <button type='button' class='btn button' onclick='checkCodAvailability()'>{{ check_button_text | escape }}</button>
+  </div>
+  <p id='PostalCodeCheckerAvailability' style='display: none;'></p>
+</div>
+<script type='text/javascript'>
+  var checkCodAvailability = function() {
+    var url = 'https://cod.shopifyapps.com/payment/check';
+    var box = document.getElementById('PostalCodeCheckerAvailability');
+    var postalCode = document.getElementById('PostalCode').value;
+    box.style.display = 'block';
+    box.style.visibility = 'hidden';
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+        var result = JSON.parse(xhr.responseText);
+        if (xhr.status == 200) {
+          if (result.cod_available == true) {
+            box.textContent = {{ cod_available_message | json }};
+            box.style.color = {{ success_color | json }};
+          } else {
+            box.textContent = {{ cod_unavailable_message | json }};
+            box.style.color = {{ failure_color | json }};
+          }
+        } else {
+          box.textContent = result.errors;
+          box.style.color = {{ failure_color | json }};
+        }
+        box.style.visibility = 'visible';
+      }
+    }
+    // CAUTION: Changing these parameter names will break this snippet.
+    var params = {
+      x_account_id: {{ shop.permanent_domain | json }},
+      zip_code: postalCode
+    }
+    xhr.send(JSON.stringify(params));
+  }
+</script>
+{% comment %} End of Cash on Delivery postal code checker snippet {% endcomment %}

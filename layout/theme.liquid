@@ -1,6 +1,71 @@
 <!doctype html>
 <html class="js" lang="{{ request.locale.iso_code }}">
   <head>
+    <!-- Gokwik theme code start -->
+    <link rel="dns-prefetch" href="https://pdp.gokwik.co/">
+    <link rel="dns-prefetch" href="https://api.gokwik.co">
+    {% render 'gokwik' %}
+    
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FM64GT2MYE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config','G-FM64GT2MYE',{ 'groups': 'GA4'});
+</script>
+    <!-- Gokwik theme code End -->
+    <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}"></script>
+    <script src="{{ 'liquid.browser.min.js' | asset_url }}"></script>
+    <!-- Added by AVADA HelpCenter FAQs -->
+    {% include 'avada-faqs-app' %}
+    <!-- /Added by AVADA HelpCenter FAQs -->
+    <meta name="google-site-verification" content="Z0Jj7ji9ck5LAWOs4C9hlRsZioHsMwYeC6fF7xJUexc">
+    <!-- <script src="{{ 'jquery.3.4.0.ets.js' | asset_url }}" defer="defer"></script> -->
+    <script>
+        function setCookie(cname, cvalue) {
+          document.cookie = cname + "=" + cvalue + ";" + "max-age=2592000" + ";path=/";
+      }
+
+      function getCookie(cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                  return c.substring(name.length, c.length);
+              }
+          }
+          return "";
+      }
+
+      function updateLRUCache(value) {
+          var cache = getCookie("queue");
+          if(cache === "") {
+              cache = [];
+          } else {
+              cache = $.parseJSON(cache); // Use jQuery's parseJSON function
+          }
+          var index = cache.indexOf(value);
+          if(index !== -1) { // if value exists
+              cache.splice(index, 1); // remove old entry
+          }
+          cache.push(value); // add new entry at the end
+          while(cache.length > 12) { // if cache is full
+              cache.shift(); // remove least recently used item
+          }
+          setCookie("queue", JSON.stringify(cache));
+      }
+    </script>
+    {% render 'pagefly-head' %}
+    <!-- Added by AVADA SEO Suite -->
+    {% include 'avada-seo' %}
+    <!-- /Added by AVADA SEO Suite -->
+    <meta name="facebook-domain-verification" content="sfglv0cq5mp29l9w5nmt21uzbk35jt">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -15,15 +80,19 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
-    <title>
+    {%- comment smartseo_integration_begin_meta_data -%}<title>
       {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
       {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
       {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
-    </title>
+    </title>{%- endcomment smartseo_integration_end_meta_data -%}
+
+    <!-- Avada Boost Sales Script -->
+    {% include 'avada-boost-sales' %}
+    <!-- /Avada Boost Sales Script -->
 
     {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
+      {%- comment smartseo_integration_begin_meta_data -%}<meta name="description" content="{{ page_description | escape }}">{%- endcomment smartseo_integration_end_meta_data -%}
     {% endif %}
 
     {% render 'meta-tags' %}
@@ -38,6 +107,14 @@
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <!-- Avada Boost Sales Script -->
+    {% include 'avada-boost-sales' %}
+    <!-- /Avada Boost Sales Script -->
+
+    <!-- Avada Email Marketing Script -->
+    {% include 'avada-em-setting' %}
+    <!-- /Avada Email Marketing Script -->
 
     {{ content_for_header }}
 
@@ -296,6 +373,11 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+    {% include 'ets_social_login_css' %}
+    {% include 'bss-product-labels-configs' %}
+    {% include 'omega_pinterest_multi_pixel' %}
+    <script src="https://cleverinfinite.xyz/js/scrolling.js" defer="defer"></script>
+    {% render 'prime-css' %}
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -372,5 +454,21 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    {% if content_for_header contains 'fastbundle.co' %}
+      {% render 'fast_bundle_service' %}
+    {% endif %}
+
+    {{ '//cdn.shopify.com/s/files/1/0194/1736/6592/t/1/assets/booster-page-speed-optimizer.js?23' | script_tag }}
+    {% include 'ets_social_login_js' -%}
+    {%- if content_for_header contains 'product_label' -%}
+      {%- include 'bss-product-label-js' -%}
+      {%- include 'bss-label-style-css' -%}
+    {%- endif %}
+    <!-- **BEGIN** Hextom USB Integration // Main Include - DO NOT MODIFY -->
+    {% render 'hextom_usb_main', product: product, customer: customer %}
+    <!-- **END** Hextom USB Integration // Main Include - DO NOT MODIFY -->
+    {% render 'primeb-js' %}
+    {% render 'primebcustomerloc-js' %}
   </body>
 </html>
