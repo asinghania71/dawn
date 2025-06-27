@@ -1,0 +1,286 @@
+
+<!-- -------- Draft Widget configuration start ----- -->
+{% liquid 
+	  assign show_widget_border = true
+	  assign text_heading = 'Select variant'
+  	assign text_soldout = 'Sold out'
+  	assign text_buy_now = 'Buy now'
+  	assign show_child_image = true
+  	assign image_size = '300x'
+%}
+<!-- -------- Draft Widget configuration end ----- -->
+<style>
+  .combowise-draft {
+    margin: 15px 0 15px 0;
+    {% if show_widget_border %}
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+    {% endif %}
+    width: 100%;
+    transition: .2s ease-in-out;
+  }
+  .combowise-draft-header {
+    font-weight: 500;
+    font-size: 24px;
+    padding: 15px 0 0 15px;
+    text-align: center;
+  }
+  .combowise-draft-body {
+    {% if show_widget_border %}
+    padding: 10px;
+    {% endif %}
+  }
+  .combowise-draft-col {
+    padding: 0;
+    box-shadow: none;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    border-radius: 2px;
+    display: flex;
+  }
+  .combowise-draft-thumb {
+    width: 40%;
+    padding: 15px;
+    position: relative;
+    -webkit-filter: none!important;
+    filter: none!important;
+    max-height: 180px;
+  }
+  .combowise-draft_image {
+    opacity: 1;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 15px;
+  }
+  .combowise-draft-caption {
+    width: {% if show_child_image %}60%{% else %}100%{% endif %};
+  }
+  .combowise-draft-variant-select select {
+    width: 100%;
+  }
+  .combowise-draft-caption-title {
+    padding-left: 5px;
+    padding-bottom: 5px;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  .combowise-soldout {
+  	color: red;
+  }
+  .combowise-draft_ATC {
+    background-color: transparent;
+    padding: 10px !important;
+    text-transform: uppercase;
+    width: 100%;
+    display: inline-block;
+    border-radius: 2px;
+    transition: box-shadow .2s ease;
+    cursor: pointer;
+    border: 1px solid black;
+    font-weight: 600;
+  }
+  @media only screen and (max-width: 500px) {
+    .combowise-draft {
+      text-align: center;
+    }
+    .combowise-draft-col {
+      flex-direction: column;
+      align-items: center;
+    }
+    .combowise-draft-caption {
+      width: 100%;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-bottom: 15px;
+    }
+    .combowise-draft-thumb {
+      max-height: initial;
+      width: 80%;
+    } 
+    .combowise-draft-caption-title {
+      text-align: left;
+    }
+  }
+</style>
+
+<div class="combowise-draft" id="combowise-draft_{{ product.id }}">
+  <div class="combowise-draft-header">
+    <span>{{ text_heading }}</span>
+  </div>
+  <div class="combowise-draft-body">
+    {% assign soldout = false %}
+    {% for meta in cp_metas %}
+    {% assign handle = meta|last %}
+    {% assign p = all_products[handle] %}
+    
+    {% if p.available == false %}
+    {% assign soldout = true %}
+    {% endif %}
+
+    <div class="combowise-draft-row">  
+      <div class="combowise-draft-col">
+        {% if show_child_image %}
+        <div class="combowise-draft-thumb">
+          <img class="combowise-draft_image" alt="{{ p.title }}" src="{{ p.featured_image | img_url: image_size }}">
+        </div>
+        {% endif %}
+        <div class="combowise-draft-caption">
+          <a title="{{ p.title }}" class="combowise-draft-caption-title" target="_blank" rel="noopener noreferrer" href="{{ p.handle }}">{{ p.title }}</a>
+          <div class="combowise-draft-variant-select">
+            <select name="id[]" class="combowise-draft_select" value="{{ p.variants[0].id }}" onChange="combowiseVariantChange(this)">
+              {% if p.has_only_default_variant %}
+              <option 
+                      value="{{ p.variants[0].id }}" 
+                      data-image="" 
+                      {% if p.available == false %}disabled{% endif %}
+                      >{{ p.title }}{% if p.available == false %} - {{ text_soldout }}{% endif %}</option>
+              {% else %}
+              {% for v in p.variants %}
+              <option 
+                      value="{{ v.id }}" 
+                      data-image="{{ v.image.src | img_url: image_size  }}" 
+                      {% if v.available == false %}disabled{% endif %}
+                      >{{ v.title }}{% if v.available == false %} - {{ text_soldout }}{% endif %}</option>
+              {% endfor %}
+              {% endif %}
+            </select>
+          </div>
+          {% if p.available == false %}
+          <p class="combowise-soldout">{{ text_soldout }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<button 
+        class="combowise-draft_ATC" 
+        type="button" 
+        id="combowise-draft_ATC" 
+        onClick="{% if soldout == false %}combowiseDraftATCSubmit(this){% endif %}" 
+        {% if soldout == true %}disabled{% endif %}
+        >
+  {% if soldout %}{{ text_soldout }}{% else %}{{ text_buy_now }}{% endif %}       
+</button>
+
+<script>
+  const DRAFT_IMG_SELECT = '#combowise-draft_{{ product.id }} .combowise-draft_image';
+  const DRAFT_CHILD_SELECT = '#combowise-draft_{{ product.id }} .combowise-draft_select';
+  const DRAFT_ATC = '#combowise-draft_ATC';
+  const DRAFT_QUANTITY = '[name="quantity"]';
+  const NATIVE_THINGS_TO_REMOVE = [
+    '[name="add"]',
+    '.shopify-payment-button',
+    '[type="submit"]'
+  ];
+
+  function combowiseVariantChange(e) {
+    {% if show_child_image %}
+    combowiseUpdateChildImage(e);
+    {% endif %}
+  }
+  
+  function combowiseUpdateChildImage(e) {
+  	const img_src = e.options[e.selectedIndex].getAttribute('data-image');
+    
+    if (img_src && img_src.indexOf('no-image') == -1) {
+      const imgEle = e.parentNode.parentNode.parentNode.querySelector(DRAFT_IMG_SELECT);
+      imgEle.src = img_src;
+    }
+  }
+
+  function combowiseDraftSyncImages() {
+    const selectedVariants = document.querySelectorAll(DRAFT_CHILD_SELECT);
+    for (let i = 0; i < selectedVariants.length; i++) {
+      const e = selectedVariants[i];
+      const img_src = e.options[e.selectedIndex] ? e.options[e.selectedIndex].getAttribute('data-image') : null;
+      if (img_src && img_src.indexOf('no-image') == -1) {
+        const imgEle = e.parentNode.parentNode.parentNode.querySelector(DRAFT_IMG_SELECT);
+        imgEle.src = img_src;
+      }
+    }
+  }
+
+  function combowiseDraftATCSubmit(e) {
+    const body = document.getElementsByTagName('body');
+    try {
+      e.disabled = true;
+      body[0].style.opacity = 0.75;
+      body[0].style.cursor = "progress";
+
+      const selected_variants = document.querySelectorAll(DRAFT_CHILD_SELECT);
+      console.log('Combowise Draft: selected Variants: ', selected_variants);
+
+      const nodes = Array.prototype.slice.call(selected_variants, 0);
+      const variant_ids = nodes.map(e => e.options[e.selectedIndex].value);
+
+      console.log('Combowise Draft: Variant Ids: ', variant_ids);
+
+      const xhr = new XMLHttpRequest();
+      
+      
+      xhr.open("POST", 'https://app.charanpahariapp.com/combo/web/public/draft_order', true); 
+      
+      
+      xhr.setRequestHeader("Content-Type", "application/json"); 
+      xhr.onreadystatechange = function () { 
+        if (xhr.readyState === 4 && xhr.status === 200) { 
+
+          const data = JSON.parse(this.responseText);
+
+          if (data.success) {
+            window.location.href = data.invoice_url;
+          } else {
+            console.log('Error: ', data);
+
+            e.disabled = false;
+            body[0].style.opacity = 1;
+            body[0].style.cursor = "initial";
+          }
+        } 
+      };
+
+      let cpqty = document.getElementsByName('quantity');
+      cpqty = (cpqty && cpqty[0]) ? cpqty[0].value : 1;
+
+      xhr.send(JSON.stringify({
+        
+        
+        shop: 'tusok-shirts.myshopify.com',
+        
+        
+        combo_product_id: {{ product.id }},
+        variant_ids,
+        quantity: cpqty
+      })); 
+    } catch (err) {
+      console.error('Combowise: Error while processing selection: ', err);
+      e.disabled = false;
+      body[0].style.opacity = 1;
+      body[0].style.cursor = "initial";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+    console.log("Combowise Draft: dom is ready");
+  
+    // Remove native things
+    NATIVE_THINGS_TO_REMOVE.map(function(selector) {
+      const els = document.querySelectorAll(selector);
+      for (let i = 0; i < els.length; i++) {
+      	els[i].parentNode.removeChild(els[i]);
+      }
+    });
+
+    {% if show_child_image %}
+    combowiseDraftSyncImages();
+    {% endif %}
+  });
+
+</script>
+

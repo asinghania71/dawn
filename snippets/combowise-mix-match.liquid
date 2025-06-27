@@ -1,0 +1,432 @@
+
+{% assign bundleType = product.metafields.cpappcombowidget.type %}
+{% if bundleType == 'MIX_MATCH' %}
+
+<!-- -------- Mix & Match Widget configuration start ----- -->
+{% liquid 
+	assign show_widget_border = true
+	assign text_heading = 'Select variant'
+    assign text_soldout = 'Sold out'
+    assign text_get_this_deal_at = 'Get this combo deal at'
+    assign text_add_to_cart = 'Add to cart'
+    assign show_child_image = true
+%}
+<!-- -------- Mix & Match Widget configuration end ----- -->
+
+<style>
+  .combowise-mixmatch {
+    margin: 15px 0 15px 0;
+    {% if show_widget_border %}
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+    {% endif %}
+    width: 100%;
+    transition: .2s ease-in-out;
+  }
+  .combowise-mixmatch_heading {
+    font-weight: 500;
+    font-size: 24px;
+    padding: 15px 0 0 15px;
+    text-align: center;
+  }
+  .combowise-mixmatch_body {
+    {% if show_widget_border %}
+    padding-left: 10px;
+    padding-right: 10px;
+    {% endif %}
+  }
+  .combowise-mixmatch_row {
+    padding: 0;
+    box-shadow: none;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: flex;
+    position: relative;
+  }
+  .combowise-mixmatch_thumbnail {
+    width: 40%;
+    position: relative;
+    -webkit-filter: none!important;
+    filter: none!important;
+    max-height: 160px;
+    overflow: hidden;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+  .combowise-mixmatch_select {
+    width: 100%;
+  }
+  .combowise-mixmatch_caption {
+    width: {% if show_child_image %}60%{% else %}100%{% endif %};
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+  .combowise-mixmatch_title {
+    padding-bottom: 5px;
+    overflow: hidden;
+    display: block;
+    font-weight: 500;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 600;
+  }
+  .combowise-mixmatch_footer {
+  	display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    {% if show_widget_border %}
+    border-top: 1px solid #f0f0f0;
+    {% endif %}
+    text-align: center;
+  }
+  .combowise-mixmatch_footer-left {
+    -webkit-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
+    padding: 15px;
+    width: 60%;
+  }
+  .combowise-mixmatch_footer-right {
+  	width: 40%;
+  }
+  .combowise-mixmatch_price {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #212121;
+  }
+  .combowise-mixmatch_compare {
+    display: inline-block;
+    margin-left: 8px;
+    text-decoration: line-through;
+    font-size: 14px;
+    color: #878787;
+  }
+  .combowise-mixmatch_ATC {
+  	width: 100%;
+    height: 101%;
+    background-color: transparent;
+    padding: 16px !important;
+    text-transform: uppercase;
+    width: 100%;
+    display: inline-block;
+    border-radius: 2px;
+    transition: box-shadow .2s ease;
+    cursor: pointer;
+    border: 1px solid #f0f0f0;
+  }
+  .combowise-mixmatch_ATC:hover {
+  	border-color: black;
+  }
+  .combowise-mixmatch_ATC:disabled {
+  	cursor: not-allowed;
+  }
+  .combowise-mixmatch_error-message {
+  	color: red !important;
+    margin: 0 !important;
+    padding: 5px 10px;
+  }
+  .combowise-mixmatch_hide {
+  	display: none;
+  }
+  .combowise-mixmatch_asterisk {
+  	color: red;
+  }
+  .combowise-mixmatch_soldout {
+  	border: 1px solid red;
+    color: red;
+  }
+  @media only screen and (max-width: 500px) {
+    .combowise-mixmatch {
+    	text-align: center;
+    }
+    .combowise-mixmatch_row, .combowise-mixmatch_footer {
+    	display: block;
+    }
+    .combowise-mixmatch_thumbnail, .combowise-mixmatch_caption, .combowise-mixmatch_footer-left, .combowise-mixmatch_footer-right {
+    	width: 100%;
+    }
+    .combowise-mixmatch_title {
+    	text-align: left;
+    }
+  }
+</style>
+
+{% assign cp_metas = product.metafields.cpappcombo %}
+<div class="combowise-mixmatch" id="combowise-mixmatch_{{ product.id }}">
+  <div class="combowise-mixmatch_header">
+    <div class="combowise-mixmatch_heading">{{ text_heading }}</div>
+  </div>
+
+  <div class="combowise-mixmatch_body">
+    {% assign soldout = false %}
+    {% for meta in cp_metas %}
+    {% assign childMeta = meta|last|split: ":" %}
+    {% assign handle = childMeta[0] %}
+    {% assign isRequired = childMeta[1]|plus:0 %}
+    {% assign defaultVariantId = childMeta[2]|plus:0 %}
+    {% assign selectPlaceholder = childMeta[3] %}
+    {% assign sequence = childMeta[4]|plus:0 %}
+
+    {% assign p = all_products[handle] %}
+    {% if p.available == false and isRequired == 1 %}
+    {% assign soldout = true %}
+    {% endif %}
+    <div class="combowise-mixmatch_row {% unless forloop.last %}has-plus{% endunless %}">
+      {% if show_child_image %}
+      <div class="combowise-mixmatch_thumbnail">
+        <img class="combowise-mixmatch_image" alt="{{ p.title }}" src="{{ p.featured_image | img_url: '300x' }}">
+      </div>
+      {% endif %}
+      <div class="combowise-mixmatch_caption">
+        <div class="combowise-mixmatch_title">{% if isRequired == 1 %}<span class="combowise-mixmatch_asterisk">* </span>{% endif %}{{ p.title }}</div>
+        <div class="combowise-mixmatch_select_wrap">
+          <select value="{{ defaultVariantId }}" class="combowise-mixmatch_select {% if p.available == false and isRequired == 1 %}combowise-mixmatch_soldout{% endif %}" {% if isRequired == 1 %}required{% endif %} onChange="combowiseVariantChange(this)">
+            {% if isRequired == 0 %}
+            <option value="" {% if defaultVariantId == 0 %}selected{% endif %}>{{ selectPlaceholder }}</option>
+            {% endif %}
+
+            {% if p.has_only_default_variant %}
+            <option 
+                    value="{{ p.variants[0].id }}" 
+                    data-image="" 
+                    data-price="{{ p.variants[0].price }}" 
+                    data-available="{{ v.available }}" 
+                    data-compare="{% if p.variants[0].compare_at_price %}{{ p.variants[0].compare_at_price  }}{% else %}{{ p.variants[0].price }}{% endif %}" 
+                    {% if p.available == false %}disabled{% endif %} 
+                    {% if p.variants[0].id == defaultVariantId %}selected{% endif %}
+                    >{{ p.title }}{% if p.available == false %} - {{ text_soldout }}{% endif %}
+            </option>
+            {% else %}
+            {% for v in p.variants %}
+            <option 
+                    value="{{ v.id }}" 
+                    data-image="{{ v.image.src | img_url: '300x'  }}" 
+                    data-price="{{ v.price }}" 
+                    data-available="{{ v.available }}" 
+                    data-compare="{% if v.compare_at_price %}{{ v.compare_at_price  }}{% else %}{{ v.price }}{% endif %}" 
+                    {% if v.available == false %}disabled{% endif %} 
+                    {% if v.id == defaultVariantId %}selected{% endif %}
+                    >{{ v.title }}{% if v.available == false %} - {{ text_soldout }}{% endif %}
+            </option>
+            {% endfor %}
+            {% endif %}
+          </select>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="combowise-mixmatch_error-message combowise-mixmatch_hide"></p>
+  <div class="combowise-mixmatch_footer">
+    <div class="combowise-mixmatch_footer-left">
+      <span>{{ text_get_this_deal_at }} </span>
+      <div class="combowise-mixmatch_price"></div>
+      <div class="combowise-mixmatch_compare combowise-mixmatch_hide"></div>
+    </div>
+    <div class="combowise-mixmatch_footer-right">
+      <button type="button" class="combowise-mixmatch_ATC" onClick="{% if soldout == false %}combowiseATCSubmit(){% endif %}">
+       {% if soldout %}{{ text_soldout }}{% else %}{{ text_add_to_cart }}{% endif %}        
+      </button>
+    </div>
+  </div>
+</div>
+<script>
+  const MIXMATCH_IMG_SELECT = '#combowise-mixmatch_{{ product.id }} .combowise-mixmatch_image';
+  const MIXMATCH_CHILD_SELECT = '#combowise-mixmatch_{{ product.id }} .combowise-mixmatch_select';
+  const MIXMATCH_PRICE_SELECT = '#combowise-mixmatch_{{ product.id }} .combowise-mixmatch_price';
+  const MIXMATCH_COMPARE_SELECT = '#combowise-mixmatch_{{ product.id }} .combowise-mixmatch_compare';
+  const MIXMATCH_ATC = '#combowise-mixmatch_{{ product.id }} .combowise-mixmatch_ATC';
+  const MIXMATCH_QUANTITY = '[name="quantity"]';
+  const NATIVE_THINGS_TO_REMOVE = [
+    '.product__price',
+    '#AddToCart-product-template',
+    '[name="add"]',
+    '.product-single__prices',
+    '.shopify-payment-button',
+    '.tt-price',
+    '.btn-addtocart',
+    '.price',
+    '#productPrice-product-template',
+    '[data-price-container]',
+    '.product-single__meta-list',
+    '.product-single__price',
+    '.product-form__add-button',
+    '.price-list'
+  ];
+  
+  function combowiseMoney(price) {
+  	const format = '{{ 0 | money_with_currency }}';
+    return format.replace('0.00', price.toFixed(2));
+  }
+  
+  function combowiseVariantChange(e) {
+    {% if show_child_image %}
+    combowiseUpdateChildImage(e);
+    {% endif %}
+    combowiseUpdateBundlePrice();
+    combowiseEnableATCforSubmission();
+  }
+  
+  function combowiseUpdateChildImage(e) {
+  	const img_src = e.options[e.selectedIndex].getAttribute('data-image');
+
+    if (img_src && img_src.indexOf('no-image') == -1) {
+      const imgEle = e.parentNode.parentNode.parentNode.querySelector(MIXMATCH_IMG_SELECT);
+      if (imgEle) {
+      	imgEle.src = img_src;
+      }
+    }
+  }
+  
+  function combowiseUpdateBundlePrice() {
+    let price = 0;
+    let compare = 0;
+    const childs = document.querySelectorAll(MIXMATCH_CHILD_SELECT);
+    
+    for (let i = 0; i < childs.length; i++) {
+      const obj = childs[i];
+      const selectedIndex = obj.options[obj.selectedIndex];
+      if (selectedIndex) {
+      	price += (selectedIndex.getAttribute('data-price') / 100);
+      	compare += (selectedIndex.getAttribute('data-compare') / 100); 
+      }                                                                                 
+    }
+    
+    {% raw %}
+    document.querySelector(MIXMATCH_PRICE_SELECT).innerHTML = combowiseMoney(price);
+    document.querySelector(MIXMATCH_COMPARE_SELECT).innerHTML = combowiseMoney(compare);
+    {% endraw %}
+                                                                                              
+    if (price < compare) {
+      	document.querySelector(MIXMATCH_COMPARE_SELECT).classList.remove('combowise-mixmatch_hide');
+    } else {
+      	document.querySelector(MIXMATCH_COMPARE_SELECT).classList.add('combowise-mixmatch_hide');
+    }
+  }
+  
+  function combowiseEnableATCforSubmission() {
+  	const childs = document.querySelectorAll(MIXMATCH_CHILD_SELECT);
+    let disabled = false;
+    for (let i = 0; i < childs.length; i++) {
+      const obj = childs[i];
+      const selectedIndex = obj.options[obj.selectedIndex];
+      
+      if (selectedIndex) {
+      	const isRequired = childs[i].hasAttribute("required");
+      
+        if (isRequired && !selectedIndex.value) {
+          disabled = true;
+        }
+      }
+    }
+    
+    document.querySelector(MIXMATCH_ATC).disabled = disabled;
+  }
+  
+  function combowiseShowErrorMessage(message) {
+  	const el = document.querySelector('.combowise-mixmatch_error-message');
+    el.innerText = message;
+    el.classList.remove('combowise-mixmatch_hide');
+    
+    setTimeout(function() {
+      el.innerText = '';
+      el.classList.add('combowise-mixmatch_hide');
+    }, 4000);
+  }
+  
+  function combowiseSyncImages() {
+    const selectedVariants = document.querySelectorAll(MIXMATCH_CHILD_SELECT);
+    for (let i = 0; i < selectedVariants.length; i++) {
+      const e = selectedVariants[i];
+      const img_src = e.options[e.selectedIndex].getAttribute('data-image');
+      if (img_src && img_src.indexOf('no-image') == -1) {
+        const imgEle = e.parentNode.parentNode.parentNode.querySelector(MIXMATCH_IMG_SELECT);
+        imgEle.src = img_src;
+      }
+    }
+  }
+  
+  function combowiseATCSubmit() {
+  	const selectedVariants = document.querySelectorAll(MIXMATCH_CHILD_SELECT);
+    const nodes = Array.prototype.slice.call(selectedVariants, 0);
+    let cpqty = document.querySelector(MIXMATCH_QUANTITY);
+    cpqty = cpqty ? cpqty.value : 1;
+    
+    let variantIds = nodes.map(e => e.options[e.selectedIndex].value);
+    variantIds = variantIds.filter(id => id);
+    
+    if (! variantIds.length) {
+    	return;
+    }
+    
+    let meta = {};
+    
+    variantIds.map(id => {
+      if (meta[id]) {
+      	meta[id] += cpqty;
+      } else {
+      	meta[id] = cpqty;
+      }
+    });
+    
+    let items = [];
+    
+    for (let key in meta) {
+      items.push({ id: +key, quantity: meta[key] });
+    }
+    
+    let combowiseForm = {
+      items 
+    };
+    
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(combowiseForm)
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      if (data.description) {
+        combowiseShowErrorMessage(data.description);
+      } else {
+      	window.location.href = '/cart';
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+  
+  
+  document.addEventListener("DOMContentLoaded", function(event) {
+    console.info('Combowise: Dom loaded');
+    
+    // Trigger on change so price and images get updated
+    document.querySelector(MIXMATCH_CHILD_SELECT).dispatchEvent(new Event('change'));
+    
+    // Remove native things
+    NATIVE_THINGS_TO_REMOVE.map(function(selector) {
+      
+      const els = document.querySelectorAll(selector);
+      
+      for (let i = 0; i < els.length; i++) {
+      	els[i].parentNode.removeChild(els[i]);
+      }
+    });
+    
+    {% if show_child_image %}
+    // sync images
+    combowiseSyncImages();
+    {% endif %}
+  });
+</script>
+{% endif %}

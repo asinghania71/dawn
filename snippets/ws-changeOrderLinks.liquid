@@ -1,0 +1,60 @@
+<script>
+	$(function() {
+        /* Get customer orders */
+        let customerOrders = [];
+
+        {% for order in customer.orders %}
+            customerOrders.push({{ order.id }});
+        {% endfor %}
+
+        /* Get case insensitive parameter value */
+        function getPropValue(key, data) {
+            key = key.replace('#', '');
+
+            let resultKeys = Object.getOwnPropertyNames(data).toString();
+            let match = new RegExp(key, 'i').exec(resultKeys);
+
+            return match && match.length > 0 ? match[0] : null;
+        }
+
+        /* Get order links */
+        function getOrdersLinks(callback) {
+            let pageLinks = document.getElementsByTagName('a');
+            let orderLinks = [];
+            for (let i in pageLinks) {
+                if (typeof pageLinks[i].pathname !== 'undefined'
+                    && pageLinks[i].pathname.match(/^\/account\/orders\//)
+                ) {
+                    orderLinks.push(pageLinks[i]);
+                }
+            }
+            callback(orderLinks);
+        }
+
+        /* Update orders links */
+        function updateOrdersLinks(data) {
+            getOrdersLinks(function(orderLinks) {
+                orderLinks.forEach(function(link){
+                    let orderNumber = getPropValue(link.innerText, data);
+
+                    if (orderNumber !== null && typeof data[orderNumber] !== 'undefined') {
+                        link.setAttribute('href', data[orderNumber]);
+                        link.setAttribute('target', '_blank');
+                    }
+                })
+            });
+        }
+
+        /* Get wesupply order urls */
+        $.post('/apps/wesupply/get-orders-urls?wsClient=' + wsClientName,
+            {orders: JSON.stringify(customerOrders)},
+            function(response) {
+                let result = JSON.parse(response);
+
+                if (Object.keys(result).length !== 0) {
+                    updateOrdersLinks(result);
+                }
+            }
+        );
+	})
+</script>
