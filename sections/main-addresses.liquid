@@ -19,11 +19,6 @@
 
 {%- paginate customer.addresses by 5 -%}
   <div class="customer addresses section-{{ section.id }}-padding" data-customer-addresses>
-    <svg style="display: none">
-      <symbol id="icon-caret" viewBox="0 0 10 6">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
-      </symbol>
-    </svg>
     <h1>{{ 'customer.addresses.title' | t }}</h1>
     <a href="{{ routes.account_url }}">
       {{ 'customer.account.return' | t }}
@@ -117,9 +112,9 @@
               >
                 {{ all_country_option_tags }}
               </select>
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
-                <use href="#icon-caret" />
-              </svg>
+              <span class="svg-wrapper">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
             </div>
           </div>
           <div id="AddressProvinceContainerNew" style="display: none">
@@ -131,9 +126,9 @@
                 data-default="{{ form.province }}"
                 autocomplete="address-level1"
               ></select>
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
-                <use href="#icon-caret" />
-              </svg>
+              <span class="svg-wrapper">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
             </div>
           </div>
           <div class="field">
@@ -280,9 +275,9 @@
                   >
                     {{ all_country_option_tags }}
                   </select>
-                  <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
-                    <use href="#icon-caret" />
-                  </svg>
+                  <span class="svg-wrapper">
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </span>
                 </div>
               </div>
               <div id="AddressProvinceContainer_{{ form.id }}" style="display:none;">
@@ -296,9 +291,9 @@
                     data-default="{{ form.province }}"
                     autocomplete="address-level1"
                   ></select>
-                  <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
-                    <use href="#icon-caret" />
-                  </svg>
+                  <span class="svg-wrapper">
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </span>
                 </div>
               </div>
               <div class="field">
@@ -347,9 +342,9 @@
             {%- if paginate.previous -%}
               <li>
                 <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
-                  <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
-                  </svg>
+                  <span class="svg-wrapper">
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </span>
                 </a>
               </li>
             {%- endif -%}
@@ -375,9 +370,9 @@
             {%- if paginate.next -%}
               <li>
                 <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">
-                  <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
-                  </svg>
+                  <span class="svg-wrapper">
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </span>
                 </a>
               </li>
             {%- endif -%}
