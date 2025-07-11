@@ -389,9 +389,9 @@
 {%- endpaginate -%}
 
 <script>
-  window.onload = () => {
+  window.addEventListener('load', () => {
     typeof CustomerAddresses !== 'undefined' && new CustomerAddresses();
-  };
+  });
 </script>
 
 {% schema %}
