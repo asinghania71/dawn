@@ -36,11 +36,13 @@
       "previous": "Forrige side"
     },
     "search": {
-      "search": "Søk"
+      "search": "Søk",
+      "reset": "Fjern søket"
     },
     "cart": {
       "view": "Vis handlekurven ({{ count }})",
-      "item_added": "Vare lagt i handlekurven"
+      "item_added": "Vare lagt i handlekurven",
+      "view_empty_cart": "Vis handlekurven"
     },
     "share": {
       "copy_to_clipboard": "Kopier kobling",
@@ -112,7 +114,11 @@
         "label": "Antall",
         "input_label": "Antall for {{ product }}",
         "increase": "Øk antallet for {{ product }}",
-        "decrease": "Senk antallet for {{ product }}"
+        "decrease": "Senk antallet for {{ product }}",
+        "minimum_of": "Minimum på {{ quantity }}",
+        "maximum_of": "Maksimum på {{ quantity }}",
+        "multiples_of": "Økninger på {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> i handlekurven"
       },
       "price": {
         "from_price_html": "Fra {{ price }}",
@@ -150,7 +156,16 @@
       "include_taxes": "Avgift inkludert.",
       "shipping_policy_html": "<a href=\"{{ link }}\">Frakt</a> beregnes ved kassen.",
       "choose_options": "Velg alternativer",
-      "choose_product_options": "Velg alternativer for {{ product_name }}"
+      "choose_product_options": "Velg alternativer for {{ product_name }}",
+      "value_unavailable": "{{ option_value }} – utilgjengelig",
+      "variant_sold_out_or_unavailable": "Varianten er utsolgt eller utilgjengelig",
+      "inventory_in_stock": "På lager",
+      "inventory_in_stock_show_count": "{{ quantity }} på lager",
+      "inventory_low_stock": "Lav lagerbeholdning",
+      "inventory_low_stock_show_count": "Lav lagerbeholdning: {{ quantity }} igjen",
+      "inventory_out_of_stock": "Ikke på lager",
+      "inventory_out_of_stock_continue_selling": "På lager",
+      "sku": "SKU"
     },
     "modal": {
       "label": "Mediegalleri"
@@ -204,7 +219,21 @@
       "results_with_count_and_term": {
         "one": "Fant {{ count }} resultat for {{ terms }}",
         "other": "Fant {{ count }} resultater for {{ terms }}"
-      }
+      },
+      "results_pages_with_count": {
+        "one": "{{ count }} side",
+        "other": "{{ count }} sider"
+      },
+      "results_suggestions_with_count": {
+        "one": "{{ count }} forslag",
+        "other": "{{ count }} forslag"
+      },
+      "results_products_with_count": {
+        "one": "{{ count }} produkt",
+        "other": "{{ count }} produkter"
+      },
+      "suggestions": "Forslag",
+      "pages": "Sider"
     },
     "cart": {
       "cart": "Handlekurv"
@@ -377,7 +406,8 @@
       "tracking_company": "Transportør",
       "tracking_number": "Sporingsnummer",
       "subtotal": "Delsum",
-      "total_duties": "Tollplikter"
+      "total_duties": "Tollplikter",
+      "total_refunded": "Refundert"
     },
     "orders": {
       "title": "Bestillingshistorikk",

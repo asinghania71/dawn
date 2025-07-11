@@ -36,11 +36,13 @@
       "previous": "Halaman sebelumnya"
     },
     "search": {
-      "search": "Cari"
+      "search": "Cari",
+      "reset": "Hapus kata kunci pencarian"
     },
     "cart": {
       "view": "Lihat keranjang saya ({{ count }})",
-      "item_added": "Item ditambahkan ke keranjang Anda"
+      "item_added": "Item ditambahkan ke keranjang Anda",
+      "view_empty_cart": "Lihat keranjang saya"
     },
     "share": {
       "copy_to_clipboard": "Salin tautan",
@@ -112,7 +114,11 @@
         "label": "Jumlah",
         "input_label": "Jumlah untuk {{ product }}",
         "increase": "Tambah jumlah untuk {{ product }}",
-        "decrease": "Kurangi jumlah untuk {{ product }}"
+        "decrease": "Kurangi jumlah untuk {{ product }}",
+        "minimum_of": "Minimum {{ quantity }}",
+        "maximum_of": "Maksimum {{ quantity }}",
+        "multiples_of": "Kelipatan {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> di keranjang"
       },
       "price": {
         "from_price_html": "Dari {{ price }}",
@@ -150,7 +156,16 @@
       "include_taxes": "Termasuk pajak.",
       "shipping_policy_html": "<a href=\"{{ link }}\">Biaya pengiriman</a> dihitung saat checkout.",
       "choose_options": "Pilih opsi",
-      "choose_product_options": "Pilih opsi untuk {{ product_name }}"
+      "choose_product_options": "Pilih opsi untuk {{ product_name }}",
+      "value_unavailable": "{{ option_value }} - Tidak tersedia",
+      "variant_sold_out_or_unavailable": "Varian terjual habis atau tidak tersedia",
+      "inventory_in_stock": "Tersedia",
+      "inventory_in_stock_show_count": "{{ quantity }} tersedia",
+      "inventory_low_stock": "Stok sedikit",
+      "inventory_low_stock_show_count": "Stok sedikit: {{ quantity }} tersisa",
+      "inventory_out_of_stock": "Habis",
+      "inventory_out_of_stock_continue_selling": "Tersedia",
+      "sku": "SKU"
     },
     "modal": {
       "label": "Galeri media"
@@ -204,6 +219,20 @@
       "results_with_count_and_term": {
         "one": "{{ count }} hasil ditemukan untuk “{{ terms }}”",
         "other": "{{ count }} hasil ditemukan untuk “{{ terms }}”"
+      },
+      "results_pages_with_count": {
+        "one": "{{ count }} halaman",
+        "other": "{{ count }} halaman"
+      },
+      "results_products_with_count": {
+        "one": "{{ count }} produk",
+        "other": "{{ count }} produk"
+      },
+      "suggestions": "Saran",
+      "pages": "Halaman",
+      "results_suggestions_with_count": {
+        "one": "{{ count }} saran",
+        "other": "{{ count }} saran"
       }
     },
     "cart": {
@@ -407,7 +436,8 @@
       "tracking_company": "Kurir",
       "tracking_number": "Nomor pelacakan",
       "subtotal": "Subtotal",
-      "total_duties": "Bea cukai"
+      "total_duties": "Bea cukai",
+      "total_refunded": "Dana dikembalikan"
     }
   },
   "gift_cards": {

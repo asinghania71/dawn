@@ -36,11 +36,13 @@
       "previous": "หน้าก่อนหน้านี้"
     },
     "search": {
-      "search": "ค้นหา"
+      "search": "ค้นหา",
+      "reset": "ล้างคำที่ใช้ค้นหา"
     },
     "cart": {
       "view": "ดูรถตะกร้าสินค้าของฉัน ({{ count }})",
-      "item_added": "รายการที่เพิ่มในตะกร้าสินค้าของคุณ"
+      "item_added": "รายการที่เพิ่มในตะกร้าสินค้าของคุณ",
+      "view_empty_cart": "ดูตะกร้าสินค้าของฉัน"
     },
     "share": {
       "copy_to_clipboard": "คัดลอกลิงก์",
@@ -106,13 +108,17 @@
     "product": {
       "add_to_cart": "เพิ่มลงในตะกร้าสินค้า",
       "description": "คำอธิบาย",
-      "on_sale": "การลดราคา",
+      "on_sale": "ลดราคา",
       "product_variants": "ตัวเลือกสินค้า",
       "quantity": {
         "label": "ปริมาณ",
         "input_label": "ปริมาณสำหรับ {{ product }}",
         "increase": "เพิ่มปริมาณสำหรับ {{ product }}",
-        "decrease": "ลดปริมาณสำหรับ {{ product }}"
+        "decrease": "ลดปริมาณสำหรับ {{ product }}",
+        "minimum_of": "จำนวนต่ำสุดของ {{ quantity }}",
+        "maximum_of": "จำนวนสูงสุดของ {{ quantity }}",
+        "multiples_of": "เพิ่มขึ้นได้ทีละ {{ quantity }}",
+        "in_cart_html": "จำนวน <span class=\"quantity-cart\">{{ quantity }}</span> ในตะกร้าสินค้า"
       },
       "price": {
         "from_price_html": "จาก {{ price }}",
@@ -150,7 +156,16 @@
       "include_taxes": "รวมภาษี",
       "shipping_policy_html": "<a href=\"{{ link }}\">ค่าจัดส่ง</a>ที่คำนวณในขั้นตอนการชำระเงิน",
       "choose_options": "เลือกตัวเลือก",
-      "choose_product_options": "เลือกตัวเลือกสำหรับ {{ product_name }}"
+      "choose_product_options": "เลือกตัวเลือกสำหรับ {{ product_name }}",
+      "value_unavailable": "{{ option_value }} ไม่พร้อมจำหน่าย",
+      "variant_sold_out_or_unavailable": "ตัวเลือกสินค้าขายหมดแล้วหรือไม่พร้อมจำหน่าย",
+      "inventory_in_stock": "มีในสต็อก",
+      "inventory_in_stock_show_count": "มี {{ quantity }} รายการในสต็อกสินค้า",
+      "inventory_low_stock": "สต็อกสินค้าเหลือน้อย",
+      "inventory_low_stock_show_count": "สต็อกสินค้าเหลือน้อย: เหลือ {{ quantity }} ชิ้น",
+      "inventory_out_of_stock": "หมดสต็อก",
+      "sku": "SKU",
+      "inventory_out_of_stock_continue_selling": "มีในสต็อก"
     },
     "modal": {
       "label": "แกลเลอรีสื่อ"
@@ -204,7 +219,21 @@
       "results_with_count_and_term": {
         "one": "พบผลลัพธ์ {{ count }} รายการสำหรับ “{{ terms }}”",
         "other": "พบผลลัพธ์ {{ count }} รายการสำหรับ “{{ terms }}”"
-      }
+      },
+      "results_pages_with_count": {
+        "one": "{{ count }} หน้า",
+        "other": "{{ count }} หน้า"
+      },
+      "results_suggestions_with_count": {
+        "one": "คำแนะนำ {{ count }} รายการ",
+        "other": "{{ count }} คำแนะนำ"
+      },
+      "results_products_with_count": {
+        "one": "สินค้า {{ count }} รายการ",
+        "other": "สินค้า {{ count }} รายการ"
+      },
+      "suggestions": "คำแนะนำ",
+      "pages": "หน้า"
     },
     "cart": {
       "cart": "ตะกร้าสินค้า"
@@ -407,7 +436,8 @@
       "tracking_company": "ผู้ให้บริการขนส่ง",
       "tracking_number": "หมายเลขติดตามพัสดุ",
       "subtotal": "ยอดรวม",
-      "total_duties": "อากร"
+      "total_duties": "อากร",
+      "total_refunded": "คืนเงินแล้ว"
     }
   },
   "gift_cards": {
