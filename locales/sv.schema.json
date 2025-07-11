@@ -306,7 +306,7 @@
       "name": "Knappar"
     },
     "variant_pills": {
-      "name": "Variantpiller"
+      "name": "Variantkapslar"
     },
     "inputs": {
       "name": "Inmatningar"
@@ -351,6 +351,18 @@
         },
         "label": "Färgschema",
         "has_cards_info": "Uppdatera dina temainställningar för att ändra kortets färgsättning."
+      },
+      "heading_size": {
+        "label": "Rubrikstorlek",
+        "options__1": {
+          "label": "Liten"
+        },
+        "options__2": {
+          "label": "Medel"
+        },
+        "options__3": {
+          "label": "Stor"
+        }
       }
     },
     "announcement-bar": {
@@ -497,6 +509,21 @@
         },
         "show_view_all": {
           "label": "Aktivera \"Visa alla\"-knappen om listan innehåller fler produktserier än vad som visas"
+        },
+        "columns_desktop": {
+          "label": "Antalet kolumner på skrivbordet"
+        },
+        "header_mobile": {
+          "content": "Mobil layout"
+        },
+        "columns_mobile": {
+          "label": "Antal kolumner på mobil",
+          "options__1": {
+            "label": "1 kolumn"
+          },
+          "options__2": {
+            "label": "2 kolumner"
+          }
         }
       },
       "blocks": {
@@ -541,7 +568,7 @@
           "label": "Blogg"
         },
         "post_limit": {
-          "label": "Blogginlägg"
+          "label": "Antalet blogginlägg att visa"
         },
         "show_view_all": {
           "label": "Aktivera \"Visa alla\"-knappen om bloggen innehåller fler blogginlägg än vad som visas"
@@ -555,6 +582,9 @@
         },
         "show_author": {
           "label": "Visa författare"
+        },
+        "columns_desktop": {
+          "label": "Antalet kolumner på skrivbordet"
         }
       },
       "presets": {
@@ -603,6 +633,21 @@
         "show_rating": {
           "label": "Visa produktbetyg",
           "info": "Lägg till en produktbedömningsapp för att visa ett betyg. [Mer information](https://help.shopify.com/manual/online-store/themes/os20/themes-by-shopify/dawn/sections#featured-collection-show-product-rating)"
+        },
+        "columns_desktop": {
+          "label": "Antalet kolumner på skrivbordet"
+        },
+        "header_mobile": {
+          "content": "Mobil layout"
+        },
+        "columns_mobile": {
+          "label": "Antal kolumner på mobil",
+          "options__1": {
+            "label": "1 kolumn"
+          },
+          "options__2": {
+            "label": "2 kolumner"
+          }
         }
       },
       "presets": {
@@ -878,15 +923,6 @@
           "settings": {
             "heading": {
               "label": "Rubrik"
-            },
-            "heading_size": {
-              "options__1": {
-                "label": "Medel"
-              },
-              "options__2": {
-                "label": "Stor"
-              },
-              "label": "Rubrikstorlek"
             }
           },
           "name": "Rubrik"
@@ -1051,18 +1087,6 @@
           "settings": {
             "heading": {
               "label": "Rubrik"
-            },
-            "heading_size": {
-              "options__1": {
-                "label": "Liten"
-              },
-              "options__2": {
-                "label": "Medel"
-              },
-              "options__3": {
-                "label": "Stor"
-              },
-              "label": "Rubrikstorlek"
             }
           },
           "name": "Rubrik"
@@ -1316,6 +1340,21 @@
         "show_rating": {
           "label": "Visa produktbetyg",
           "info": "Lägg till en produktbedömningsapp för att visa ett betyg. [Mer information](https://help.shopify.com/manual/online-store/themes/os20/themes-by-shopify/dawn/page-types#product-grid-show-product-rating)"
+        },
+        "columns_desktop": {
+          "label": "Antalet kolumner på skrivbordet"
+        },
+        "header_mobile": {
+          "content": "Mobil layout"
+        },
+        "columns_mobile": {
+          "label": "Antal kolumner på mobil",
+          "options__1": {
+            "label": "1 kolumn"
+          },
+          "options__2": {
+            "label": "2 kolumner"
+          }
         }
       }
     },
@@ -1448,7 +1487,7 @@
                 "label": "Rullgardinsmeny"
               },
               "options__2": {
-                "label": "Piller"
+                "label": "Kapslar"
               }
             }
           },
@@ -1757,6 +1796,21 @@
         "show_rating": {
           "label": "Visa produktbetyg",
           "info": "Lägg till en produktbedömningsapp för att visa ett betyg. [Mer information](https://help.shopify.com/manual/online-store/themes/os20/themes-by-shopify/dawn/page-types#search-results-show-product-rating)"
+        },
+        "columns_desktop": {
+          "label": "Antalet kolumner på skrivbordet"
+        },
+        "header_mobile": {
+          "content": "Mobil layout"
+        },
+        "columns_mobile": {
+          "label": "Antal kolumner på mobil",
+          "options__1": {
+            "label": "1 kolumn"
+          },
+          "options__2": {
+            "label": "2 kolumner"
+          }
         }
       }
     },
@@ -1819,6 +1873,21 @@
         },
         "swipe_on_mobile": {
           "label": "Aktivera swipe på mobilen"
+        },
+        "columns_desktop": {
+          "label": "Antalet kolumner på skrivbordet"
+        },
+        "header_mobile": {
+          "content": "Mobil layout"
+        },
+        "columns_mobile": {
+          "label": "Antal kolumner på mobil",
+          "options__1": {
+            "label": "1 kolumn"
+          },
+          "options__2": {
+            "label": "2 kolumner"
+          }
         }
       },
       "blocks": {
@@ -1944,6 +2013,21 @@
         "show_rating": {
           "label": "Visa produktbetyg",
           "info": "Lägg till en produktbedömningsapp för att visa ett betyg. [Mer information](https://help.shopify.com/manual/online-store/themes/os20/themes-by-shopify/dawn/page-types#product-recommendations-show-product-rating)"
+        },
+        "columns_desktop": {
+          "label": "Antalet kolumner på skrivbordet"
+        },
+        "header_mobile": {
+          "content": "Mobil layout"
+        },
+        "columns_mobile": {
+          "label": "Antal kolumner på mobil",
+          "options__1": {
+            "label": "1 kolumn"
+          },
+          "options__2": {
+            "label": "2 kolumner"
+          }
         }
       }
     },
@@ -1977,18 +2061,6 @@
           "settings": {
             "heading": {
               "label": "Rubrik"
-            },
-            "heading_size": {
-              "options__1": {
-                "label": "Liten"
-              },
-              "options__2": {
-                "label": "Medel"
-              },
-              "label": "Rubrikstorlek",
-              "options__3": {
-                "label": "Stor"
-              }
             }
           },
           "name": "Rubrik"
@@ -2102,7 +2174,7 @@
                 "label": "Rullgardinsmeny"
               },
               "options__2": {
-                "label": "Piller"
+                "label": "Kapslar"
               }
             }
           }
@@ -2400,18 +2472,6 @@
             },
             "secondary_style": {
               "label": "Använd stil för knappkontur"
-            },
-            "heading_size": {
-              "label": "Rubrikstorlek",
-              "options__1": {
-                "label": "Liten"
-              },
-              "options__2": {
-                "label": "Medel"
-              },
-              "options__3": {
-                "label": "Stor"
-              }
             },
             "box_align": {
               "label": "Innehållsposition på dator",

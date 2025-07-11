@@ -351,6 +351,18 @@
         },
         "label": "Schema colori",
         "has_cards_info": "Per modificare lo schema dei colori delle schede, aggiorna le impostazioni del tema."
+      },
+      "heading_size": {
+        "label": "Dimensione titolo",
+        "options__1": {
+          "label": "Piccola"
+        },
+        "options__2": {
+          "label": "Media"
+        },
+        "options__3": {
+          "label": "Grande"
+        }
       }
     },
     "announcement-bar": {
@@ -497,6 +509,21 @@
         },
         "show_view_all": {
           "label": "Abilita il pulsante \"Visualizza tutto\" se l'elenco include più collezioni di quelle mostrate"
+        },
+        "columns_desktop": {
+          "label": "Numero di colonne su desktop"
+        },
+        "header_mobile": {
+          "content": "Layout dispositivo mobile"
+        },
+        "columns_mobile": {
+          "label": "Numero di colonne su mobile",
+          "options__1": {
+            "label": "1 colonna"
+          },
+          "options__2": {
+            "label": "2 colonne"
+          }
         }
       },
       "blocks": {
@@ -541,7 +568,7 @@
           "label": "Blog"
         },
         "post_limit": {
-          "label": "Articoli del blog"
+          "label": "Numero di articoli del blog da mostrare"
         },
         "show_view_all": {
           "label": "Abilita il pulsante \"Visualizza tutto\" se il blog include più articoli di quelli mostrati"
@@ -555,6 +582,9 @@
         },
         "show_author": {
           "label": "Mostra autore"
+        },
+        "columns_desktop": {
+          "label": "Numero di colonne su desktop"
         }
       },
       "presets": {
@@ -603,6 +633,21 @@
         "show_rating": {
           "label": "Mostra valutazione del prodotto",
           "info": "Per mostrare una valutazione, aggiungi un'app di valutazione del prodotto. [Maggiori informazioni](https://help.shopify.com/manual/online-store/themes/os20/themes-by-shopify/dawn/sections#featured-collection-show-product-rating)"
+        },
+        "columns_desktop": {
+          "label": "Numero di colonne su desktop"
+        },
+        "header_mobile": {
+          "content": "Layout dispositivo mobile"
+        },
+        "columns_mobile": {
+          "label": "Numero di colonne su mobile",
+          "options__1": {
+            "label": "1 colonna"
+          },
+          "options__2": {
+            "label": "2 colonne"
+          }
         }
       },
       "presets": {
@@ -879,15 +924,6 @@
           "settings": {
             "heading": {
               "label": "Titolo"
-            },
-            "heading_size": {
-              "options__1": {
-                "label": "Medio"
-              },
-              "options__2": {
-                "label": "Grande"
-              },
-              "label": "Dimensione del titolo"
             }
           }
         },
@@ -1052,18 +1088,6 @@
           "settings": {
             "heading": {
               "label": "Titolo"
-            },
-            "heading_size": {
-              "options__1": {
-                "label": "Piccola"
-              },
-              "options__2": {
-                "label": "Media"
-              },
-              "options__3": {
-                "label": "Grande"
-              },
-              "label": "Dimensione del titolo"
             }
           }
         },
@@ -1316,6 +1340,21 @@
         "show_rating": {
           "label": "Mostra valutazione del prodotto",
           "info": "Per mostrare una valutazione, aggiungi un'app di valutazione del prodotto. [Maggiori informazioni](https://help.shopify.com/manual/online-store/themes/os20/themes-by-shopify/dawn/page-types#product-grid-show-product-rating)"
+        },
+        "columns_desktop": {
+          "label": "Numero di colonne su desktop"
+        },
+        "header_mobile": {
+          "content": "Layout dispositivo mobile"
+        },
+        "columns_mobile": {
+          "label": "Numero di colonne su mobile",
+          "options__1": {
+            "label": "1 colonna"
+          },
+          "options__2": {
+            "label": "2 colonne"
+          }
         }
       }
     },
@@ -1757,6 +1796,21 @@
         "show_rating": {
           "label": "Mostra valutazione del prodotto",
           "info": "Per mostrare una valutazione, aggiungi un'app di valutazione del prodotto. [Maggiori informazioni](https://help.shopify.com/manual/online-store/themes/os20/themes-by-shopify/dawn/page-types#search-results-show-product-rating)"
+        },
+        "columns_desktop": {
+          "label": "Numero di colonne su desktop"
+        },
+        "header_mobile": {
+          "content": "Layout dispositivo mobile"
+        },
+        "columns_mobile": {
+          "label": "Numero di colonne su mobile",
+          "options__1": {
+            "label": "1 colonna"
+          },
+          "options__2": {
+            "label": "2 colonne"
+          }
         }
       }
     },
@@ -1819,6 +1873,21 @@
         },
         "swipe_on_mobile": {
           "label": "Abilita scorrimento su dispositivo mobile"
+        },
+        "columns_desktop": {
+          "label": "Numero di colonne su desktop"
+        },
+        "header_mobile": {
+          "content": "Layout dispositivo mobile"
+        },
+        "columns_mobile": {
+          "label": "Numero di colonne su mobile",
+          "options__1": {
+            "label": "1 colonna"
+          },
+          "options__2": {
+            "label": "2 colonne"
+          }
         }
       },
       "blocks": {
@@ -1944,6 +2013,21 @@
         "show_rating": {
           "label": "Mostra valutazione del prodotto",
           "info": "Per mostrare una valutazione, aggiungi un'app di valutazione del prodotto. [Maggiori informazioni](https://help.shopify.com/manual/online-store/themes/os20/themes-by-shopify/dawn/page-types#product-recommendations-show-product-rating)"
+        },
+        "columns_desktop": {
+          "label": "Numero di colonne su desktop"
+        },
+        "header_mobile": {
+          "content": "Layout dispositivo mobile"
+        },
+        "columns_mobile": {
+          "label": "Numero di colonne su mobile",
+          "options__1": {
+            "label": "1 colonna"
+          },
+          "options__2": {
+            "label": "2 colonne"
+          }
         }
       }
     },
@@ -1978,18 +2062,6 @@
           "settings": {
             "heading": {
               "label": "Titolo"
-            },
-            "heading_size": {
-              "options__1": {
-                "label": "Piccola"
-              },
-              "options__2": {
-                "label": "Media"
-              },
-              "label": "Dimensione titolo",
-              "options__3": {
-                "label": "Grande"
-              }
             }
           }
         },
@@ -2400,18 +2472,6 @@
             },
             "secondary_style": {
               "label": "Utilizza stile contorno pulsante"
-            },
-            "heading_size": {
-              "label": "Dimensione del titolo",
-              "options__1": {
-                "label": "Piccola"
-              },
-              "options__2": {
-                "label": "Media"
-              },
-              "options__3": {
-                "label": "Grande"
-              }
             },
             "box_align": {
               "label": "Posizione contenuto su desktop",
