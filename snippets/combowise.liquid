@@ -1,0 +1,28 @@
+
+
+
+{% assign cp_metas = product.metafields.cpappcombo %}
+
+{% if cp_metas.first %}
+
+{% assign bundleType = product.metafields.cpappcombowidget.type %}
+
+{% if bundleType == 'THUMBNAIL' %}
+	{% render 'combowise-thumbnail', cp_metas: cp_metas %}
+{% endif %}
+
+{% if bundleType == 'VARIANT_SELECTOR_BASIC' %}
+	{% render 'combowise-variant-basic', cp_metas: cp_metas %}
+{% endif %}
+
+{% if bundleType == 'VARIANT_SELECTOR_DRAFT' %}
+	{% render 'combowise-variant-draft', cp_metas: cp_metas %}
+{% endif %}
+
+{% if bundleType == 'BOX_BASIC' %}
+	{% render 'combowise-box-product', cp_metas: cp_metas, config: product.metafields.cpappcombowidget.config %}
+{% endif %}
+
+{% endif %}
+
+

@@ -1,0 +1,386 @@
+
+<!-- -------- Box of N Widget configuration start ----- -->
+{% liquid 
+    assign text_message = 'Please select any %count% products'
+    assign show_child_image = true
+    assign img_size = '300x'
+    assign text_ATC = 'Add to cart'
+    assign sold_out = 'Sold out'
+    assign select_variant = 'Select option'
+    assign layout = 2
+%}
+<!-- -------- Box of N Widget configuration end ----- -->
+<style>
+  .combowise-box {
+    width: 100%;
+    transition: 0.5ms;
+    padding: 5px;
+  }
+  .combowise-box-row {
+    margin-bottom: 15px;
+  }
+  .combowise-box-thumbnail {
+    display: flex;
+  }
+  .combowise-box-thumbnail-img {
+    width: 35%;
+  }
+  .combowise-box-thumbnail-img img {
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    max-height: 180px;
+  }
+  .combowise-box-variants {
+    display: flex;
+    width: {% if show_child_image %}65%{% else %}100%{% endif %};
+    padding-left: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+  }
+  .combowise-box-variants-item {
+    padding: 10px 5px;
+  }
+  .combowise-box-variants-item span {
+    padding: 5px 10px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+  .combowise-box-variants-item span:hover {
+    background-color: rgb(227 227 227 / 50%);
+    box-shadow: 1px 1px 6px #eee;
+    border: 2px solid #fff;
+  }
+  .combowise-box-selected {
+    border: 2px solid black !important;
+  }
+  .combowise-box-selector {
+  	width: 100%;
+  }
+  .combowise-box-heading {
+  	margin-bottom: 10px !important;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .combowise-box-product-title {
+  	margin-bottom: 5px !important;
+    font-weight: 600;
+    {% unless show_child_image %}text-align: left{% endunless %}
+  }
+  .combowise-box-error {
+  	color: red;
+  }
+  .combowise-box-hide {
+  	display: none;
+  }
+  .combowise-box-soldout {
+  	opacity: 0.6;
+    cursor: not-allowed !important;
+  }
+  .combowise-ATC {
+  	background-color: transparent;
+    padding: 10px !important;
+    text-transform: uppercase;
+    width: 100%;
+    display: inline-block;
+    border-radius: 2px;
+    transition: box-shadow .2s ease;
+    cursor: pointer;
+    border: 1px solid black;
+    font-weight: 600;
+  }
+  
+  .combowise-ATC:disabled {
+  	opacity: 0.6;
+  }
+  
+  @media only screen and (max-width: 500px) {
+    .combowise-box {
+    	text-align: center;
+    }
+    .combowise-box-thumbnail {
+      flex-direction: column;
+      align-items: center;
+    }
+    .combowise-box-thumbnail-img {
+      width: 100%;
+    }
+    .combowise-box-thumbnail-img img {
+      max-height: initial;
+    }
+    .combowise-box-variants {
+    	width: 100%;
+    }
+    .combowise-box-variants {
+      padding-left: 0px;
+      justify-content: center;
+    }
+    .combowise-box-product-title {
+    	text-align: center;
+    }
+  }
+</style>
+
+<div class="combowise-box" id="combowise-box_{{ product.id }}">
+  <div class="combowise-box-body">
+    <div class="combowise-box-col">
+      {% for meta in cp_metas %}
+      {% assign index1 = forloop.index %}
+
+      {% assign pHandlev = meta | last | split: ":" %}
+
+      {% assign p = all_products[pHandlev[0]] %}
+      <div class="combowise-box-row">
+        <p class="combowise-box-product-title">{{ p.title }}</p>
+        <div class="combowise-box-thumbnail">
+          {% if show_child_image %}
+          <div class="combowise-box-thumbnail-img">
+          	<img class="combowise-box-image" alt="{{ p.title }}" src="{{ p.featured_image | img_url: img_size }}">
+          </div>
+          {% endif %}
+          <div class="combowise-box-variants">
+            {% case layout %}
+            {% when 1 %}
+            {% if p.has_only_default_variant %}
+            {% assign v = p.variants[0] %}
+            
+            <div class="combowise-box-variants-item">
+              <span 
+                    id="combowise_{{ index1 }}_1" 
+                    data-image="{{ p.featured_image | img_url: img_size }}" 
+                    onclick="{% if p.available == true %}combowiseSelectionChanged({{ index1 }}, 1, {{ p.id }}, {{ v.id }}, `{{ p.title|strip }}`, `{{ v.sku }}`){% endif %}" 
+                    class="{% if p.available == false %}combowise-box-soldout{% endif %}"
+                    >{{ p.title }}</span>
+            </div>
+            {% else %}
+          	{% for v in p.variants %}
+            
+            {% capture title %}
+            {{ p.title | escape }} {{ v.title | escape| replace: 'Default Title', '' }}
+            {% endcapture %}
+            
+            {% assign index2 = forloop.index %}
+            <div class="combowise-box-variants-item">
+              <span 
+                    id="combowise_{{ index1 }}_{{ index2 }}" 
+                    data-image="{{ v.image.src | img_url: img_size }}" 
+                    onclick="{% if v.available == true %}combowiseSelectionChanged({{ index1 }}, {{ index2 }}, {{ p.id }}, {{ v.id }}, `{{ title|strip }}`, `{{ v.sku }}`){% endif %}" 
+                    class="{% if v.available == false %}combowise-box-soldout{% endif %}"
+                    >{{ v.title }}</span>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% when 2 %}
+            <select class="combowise-box-selector" value="" onChange="combowiseSelectionChanged(this)">
+              <option value="" selected>{{ select_variant }}</option>
+              {% if p.has_only_default_variant %}
+              <option 
+                      value="{{ p.id }}-{{ p.variants[0].id }}" 
+                      data-title="{{ p.title }}" 
+                      data-sku="{{ p.variants[0].sku }}" 
+                      data-image="{{ p.featured_image | img_url: img_size }}" 
+                      {% if p.available == false %}disabled{% endif %}
+                      >{{ p.title }}{% if p.available == false %} - {{ sold_out }}{% endif %}</option>
+              {% else %}
+              {% for v in p.variants %}
+              {% capture title %}
+            	{{ p.title | escape }} {{ v.title | escape| replace: 'Default Title', '' }}
+              {% endcapture %}
+              <option 
+                      value="{{p.id}}-{{ v.id }}" 
+                      data-title="{{ title|strip }}" 
+                      data-sku="{{ v.sku }}" 
+                      data-image="{{ v.image | img_url: img_size }}" 
+                      {% if v.available == false %}disabled{% endif %}
+                      >{{ v.title }}{% if v.available == false %} - {{ sold_out }}{% endif %}</option>
+              {% endfor %}
+             {% endif %}
+            </select>
+            {% endcase %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <div class="combowise-box-header">
+  	<p class="combowise-box-heading combowise-box-hide">{{ text_message }}</p>
+  </div>
+</div>
+
+<button class="combowise-ATC" type="button" onClick="combowiseBoxATCSubmit(this)">
+	{{ text_ATC }}
+</button>
+
+<script>  
+  const COMBOWISE_BOX = '#combowise-box_{{ product.id }} .combowise-box-input';
+  const BOX_HEADING = '#combowise-box_{{ product.id }} .combowise-box-heading';
+  const BOX_INPUT = '#combowise-box_{{ product.id }} .combowise-box';
+  const BOX_ATC = '.combowise-ATC';
+  const BOX_IMAGE = '#combowise-box_{{ product.id }} .combowise-box-image';
+  const BOX_QUANTITY = '[name="quantity"]';
+  const BOX_CHILD_SELECT = '#combowise-box_{{ product.id }} .combowise-box-selector';
+ 
+  const combowiseConfig = JSON.parse('{{ config }}');
+  let combowiseSelectedItems = [];
+                                     
+  {% case layout %}   
+  {% when 1 %}
+                                     
+  function combowiseSelectionChanged(index1, index2, productId, variantId, title, sku) {
+    for(let i = 0; i < combowiseSelectedItems.length; i++) {
+      if (combowiseSelectedItems[i].index1 == index1 && combowiseSelectedItems[i].index2 != index2) {
+      	return;
+      }
+    }
+    
+    const id = `${productId}-${variantId}`;
+    
+    const ele = document.getElementById(`combowise_${index1}_${index2}`);
+   
+    if (ele.classList.contains('combowise-box-selected')) {
+      combowiseSelectedItems = combowiseSelectedItems.filter(e => (e.index1 == index1 && e.index2 == index2) ? false : true );
+      ele.classList.remove('combowise-box-selected');
+    } else {
+      combowiseBoxChangeImage(ele);
+      
+      ele.classList.add('combowise-box-selected');
+      combowiseSelectedItems.push({
+      	index1,
+        index2,
+        title,
+        sku,
+        id
+      });
+    }
+    combowiseBoxCheckATC();
+  }
+  
+  {% when 2 %}
+  function combowiseSelectionChanged(el) {
+    combowiseSelectedItems = [];
+    combowiseBoxChangeImage(el.options[el.selectedIndex]);
+  	const selected_variants = document.querySelectorAll(BOX_CHILD_SELECT);
+    const nodes = Array.prototype.slice.call(selected_variants, 0);
+    nodes.map(function(e) {
+      if (e.options[e.selectedIndex].value) {
+        combowiseSelectedItems.push({
+          id: e.options[e.selectedIndex].value,
+          title: e.options[e.selectedIndex].getAttribute('data-title'),
+          sku: e.options[e.selectedIndex].getAttribute('data-sku')
+        });
+      }
+    });
+    
+    combowiseBoxCheckATC();
+  }
+  {% endcase %}
+  
+  function combowiseBoxCheckATC() {
+  	if(combowiseSelectedItems.length == combowiseConfig.boxLock) {
+      combowiseToggleATC(false);
+    } else {
+      combowiseToggleATC(true);
+    }
+  }
+  
+  function combowiseToggleATC(bool) {
+    const combowiseATC = document.querySelector(BOX_ATC);
+    combowiseATC.disabled = bool;
+    
+    if (bool) {
+      const errorEle = document.querySelector(BOX_HEADING);
+      errorEle.classList.add('combowise-box-error');  
+    } else {
+      document.querySelector(BOX_HEADING).classList.remove('combowise-box-error');
+    }
+  }
+  
+  function combowiseBoxChangeImage(ele) {
+    {% if show_child_image %}
+  	const image = ele.getAttribute('data-image');
+      
+    if (image && image.indexOf('no-image') === -1) {
+      const imgEle = ele.parentNode.parentNode.parentNode.querySelector(BOX_IMAGE);
+      imgEle.src = image;
+    }
+    {% endif %}
+  }
+  
+  function combowiseBoxATCSubmit() {
+    if(combowiseSelectedItems.length != combowiseConfig.boxLock) {
+    	return;
+    }
+    
+    let properties = {};
+    for (let i = 0; i < combowiseSelectedItems.length; i++) {
+      
+      let value = `Title: ${combowiseSelectedItems[i].title}`;
+      if (combowiseSelectedItems[i].sku) {
+        value += `, SKU: ${combowiseSelectedItems[i].sku}`;
+      }
+
+      value += `, id: ${combowiseSelectedItems[i].id}`;
+
+      properties[`Box item ${i + 1}`] = value;
+    }
+    
+    let quantity = document.querySelector(BOX_QUANTITY);
+    quantity = quantity ? quantity.value : 1;
+    
+    let combowiseForm = {items: [{
+      id: {{ product.selected_or_first_available_variant.id }},
+      quantity,
+      properties
+    }]};
+    
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(combowiseForm)
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      if (data.description) {
+        console.error(data.description);
+      } else {
+      	window.location.href = '/cart';
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+  
+  const NATIVE_THINGS_TO_REMOVE = [
+    '.shopify-payment-button',
+    '[name="add"]',
+    '#AddToCart--product-template'
+  ];
+  
+  document.addEventListener("DOMContentLoaded", function(event) {
+    console.info('Combowise: Dom loaded');
+    
+    combowiseToggleATC(true);
+
+    const headingEle = document.querySelector(BOX_HEADING);
+    headingEle.innerHTML = headingEle.innerHTML.replace('%count%', combowiseConfig.boxLock);
+    headingEle.classList.remove('combowise-box-hide');
+    
+    NATIVE_THINGS_TO_REMOVE.map(function(selector) {
+      
+      const els = document.querySelectorAll(selector);
+      
+      for (let i = 0; i < els.length; i++) {
+      	els[i].parentNode.removeChild(els[i]);
+      }
+    });
+  });
+</script>
