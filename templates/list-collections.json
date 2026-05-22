@@ -6,7 +6,7 @@
                 "title": "Collections",
                 "sort": "products_high",
                 "image_ratio": "adapt",
-                "color_scheme": "background-1",
+                "color_scheme": "scheme-1",
                 "image_padding": false
             }
         },

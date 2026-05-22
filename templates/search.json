@@ -47,7 +47,7 @@
             "settings": {
                 "title": "Shop By Category",
                 "image_ratio": "adapt",
-                "color_scheme": "background-2",
+                "color_scheme": "scheme-2",
                 "swipe_on_mobile": false,
                 "image_padding": false,
                 "show_view_all": false

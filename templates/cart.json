@@ -32,7 +32,7 @@
                 "button_FnDd3V"
             ],
             "settings": {
-                "color_scheme": "background-1",
+                "color_scheme": "scheme-1",
                 "full_width": true
             }
         },
@@ -71,7 +71,7 @@
             ],
             "disabled": true,
             "settings": {
-                "color_scheme": "background-1",
+                "color_scheme": "scheme-1",
                 "full_width": true
             }
         },

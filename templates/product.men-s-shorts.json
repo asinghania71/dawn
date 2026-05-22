@@ -116,7 +116,7 @@
         "16389822093a59de67": {
             "type": "custom-liquid",
             "settings": {
-                "custom_liquid": "<style>\nspan.badge.price__badge-sold-out.color-inverse {\n    color: red;\n    padding: 2px;\n    font-weight: 900;\n}\n@media screen and (min-width: 750px){\n.product__media-item:first-child {\n    width: calc(50% - 1rem \/ 2)!important;\n}\n.grid--1-col .grid__item {\n    max-width: 50%;\n}}\n\n\n<\/style>\n\n<script>\nvar links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }\n}\ndocument.querySelectorAll(\".product__accordion > details > summary\").forEach((a)=>a.click());\n<\/script>"
+                "custom_liquid": "<style>\nspan.badge.price__badge-sold-out.color-scheme-5 {\n    color: red;\n    padding: 2px;\n    font-weight: 900;\n}\n@media screen and (min-width: 750px){\n.product__media-item:first-child {\n    width: calc(50% - 1rem \/ 2)!important;\n}\n.grid--1-col .grid__item {\n    max-width: 50%;\n}}\n\n\n<\/style>\n\n<script>\nvar links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }\n}\ndocument.querySelectorAll(\".product__accordion > details > summary\").forEach((a)=>a.click());\n<\/script>"
             }
         },
         "163864062740e68236": {
