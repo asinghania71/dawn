@@ -1,0 +1,247 @@
+
+<style>
+  .cpapp-combo-vs {
+    margin: 15px 0 15px 0;
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+    width: 100%;
+    transition: .2s ease-in-out;
+  }
+  .cpapp-combo-vs-header {
+    font-weight: 500;
+    font-size: 24px;
+    padding: 15px 0 10px 15px;
+    text-transform: lowercase;
+    text-align: center;
+  }
+  .cpapp-combo-vs-body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .cpapp-combo-vs-col {
+    padding: 0;
+    box-shadow: none;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    border-radius: 2px;
+    display: flex;
+  }
+  .cpapp-combo-vs-thumb {
+    width: 40%;
+    padding: 15px;
+    position: relative;
+    -webkit-filter: none!important;
+    filter: none!important;
+    max-height: 180px;
+  }
+  .cpapp-combo-vs-col:after {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+    display: inline-block;
+    content: "+";
+    font-size: 40px;
+    z-index: 1;
+    margin: 0;
+    right: -7px;
+    color: #c2c2c2;
+  }
+  .cpapp-combo-vs-col:last-child:after {
+    content: ""
+  }
+  .cpapp-combo-vs-thumb-img {
+    width: 100%;
+    max-height: 100% !important;
+    border-radius: 15px;
+  }
+  .cpapp-combo-vs-caption {
+    width: 60%;
+  }
+  .cpapp-combo-vs-variant-select select {
+    width: 100%;
+  }
+  .cpapp-combo-vs-caption-title {
+    padding-left: 5px;
+    padding-bottom: 5px;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  .cpapp-combo-vs-caption-price {
+    display: inline-block;
+    padding-bottom: 5px;
+    padding-left: 5px;
+  }
+  .cpapp-combo-vs-caption-price-original {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #212121;
+  }
+  .cpapp-combo-vs-caption-compare {
+    display: inline-block;
+    margin-left: 8px;
+    text-decoration: line-through;
+    font-size: 14px;
+    color: #878787;
+  }
+  .cpapp-combo-vs-caption-disc {
+    color: #388e3c;
+    font-size: 13px;
+    letter-spacing: -.2px;
+    font-weight: 500;
+    display: inline-block;
+    margin-left: 8px;
+  }
+  .cpapp-combo-thumb-img {
+    opacity: 1;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .cpapp-combo-footer {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    border-top: 1px solid #f0f0f0;
+  }
+  .cpapp-combo-footer-left {
+    -webkit-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
+  }
+  .cpapp-combo-footer-right {
+    -webkit-flex: 0;
+    -ms-flex: 0;
+    flex: 0;
+    padding: 0 0px;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .cpapp-combo-footer-btn {
+    background-color: transparent;
+    padding: 16px !important;
+    text-transform: uppercase;
+    width: 100%;
+    display: inline-block;
+    border-radius: 2px;
+    transition: box-shadow .2s ease;
+    cursor: pointer;
+    border: 1px solid black;
+  }
+  .combowise-soldout {
+  	color: red;
+  }
+  
+  @media only screen and (max-width: 500px) {
+    .cpapp-combo-vs {
+      text-align: center;
+    }
+    .cpapp-combo-vs-col {
+      flex-direction: column;
+      align-items: center;
+    }
+    .cpapp-combo-vs-caption {
+      width: 100%;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-bottom: 15px;
+    }
+    .cpapp-combo-vs-thumb {
+      max-height: initial;
+      width: 80%;
+    } 
+    .cpapp-combo-vs-caption-title {
+      text-align: left;
+    }
+  }
+</style>
+
+<div class="cpapp-combo-vs">
+  <div class="cpapp-combo-vs-header">
+    <span>Select variant</span>
+  </div>
+  <div class="cpapp-combo-vs-body">
+    {% for meta in cp_metas %}
+
+    {% assign handle = meta|last %}
+
+    {% assign p = all_products[handle] %}
+    <div class="cpapp-combo-vs-row">  
+      <div class="cpapp-combo-vs-col">
+        <div class="cpapp-combo-vs-thumb">
+          <img class="cpapp-combo-vs-thumb-img" alt="{{ p.title }}" src="{{ p.featured_image | img_url: '180x' }}">
+        </div>
+        <div class="cpapp-combo-vs-caption">
+          <a title="{{ p.title }}" class="cpapp-combo-vs-caption-title" target="_blank" rel="noopener noreferrer" href="{{ p.handle }}">{{ p.title }}</a>
+          <div class="cpapp-combo-vs-variant-select">
+            <select name="id[]" value="{{ p.variants[0].id }}" onChange="combowiseVariantChange(this)">
+              {% if p.has_only_default_variant %}
+              <option 
+                      value="{{ p.variants[0].id }}" 
+                      data-image="" 
+                      {% if p.available == false %}disabled{% endif %}
+                      >{{ p.title }}{% if p.available == false %} - Sold out{% endif %}</option>
+              {% else %}
+              {% for v in p.variants %}
+              <option 
+                      value="{{ v.id }}" 
+                      data-image="{{ v.image.src | img_url: '180x'  }}" 
+                      {% if v.available == false %}disabled{% endif %}
+                      >{{ v.title }}{% if v.available == false %} - Sold out{% endif %}</option>
+              {% endfor %}
+              {% endif %}
+            </select>
+          </div>
+          {% if p.available == false %}
+          <p class="combowise-soldout">Sold Out</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<script>
+  
+  function combowiseVariantChange(e) {
+  	const img_src = e.options[e.selectedIndex].getAttribute('data-image');
+    
+    if (img_src && img_src.indexOf('no-image') == -1) {
+      const imgEle = e.parentNode.parentNode.parentNode.querySelector('.cpapp-combo-vs-thumb-img');
+      imgEle.src = img_src;
+    }
+  }
+  
+  (function() {
+
+    const state = document.readyState;
+
+    if (state === "interactive" || state === "complete") {
+
+      console.log("dom is ready");
+
+      let selectorIdElement = document.querySelector('select[name="id"]');
+      
+      if (! selectorIdElement) {
+      	selectorIdElement = document.querySelector('input[name="id"]');
+      }
+      
+      console.log('Combowise: Selector element: ', selectorIdElement);
+      
+      selectorIdElement.parentNode.removeChild(selectorIdElement);
+      
+    } else setTimeout(arguments.callee, 100)
+
+      })();
+
+</script>

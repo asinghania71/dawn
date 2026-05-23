@@ -38,6 +38,9 @@
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
+  if target == product and product.metafields.custom.iscomboproduct and product.metafields.combo.zunisex_kids
+    assign money_price = 'products.product.price.from_price_html' | t: price: money_price
+  endif
 -%}
 
 {%- unless target == null and placeholder == null -%}
@@ -122,4 +125,8 @@
       </span>
     {%- endif -%}
   </div>
+
+  {%- if product.metafields.custom.iscomboproduct and product.metafields.combo.zunisex_kids -%}
+    <small><span class="h5">(1 Men + 1 Women + 1 Kid)</span></small>
+  {%- endif -%}
 {% endunless %}

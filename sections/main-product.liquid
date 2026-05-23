@@ -41,7 +41,8 @@
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-  {%- if product.quantity_price_breaks_configured? -%}
+  <script> updateLRUCache('{{product.handle}}');</script>
+{%- if product.quantity_price_breaks_configured? -%}
     <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
@@ -105,6 +106,12 @@
                     </h2>
                   </a>
                 </div>
+{% comment %}Start automatically added Judge.me widget{% endcomment %}
+  <div class="product__text">
+    {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', concierge_install: true, product: product %}
+  </div>
+{% comment %}End automatically added Judge.me widget{% endcomment %}
+
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                   {%- render 'price',
@@ -2094,6 +2101,12 @@
       "id": "enable_sticky_info",
       "default": true,
       "label": "t:sections.main-product.settings.enable_sticky_info.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_unavailable",
+      "default": true,
+      "label": "Disable Unavailable Variant"
     },
     {
       "type": "color_scheme",

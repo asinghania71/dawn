@@ -99,6 +99,11 @@
       </span>
     </button>
   </modal-opener>
+  
+<!-- **BEGIN** Hextom USB Integration // Collection Include - DO NOT MODIFY -->
+    {% render 'hextom_usb_coll', product: product %}
+    <!-- **END** Hextom USB Integration // Collection Include - DO NOT MODIFY -->
+
 
   {%- if media.media_type != 'image' -%}
     {%- if media.media_type == 'model' -%}

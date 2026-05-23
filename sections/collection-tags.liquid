@@ -1,0 +1,203 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-grid.css' | asset_url | stylesheet_tag }}
+{% comment %} {{ product.tags }} {% endcomment %}
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'template-collection.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-slider.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'template-collection.css' | asset_url | stylesheet_tag }}</noscript>
+
+{% assign target_tag = "" %}
+
+{%- comment -%}
+  1️⃣ Find the first tag with "Combo_" prefix
+{%- endcomment -%}
+{% for tag in product.tags %}
+  {% if tag contains section.settings.prefix %}
+    {% assign target_tag = tag %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{%- comment -%}
+  2️⃣ Initialize variables for collecting related products
+{%- endcomment -%}
+{% assign tagged_products = "" %}
+{% assign separator = "," %}
+{% assign found = 0 %}
+{% assign limit = section.settings.products_to_show %}
+
+{%- comment -%}
+  3️⃣ Search through all products and collect matches
+{%- endcomment -%}
+{% paginate collections.all.products by 1000 %}
+  {% if found >= limit %}
+    {% break %}
+  {% endif %}
+  {% for producta in collections.all.products %}
+    {% if found >= limit %}
+      {% break %}
+    {% endif %}
+
+    {% if producta.id != product.id and producta.tags contains target_tag %}
+      {% if tagged_products == "" %}
+        {% assign tagged_products = producta.handle %}
+      {% else %}
+        {% assign tagged_products = tagged_products | append: separator | append: producta.handle %}
+      {% endif %}
+      {% assign found = found | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+{% endpaginate %}
+
+{% assign tag_collection = tagged_products | split: separator %}
+{% if tag_collection.size >0 %}
+{%- liquid
+  assign products_to_display = tag_collection.size
+
+  if tag_collection.size > section.settings.products_to_show
+    assign products_to_display = section.settings.products_to_show
+    assign more_in_collection = true
+  endif
+-%}
+
+<div class="collection page-width{% if section.settings.swipe_on_mobile == true and tag_collection.size > 2 and section.settings.products_to_show > 2 %} page-width-desktop{% endif %}">
+  <div class="title-wrapper-with-link{% if section.settings.title == blank %} title-wrapper-with-link--no-heading{% endif %}{% if tag_collection.size > 2 and section.settings.swipe_on_mobile and section.settings.products_to_show > 2 %} title-wrapper--self-padded-tablet-down{% endif %}">
+    <h2 class="title{% if section.settings.title == blank %} title--no-heading{% endif %}">{{ section.settings.title | escape }}</h2>
+  </div>
+
+  <slider-component class="slider-mobile-gutter">
+    <ul class="grid grid--2-col product-grid{% if products_to_display == 4 or tag_collection == blank %} grid--2-col-tablet grid--4-col-desktop{% else %} grid--3-col-tablet{% endif %}{% if products_to_display > 5 %} grid--one-third-max grid--4-col-desktop grid--quarter-max{% endif %}{% if tag_collection.size > 2 and section.settings.swipe_on_mobile and section.settings.products_to_show > 2 %} slider slider--tablet grid--peek{% endif %}{% if section.settings.show_view_all == false or tag_collection.size < section.settings.products_to_show %} negative-margin{% endif %}{% if section.settings.show_view_all and tag_collection.size > section.settings.products_to_show %} negative-margin--small{% endif %}" role="list">
+      {%- for p in tag_collection limit: section.settings.products_to_show -%}
+        {% assign productcard = all_products[p] %}
+        <li class="grid__item{% if tag_collection.size > 2 and section.settings.swipe_on_mobile and section.settings.products_to_show > 2 %} slider__slide{% endif %}">
+          {% render 'product-card',
+            product_card_product: productcard,
+            media_size: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            add_image_padding: section.settings.add_image_padding,
+            show_vendor: section.settings.show_vendor,
+            show_image_outline: section.settings.show_image_outline,
+            show_rating: section.settings.show_rating
+          %}
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- if tag_collection.size > 2 and section.settings.swipe_on_mobile and section.settings.products_to_show > 2 -%}
+      <div class="slider-buttons no-js-hidden{% if tag_collection.size < 4 %} medium-hide{% endif %}{% if tag_collection.size < 3 %} small-hide{% endif %}">
+        <button type="button" class="slider-button slider-button--prev" name="previous" aria-label="{{ 'accessibility.previous_slide' | t }}">{% render 'icon-caret' %}</button>
+        <div class="slider-counter caption">
+          <span class="slider-counter--current">1</span>
+          <span aria-hidden="true"> / </span>
+          <span class="visually-hidden">{{ 'accessibility.of' | t }}</span>
+          <span class="slider-counter--total">{{ products_to_display }}</span>
+        </div>
+        <button type="button" class="slider-button slider-button--next" name="next" aria-label="{{ 'accessibility.next_slide' | t }}">{% render 'icon-caret' %}</button>
+      </div>
+    {%- endif -%}
+  </slider-component>
+</div>
+{% endif %}
+{% schema %}
+{
+  "name": "Coll",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Coll collection",
+      "label": "t:sections.featured-collection.settings.title.label"
+    },
+    {
+      "type": "text",
+      "id": "prefix",
+      "default": "tag_",
+      "label": "Prefix"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 2,
+      "default": 4,
+      "label": "t:sections.featured-collection.settings.products_to_show.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "t:sections.featured-collection.settings.show_view_all.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_mobile",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.swipe_on_mobile.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-collection.settings.header.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.featured-collection.settings.image_ratio.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_image_padding",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.add_image_padding.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_outline",
+      "default": true,
+      "label": "t:sections.featured-collection.settings.show_image_outline.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.show_rating.label",
+      "info": "t:sections.featured-collection.settings.show_rating.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured-collection.presets.name"
+    }
+  ]
+}
+{% endschema %}

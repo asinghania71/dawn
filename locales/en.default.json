@@ -78,7 +78,10 @@
     "total_reviews": "total reviews",
     "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
     "collapsible_content_title": "Collapsible content",
-    "complementary_products": "Complementary products"
+    "complementary_products": "Complementary products",
+    "of": "of",
+    "next_slide": "Slide right",
+    "previous_slide": "Slide left"
   },
   "blogs": {
     "article": {
@@ -127,7 +130,8 @@
         "image_available": "Image {{ index }} is now available in gallery view",
         "open_media": "Open media {{ index }} in modal",
         "play_model": "Play 3D Viewer",
-        "play_video": "Play video"
+        "play_video": "Play video",
+        "open_featured_media": "Open featured media in gallery view"
       },
       "nested_label": "{{ title }} for {{ parent_title }}",
       "quantity": {
@@ -179,7 +183,8 @@
       "taxes_included": "Taxes included.",
       "duties_included": "Duties included.",
       "duties_and_taxes_included": "Duties and taxes included.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout."
+      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+      "include_taxes": "Tax included."
     },
     "modal": {
       "label": "Media gallery"
@@ -274,7 +279,6 @@
       "announcement": "Announcement",
       "announcement_bar": "Announcement bar"
     },
-
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",
@@ -313,7 +317,13 @@
       "login": {
         "title": "Have an account?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
-      }
+      },
+      "subtotal": "Subtotal",
+      "new_subtotal": "New subtotal",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{{ link }}\">shipping</a> calculated at checkout",
+      "taxes_included_but_shipping_at_checkout": "Tax included and shipping calculated at checkout",
+      "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+      "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout"
     },
     "footer": {
       "payment": "Payment methods"
@@ -508,7 +518,9 @@
       "copy_code": "Copy gift card code",
       "expiration_date": "Expires {{ expires_on }}",
       "copy_code_success": "Code copied successfully",
-      "expired": "Expired"
+      "expired": "Expired",
+      "remaining_html": "Remaining {{ balance }}",
+      "print_gift_card": "Print"
     }
   },
   "recipient": {
@@ -526,6 +538,58 @@
       "max_characters": "{{ max_chars }} characters max",
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
+    }
+  },
+  "pagefly": {
+    "products": {
+      "product": {
+        "regular_price": "Regular price",
+        "sold_out": "Sold out",
+        "unavailable": "Unavailable",
+        "on_sale": "Sale",
+        "quantity": "Quantity",
+        "add_to_cart": "Add to cart",
+        "back_to_collection": "Back to {{ title }}",
+        "view_details": "View details"
+      }
+    },
+    "article": {
+      "tags": "Tags:",
+      "all_topics": "All topics",
+      "by_author": "by {{ author }}",
+      "posted_in": "Posted in",
+      "read_more": "Read more",
+      "back_to_blog": "Back to {{ title }}"
+    },
+    "comments": {
+      "title": "Leave a comment",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "post": "Post comment",
+      "moderated": "Please note, comments must be approved before they are published",
+      "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.",
+      "success": "Your comment was posted successfully! Thank you!",
+      "comments_with_count": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      }
+    },
+    "password_page": {
+      "login_form_message": "Enter store using password:",
+      "login_form_password_label": "Password",
+      "login_form_password_placeholder": "Your password",
+      "login_form_submit": "Enter",
+      "signup_form_email_label": "Email",
+      "signup_form_success": "We will send you an email right before we open!",
+      "password_link": "Enter using password"
+    }
+  },
+  "shopify": {
+    "checkout": {
+      "shop_policies": {
+        "refund_policy": "Return policy"
+      }
     }
   }
 }

@@ -160,6 +160,9 @@
               {{ card_product.title | escape }}
             </a>
           </h3>
+{% comment %}Start automatically added Judge.me widget{% endcomment %}
+  {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', concierge_install: true, product: card_product %}
+{% comment %}End automatically added Judge.me widget{% endcomment %}
           <div class="card-information">
             {%- if show_vendor -%}
               <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
@@ -567,6 +570,9 @@
         </div>
       </div>
     </div>
+<!-- **BEGIN** Hextom USB Integration // Collection Include - DO NOT MODIFY -->
+    {% render 'hextom_usb_coll', product: card_product %}
+    <!-- **END** Hextom USB Integration // Collection Include - DO NOT MODIFY -->
   </div>
 {%- else -%}
   {%- liquid
@@ -610,6 +616,9 @@
               {{ 'onboarding.product_title' | t }}
             </a>
           </h3>
+{% comment %}Start automatically added Judge.me widget{% endcomment %}
+  {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', concierge_install: true, product: card_product %}
+{% comment %}End automatically added Judge.me widget{% endcomment %}
           <div class="card-information">
             {%- if show_vendor -%}
               <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
@@ -620,5 +629,8 @@
         </div>
       </div>
     </div>
+<!-- **BEGIN** Hextom USB Integration // Collection Include - DO NOT MODIFY -->
+    {% render 'hextom_usb_coll', product: card_product %}
+    <!-- **END** Hextom USB Integration // Collection Include - DO NOT MODIFY -->
   </div>
 {%- endif -%}

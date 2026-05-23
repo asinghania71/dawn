@@ -1,0 +1,164 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "cd4d4c62-a9f9-49ea-b37d-584477a01458": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "7fa2d6f8-6721-4932-af58-5a327d89f514": {
+          "type": "text",
+          "settings": {
+            "text": "Bulk Price on Request",
+            "text_style": "body"
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button"
+          }
+        },
+        "649ed916-8e89-4eb3-97c9-85309bb28425": {
+          "type": "popup",
+          "settings": {
+            "text": "Size Chart",
+            "page": "size-chart"
+          }
+        },
+        "6782b101-39b8-4c9d-afc3-0fa603d1df6d": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "7f2ff3b3-35ac-4d7b-b061-ad22b764371b": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'cod-checker' %}"
+          }
+        },
+        "f5b04d3d-1a3b-408f-8bf1-2c4391c1ec14": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "heading": "Offers",
+            "content": "<p>Get 10% extra off all product (prepaid orders only). Use Code : <strong>EXTRA10</strong></p>",
+            "page": "",
+            "icon": "price_tag"
+          }
+        },
+        "78dcfb3c-d524-4c92-a078-0fc5406198ea": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Specifications",
+            "content": "<p>Pattern : {{ product.metafields.filter_fields.pattern.value }}</p><p>Color : {{ product.metafields.filter_fields.color.value }}</p><p>Sleeve Length : {{ product.metafields.filter_fields.sleeve_length.value }}</p><p>Fabric : {{ product.metafields.filter_fields.fabric.value }}</p>",
+            "page": "",
+            "icon": "heart"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "cd4d4c62-a9f9-49ea-b37d-584477a01458",
+        "price",
+        "7fa2d6f8-6721-4932-af58-5a327d89f514",
+        "share",
+        "variant_picker",
+        "649ed916-8e89-4eb3-97c9-85309bb28425",
+        "6782b101-39b8-4c9d-afc3-0fa603d1df6d",
+        "buy_buttons",
+        "7f2ff3b3-35ac-4d7b-b061-ad22b764371b",
+        "f5b04d3d-1a3b-408f-8bf1-2c4391c1ec14",
+        "78dcfb3c-d524-4c92-a078-0fc5406198ea",
+        "description"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "disable_unavailable": true,
+        "hide_variants": false,
+        "enable_video_looping": false
+      }
+    },
+    "16389822093a59de67": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>\nspan.badge.price__badge-sold-out.color-inverse {\n    color: red;\n    padding: 2px;\n    font-weight: 900;\n}\n@media screen and (min-width: 750px){\n.product__media-item:first-child {\n    width: calc(50% - 1rem / 2)!important;\n}\n.grid--1-col .grid__item {\n    max-width: 50%;\n}}\n\n\n</style>\n\n<script>\nvar links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }\n}\ndocument.querySelectorAll(\".product__accordion > details > summary\").forEach((a)=>a.click());\n</script>"
+      }
+    },
+    "163864062740e68236": {
+      "type": "apps",
+      "blocks": {
+        "20e726f7-03b8-44e9-bdb6-1c7fd82c3cde": {
+          "type": "shopify://apps/judge-me-product-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "20e726f7-03b8-44e9-bdb6-1c7fd82c3cde"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "You may also like",
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "add_image_padding": false,
+        "show_image_outline": true,
+        "show_vendor": true,
+        "show_rating": true
+      }
+    },
+    "163864149997a0c4b6": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "settings": {
+        "custom_liquid": "{% if product.metafields.availableon.flipkart or product.metafields.availableon.amazon or product.metafields.availableon.ajio or product.metafields.availableon.myntra%}\n\n      <hr>\n      <div class=\"section-header text-center\">\n   <h2> Also Available At </h2>\n       <ul class=\"logo-bar\">\n      {% if product.metafields.availableon.amazon %}\n          <li class=\"logo-bar__item\" {{ block.shopify_attributes }}>\n            <a href=\"{{ product.metafields.availableon.amazon }}\" target=\"_blank\" class=\"logo-bar__link\">\n           <img src=\"//cdn.shopify.com/s/files/1/0465/2636/5846/files/amazon_160x160@2x.png?v=1597833932\" alt=\"Tusok also available on amazon.in\" class=\"logo-bar__image\">\n            </a>\n        </li>\n         {% endif %}\n               {% if product.metafields.availableon.myntra\n %}\n          <li class=\"logo-bar__item\" {{ block.shopify_attributes }}>\n            <a href=\"{{ product.metafields.availableon.myntra }}\" target=\"_blank\" class=\"logo-bar__link\">\n           <img src=\"//cdn.shopify.com/s/files/1/0465/2636/5846/files/myntra_160x160@2x.png?v=1597833932\" alt=\"Tusok also available on myntra.com\" class=\"logo-bar__image\">\n            </a>\n        </li>\n         {% endif %}\n        {% if product.metafields.availableon.flipkart %}\n          <li class=\"logo-bar__item\" {{ block.shopify_attributes }}>\n            <a href=\"{{ product.metafields.availableon.flipkart }}\" target=\"_blank\" class=\"logo-bar__link\">\n          <img src=\"//cdn.shopify.com/s/files/1/0465/2636/5846/files/flipkart_160x160@2x.png?v=1597833913\" alt=\"Tusok also available on flipkart.com\" class=\"logo-bar__image\">  </a>\n        </li>\n         {% endif %}\n        {% if product.metafields.availableon.ajio  %}\n          <li class=\"logo-bar__item\" {{ block.shopify_attributes }}>\n            <a href=\"{{ product.metafields.availableon.ajio }}\" target=\"_blank\" class=\"logo-bar__link\">\n            <img src=\"//cdn.shopify.com/s/files/1/0465/2636/5846/files/ajio_160x160@2x.png?v=1597833974\" alt=\"Tusok also available on ajio.com\" class=\"logo-bar__image\">\n          \n              </a>\n        </li>\n         {% endif %}\n      </ul>\n      </div> <br>  {% endif %}"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16389822093a59de67",
+    "163864062740e68236",
+    "product-recommendations",
+    "163864149997a0c4b6"
+  ]
+}
