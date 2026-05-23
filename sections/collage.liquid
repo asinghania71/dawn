@@ -70,7 +70,8 @@
                         | image_url: width: 3200
                         | image_tag:
                           sizes: sizes,
-                          widths: '50, 75, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3200'
+                          widths: '50, 75, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3200',
+                          loading: 'lazy'
                       }}
                     {%- else -%}
                       {%- capture sizes -%}
@@ -83,7 +84,8 @@
                         | image_url: width: 3200
                         | image_tag:
                           sizes: sizes,
-                          widths: '50, 75, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3200'
+                          widths: '50, 75, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3200',
+                          loading: 'lazy'
                       }}
                     {%- endif -%}
                   {%- else -%}
@@ -152,7 +154,7 @@
                           {{
                             block.settings.cover_image
                             | image_url: width: 3000
-                            | image_tag: sizes: sizes, widths: '550, 720, 990, 1100, 1500, 2200, 3000'
+                            | image_tag: sizes: sizes, widths: '550, 720, 990, 1100, 1500, 2200, 3000', loading: 'lazy'
                           }}
                         {%- else -%}
                           {{ 'hero-apparel-3' | placeholder_svg_tag: 'placeholder-svg placeholder' }}

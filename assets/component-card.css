@@ -552,7 +552,7 @@
 
 /* Card Shape Hover Rules */
 
-@media (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
   .product-card-wrapper .shape--round {
     transition: clip-path var(--duration-long) ease;
   }
