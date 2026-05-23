@@ -16,6 +16,7 @@ window.merchantInfo  = {
 var productFormSelector = '';
 var cart = {{ cart | json }}
 var templateName = '{{template.name}}'
+{% endif %}
 </script>
 
 <script src="https://{{ env }}.gokwik.co/merchant-integration/build/merchant.integration.js?v4"></script>

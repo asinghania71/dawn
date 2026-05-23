@@ -3,6 +3,7 @@
   "presets": {
     "Default": {
       "logo_width": 90,
+      "animations_reveal_on_scroll": true,
       "color_schemes": {
         "scheme-1": {
           "settings": {
@@ -205,7 +206,7 @@
             "7542c31f-ccad-4ff9-a6e0-0b16b67ad7f4"
           ],
           "settings": {
-            "color_scheme": "accent-1",
+            "color_scheme": "scheme-3",
             "newsletter_enable": true,
             "newsletter_heading": "",
             "show_social": true,
@@ -221,7 +222,7 @@
         "header": {
           "type": "header",
           "settings": {
-            "color_scheme": "accent-1",
+            "color_scheme": "scheme-3",
             "logo": "shopify:\\/\\/shop_images\\/TUSOK_Logo_white_compressed-_Final_330_Font_34_Stroke.png",
             "logo_width": 100,
             "logo_position": "middle-left",
@@ -365,7 +366,7 @@
             "text"
           ],
           "settings": {
-            "color_scheme": "accent-1"
+            "color_scheme": "scheme-3"
           }
         }
       }
