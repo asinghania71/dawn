@@ -1,0 +1,211 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-grid.css' | asset_url | stylesheet_tag }}
+
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'template-collection.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-slider.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'template-collection.css' | asset_url | stylesheet_tag }}</noscript>
+<div id="recentlyViewedDiv"></div>
+<script type="text/template" id="recentlyViewedTemplate">
+  {% raw %}
+  {%- liquid
+    assign products_to_display = collection.all_products_count
+    if collection.all_products_count >  {% endraw %} {{ section.settings.products_to_show }}  {% raw %}
+      assign products_to_display = {% endraw %} {{ section.settings.products_to_show }}  {% raw %}
+      assign more_in_collection = true
+    endif
+  -%}
+        <div class="collection page-width{% if {% endraw %}
+        {{ section.settings.swipe_on_mobile }}
+        {% raw %} == true and collection.all_products_count > 2 and {% endraw %}
+        {{ section.settings.products_to_show }}
+        {% raw %} > 2 %} page-width-desktop{% endif %}">
+          <div class="title-wrapper-with-link{% if {% endraw %}
+        {{ section.settings.title }}
+        {% raw %} == blank %} title-wrapper-with-link--no-heading{% endif %}{% if collection.all_products_count > 2 and {% endraw %} {{ section.settings.swipe_on_mobile }} {% raw %}  and {% endraw %} {{ section.settings.products_to_show}} {% raw %} > 2 %} title-wrapper--self-padded-tablet-down{% endif %}">
+     {% if products_to_display > 0 %}       <h2 class="title{% if {% endraw %}
+        {{ section.settings.title }}
+        {% raw %} == blank %} title--no-heading{% endif %}">
+             {% endraw %} {{ section.settings.title | escape }} {% raw %}
+            </h2> {% endif %}
+          </div>
+
+         <slider-component class="slider-mobile-gutter">
+            <ul
+              class="grid grid--2-col product-grid{% if products_to_display == 4 %} grid--2-col-tablet grid--4-col-desktop{% else %} grid--3-col-tablet{% endif %}{% if products_to_display > 5 %} grid--one-third-max grid--4-col-desktop grid--quarter-max{% endif %}{% if collection.all_products_count > 2 and {% endraw %} {{section.settings.swipe_on_mobile}} {% raw %} and  {% endraw %} {{section.settings.products_to_show}} {% raw %}  > 2 %} slider slider--tablet grid--peek{% endif %}  negative-margin "
+              role="list"
+            >
+              {%- for product in collection.products limit: {% endraw %} {{section.settings.products_to_show}} {% raw %} -%}
+                <li class="grid__item{% if collection.all_products_count > 2 and {% endraw %}  {{section.settings.swipe_on_mobile}}  {% raw %} and {% endraw %} {{ section.settings.products_to_show}} {% raw %} > 2 %} slider__slide{% endif %}">
+                  {{ product }}
+                </li>
+              {%- endfor -%}
+            </ul>
+            {%- if collection.all_products_count > 2
+              and  {% endraw %}  {{section.settings.swipe_on_mobile}}  {% raw %}
+              and {% endraw %} {{section.settings.products_to_show}} {% raw %}  > 2
+            -%}
+              <div class="slider-buttons no-js-hidden{% if collection.all_products_count < 4 %} medium-hide{% endif %}{% if collection.all_products_count < 3 %} small-hide{% endif %}">
+                <button
+                  type="button"
+                  class="slider-button slider-button--prev"
+                  name="previous"
+                  aria-label="{% endraw %} {{ 'accessibility.previous_slide' | t }} {% raw %}"
+                >
+                  <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                  </svg>
+                </button>
+                <div class="slider-counter caption">
+                  <span class="slider-counter--current">1</span>
+                  <span aria-hidden="true"> / </span>
+                  <span class="visually-hidden">{% endraw %}{{ 'accessibility.of' | t }} {% raw %}</span>
+                  <span class="slider-counter--total">{% endraw %}{{ products_to_display }} {% raw %}</span>
+                </div>
+                <button
+                  type="button"
+                  class="slider-button slider-button--next"
+                  name="next"
+                  aria-label=" {% endraw %}{{ 'accessibility.next_slide' | t }} {% raw %}"
+                >
+                  <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                  </svg>
+                </button>
+              </div>
+            {%- endif -%}
+          </slider-component>
+        </div>
+      {% endraw %}
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Helper to get cookie
+    function getCookie(name) {
+      var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      return v ? v[2] : null;
+    }
+
+    const rawQueue = getCookie("queue");
+    if (!rawQueue) return;
+
+    let urls = [];
+    try {
+      urls = JSON.parse(decodeURIComponent(rawQueue));
+    } catch (e) {
+      console.error("Recently Viewed: Error parsing queue cookie.");
+      return;
+    }
+
+    // Filter out current product if on product page
+    {% if request.page_type == 'product' %}
+      const currentHandle = "{{ product.handle }}";
+      urls = urls.filter(url => url !== currentHandle);
+    {% endif %}
+
+    if (urls.length === 0) return;
+
+    const template = document.querySelector('#recentlyViewedTemplate');
+    const result = document.querySelector('#recentlyViewedDiv');
+    
+    if (typeof liquidjs === 'undefined') {
+      console.warn("Recently Viewed: liquidjs library not found.");
+      return;
+    }
+    const engine = new liquidjs.Liquid();
+
+    const requests = urls.map(function(url) {
+      return fetch(window.Shopify.routes.root + 'products/' + url + '?view=json')
+        .then(response => {
+           if (!response.ok) throw new Error('Network response was not ok');
+           return response.text();
+        })
+        .then(data => ({ success: true, url: url, response: data }))
+        .catch(error => ({ success: false, url: url, error: error }));
+    });
+
+    Promise.all(requests).then(function(results) {
+      const responseDict = {};
+      results.forEach(res => {
+        if (res.success) responseDict[res.url] = res.response;
+      });
+
+      const responses = urls
+        .filter(url => responseDict[url])
+        .map(url => responseDict[url]);
+
+      // Reverse the order of responses to show most recent first (assuming queue is pushed)
+      responses.reverse();
+      
+      if (responses.length === 0) return;
+
+      engine
+        .parseAndRender(template.innerHTML, { collection: { products: responses, all_products_count: responses.length } })
+        .then(html => {
+          result.innerHTML = html;
+        });
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "Recently Viewed Products",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Recently Viewed Products",
+      "label": "t:sections.featured-collection.settings.title.label"
+    },
+
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 2,
+      "default": 4,
+      "label": "t:sections.featured-collection.settings.products_to_show.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_mobile",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.swipe_on_mobile.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-collection.settings.header.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.featured-collection.settings.image_ratio.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently Viewed"
+    }
+  ]
+}
+{% endschema %}

@@ -1,14 +1,49 @@
 {
   "sections": {
     "banner": {
-      "type": "main-collection-banner"
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false
+      }
+    },
+    "1638984011b58bff19": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>@media screen and (min-width: 750px){\n.grid__item {\n    max-width: calc(33.33% - 1rem * 2 / 3);\nmax-width: 33.33%;\n}}</style><script>\nvar links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }\n}</script>"
+      }
     },
     "product-grid": {
-      "type": "main-collection-product-grid"
+      "type": "main-collection-product-grid",
+      "custom_css": [
+        ".facets-container {position: fixed; bottom: 0; left: 0; width: 100%; z-index: 9999; background: rgb(var(--color-background)); color: rgba(var(--color-foreground), 0.75); padding: 1rem 2rem; display: grid; grid-template-rows: repeat(2, auto); grid-template-columns: auto minmax(0, max-content); column-gap: 2rem; box-sizing: border-box; border-top: 1px solid rgba(var(--color-foreground), 0.1); /* subtle separation */}",
+        " /* Push page content above the bar */body {padding-bottom: 6rem; /* match or exceed bar height */}"
+      ],
+      "settings": {
+        "products_per_page": 24,
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "add_image_padding": false,
+        "show_image_outline": true,
+        "show_vendor": true,
+        "show_rating": false,
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "collapse_on_larger_devices": true
+      }
+    },
+    "1683798784876a6182": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
     "banner",
-    "product-grid"
+    "1638984011b58bff19",
+    "product-grid",
+    "1683798784876a6182"
   ]
 }

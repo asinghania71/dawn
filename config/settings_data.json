@@ -1,5 +1,184 @@
 {
-  "current": "Default",
+  "current": {
+    "colors_solid_button_labels": "#ffffff",
+    "colors_accent_1": "#002430",
+    "gradient_accent_1": "linear-gradient(225deg, rgba(0, 36, 48, 1), rgba(1, 66, 84, 1) 100%)",
+    "colors_accent_2": "#014254",
+    "gradient_accent_2": "",
+    "colors_text": "#121212",
+    "colors_outline_button_labels": "#121212",
+    "colors_background_1": "#ffffff",
+    "gradient_background_1": "",
+    "colors_background_2": "#f8d7d6",
+    "type_header_font": "assistant_n4",
+    "type_body_font": "assistant_n4",
+    "body_scale": 120,
+    "social_twitter_link": "https://twitter.com/tusokonline",
+    "social_facebook_link": "https://facebook.com/tusokonline",
+    "social_instagram_link": "http://instagram.com/tusokonline",
+    "predictive_search_show_vendor": false,
+    "favicon": "shopify://shop_images/fav.png",
+    "mid": "1935pn25r2hh",
+    "envType": "production",
+    "fbpixel": "902999933433365",
+    "priClr": "#002430",
+    "secClr": "#ffffff",
+    "goEnable": true,
+    "main-titile": "Checkout",
+    "goBuynowEnable": false,
+    "buynow-titile": "Buy it Now",
+    "btnBClr": "#002430",
+    "checkout_logo_image": "shopify://shop_images/TUSOK_Logo_014254_-_Final_330_Font_34_Stroke_compressed_6e4b4e4c-7734-4a7d-a5d0-d07b9279142e.png",
+    "checkout_logo_position": "center",
+    "sections": {
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "menu": {
+            "type": "link_list",
+            "settings": {
+              "heading": "Navigate",
+              "menu": "footer"
+            }
+          },
+          "text": {
+            "type": "text",
+            "settings": {
+              "heading": "Info",
+              "subtext": "<p><strong>Cranberry Fashions</strong></p><p><em>Bengaluru, India</em></p>"
+            }
+          },
+          "7542c31f-ccad-4ff9-a6e0-0b16b67ad7f4": {
+            "type": "text",
+            "settings": {
+              "heading": "Get In Touch",
+              "subtext": "<p><strong>For Enquiry / Exchange / Return </strong></p><p><strong>Whatsapp or Call us at </strong><a href=\"tel:7204136039\" target=\"_blank\" title=\"tel:7204136039\"><strong>7204136039</strong></a></p><p>10 AM - 7 PM (MONDAY - SATURDAY)</p>"
+            }
+          }
+        },
+        "block_order": [
+          "menu",
+          "text",
+          "7542c31f-ccad-4ff9-a6e0-0b16b67ad7f4"
+        ],
+        "settings": {
+          "color_scheme": "accent-1",
+          "newsletter_enable": true,
+          "newsletter_heading": "",
+          "show_social": true,
+          "enable_country_selector": false,
+          "enable_language_selector": true,
+          "payment_enable": true
+        }
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {}
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "color_scheme": "accent-1",
+          "logo": "shopify://shop_images/TUSOK_Logo_white_compressed-_Final_330_Font_34_Stroke.png",
+          "logo_width": 100,
+          "logo_position": "middle-left",
+          "menu": "main-menu",
+          "show_line_separator": true,
+          "enable_sticky_header": true
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "12046557757412368804": {
+        "type": "shopify://apps/customer-account-concierge/blocks/customer_account_page/3c495b68-652c-468d-a0ef-5bad6935d104",
+        "disabled": false,
+        "settings": {
+          "style": "light",
+          "dropdownMenu": "slider",
+          "mobile_nav_offset_top": 0,
+          "shadow": true,
+          "border_radius": 4,
+          "background_color": "#ffffff",
+          "text_color": "#202202",
+          "primary_color": "#5873F9",
+          "btn_text_color": "#ffffff",
+          "max_width": 800,
+          "custom_css": ""
+        }
+      },
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-product-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      },
+      "12120936241911852800": {
+        "type": "shopify://apps/judge-me-product-reviews/blocks/reviews_tab/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": true,
+        "settings": {
+          "position": "left"
+        }
+      },
+      "15683396631634586217": {
+        "type": "shopify://apps/inbox/blocks/chat/841fc607-4181-4ad1-842d-e24d7f8bad6b",
+        "disabled": true,
+        "settings": {
+          "button_color": "#000000",
+          "button_icon": "chat_bubble",
+          "button_text": "chat_with_us",
+          "button_horizontal_position": "bottom_left",
+          "button_vertical_position": "lowest",
+          "greeting_message": "👋 Hi, message us with any questions. We're happy to help!"
+        }
+      },
+      "6610233760104865948": {
+        "type": "shopify://apps/pushowl/blocks/pushowl-app-embed-3d2ff2b5/fa20c3ba-38bf-43e0-ba5c-431f6ae07d95",
+        "disabled": false,
+        "settings": {}
+      },
+      "6615124273980966592": {
+        "type": "shopify://apps/avada-helpdesk-faq/blocks/app-embed/1c0e135d-e8e1-4fe2-86be-1c36def46675",
+        "disabled": false,
+        "settings": {}
+      },
+      "6406956604159796213": {
+        "type": "shopify://apps/smartseo/blocks/smartseo/7b0a6064-ca2e-4392-9a1d-8c43c942357b",
+        "disabled": false,
+        "settings": {}
+      },
+      "4976129024724438625": {
+        "type": "shopify://apps/smartseo/blocks/brokenLinkDetection/7b0a6064-ca2e-4392-9a1d-8c43c942357b",
+        "disabled": false,
+        "settings": {}
+      },
+      "6471712195879653093": {
+        "type": "shopify://apps/froonze-loyalty-wishlist/blocks/social_logins/3c495b68-652c-468d-a0ef-5bad6935d104",
+        "disabled": true,
+        "settings": {
+          "position": "above",
+          "divider": true,
+          "style": "icon_and_text",
+          "text_alignment": "center",
+          "icon_alignment": "left",
+          "icon_style": "white",
+          "border_radius": 4,
+          "spacing": 8,
+          "shadow": true,
+          "custom_css": ""
+        }
+      },
+      "2567389343055140935": {
+        "type": "shopify://apps/microsoft-clarity/blocks/clarity_js/31c3d126-8116-4b4a-8ba1-baeda7c4aeea",
+        "disabled": false,
+        "settings": {}
+      },
+      "2200952712151285029": {
+        "type": "shopify://apps/microsoft-clarity/blocks/brandAgents_js/31c3d126-8116-4b4a-8ba1-baeda7c4aeea",
+        "disabled": true,
+        "settings": {}
+      }
+    }
+  },
   "presets": {
     "Default": {
       "colors_solid_button_labels": "#FFFFFF",
@@ -24,7 +203,8 @@
           },
           "block_order": [
             "announcement-bar-0"
-          ]
+          ],
+          "settings": {}
         }
       }
     },
@@ -41,23 +221,33 @@
       "sections": {
         "footer": {
           "type": "footer",
-          "settings": {
-            "color_scheme": "accent-1"
-          },
           "blocks": {
             "menu": {
-              "type": "link_list"
+              "type": "link_list",
+              "settings": {}
             },
             "text": {
-              "type": "text"
+              "type": "text",
+              "settings": {}
             }
           },
           "block_order": [
             "menu",
             "text"
-          ]
+          ],
+          "settings": {
+            "color_scheme": "accent-1"
+          }
         }
       }
     }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      "img.wishlist-form-Item-Image {height: auto;}",
+      ".jdgm-widget.jdgm-preview-badge.jdgm--done-setup {font-size: initial;}",
+      ".slider-counter.caption {display: none;}",
+      ".jdgm-widget.jdgm-widget {display: block; font-size: small;}"
+    ]
   }
 }

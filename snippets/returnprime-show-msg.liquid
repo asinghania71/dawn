@@ -1,0 +1,24 @@
+{% if request.path contains 'return_prime' %}
+  <script>
+    function observeUploaderField() {
+      const observer = new MutationObserver(() => {
+        const modalBody = document.querySelector('.rpmodal-content .rpmodal-body');
+
+        if (modalBody && !modalBody.querySelector('.rp-whatsapp-note')) {
+          const note = document.createElement('p');
+          note.className = 'rp-whatsapp-note';
+          note.textContent = '*To exchange this item for a different print/color, please WhatsApp us at 7204136039';
+          note.style.fontSize = '11px';
+          note.style.marginTop = '12px';
+          note.style.fontWeight = '600';
+          modalBody.appendChild(note);
+          modalBody.appendChild(note);
+        }
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    document.addEventListener('DOMContentLoaded', observeUploaderField);
+  </script>
+{% endif %}

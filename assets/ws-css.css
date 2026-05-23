@@ -1,0 +1,59 @@
+.ws-estimation-wrapper {
+    min-height: 25px;
+    margin: 1rem 5px 1rem 5px;
+    display: none;
+}
+
+.ws-estimation-wrapper .strong {
+    font-weight: 600;
+    display: inline-block;
+    margin: 0;
+}
+
+.ws-estimation-wrapper .estimation-wrapper-heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.ws-estimation-wrapper.loading,
+.ws-estimation-wrapper.loading .estimation-wrapper-heading img {
+    position: relative;
+    display: block;
+}
+
+.ws-estimation-wrapper.loading .estimation-wrapper-heading p,
+.ws-estimation-wrapper.loading .estimation-wrapper-content {
+    display: none;
+}
+
+.ws-estimation-wrapper .estimation-wrapper-heading img {
+    max-height: 20px;
+    margin-left: 10px;
+    display: none;
+}
+
+.ws-estimation-wrapper .estimation-wrapper-content p {
+    display: inline-block;
+    margin: 5px 0 0 0;
+}
+
+.ws-estimation-wrapper .estimation-wrapper-content .post-code {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.ws-estimation-wrapper .estimation-wrapper-content .input-wrapper {
+    display: inline-block;
+    margin-left: -5px;
+}
+
+.ws-estimation-wrapper .estimation-wrapper-content .input-wrapper input {
+    height: auto;
+    min-height: 24px !important;
+    margin-left: 5px;
+    max-width: 72px;
+    padding: 2px;
+    text-align: center;
+    display: none;
+}

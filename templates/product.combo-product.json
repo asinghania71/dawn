@@ -1,0 +1,145 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "cd4d4c62-a9f9-49ea-b37d-584477a01458": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button"
+          }
+        },
+        "649ed916-8e89-4eb3-97c9-85309bb28425": {
+          "type": "popup",
+          "settings": {
+            "text": "Size Chart",
+            "page": "size-chart"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "6782b101-39b8-4c9d-afc3-0fa603d1df6d": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "f5b04d3d-1a3b-408f-8bf1-2c4391c1ec14": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "heading": "Offers",
+            "content": "<p>Get 10% extra off all product (prepaid orders only). Use Code : <strong>EXTRA10</strong></p>",
+            "page": "",
+            "icon": "price_tag"
+          }
+        },
+        "78dcfb3c-d524-4c92-a078-0fc5406198ea": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Specifications",
+            "content": "<p>Sleeve Length : {{ product.metafields.filter_fields.sleeve_length.value }}</p><p>Fit Type : Regular Fit</p><p>Fabric : {{ product.metafields.filter_fields.fabric.value }}</p><p>Care Instructions : Machine Wash</p>",
+            "page": "",
+            "icon": "heart"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "cd4d4c62-a9f9-49ea-b37d-584477a01458",
+        "price",
+        "share",
+        "variant_picker",
+        "649ed916-8e89-4eb3-97c9-85309bb28425",
+        "quantity_selector",
+        "6782b101-39b8-4c9d-afc3-0fa603d1df6d",
+        "buy_buttons",
+        "f5b04d3d-1a3b-408f-8bf1-2c4391c1ec14",
+        "78dcfb3c-d524-4c92-a078-0fc5406198ea",
+        "description"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "hide_variants": false,
+        "enable_video_looping": false
+      }
+    },
+    "16389822093a59de67": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>\nspan.badge.price__badge-sold-out.color-inverse {\n    color: red;\n    padding: 2px;\n    font-weight: 900;\n}\n@media screen and (min-width: 750px){\n.product__media-item:first-child {\n    width: calc(50% - 1rem / 2)!important;\n}\n.grid--1-col .grid__item {\n    max-width: 50%;\n}}\n\n\n</style>\n\n<script>\nvar links = document.links;\nfor (let i = 0, linksLength = links.length ; i < linksLength ; i++) {\n  if (links[i].hostname !== window.location.hostname) {\n    links[i].target = '_blank';\n    links[i].rel = 'noreferrer noopener';\n  }\n}\ndocument.querySelectorAll(\".product__accordion > details > summary\").forEach((a)=>a.click());\n</script>"
+      }
+    },
+    "163864062740e68236": {
+      "type": "apps",
+      "blocks": {
+        "f59bd279-7076-4301-8378-13d0edb3ab94": {
+          "type": "shopify://apps/judge-me-product-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "f59bd279-7076-4301-8378-13d0edb3ab94"
+      ],
+      "settings": {
+        "include_margins": false
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "You may also like",
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "add_image_padding": false,
+        "show_image_outline": true,
+        "show_vendor": true,
+        "show_rating": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16389822093a59de67",
+    "163864062740e68236",
+    "product-recommendations"
+  ]
+}
