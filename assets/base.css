@@ -1309,7 +1309,7 @@ button.shopify-payment-button__button--unbranded {
   font-size: 1.2rem;
   padding: 1rem 1.5rem;
   min-width: calc(9rem + var(--buttons-border-width) * 2);
-  min-height: calc(3.5rem + var(--buttons-border-width) * 2);
+  min-height: calc(4.4rem + var(--buttons-border-width) * 2);
 }
 
 .button--small {
