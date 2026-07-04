@@ -33,11 +33,18 @@ if (!customElements.get('recently-viewed-products')) {
 
     async init() {
       try {
-        const recentlyViewed = JSON.parse(localStorage.getItem('dawn_recently_viewed') || '[]');
+        let recentlyViewed = JSON.parse(localStorage.getItem('dawn_recently_viewed') || '[]');
         
         if (recentlyViewed.length === 0) {
           this.innerHTML = '';
           return;
+        }
+
+        // 0. Filter out current product
+        const currentTracker = document.querySelector('product-tracker');
+        const currentHandle = currentTracker ? currentTracker.dataset.productHandle : null;
+        if (currentHandle) {
+          recentlyViewed = recentlyViewed.filter(handle => handle !== currentHandle);
         }
 
         // 1. Build batched handle query
@@ -65,15 +72,17 @@ if (!customElements.get('recently-viewed-products')) {
             if (matchedNode) sortedNodes.push(matchedNode);
           });
 
-          // 5. Clear and inject
-          productGrid.innerHTML = '';
-          sortedNodes.forEach(node => productGrid.appendChild(node));
-
-          this.innerHTML = '';
-          // Extract the full slider component if it exists
-          const sliderComponent = html.querySelector('slider-component') || productGrid;
-          this.appendChild(sliderComponent);
-          this.removeAttribute('hidden');
+          // 5. Clear and inject into existing grid
+          const existingGrid = this.querySelector('.grid');
+          if (existingGrid) {
+            const isSlider = existingGrid.classList.contains('slider');
+            existingGrid.innerHTML = '';
+            sortedNodes.forEach(node => {
+              if (isSlider) node.classList.add('slider__slide');
+              existingGrid.appendChild(node);
+            });
+            this.removeAttribute('hidden');
+          }
         } else {
           this.innerHTML = '';
         }

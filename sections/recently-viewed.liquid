@@ -36,10 +36,8 @@
         </div>
       {%- endif -%}
 
-      <recently-viewed-products class="recently-viewed-products" data-section-id="{{ section.id }}" data-limit="{{ section.settings.products_to_show }}" {% if request.page_type != 'search' %}hidden{% endif %}>
-        {%- if request.page_type == 'search' -%}
-          {% render 'product-slider', products: search.results, limit: section.settings.products_to_show %}
-        {%- endif -%}
+      <recently-viewed-products class="recently-viewed-products" data-section-id="{{ section.id }}" data-limit="{{ section.settings.products_to_show }}">
+        {% render 'product-slider', products: search.results, limit: section.settings.products_to_show %}
       </recently-viewed-products>
     </div>
   </div>

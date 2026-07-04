@@ -1,4 +1,16 @@
 {% layout none %}
 {% paginate search.results by 50 %}
-  {% render 'product-slider', products: search.results, limit: 50 %}
+  <div class="grid product-grid">
+    {% for product in search.results %}
+      <li class="grid__item" data-handle="{{ product.handle }}">
+        {% render 'card-product',
+          card_product: product,
+          media_aspect_ratio: settings.cards_image_ratio,
+          show_secondary_image: true,
+          show_vendor: settings.cards_show_vendor,
+          show_rating: settings.cards_show_rating
+        %}
+      </li>
+    {% endfor %}
+  </div>
 {% endpaginate %}

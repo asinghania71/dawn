@@ -35,10 +35,9 @@
         </h1>
       </div>
 
-      <wishlist-products class="wishlist-products" data-section-id="{{ section.id }}" {% if request.page_type != 'search' %}hidden{% endif %}>
-        {%- if request.page_type == 'search' -%}
-          {% render 'product-slider', products: search.results, limit: 50 %}
-        {%- endif -%}
+      <wishlist-products class="wishlist-products" data-section-id="{{ section.id }}">
+        <ul class="grid product-grid grid--{{ settings.cards_columns_mobile }}-col-tablet-down grid--{{ settings.cards_columns_desktop }}-col-desktop">
+        </ul>
       </wishlist-products>
     </div>
   </div>

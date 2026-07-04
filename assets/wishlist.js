@@ -17,9 +17,9 @@ if (!customElements.get('wishlist-button')) {
       const inWishlist = wishlist.includes(this.productHandle);
       this.btn.setAttribute('aria-pressed', inWishlist.toString());
       if (inWishlist) {
-        this.btn.classList.add('wishlist-active');
+        this.classList.add('wishlist-button--active');
       } else {
-        this.btn.classList.remove('wishlist-active');
+        this.classList.remove('wishlist-button--active');
       }
     }
 
@@ -83,15 +83,13 @@ if (!customElements.get('wishlist-products')) {
             if (matchedNode) sortedNodes.push(matchedNode);
           });
 
-          // 5. Clear and inject
-          productGrid.innerHTML = '';
-          sortedNodes.forEach(node => productGrid.appendChild(node));
-
-          this.innerHTML = '';
-          // Extract the full slider component if it exists
-          const sliderComponent = html.querySelector('slider-component') || productGrid;
-          this.appendChild(sliderComponent);
-          this.removeAttribute('hidden');
+          // 5. Clear and inject into existing grid
+          const existingGrid = this.querySelector('.grid');
+          if (existingGrid) {
+            existingGrid.innerHTML = '';
+            sortedNodes.forEach(node => existingGrid.appendChild(node));
+            this.removeAttribute('hidden');
+          }
         } else {
           this.innerHTML = '<p class="center" style="margin: 3rem 0;">No active products found in your wishlist.</p>';
           this.removeAttribute('hidden');

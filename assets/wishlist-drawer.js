@@ -30,18 +30,22 @@ class WishlistDrawer extends HTMLElement {
     const contentContainer = this.querySelector('#WishlistDrawer-Content');
     const wishlist = JSON.parse(localStorage.getItem('dawn_wishlist') || '[]');
     
+    const existingGrid = contentContainer.querySelector('.grid');
+    
     if (wishlist.length === 0) {
-      contentContainer.innerHTML = '<p class="center" style="margin-top: 3rem;">Your wishlist is empty. Add some items you love!</p>';
+      if (existingGrid) existingGrid.innerHTML = '<p class="center" style="grid-column: 1 / -1; margin-top: 3rem;">Your wishlist is empty. Add some items you love!</p>';
       return;
     }
 
-    contentContainer.innerHTML = `
-      <div class="wishlist-drawer__loading">
-        <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-          <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
-        </svg>
-      </div>
-    `;
+    if (existingGrid) {
+      existingGrid.innerHTML = `
+        <div class="wishlist-drawer__loading" style="grid-column: 1 / -1; display: flex; justify-content: center; margin-top: 3rem;">
+          <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="width: 3.2rem; height: 3.2rem;">
+            <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+          </svg>
+        </div>
+      `;
+    }
 
     // 1. Build batched handle query
     const queryToFetch = wishlist.slice(0, 50); // limit to 50
@@ -69,21 +73,19 @@ class WishlistDrawer extends HTMLElement {
           if (matchedNode) sortedNodes.push(matchedNode);
         });
 
-        // 5. Clear and inject
-        contentContainer.innerHTML = '';
-        
-        // We inject the grid directly into the drawer content
-        const newGrid = document.createElement('div');
-        newGrid.className = productGrid.className;
-        sortedNodes.forEach(node => newGrid.appendChild(node));
-        contentContainer.appendChild(newGrid);
+        // 5. Clear and inject into existing grid
+        if (existingGrid) {
+          existingGrid.innerHTML = '';
+          sortedNodes.forEach(node => existingGrid.appendChild(node));
+        }
         
       } else {
-        contentContainer.innerHTML = '<p class="center" style="margin-top: 3rem;">No active products found in your wishlist.</p>';
+        if (existingGrid) existingGrid.innerHTML = '<p class="center" style="grid-column: 1 / -1; margin-top: 3rem;">No active products found in your wishlist.</p>';
       }
     } catch (e) {
       console.error('Error fetching wishlist for drawer:', e);
-      contentContainer.innerHTML = '<p class="center" style="margin-top: 3rem;">Error loading wishlist.</p>';
+      const existingGrid = contentContainer.querySelector('.grid');
+      if (existingGrid) existingGrid.innerHTML = '<p class="center" style="grid-column: 1 / -1; margin-top: 3rem;">Error loading wishlist.</p>';
     }
   }
 }

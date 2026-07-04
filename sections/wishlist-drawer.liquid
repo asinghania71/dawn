@@ -14,13 +14,9 @@
           </button>
         </div>
         <div class="drawer__body">
-          <div class="wishlist-drawer__content" id="WishlistDrawer-Content">
-            <!-- Dynamically populated by wishlist-drawer.js -->
-            <div class="wishlist-drawer__loading">
-              <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
-              </svg>
-            </div>
+          <div id="WishlistDrawer-Content" class="wishlist-drawer__content">
+            <ul class="grid product-grid grid--{{ settings.cards_columns_mobile }}-col-tablet-down grid--{{ settings.cards_columns_desktop }}-col-desktop">
+            </ul>
           </div>
         </div>
       </div>
