@@ -741,6 +741,9 @@
       {{ product | structured_data }}
     </script>
   </div>
+  {% if section.settings.enable_sticky_add_to_cart %}
+    {% render 'sticky-add-to-cart', product: product, section: section %}
+  {% endif %}
 </product-info>
 
 {% schema %}
@@ -2094,6 +2097,32 @@
     }
   ],
   "settings": [
+    {
+      "type": "header",
+      "content": "Sticky Add to Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_add_to_cart",
+      "default": true,
+      "label": "Enable sticky add to cart"
+    },
+    {
+      "type": "select",
+      "id": "sticky_add_to_cart_position",
+      "options": [
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        }
+      ],
+      "default": "bottom",
+      "label": "Position"
+    },
     {
       "type": "checkbox",
       "id": "enable_sticky_info",
