@@ -1,0 +1,59 @@
+.wishlist-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+}
+
+.wishlist-button__btn {
+  background: rgba(var(--color-background), 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 0.5rem rgba(var(--color-foreground), 0.1);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  color: rgb(var(--color-foreground));
+  padding: 0;
+}
+
+.wishlist-button__btn:hover {
+  transform: scale(1.1);
+}
+
+.wishlist-button__btn .icon-heart {
+  width: 2rem;
+  height: 2rem;
+  fill: currentColor;
+}
+
+.wishlist-button--active .wishlist-button__btn {
+  color: #ff4d4f; /* Vibrant red for wishlisted state */
+}
+
+.wishlist-button--active .wishlist-icon--empty {
+  display: none;
+}
+
+.wishlist-button--active .wishlist-icon--solid {
+  display: block !important;
+}
+
+/* Adjust layout when placed in the product page info section */
+.product__info-container .wishlist-button {
+  position: relative;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  margin-left: 1rem;
+  vertical-align: middle;
+}
+
+.product__title {
+  display: flex;
+  align-items: center;
+}

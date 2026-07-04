@@ -1,0 +1,13 @@
+{{ 'wishlist.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
+
+<wishlist-button class="wishlist-button" data-product-id="{{ product_id }}">
+  <button type="button" class="wishlist-button__btn" aria-label="Add to wishlist" aria-pressed="false">
+    <span class="wishlist-icon--empty">
+      {{ 'icon-heart.svg' | inline_asset_content }}
+    </span>
+    <span class="wishlist-icon--solid" hidden>
+      <svg viewBox="0 0 20 20" class="icon icon-heart" aria-hidden="true" focusable="false"><path fill="currentColor" d="M10 17.5l-1.05-1.01C4.4 12.63 1.5 9.8 1.5 6.3 1.5 3.39 3.65 1 6.5 1c1.62 0 3.17.84 4 2.12C11.33 1.84 12.88 1 14.5 1 17.35 1 19.5 3.39 19.5 6.3c0 3.5-2.9 6.33-7.45 10.19L10 17.5z"/></svg>
+    </span>
+  </button>
+</wishlist-button>
