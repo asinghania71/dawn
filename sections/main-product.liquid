@@ -9,6 +9,8 @@
     data-zoom-on-hover
   {% endif %}
 >
+  <script src="{{ 'recently-viewed.js' | asset_url }}" defer="defer"></script>
+  <product-tracker data-product-id="{{ product.id }}"></product-tracker>
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
