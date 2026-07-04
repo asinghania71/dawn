@@ -278,6 +278,22 @@
         {%- endcase -%}
       {%- endfor -%}
 
+      {%- if settings.enable_wishlist -%}
+        {%- if settings.wishlist_type == 'page' -%}
+          <a href="/pages/wishlist" class="header__icon header__icon--wishlist link focus-inset">
+            <span class="svg-wrapper">
+              {% render 'icon-heart' %}
+            </span>
+          </a>
+        {%- else -%}
+          <wishlist-drawer-opener class="header__icon header__icon--wishlist link focus-inset" role="button" tabindex="0">
+            <span class="svg-wrapper">
+              {% render 'icon-heart' %}
+            </span>
+          </wishlist-drawer-opener>
+        {%- endif -%}
+      {%- endif -%}
+
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
           {% if cart == empty %}
             <span class="svg-wrapper">{{'icon-cart-empty.svg' | inline_asset_content }}</span>

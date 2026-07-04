@@ -1,7 +1,7 @@
 {{ 'wishlist.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
 
-<wishlist-button class="wishlist-button" data-product-id="{{ product_id }}">
+<wishlist-button class="wishlist-button" data-product-handle="{{ product_handle }}">
   <button type="button" class="wishlist-button__btn" aria-label="Add to wishlist" aria-pressed="false">
     <span class="wishlist-icon--empty">
       {{ 'icon-heart.svg' | inline_asset_content }}

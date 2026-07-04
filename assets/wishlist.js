@@ -2,47 +2,39 @@ if (!customElements.get('wishlist-button')) {
   class WishlistButton extends HTMLElement {
     constructor() {
       super();
-      this.productId = this.dataset.productId;
-      this.button = this.querySelector('button');
-      
-      if (this.button) {
-        this.button.addEventListener('click', this.toggleWishlist.bind(this));
-      }
+      this.btn = this.querySelector('button');
+      this.productHandle = this.dataset.productHandle;
+
+      if (!this.productHandle) return;
+
+      this.checkStatus();
+      this.btn.addEventListener('click', this.toggleWishlist.bind(this));
+      window.addEventListener('wishlist:updated', this.checkStatus.bind(this));
     }
-  
-    connectedCallback() {
-      this.updateState();
-      window.addEventListener('wishlist:updated', this.updateState.bind(this));
-    }
-  
-    getWishlist() {
-      return JSON.parse(localStorage.getItem('dawn_wishlist') || '[]');
-    }
-  
-    toggleWishlist(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      let wishlist = this.getWishlist();
-      if (wishlist.includes(this.productId)) {
-        wishlist = wishlist.filter(id => id !== this.productId);
+
+    checkStatus() {
+      const wishlist = JSON.parse(localStorage.getItem('dawn_wishlist') || '[]');
+      const inWishlist = wishlist.includes(this.productHandle);
+      this.btn.setAttribute('aria-pressed', inWishlist.toString());
+      if (inWishlist) {
+        this.btn.classList.add('wishlist-active');
       } else {
-        wishlist.push(this.productId);
+        this.btn.classList.remove('wishlist-active');
       }
-      
+    }
+
+    toggleWishlist() {
+      let wishlist = JSON.parse(localStorage.getItem('dawn_wishlist') || '[]');
+      const index = wishlist.indexOf(this.productHandle);
+
+      if (index === -1) {
+        wishlist.unshift(this.productHandle);
+      } else {
+        wishlist.splice(index, 1);
+      }
+
       localStorage.setItem('dawn_wishlist', JSON.stringify(wishlist));
       window.dispatchEvent(new Event('wishlist:updated'));
-    }
-  
-    updateState() {
-      const wishlist = this.getWishlist();
-      if (wishlist.includes(this.productId)) {
-        this.classList.add('wishlist-button--active');
-        if (this.button) this.button.setAttribute('aria-pressed', 'true');
-      } else {
-        this.classList.remove('wishlist-button--active');
-        if (this.button) this.button.setAttribute('aria-pressed', 'false');
-      }
     }
   }
   customElements.define('wishlist-button', WishlistButton);
@@ -50,54 +42,64 @@ if (!customElements.get('wishlist-button')) {
 
 if (!customElements.get('wishlist-products')) {
   class WishlistProducts extends HTMLElement {
-    async connectedCallback() {
-      const sectionId = this.dataset.sectionId;
-      if (!sectionId) return;
-  
-      let wishlist = JSON.parse(localStorage.getItem('dawn_wishlist') || '[]');
-      
-      if (wishlist.length === 0) {
-        this.style.display = 'block';
-        this.innerHTML = '<p class="center">Your wishlist is empty. Browse our products and add them to your wishlist!</p>';
-        return;
-      }
-  
-      const query = wishlist.map(id => `id:${id}`).join(' OR ');
-      const searchUrl = `${window.routes ? window.routes.search_url : '/search'}?q=${query}&type=product&section_id=${sectionId}`;
-  
+    constructor() {
+      super();
+      this.init();
+      window.addEventListener('wishlist:updated', this.init.bind(this));
+    }
+
+    async init() {
       try {
+        const wishlist = JSON.parse(localStorage.getItem('dawn_wishlist') || '[]');
+        
+        if (wishlist.length === 0) {
+          this.innerHTML = '<p class="center" style="margin: 3rem 0;">Your wishlist is empty.</p>';
+          this.removeAttribute('hidden');
+          return;
+        }
+
+        // 1. Build batched handle query
+        const queryToFetch = wishlist.slice(0, 50); // limit to 50 for search bounds
+        const query = encodeURIComponent(queryToFetch.map(handle => `handle:${handle}`).join(' OR '));
+        
+        // 2. Fetch headless search template
+        const searchUrl = `${(window.routes && window.routes.search_url) || '/search'}?q=${query}&type=product&view=recently-viewed`;
+
         const response = await fetch(searchUrl);
         const text = await response.text();
         const html = document.createElement('div');
         html.innerHTML = text;
-  
-        const newContent = html.querySelector('wishlist-products');
-        if (newContent && newContent.innerHTML.trim().length > 0) {
-          this.innerHTML = newContent.innerHTML;
+
+        // 3. Extract the product grid list
+        const productGrid = html.querySelector('.grid.product-grid');
+        
+        if (productGrid && productGrid.children.length > 0) {
+          // 4. Sort nodes to match the exact chronological sequence in our array
+          const sortedNodes = [];
+          queryToFetch.forEach(handle => {
+            const matchedNode = Array.from(productGrid.children).find(
+              node => node.getAttribute('data-handle') === handle
+            );
+            if (matchedNode) sortedNodes.push(matchedNode);
+          });
+
+          // 5. Clear and inject
+          productGrid.innerHTML = '';
+          sortedNodes.forEach(node => productGrid.appendChild(node));
+
+          this.innerHTML = '';
+          // Extract the full slider component if it exists
+          const sliderComponent = html.querySelector('slider-component') || productGrid;
+          this.appendChild(sliderComponent);
           this.removeAttribute('hidden');
         } else {
-          this.innerHTML = '<p class="center">No products found in your wishlist.</p>';
+          this.innerHTML = '<p class="center" style="margin: 3rem 0;">No active products found in your wishlist.</p>';
+          this.removeAttribute('hidden');
         }
       } catch (e) {
-        console.error('Error fetching wishlist products:', e);
-        this.innerHTML = '<p class="center">An error occurred while loading your wishlist.</p>';
-      }
-      
-      window.addEventListener('wishlist:updated', this.handleUpdate.bind(this));
-    }
-    
-    handleUpdate() {
-      let wishlist = JSON.parse(localStorage.getItem('dawn_wishlist') || '[]');
-      if (wishlist.length === 0) {
-        this.innerHTML = '<p class="center">Your wishlist is empty. Browse our products and add them to your wishlist!</p>';
-      } else {
-        const items = this.querySelectorAll('.grid__item');
-        items.forEach(item => {
-          const btn = item.querySelector('wishlist-button');
-          if (btn && !wishlist.includes(btn.dataset.productId)) {
-             item.remove();
-          }
-        });
+        console.error('Failed to load wishlist products', e);
+        this.innerHTML = '<p class="center" style="margin: 3rem 0;">Failed to load wishlist.</p>';
+        this.removeAttribute('hidden');
       }
     }
   }

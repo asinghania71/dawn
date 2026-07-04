@@ -1451,5 +1451,36 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "Wishlist",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_wishlist",
+        "label": "Enable Wishlist feature",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "wishlist_type",
+        "label": "Wishlist display type",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "modal",
+            "label": "Modal Popup"
+          },
+          {
+            "value": "page",
+            "label": "Standalone Page"
+          }
+        ],
+        "default": "drawer"
+      }
+    ]
   }
 ]

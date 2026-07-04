@@ -10,7 +10,7 @@
   {% endif %}
 >
   <script src="{{ 'recently-viewed.js' | asset_url }}" defer="defer"></script>
-  <product-tracker data-product-id="{{ product.id }}"></product-tracker>
+  <product-tracker data-product-handle="{{ product.handle }}"></product-tracker>
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
@@ -106,7 +106,9 @@
                       {{ product.title | escape }}
                     </h2>
                   </a>
-                  {% render 'wishlist-button', product_id: product.id %}
+                  {% if settings.enable_wishlist %}
+                    {% render 'wishlist-button', product_handle: product.handle %}
+                  {% endif %}
                 </div>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>

@@ -1,16 +1,16 @@
 if (!customElements.get('product-tracker')) {
   class ProductTracker extends HTMLElement {
     connectedCallback() {
-      const productId = this.dataset.productId;
-      if (!productId) return;
+      const productHandle = this.dataset.productHandle;
+      if (!productHandle) return;
   
       let recentlyViewed = JSON.parse(localStorage.getItem('dawn_recently_viewed') || '[]');
       
       // Remove if already exists to move it to the front
-      recentlyViewed = recentlyViewed.filter(id => id !== productId);
+      recentlyViewed = recentlyViewed.filter(handle => handle !== productHandle);
       
       // Add to front
-      recentlyViewed.unshift(productId);
+      recentlyViewed.unshift(productHandle);
       
       // Keep only the last 10
       if (recentlyViewed.length > 10) {
@@ -25,45 +25,61 @@ if (!customElements.get('product-tracker')) {
 
 if (!customElements.get('recently-viewed-products')) {
   class RecentlyViewedProducts extends HTMLElement {
-    async connectedCallback() {
-      const sectionId = this.dataset.sectionId;
-      if (!sectionId) return;
-  
-      let recentlyViewed = JSON.parse(localStorage.getItem('dawn_recently_viewed') || '[]');
-      
-      // Don't show current product in recently viewed
-      const currentProductId = document.querySelector('product-tracker')?.dataset.productId;
-      if (currentProductId) {
-        recentlyViewed = recentlyViewed.filter(id => id !== currentProductId);
-      }
-      
-      const limit = parseInt(this.dataset.limit) || 4;
-      recentlyViewed = recentlyViewed.slice(0, limit);
-  
-      if (recentlyViewed.length === 0) {
-        this.style.display = 'none';
-        return;
-      }
-  
-      const query = recentlyViewed.map(id => `id:${id}`).join(' OR ');
-      const searchUrl = `${window.routes ? window.routes.search_url : '/search'}?q=${query}&type=product&section_id=${sectionId}`;
-  
+    constructor() {
+      super();
+      this.limit = parseInt(this.dataset.limit) || 4;
+      this.init();
+    }
+
+    async init() {
       try {
+        const recentlyViewed = JSON.parse(localStorage.getItem('dawn_recently_viewed') || '[]');
+        
+        if (recentlyViewed.length === 0) {
+          this.innerHTML = '';
+          return;
+        }
+
+        // 1. Build batched handle query
+        const queryToFetch = recentlyViewed.slice(0, this.limit);
+        const query = encodeURIComponent(queryToFetch.map(handle => `handle:${handle}`).join(' OR '));
+        
+        // 2. Fetch headless search template
+        const searchUrl = `${(window.routes && window.routes.search_url) || '/search'}?q=${query}&type=product&view=recently-viewed`;
+
         const response = await fetch(searchUrl);
         const text = await response.text();
         const html = document.createElement('div');
         html.innerHTML = text;
-  
-        const newContent = html.querySelector('recently-viewed-products');
-        if (newContent && newContent.innerHTML.trim().length > 0) {
-          this.innerHTML = newContent.innerHTML;
+
+        // 3. Extract the product grid list
+        const productGrid = html.querySelector('.grid.product-grid');
+        
+        if (productGrid && productGrid.children.length > 0) {
+          // 4. Sort nodes to match the exact chronological sequence in our array
+          const sortedNodes = [];
+          queryToFetch.forEach(handle => {
+            const matchedNode = Array.from(productGrid.children).find(
+              node => node.getAttribute('data-handle') === handle
+            );
+            if (matchedNode) sortedNodes.push(matchedNode);
+          });
+
+          // 5. Clear and inject
+          productGrid.innerHTML = '';
+          sortedNodes.forEach(node => productGrid.appendChild(node));
+
+          this.innerHTML = '';
+          // Extract the full slider component if it exists
+          const sliderComponent = html.querySelector('slider-component') || productGrid;
+          this.appendChild(sliderComponent);
           this.removeAttribute('hidden');
         } else {
-          this.style.display = 'none';
+          this.innerHTML = '';
         }
       } catch (e) {
-        console.error('Error fetching recently viewed products:', e);
-        this.style.display = 'none';
+        console.error('Failed to load recently viewed products', e);
+        this.innerHTML = '';
       }
     }
   }

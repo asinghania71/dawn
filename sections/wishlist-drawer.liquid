@@ -1,0 +1,36 @@
+{%- if settings.enable_wishlist and settings.wishlist_type != 'page' -%}
+  {{ 'wishlist-drawer.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'wishlist-drawer.js' | asset_url }}" defer="defer"></script>
+
+  <wishlist-drawer class="drawer{% if settings.wishlist_type == 'modal' %} wishlist-modal{% endif %}">
+    <div id="WishlistDrawer" class="drawer__inner{% if settings.wishlist_type == 'modal' %} wishlist-modal__inner{% endif %}">
+      <div class="drawer__inner-empty">
+        <div class="drawer__header">
+          <h2 class="drawer__heading">Your Wishlist</h2>
+          <button class="drawer__close" type="button" onclick="this.closest('wishlist-drawer').close()" aria-label="{{ 'accessibility.close' | t }}">
+            <span class="svg-wrapper">
+              {{- 'icon-close.svg' | inline_asset_content -}}
+            </span>
+          </button>
+        </div>
+        <div class="drawer__body">
+          <div class="wishlist-drawer__content" id="WishlistDrawer-Content">
+            <!-- Dynamically populated by wishlist-drawer.js -->
+            <div class="wishlist-drawer__loading">
+              <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </wishlist-drawer>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Wishlist Drawer",
+  "limit": 1
+}
+{% endschema %}

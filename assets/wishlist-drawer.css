@@ -1,0 +1,87 @@
+/* Wishlist Drawer & Modal Styles */
+
+wishlist-drawer {
+  display: block;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(var(--color-foreground), 0.5);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--duration-default) ease, visibility var(--duration-default) ease;
+}
+
+wishlist-drawer.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.drawer__inner {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  max-width: 40rem;
+  height: 100%;
+  background-color: rgb(var(--color-background));
+  transform: translateX(100%);
+  transition: transform var(--duration-default) ease;
+  display: flex;
+  flex-direction: column;
+}
+
+wishlist-drawer.active .drawer__inner {
+  transform: translateX(0);
+}
+
+/* Modal Variant Overrides */
+wishlist-drawer.wishlist-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+wishlist-drawer.wishlist-modal .wishlist-modal__inner {
+  position: relative;
+  right: auto;
+  top: auto;
+  max-width: 80rem;
+  width: 90%;
+  height: auto;
+  max-height: 80vh;
+  transform: translateY(50px);
+  border-radius: var(--popup-corner-radius);
+  box-shadow: var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset) var(--popup-shadow-blur-radius) rgba(var(--color-shadow), var(--popup-shadow-opacity));
+}
+
+wishlist-drawer.active .wishlist-modal__inner {
+  transform: translateY(0);
+}
+
+.wishlist-drawer__content {
+  padding: 2rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.wishlist-drawer__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+}
+
+.wishlist-drawer__content .grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media screen and (min-width: 750px) {
+  wishlist-drawer.wishlist-modal .wishlist-drawer__content .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
