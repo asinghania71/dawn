@@ -54,6 +54,7 @@
           "settings": {
             "text": "Home",
             "url": "/",
+            "action_type": "link",
             "icon": "home"
           }
         },
@@ -62,6 +63,7 @@
           "settings": {
             "text": "Search",
             "url": "/search",
+            "action_type": "search",
             "icon": "search"
           }
         },
@@ -70,7 +72,8 @@
           "settings": {
             "text": "Shop",
             "url": "shopify:\/\/collections\/all",
-            "icon": "shop"
+            "action_type": "link",
+            "icon": "box"
           }
         },
         "nav_4": {
@@ -78,6 +81,7 @@
           "settings": {
             "text": "Saved",
             "url": "/search?view=wishlist",
+            "action_type": "wishlist",
             "icon": "heart"
           }
         },
@@ -86,6 +90,7 @@
           "settings": {
             "text": "Bag",
             "url": "/cart",
+            "action_type": "cart",
             "icon": "cart"
           }
         }

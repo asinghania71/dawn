@@ -32,9 +32,17 @@
   border-radius: 0.8rem;
 }
 
-.sticky-bottom-nav__item svg {
+.sticky-bottom-nav__icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 2.4rem;
   height: 2.4rem;
+}
+
+.sticky-bottom-nav__item svg {
+  width: 100%;
+  height: 100%;
   fill: none;
 }
 

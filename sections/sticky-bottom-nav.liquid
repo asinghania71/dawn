@@ -3,39 +3,51 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('has-sticky-bottom-nav');
+    
+    // Highlight Active Link
+    const currentPath = window.location.pathname + window.location.search;
+    const navItems = document.querySelectorAll('.sticky-bottom-nav__item');
+    navItems.forEach(item => {
+      const href = item.getAttribute('href');
+      // Exact match for SPA accuracy
+      if (href === currentPath) {
+        item.classList.add('is-active');
+      }
+    });
+
+    // SPA Behaviors
+    navItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        const actionType = item.dataset.action;
+        if (actionType === 'cart') {
+          e.preventDefault();
+          const cartIcon = document.getElementById('cart-icon-bubble');
+          if (cartIcon) cartIcon.click();
+        } else if (actionType === 'search') {
+          e.preventDefault();
+          const searchIcon = document.querySelector('details-modal.header__search summary');
+          if (searchIcon) searchIcon.click();
+        } else if (actionType === 'wishlist') {
+          e.preventDefault();
+          window.dispatchEvent(new Event('wishlist:open'));
+        }
+      });
+    });
   });
 </script>
 
 <nav class="sticky-bottom-nav sticky-bottom-nav--{{ section.settings.design_style }} color-{{ section.settings.color_scheme }} gradient">
   {%- for block in section.blocks -%}
-    {%- liquid
-      assign is_active = false
-      if request.path == block.settings.url
-        assign is_active = true
-      elsif request.path == '/search' and request.path == block.settings.url.path
-        assign is_active = true
-      endif
-    -%}
-    <a href="{{ block.settings.url | default: '#' }}" class="sticky-bottom-nav__item{% if is_active %} is-active{% endif %}" {{ block.shopify_attributes }}>
+    <a href="{{ block.settings.url | default: '#' }}" class="sticky-bottom-nav__item" data-action="{{ block.settings.action_type }}" {{ block.shopify_attributes }}>
       {%- if block.settings.custom_icon != blank -%}
-        <div style="width: 2.4rem; height: 2.4rem; display: flex; align-items: center; justify-content: center;">
+        <div class="sticky-bottom-nav__icon-wrapper">
           {{ block.settings.custom_icon | image_url: width: 48 | image_tag: style: 'max-width: 100%; height: auto; object-fit: contain;' }}
         </div>
       {%- else -%}
-        {%- case block.settings.icon -%}
-          {%- when 'home' -%}
-            {{- 'icon-home.svg' | inline_asset_content -}}
-          {%- when 'search' -%}
-            {{- 'icon-search.svg' | inline_asset_content -}}
-          {%- when 'cart' -%}
-            {{- 'icon-cart.svg' | inline_asset_content -}}
-          {%- when 'account' -%}
-            {{- 'icon-account.svg' | inline_asset_content -}}
-          {%- when 'heart' -%}
-            {{- 'icon-heart.svg' | inline_asset_content -}}
-          {%- when 'shop' -%}
-            {{- 'icon-box.svg' | inline_asset_content -}}
-        {%- endcase -%}
+        <div class="sticky-bottom-nav__icon-wrapper">
+          {%- capture svg_filename -%}icon-{{ block.settings.icon }}.svg{%- endcapture -%}
+          {{- svg_filename | inline_asset_content -}}
+        </div>
       {%- endif -%}
       <span class="sticky-bottom-nav__text">{{ block.settings.text }}</span>
     </a>
@@ -52,18 +64,9 @@
       "id": "design_style",
       "label": "Design Style",
       "options": [
-        {
-          "value": "classic",
-          "label": "Classic (Icon + Text)"
-        },
-        {
-          "value": "icon_only",
-          "label": "Icon Only"
-        },
-        {
-          "value": "pill",
-          "label": "Modern Pill (Highlighted Active)"
-        }
+        { "value": "classic", "label": "Classic (Icon + Text)" },
+        { "value": "icon_only", "label": "Icon Only" },
+        { "value": "pill", "label": "Modern Pill (Highlighted Active)" }
       ],
       "default": "classic"
     },
@@ -93,15 +96,104 @@
         },
         {
           "type": "select",
-          "id": "icon",
-          "label": "Default Icon",
+          "id": "action_type",
+          "label": "Click Action (SPA)",
           "options": [
+            { "value": "link", "label": "Navigate to Link" },
+            { "value": "cart", "label": "Open Cart Drawer" },
+            { "value": "search", "label": "Open Search Modal" },
+            { "value": "wishlist", "label": "Open Wishlist Modal" }
+          ],
+          "default": "link"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Theme SVG Icon",
+          "options": [
+            { "value": "3d-model", "label": "3D Model" },
+            { "value": "account", "label": "Account" },
+            { "value": "apple", "label": "Apple" },
+            { "value": "arrow", "label": "Arrow" },
+            { "value": "banana", "label": "Banana" },
+            { "value": "bottle", "label": "Bottle" },
+            { "value": "box", "label": "Box" },
+            { "value": "caret", "label": "Caret" },
+            { "value": "carrot", "label": "Carrot" },
+            { "value": "cart-empty", "label": "Cart Empty" },
+            { "value": "cart", "label": "Cart" },
+            { "value": "chat-bubble", "label": "Chat Bubble" },
+            { "value": "check-mark", "label": "Check Mark" },
+            { "value": "checkmark", "label": "Checkmark" },
+            { "value": "clipboard", "label": "Clipboard" },
+            { "value": "close-small", "label": "Close Small" },
+            { "value": "close", "label": "Close" },
+            { "value": "copy", "label": "Copy" },
+            { "value": "dairy-free", "label": "Dairy Free" },
+            { "value": "dairy", "label": "Dairy" },
+            { "value": "discount", "label": "Discount" },
+            { "value": "dryer", "label": "Dryer" },
+            { "value": "error", "label": "Error" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "facebook", "label": "Facebook" },
+            { "value": "filter", "label": "Filter" },
+            { "value": "fire", "label": "Fire" },
+            { "value": "gluten-free", "label": "Gluten Free" },
+            { "value": "hamburger", "label": "Hamburger" },
+            { "value": "heart", "label": "Heart" },
             { "value": "home", "label": "Home" },
+            { "value": "info", "label": "Info" },
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "inventory-status", "label": "Inventory Status" },
+            { "value": "iron", "label": "Iron" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "leather", "label": "Leather" },
+            { "value": "lightning-bolt", "label": "Lightning Bolt" },
+            { "value": "lipstick", "label": "Lipstick" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "map-pin", "label": "Map Pin" },
+            { "value": "minus", "label": "Minus" },
+            { "value": "nut-free", "label": "Nut Free" },
+            { "value": "padlock", "label": "Padlock" },
+            { "value": "pants", "label": "Pants" },
+            { "value": "pause", "label": "Pause" },
+            { "value": "paw-print", "label": "Paw Print" },
+            { "value": "pepper", "label": "Pepper" },
+            { "value": "perfume", "label": "Perfume" },
+            { "value": "pinterest", "label": "Pinterest" },
+            { "value": "plane", "label": "Plane" },
+            { "value": "plant", "label": "Plant" },
+            { "value": "play", "label": "Play" },
+            { "value": "plus", "label": "Plus" },
+            { "value": "price-tag", "label": "Price Tag" },
+            { "value": "question-mark", "label": "Question Mark" },
+            { "value": "recycle", "label": "Recycle" },
+            { "value": "remove", "label": "Remove" },
+            { "value": "reset", "label": "Reset" },
+            { "value": "return", "label": "Return" },
+            { "value": "ruler", "label": "Ruler" },
             { "value": "search", "label": "Search" },
-            { "value": "shop", "label": "Shop / Box" },
-            { "value": "heart", "label": "Heart / Saved" },
-            { "value": "cart", "label": "Cart / Bag" },
-            { "value": "account", "label": "Account / User" }
+            { "value": "serving-dish", "label": "Serving Dish" },
+            { "value": "share", "label": "Share" },
+            { "value": "shirt", "label": "Shirt" },
+            { "value": "shoe", "label": "Shoe" },
+            { "value": "shopify", "label": "Shopify" },
+            { "value": "silhouette", "label": "Silhouette" },
+            { "value": "snapchat", "label": "Snapchat" },
+            { "value": "snowflake", "label": "Snowflake" },
+            { "value": "star", "label": "Star" },
+            { "value": "stopwatch", "label": "Stopwatch" },
+            { "value": "success", "label": "Success" },
+            { "value": "tick", "label": "Tick" },
+            { "value": "tiktok", "label": "Tiktok" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "tumblr", "label": "Tumblr" },
+            { "value": "twitter", "label": "Twitter" },
+            { "value": "unavailable", "label": "Unavailable" },
+            { "value": "vimeo", "label": "Vimeo" },
+            { "value": "washing", "label": "Washing" },
+            { "value": "youtube", "label": "Youtube" },
+            { "value": "zoom", "label": "Zoom" }
           ],
           "default": "home"
         },
@@ -123,6 +215,7 @@
           "settings": {
             "text": "Home",
             "url": "/",
+            "action_type": "link",
             "icon": "home"
           }
         },
@@ -131,6 +224,7 @@
           "settings": {
             "text": "Search",
             "url": "/search",
+            "action_type": "search",
             "icon": "search"
           }
         },
@@ -138,8 +232,9 @@
           "type": "link",
           "settings": {
             "text": "Shop",
-            "url": "/collections/all",
-            "icon": "shop"
+            "url": "shopify:\/\/collections\/all",
+            "action_type": "link",
+            "icon": "box"
           }
         },
         {
@@ -147,6 +242,7 @@
           "settings": {
             "text": "Saved",
             "url": "/search?view=wishlist",
+            "action_type": "wishlist",
             "icon": "heart"
           }
         },
@@ -155,6 +251,7 @@
           "settings": {
             "text": "Bag",
             "url": "/cart",
+            "action_type": "cart",
             "icon": "cart"
           }
         }
