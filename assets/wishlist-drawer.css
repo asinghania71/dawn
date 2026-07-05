@@ -86,7 +86,8 @@ wishlist-drawer.active .wishlist-modal__inner {
 
 @media screen and (min-width: 750px) {
   wishlist-drawer.wishlist-modal .wishlist-modal__inner {
-    width: 100%;
+    width: 70%;
+    height: 80%;
   }
   wishlist-drawer.wishlist-modal .wishlist-drawer__content .grid {
     grid-template-columns: repeat(4, 1fr);

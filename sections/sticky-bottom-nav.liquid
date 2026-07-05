@@ -1,0 +1,165 @@
+{{ 'component-sticky-bottom-nav.css' | asset_url | stylesheet_tag }}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('has-sticky-bottom-nav');
+  });
+</script>
+
+<nav class="sticky-bottom-nav sticky-bottom-nav--{{ section.settings.design_style }} color-{{ section.settings.color_scheme }} gradient">
+  {%- for block in section.blocks -%}
+    {%- liquid
+      assign is_active = false
+      if request.path == block.settings.url
+        assign is_active = true
+      elsif request.path == '/search' and request.path == block.settings.url.path
+        assign is_active = true
+      endif
+    -%}
+    <a href="{{ block.settings.url | default: '#' }}" class="sticky-bottom-nav__item{% if is_active %} is-active{% endif %}" {{ block.shopify_attributes }}>
+      {%- if block.settings.custom_icon != blank -%}
+        <div style="width: 2.4rem; height: 2.4rem; display: flex; align-items: center; justify-content: center;">
+          {{ block.settings.custom_icon | image_url: width: 48 | image_tag: style: 'max-width: 100%; height: auto; object-fit: contain;' }}
+        </div>
+      {%- else -%}
+        {%- case block.settings.icon -%}
+          {%- when 'home' -%}
+            {{- 'icon-home.svg' | inline_asset_content -}}
+          {%- when 'search' -%}
+            {{- 'icon-search.svg' | inline_asset_content -}}
+          {%- when 'cart' -%}
+            {{- 'icon-cart.svg' | inline_asset_content -}}
+          {%- when 'account' -%}
+            {{- 'icon-account.svg' | inline_asset_content -}}
+          {%- when 'heart' -%}
+            {{- 'icon-heart.svg' | inline_asset_content -}}
+          {%- when 'shop' -%}
+            {{- 'icon-box.svg' | inline_asset_content -}}
+        {%- endcase -%}
+      {%- endif -%}
+      <span class="sticky-bottom-nav__text">{{ block.settings.text }}</span>
+    </a>
+  {%- endfor -%}
+</nav>
+
+{% schema %}
+{
+  "name": "Sticky Bottom Nav",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "select",
+      "id": "design_style",
+      "label": "Design Style",
+      "options": [
+        {
+          "value": "classic",
+          "label": "Classic (Icon + Text)"
+        },
+        {
+          "value": "icon_only",
+          "label": "Icon Only"
+        },
+        {
+          "value": "pill",
+          "label": "Modern Pill (Highlighted Active)"
+        }
+      ],
+      "default": "classic"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Navigation Link",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Label",
+          "default": "Link"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Default Icon",
+          "options": [
+            { "value": "home", "label": "Home" },
+            { "value": "search", "label": "Search" },
+            { "value": "shop", "label": "Shop / Box" },
+            { "value": "heart", "label": "Heart / Saved" },
+            { "value": "cart", "label": "Cart / Bag" },
+            { "value": "account", "label": "Account / User" }
+          ],
+          "default": "home"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon Image",
+          "info": "Overrides the default icon. Recommended size: 48x48px."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sticky Bottom Nav",
+      "blocks": [
+        {
+          "type": "link",
+          "settings": {
+            "text": "Home",
+            "url": "/",
+            "icon": "home"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "text": "Search",
+            "url": "/search",
+            "icon": "search"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "text": "Shop",
+            "url": "/collections/all",
+            "icon": "shop"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "text": "Saved",
+            "url": "/search?view=wishlist",
+            "icon": "heart"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "text": "Bag",
+            "url": "/cart",
+            "icon": "cart"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

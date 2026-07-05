@@ -45,9 +45,66 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "sticky-bottom-nav": {
+      "type": "sticky-bottom-nav",
+      "blocks": {
+        "nav_1": {
+          "type": "link",
+          "settings": {
+            "text": "Home",
+            "url": "/",
+            "icon": "home"
+          }
+        },
+        "nav_2": {
+          "type": "link",
+          "settings": {
+            "text": "Search",
+            "url": "/search",
+            "icon": "search"
+          }
+        },
+        "nav_3": {
+          "type": "link",
+          "settings": {
+            "text": "Shop",
+            "url": "shopify:\/\/collections\/all",
+            "icon": "shop"
+          }
+        },
+        "nav_4": {
+          "type": "link",
+          "settings": {
+            "text": "Saved",
+            "url": "/search?view=wishlist",
+            "icon": "heart"
+          }
+        },
+        "nav_5": {
+          "type": "link",
+          "settings": {
+            "text": "Bag",
+            "url": "/cart",
+            "icon": "cart"
+          }
+        }
+      },
+      "block_order": [
+        "nav_1",
+        "nav_2",
+        "nav_3",
+        "nav_4",
+        "nav_5"
+      ],
+      "settings": {
+        "design_style": "classic",
+        "color_scheme": "scheme-1"
+      }
     }
   },
   "order": [
-    "footer"
+    "footer",
+    "sticky-bottom-nav"
   ]
 }
