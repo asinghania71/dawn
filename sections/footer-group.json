@@ -106,10 +106,42 @@
         "design_style": "classic",
         "color_scheme": "scheme-1"
       }
+    },
+    "custom-badges-config": {
+      "type": "custom-badges-config",
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "trigger_tag": "badge:bestseller",
+            "display_text": "Best Seller",
+            "emoji": "🔥",
+            "color_scheme": "scheme-4"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "trigger_tag": "badge:new",
+            "display_text": "New Arrival",
+            "emoji": "✨",
+            "color_scheme": "scheme-5"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2"
+      ],
+      "settings": {
+        "position": "top-left",
+        "size": "medium"
+      }
     }
   },
   "order": [
     "footer",
-    "sticky-bottom-nav"
+    "sticky-bottom-nav",
+    "custom-badges-config"
   ]
 }

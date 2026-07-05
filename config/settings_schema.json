@@ -11,32 +11,51 @@
     "name": "Custom Badges",
     "settings": [
       {
-        "type": "checkbox",
-        "id": "enable_custom_ribbon",
-        "label": "Enable Custom Ribbon (Top Left)",
-        "info": "Displays a ribbon tag if product has a 'badge:' tag or custom.badge metafield.",
-        "default": true
-      },
-      {
-        "type": "color_scheme",
-        "id": "custom_ribbon_color_scheme",
-        "label": "Ribbon Color Scheme",
-        "default": "scheme-4"
+        "type": "header",
+        "content": "Review Widget"
       },
       {
         "type": "checkbox",
         "id": "enable_review_widget",
-        "label": "Enable Review Widget (Bottom Right)",
+        "label": "Enable Review Widget",
         "info": "Displays floating average rating powered by Shopify review metafields.",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "review_widget_position",
+        "label": "Position",
+        "options": [
+          { "value": "top-left", "label": "Top Left" },
+          { "value": "top-right", "label": "Top Right" },
+          { "value": "bottom-left", "label": "Bottom Left" },
+          { "value": "bottom-right", "label": "Bottom Right" }
+        ],
+        "default": "bottom-right"
+      },
+      {
+        "type": "select",
+        "id": "review_widget_size",
+        "label": "Size",
+        "options": [
+          { "value": "small", "label": "Small" },
+          { "value": "medium", "label": "Medium" },
+          { "value": "large", "label": "Large" }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_review_title",
+        "label": "Show 'Top Rated' Title",
         "default": true
       },
       {
         "type": "color_scheme",
         "id": "review_widget_color_scheme",
-        "label": "Review Widget Color Scheme",
+        "label": "Color Scheme",
         "default": "scheme-5"
       }
-    ]
   },
   {
     "name": "t:settings_schema.logo.name",

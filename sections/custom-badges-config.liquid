@@ -1,0 +1,95 @@
+{% schema %}
+{
+  "name": "Custom Badges Config",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "This section powers the global Web Component for custom ribbon badges. Add this section once to your Footer Group to enable global badge logic."
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Ribbon Position",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "top-left"
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "Ribbon Size",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "medium"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Ribbon Badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "trigger_tag",
+          "label": "Trigger Tag",
+          "info": "The exact product tag that triggers this badge (e.g. 'bestseller').",
+          "default": "badge:bestseller"
+        },
+        {
+          "type": "text",
+          "id": "display_text",
+          "label": "Display Text",
+          "default": "Best Seller"
+        },
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Emoji Prefix (Optional)"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Badges Config"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  window.customBadgesConfig = {
+    position: {{ section.settings.position | json }},
+    size: {{ section.settings.size | json }},
+    badges: [
+      {%- for block in section.blocks -%}
+        {
+          tag: {{ block.settings.trigger_tag | downcase | json }},
+          text: {{ block.settings.display_text | json }},
+          emoji: {{ block.settings.emoji | json }},
+          backgroundColor: {{ block.settings.background_color | json }},
+          textColor: {{ block.settings.text_color | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  };
+</script>

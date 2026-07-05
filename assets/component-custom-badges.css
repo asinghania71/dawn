@@ -11,31 +11,67 @@
 .custom-badge {
   position: absolute;
   z-index: 3;
+  pointer-events: auto;
 }
 
-/* Ribbon (Top Left) */
-.custom-badge--top-left {
-  top: 1rem;
-  left: 0;
-}
+/* Positions */
+.custom-badge--position-top-left { top: 1rem; left: 0; bottom: auto; right: auto; }
+.custom-badge--position-top-right { top: 1rem; right: 0; bottom: auto; left: auto; }
+.custom-badge--position-bottom-left { bottom: 1rem; left: 0; top: auto; right: auto; }
+.custom-badge--position-bottom-right { bottom: 1rem; right: 1rem; top: auto; left: auto; }
 
+/* Ribbon Sizes */
+.custom-badge--size-small .custom-badge__ribbon { font-size: 0.9rem; padding: 0.3rem 1.2rem 0.3rem 0.6rem; }
+.custom-badge--size-medium .custom-badge__ribbon { font-size: 1.1rem; padding: 0.4rem 1.6rem 0.4rem 0.8rem; }
+.custom-badge--size-large .custom-badge__ribbon { font-size: 1.3rem; padding: 0.5rem 2rem 0.5rem 1rem; }
+
+/* Review Sizes */
+.custom-badge--size-small .review-widget__title { font-size: 0.8rem; padding: 0.2rem 0.6rem; }
+.custom-badge--size-small .review-widget__score { font-size: 1rem; padding: 0.2rem 0.6rem; }
+.custom-badge--size-small .review-widget__count { font-size: 0.9rem; }
+
+.custom-badge--size-medium .review-widget__title { font-size: 1rem; padding: 0.4rem 0.8rem; }
+.custom-badge--size-medium .review-widget__score { font-size: 1.2rem; padding: 0.4rem 0.8rem; }
+.custom-badge--size-medium .review-widget__count { font-size: 1.1rem; }
+
+.custom-badge--size-large .review-widget__title { font-size: 1.2rem; padding: 0.6rem 1rem; }
+.custom-badge--size-large .review-widget__score { font-size: 1.4rem; padding: 0.6rem 1rem; }
+.custom-badge--size-large .review-widget__count { font-size: 1.3rem; }
+
+/* Ribbon Styles */
 .custom-badge__ribbon {
   display: inline-block;
-  padding: 0.4rem 1.6rem 0.4rem 0.8rem;
-  font-size: 1.1rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  clip-path: polygon(0 0, 100% 0, 85% 50%, 100% 100%, 0 100%);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* Review Widget (Bottom Right) */
-.custom-badge--bottom-right {
-  bottom: 1rem;
-  right: 1rem;
+/* Ribbon Clip Paths depending on Left vs Right anchor */
+.custom-badge--position-top-left .custom-badge__ribbon,
+.custom-badge--position-bottom-left .custom-badge__ribbon {
+  clip-path: polygon(0 0, 100% 0, 85% 50%, 100% 100%, 0 100%);
 }
 
+.custom-badge--position-top-right .custom-badge__ribbon,
+.custom-badge--position-bottom-right .custom-badge__ribbon {
+  clip-path: polygon(15% 50%, 100% 0, 100% 100%, 0 100%);
+}
+.custom-badge--size-small.custom-badge--position-top-right .custom-badge__ribbon,
+.custom-badge--size-small.custom-badge--position-bottom-right .custom-badge__ribbon {
+  padding-left: 1.2rem !important; padding-right: 0.6rem !important;
+}
+.custom-badge--size-medium.custom-badge--position-top-right .custom-badge__ribbon,
+.custom-badge--size-medium.custom-badge--position-bottom-right .custom-badge__ribbon {
+  padding-left: 1.6rem !important; padding-right: 0.8rem !important;
+}
+.custom-badge--size-large.custom-badge--position-top-right .custom-badge__ribbon,
+.custom-badge--size-large.custom-badge--position-bottom-right .custom-badge__ribbon {
+  padding-left: 2rem !important; padding-right: 1rem !important;
+}
+
+
+/* Review Widget Styles */
 .custom-badge__review-widget {
   padding: 4px;
   border-radius: 12px;
@@ -44,10 +80,8 @@
 
 .review-widget__title {
   color: rgb(var(--color-foreground));
-  font-size: 1rem;
   font-weight: 700;
   text-align: center;
-  padding: 0.4rem 0.8rem;
   border-radius: 10px 10px 0 0;
 }
 
@@ -56,15 +90,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.4rem 0.8rem;
   border-radius: 10px;
-  font-size: 1.2rem;
   font-weight: 600;
   color: rgb(var(--color-foreground));
 }
 
 .review-widget__count {
-  font-size: 1.1rem;
   color: rgba(var(--color-foreground), 0.7);
   margin-left: 2px;
 }
