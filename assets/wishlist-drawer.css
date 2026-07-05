@@ -48,12 +48,16 @@ wishlist-drawer.wishlist-modal .wishlist-modal__inner {
   position: relative;
   right: auto;
   top: auto;
-  max-width: 80rem;
-  width: 90%;
-  height: auto;
-  max-height: 80vh;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
   transform: translateY(50px);
+  background-color: rgb(var(--color-background));
   border-radius: var(--popup-corner-radius);
+  border-color: rgba(var(--color-foreground), var(--popup-border-opacity));
+  border-style: solid;
+  border-width: var(--popup-border-width);
   box-shadow: var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset) var(--popup-shadow-blur-radius) rgba(var(--color-shadow), var(--popup-shadow-opacity));
 }
 
@@ -81,6 +85,9 @@ wishlist-drawer.active .wishlist-modal__inner {
 }
 
 @media screen and (min-width: 750px) {
+  wishlist-drawer.wishlist-modal .wishlist-modal__inner {
+    width: 100%;
+  }
   wishlist-drawer.wishlist-modal .wishlist-drawer__content .grid {
     grid-template-columns: repeat(4, 1fr);
   }
