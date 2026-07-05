@@ -1479,7 +1479,7 @@
             "label": "Standalone Page"
           }
         ],
-        "default": "drawer"
+        "default": "modal"
       },
       {
         "type": "select",

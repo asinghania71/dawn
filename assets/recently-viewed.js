@@ -12,8 +12,8 @@ if (!customElements.get('product-tracker')) {
       // Add to front
       recentlyViewed.unshift(productHandle);
       
-      // Keep only the last 10
-      if (recentlyViewed.length > 10) {
+      // Keep only the last 12
+      if (recentlyViewed.length > 12) {
         recentlyViewed.pop();
       }
       
