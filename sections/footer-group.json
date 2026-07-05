@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
@@ -23,7 +32,7 @@
           "type": "text",
           "settings": {
             "heading": "Our mission",
-            "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
+            "subtext": "<p>Share contact information, store details, and brand content with your customers.</p>"
           }
         }
       },
@@ -36,6 +45,7 @@
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
         "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": false,
         "enable_language_selector": false,
@@ -69,8 +79,8 @@
           "type": "link",
           "settings": {
             "text": "Shop",
-            "url": "shopify:\/\/collections\/all",
-            "icon": "shop"
+            "url": "shopify://collections/all",
+            "icon": "home"
           }
         },
         "nav_4": {
@@ -78,7 +88,7 @@
           "settings": {
             "text": "Saved",
             "url": "/search?view=wishlist",
-            "icon": "heart"
+            "icon": "home"
           }
         },
         "nav_5": {
@@ -98,8 +108,8 @@
         "nav_5"
       ],
       "settings": {
-        "design_style": "classic",
-        "color_scheme": "scheme-1"
+        "design_style": "pill",
+        "color_scheme": "scheme-4"
       }
     }
   },
