@@ -11,36 +11,30 @@
     "name": "Custom Badges",
     "settings": [
       {
-        "type": "header",
-        "content": "Custom Ribbon (Top Left)"
-      },
-      {
         "type": "checkbox",
-        "id": "ribbon_show_on_gallery",
-        "label": "Show on Product Page Image Gallery",
+        "id": "enable_custom_ribbon",
+        "label": "Enable Custom Ribbon (Top Left)",
+        "info": "Displays a ribbon tag if product has a 'badge:' tag or custom.badge metafield.",
         "default": true
       },
       {
-        "type": "checkbox",
-        "id": "ribbon_show_on_cards",
-        "label": "Show on Product Cards (Grids/Collections)",
-        "default": true
-      },
-      {
-        "type": "header",
-        "content": "Review Widget (Bottom Right)"
+        "type": "color_scheme",
+        "id": "custom_ribbon_color_scheme",
+        "label": "Ribbon Color Scheme",
+        "default": "scheme-4"
       },
       {
         "type": "checkbox",
-        "id": "review_show_on_gallery",
-        "label": "Show on Product Page Image Gallery",
+        "id": "enable_review_widget",
+        "label": "Enable Review Widget (Bottom Right)",
+        "info": "Displays floating average rating powered by Shopify review metafields.",
         "default": true
       },
       {
-        "type": "checkbox",
-        "id": "review_show_on_cards",
-        "label": "Show on Product Cards (Grids/Collections)",
-        "default": true
+        "type": "color_scheme",
+        "id": "review_widget_color_scheme",
+        "label": "Review Widget Color Scheme",
+        "default": "scheme-5"
       }
     ]
   },

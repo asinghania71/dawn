@@ -21,8 +21,6 @@
 
 .custom-badge__ribbon {
   display: inline-block;
-  background: linear-gradient(90deg, #6B21A8, #A855F7);
-  color: white;
   padding: 0.4rem 1.6rem 0.4rem 0.8rem;
   font-size: 1.1rem;
   font-weight: 700;
@@ -39,14 +37,13 @@
 }
 
 .custom-badge__review-widget {
-  background: linear-gradient(135deg, #F43F5E, #F59E0B);
-  padding: 2px;
+  padding: 4px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .review-widget__title {
-  color: white;
+  color: rgb(var(--color-foreground));
   font-size: 1rem;
   font-weight: 700;
   text-align: center;
@@ -55,7 +52,7 @@
 }
 
 .review-widget__score {
-  background: white;
+  background: rgba(var(--color-foreground), 0.04);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,11 +60,11 @@
   border-radius: 10px;
   font-size: 1.2rem;
   font-weight: 600;
-  color: #121212;
+  color: rgb(var(--color-foreground));
 }
 
 .review-widget__count {
   font-size: 1.1rem;
-  color: #666;
+  color: rgba(var(--color-foreground), 0.7);
   margin-left: 2px;
 }

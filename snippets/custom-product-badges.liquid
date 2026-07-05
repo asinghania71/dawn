@@ -2,31 +2,9 @@
   Renders custom floating badges on product images (Top Left ribbon, Bottom Right reviews)
   Accepts:
   - product: {Object} Product Liquid object
-  - placement: {String} 'card' or 'gallery'
 {% endcomment %}
 
 {{ 'component-custom-badges.css' | asset_url | stylesheet_tag }}
-
-{%- liquid
-  assign show_ribbon = false
-  assign show_review = false
-
-  if placement == 'card'
-    if settings.ribbon_show_on_cards
-      assign show_ribbon = true
-    endif
-    if settings.review_show_on_cards
-      assign show_review = true
-    endif
-  elsif placement == 'gallery'
-    if settings.ribbon_show_on_gallery
-      assign show_ribbon = true
-    endif
-    if settings.review_show_on_gallery
-      assign show_review = true
-    endif
-  endif
--%}
 
 <div class="custom-badges-wrapper">
   {%- comment -%}Top Left Badge System{%- endcomment -%}
@@ -47,9 +25,9 @@
     endif
   -%}
   
-  {%- if top_left_badge != blank and show_ribbon -%}
+  {%- if top_left_badge != blank and settings.enable_custom_ribbon -%}
     <div class="custom-badge custom-badge--top-left">
-      <span class="custom-badge__ribbon">{{ top_left_badge }}</span>
+      <span class="custom-badge__ribbon color-{{ settings.custom_ribbon_color_scheme }} gradient">{{ top_left_badge }}</span>
     </div>
   {%- endif -%}
 
@@ -59,9 +37,9 @@
     assign rating_count = product.metafields.reviews.rating_count
   -%}
   
-  {%- if rating != blank and show_review -%}
+  {%- if rating != blank and settings.enable_review_widget -%}
     <div class="custom-badge custom-badge--bottom-right">
-      <div class="custom-badge__review-widget">
+      <div class="custom-badge__review-widget color-{{ settings.review_widget_color_scheme }} gradient">
         <div class="review-widget__title">Top Rated</div>
         <div class="review-widget__score">
           <span class="review-widget__rating-value">{{ rating | round: 1 }}</span>
