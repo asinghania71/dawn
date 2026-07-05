@@ -1,0 +1,76 @@
+{% comment %}
+  Renders custom floating badges on product images (Top Left ribbon, Bottom Right reviews)
+  Accepts:
+  - product: {Object} Product Liquid object
+  - placement: {String} 'card' or 'gallery'
+{% endcomment %}
+
+{{ 'component-custom-badges.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign show_ribbon = false
+  assign show_review = false
+
+  if placement == 'card'
+    if settings.ribbon_show_on_cards
+      assign show_ribbon = true
+    endif
+    if settings.review_show_on_cards
+      assign show_review = true
+    endif
+  elsif placement == 'gallery'
+    if settings.ribbon_show_on_gallery
+      assign show_ribbon = true
+    endif
+    if settings.review_show_on_gallery
+      assign show_review = true
+    endif
+  endif
+-%}
+
+<div class="custom-badges-wrapper">
+  {%- comment -%}Top Left Badge System{%- endcomment -%}
+  {%- liquid
+    assign top_left_badge = blank
+    
+    # 1. Check Metafields first
+    if product.metafields.custom.badge != blank
+      assign top_left_badge = product.metafields.custom.badge
+    else
+      # 2. Check Tags for 'badge:' prefix
+      for tag in product.tags
+        if tag contains 'badge:'
+          assign top_left_badge = tag | split: 'badge:' | last
+          break
+        endif
+      endfor
+    endif
+  -%}
+  
+  {%- if top_left_badge != blank and show_ribbon -%}
+    <div class="custom-badge custom-badge--top-left">
+      <span class="custom-badge__ribbon">{{ top_left_badge }}</span>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%}Bottom Right Review Widget{%- endcomment -%}
+  {%- liquid
+    assign rating = product.metafields.reviews.rating.value
+    assign rating_count = product.metafields.reviews.rating_count
+  -%}
+  
+  {%- if rating != blank and show_review -%}
+    <div class="custom-badge custom-badge--bottom-right">
+      <div class="custom-badge__review-widget">
+        <div class="review-widget__title">Top Rated</div>
+        <div class="review-widget__score">
+          <span class="review-widget__rating-value">{{ rating | round: 1 }}</span>
+          <svg viewBox="0 0 14 14" width="10" height="10" style="margin: 0 4px;"><path d="M7 0L9.16 4.38L14 5.09L10.5 8.5L11.32 13.31L7 11.04L2.68 13.31L3.5 8.5L0 5.09L4.84 4.38L7 0Z" fill="#14B8A6"/></svg>
+          {%- if rating_count != blank -%}
+            <span class="review-widget__count">{{ rating_count }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>

@@ -3,6 +3,7 @@
 ## Theme Architecture & Styling
 - **Color Schemes:** ALWAYS use Shopify's native `color_scheme` settings for new sections and blocks rather than creating hardcoded color pickers for backgrounds, text, and active states. Apply the standard `color-{{ section.settings.color_scheme }}` class to wrappers to inherit the theme's global palette natively.
 - **Dawn Conventions:** Adhere strictly to the Shopify Dawn theme architecture. Prefer leveraging existing snippets, standard section groups (like `footer-group.json`), and native inline assets before creating custom, disjointed implementations.
+- **Customizability Requirements:** ANY new feature built MUST be extremely customizable from the Shopify Theme Editor. Ensure that every option can be toggled on/off or adjusted. Carefully evaluate whether settings should be **global** (placed in `config/settings_schema.json`) or **section-specific** (placed in the Liquid file's `{% schema %}`). Use global settings for elements that span the whole theme (like floating badges or UI overrides), and section settings for component-specific configurations.
 
 ## Shopify Dev MCP Usage
 - You MUST proactively consult the `shopify-dev-mcp` tools before implementing major structural changes, introducing new Liquid APIs, or when unsure about standard theme conventions.

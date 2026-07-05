@@ -8,6 +8,43 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "Custom Badges",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Custom Ribbon (Top Left)"
+      },
+      {
+        "type": "checkbox",
+        "id": "ribbon_show_on_gallery",
+        "label": "Show on Product Page Image Gallery",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "ribbon_show_on_cards",
+        "label": "Show on Product Cards (Grids/Collections)",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Review Widget (Bottom Right)"
+      },
+      {
+        "type": "checkbox",
+        "id": "review_show_on_gallery",
+        "label": "Show on Product Page Image Gallery",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "review_show_on_cards",
+        "label": "Show on Product Cards (Grids/Collections)",
+        "default": true
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.logo.name",
     "settings": [
       {
