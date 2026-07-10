@@ -41,11 +41,10 @@ class CustomProductRibbon extends HTMLElement {
   }
 
   renderBadge(badge, position, size) {
-    const emoji = badge.emoji ? `<span style="margin-right: 4px;">${badge.emoji}</span>` : '';
     const html = `
       <div class="custom-badge custom-badge--position-${position} custom-badge--size-${size}">
         <span class="custom-badge__ribbon" style="background-color: ${badge.backgroundColor}; color: ${badge.textColor};">
-          ${emoji}${badge.text}
+          ${badge.text}
         </span>
       </div>
     `;

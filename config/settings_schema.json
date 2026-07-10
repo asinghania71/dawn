@@ -56,6 +56,7 @@
         "label": "Color Scheme",
         "default": "scheme-5"
       }
+    ]
   },
   {
     "name": "t:settings_schema.logo.name",
