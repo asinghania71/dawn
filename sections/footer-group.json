@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
@@ -23,7 +32,7 @@
           "type": "text",
           "settings": {
             "heading": "Our mission",
-            "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
+            "subtext": "<p>Share contact information, store details, and brand content with your customers.</p>"
           }
         }
       },
@@ -36,6 +45,7 @@
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
         "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": false,
         "enable_language_selector": false,
@@ -71,7 +81,7 @@
           "type": "link",
           "settings": {
             "text": "Shop",
-            "url": "shopify:\/\/collections\/all",
+            "url": "shopify://collections/all",
             "action_type": "link",
             "icon": "box"
           }
@@ -113,9 +123,9 @@
         "badge_1": {
           "type": "badge",
           "settings": {
-            "trigger_tag": "badge:bestseller",
+            "trigger_tag": "combo",
             "display_text": "Best Seller",
-            "background_color": "#A855F7",
+            "background_color": "#a855f7",
             "text_color": "#ffffff"
           }
         },
@@ -124,7 +134,7 @@
           "settings": {
             "trigger_tag": "badge:new",
             "display_text": "New Arrival",
-            "background_color": "#F43F5E",
+            "background_color": "#f43f5e",
             "text_color": "#ffffff"
           }
         }
