@@ -18,7 +18,8 @@
   -%}
   
   {%- if rating != blank and settings.enable_review_widget -%}
-    <div class="custom-badge custom-badge--position-{{ settings.review_widget_position }} custom-badge--size-{{ settings.review_widget_size }}">
+    {%- assign review_opacity = settings.review_widget_opacity | divided_by: 100.0 | default: 1.0 -%}
+    <div class="custom-badge custom-badge--position-{{ settings.review_widget_position }} custom-badge--size-{{ settings.review_widget_size }}" style="opacity: {{ review_opacity }};">
       <div class="custom-badge__review-widget color-{{ settings.review_widget_color_scheme }} gradient">
         {%- if settings.show_review_title -%}
           <div class="review-widget__title">Top Rated</div>

@@ -115,8 +115,8 @@
           "settings": {
             "trigger_tag": "badge:bestseller",
             "display_text": "Best Seller",
-            "emoji": "🔥",
-            "color_scheme": "scheme-4"
+            "background_color": "#A855F7",
+            "text_color": "#ffffff"
           }
         },
         "badge_2": {
@@ -124,8 +124,8 @@
           "settings": {
             "trigger_tag": "badge:new",
             "display_text": "New Arrival",
-            "emoji": "✨",
-            "color_scheme": "scheme-5"
+            "background_color": "#F43F5E",
+            "text_color": "#ffffff"
           }
         }
       },

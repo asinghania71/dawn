@@ -1,3 +1,21 @@
+<script>
+  window.customBadgesConfig = {
+    position: {{ section.settings.position | json }},
+    size: {{ section.settings.size | json }},
+    badges: [
+      {%- for block in section.blocks -%}
+        {
+          tag: {{ block.settings.trigger_tag | downcase | json }},
+          text: {{ block.settings.display_text | json }},
+          backgroundColor: {{ block.settings.background_color | json }},
+          textColor: {{ block.settings.text_color | json }},
+          opacity: {{ block.settings.opacity | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  };
+</script>
+
 {% schema %}
 {
   "name": "Custom Badges Config",
@@ -49,11 +67,6 @@
           "default": "Best Seller"
         },
         {
-          "type": "text",
-          "id": "emoji",
-          "label": "Emoji Prefix (Optional)"
-        },
-        {
           "type": "color",
           "id": "background_color",
           "label": "Background Color",
@@ -64,6 +77,16 @@
           "id": "text_color",
           "label": "Text Color",
           "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "opacity",
+          "min": 10,
+          "max": 100,
+          "step": 10,
+          "unit": "%",
+          "label": "Ribbon Opacity",
+          "default": 100
         }
       ]
     }
@@ -75,21 +98,3 @@
   ]
 }
 {% endschema %}
-
-<script>
-  window.customBadgesConfig = {
-    position: {{ section.settings.position | json }},
-    size: {{ section.settings.size | json }},
-    badges: [
-      {%- for block in section.blocks -%}
-        {
-          tag: {{ block.settings.trigger_tag | downcase | json }},
-          text: {{ block.settings.display_text | json }},
-          emoji: {{ block.settings.emoji | json }},
-          backgroundColor: {{ block.settings.background_color | json }},
-          textColor: {{ block.settings.text_color | json }}
-        }{% unless forloop.last %},{% endunless %}
-      {%- endfor -%}
-    ]
-  };
-</script>

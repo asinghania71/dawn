@@ -36,16 +36,16 @@ class CustomProductRibbon extends HTMLElement {
     }
 
     if (winningBadge) {
-      this.renderBadge(winningBadge, config.position, config.size);
+      this.renderBadge(winningBadge, config.position, config.size, config.opacity);
     }
   }
 
-  renderBadge(badge, position, size) {
-    const emoji = badge.emoji ? `<span style="margin-right: 4px;">${badge.emoji}</span>` : '';
+  renderBadge(badge, position, size, opacity) {
+    const opacityValue = opacity ? opacity / 100 : 1.0;
     const html = `
       <div class="custom-badge custom-badge--position-${position} custom-badge--size-${size}">
-        <span class="custom-badge__ribbon" style="background-color: ${badge.backgroundColor}; color: ${badge.textColor};">
-          ${emoji}${badge.text}
+        <span class="custom-badge__ribbon" style="background-color: ${badge.backgroundColor}; color: ${badge.textColor}; opacity: ${opacityValue};">
+          ${badge.text}
         </span>
       </div>
     `;

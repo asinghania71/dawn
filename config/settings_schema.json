@@ -55,7 +55,18 @@
         "id": "review_widget_color_scheme",
         "label": "Color Scheme",
         "default": "scheme-5"
+      },
+      {
+        "type": "range",
+        "id": "review_widget_opacity",
+        "min": 10,
+        "max": 100,
+        "step": 10,
+        "unit": "%",
+        "label": "Opacity",
+        "default": 100
       }
+    ]
   },
   {
     "name": "t:settings_schema.logo.name",
