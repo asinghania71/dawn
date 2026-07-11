@@ -8,5 +8,17 @@
 <script src="{{ 'product-ribbons.js' | asset_url }}" defer="defer"></script>
 
 <div class="product-ribbons-wrapper">
-  <custom-product-ribbon data-tags="{{ product.tags | join: ',' | escape | downcase }}" data-metafield="{{ product.metafields.custom.badge | escape | downcase }}"{% if ribbon_size %} data-size="{{ ribbon_size }}"{% endif %}></custom-product-ribbon>
+  <custom-product-ribbon
+    data-tags="{{ product.tags | join: ',' | escape | downcase }}"
+    data-metafield="{{ product.metafields.custom.badge | escape | downcase }}"
+    data-rating="{{ product.metafields.reviews.rating.value | default: 0 }}"
+    data-inventory="{{ product.first_available_variant.inventory_quantity | default: 0 }}"
+    data-price="{{ product.price | default: 0 }}"
+    data-compare-at-price="{{ product.compare_at_price | default: product.price }}"
+    data-vendor="{{ product.vendor | escape | downcase }}"
+    data-type="{{ product.type | escape | downcase }}"
+    data-title="{{ product.title | escape | downcase }}"
+    data-created-at="{{ product.created_at }}"
+    {% if ribbon_size %} data-size="{{ ribbon_size }}"{% endif %}
+  ></custom-product-ribbon>
 </div>

@@ -18,18 +18,25 @@ class CustomProductRibbon extends HTMLElement {
     const config = window.productRibbonsConfig;
     if (!config || !config.badges || config.badges.length === 0) return;
 
-    const tagString = this.getAttribute('data-tags') || '';
-    const tags = tagString.split(',').map(t => t.trim().toLowerCase());
-    const metafield = this.getAttribute('data-metafield');
-    
+    const data = {
+      tag: (this.getAttribute('data-tags') || '').split(',').map(t => t.trim().toLowerCase()),
+      metafield: this.getAttribute('data-metafield') || '',
+      rating: parseFloat(this.getAttribute('data-rating')) || 0,
+      inventory: parseInt(this.getAttribute('data-inventory')) || 0,
+      price: parseFloat(this.getAttribute('data-price')) || 0,
+      compareAtPrice: parseFloat(this.getAttribute('data-compare-at-price')) || 0,
+      vendor: this.getAttribute('data-vendor') || '',
+      type: this.getAttribute('data-type') || '',
+      title: this.getAttribute('data-title') || '',
+      createdAt: this.getAttribute('data-created-at') || ''
+    };
+
     let winningBadge = null;
 
     // Iterate through configured blocks in order (highest priority first)
     for (let i = 0; i < config.badges.length; i++) {
       const badgeConfig = config.badges[i];
-      const triggerTag = badgeConfig.tag.trim().toLowerCase();
-      
-      if (tags.includes(triggerTag) || metafield === triggerTag) {
+      if (this.evaluateCondition(badgeConfig, data)) {
         winningBadge = badgeConfig;
         break; 
       }
@@ -39,6 +46,43 @@ class CustomProductRibbon extends HTMLElement {
       const sizeAttr = this.getAttribute('data-size');
       const finalSize = sizeAttr ? sizeAttr : config.size;
       this.renderBadge(winningBadge, config.position, finalSize, winningBadge.opacity);
+    }
+  }
+
+  evaluateCondition(badgeConfig, data) {
+    const { dataSource, operator, compareValue } = badgeConfig;
+    let actualValue = data[dataSource];
+    let compValue = compareValue;
+
+    if (dataSource === 'price_sale') {
+      actualValue = data.compareAtPrice > data.price ? 'true' : 'false';
+      compValue = 'true';
+    } else if (dataSource === 'age') {
+      if (!data.createdAt) return false;
+      const createdDate = new Date(data.createdAt);
+      actualValue = (Date.now() - createdDate.getTime()) / (1000 * 60 * 60 * 24);
+      compValue = parseFloat(compValue);
+    } else if (['rating', 'inventory'].includes(dataSource)) {
+      compValue = parseFloat(compValue);
+    }
+
+    switch (operator) {
+      case 'equals':
+        if (dataSource === 'tag') return actualValue.includes(compValue);
+        return actualValue == compValue;
+      case 'not_equals':
+        if (dataSource === 'tag') return !actualValue.includes(compValue);
+        return actualValue != compValue;
+      case 'greater_than':
+        return actualValue > compValue;
+      case 'less_than':
+        return actualValue < compValue;
+      case 'contains':
+        if (Array.isArray(actualValue)) return actualValue.some(v => v.includes(compValue));
+        if (typeof actualValue === 'string') return actualValue.includes(compValue);
+        return false;
+      default:
+        return false;
     }
   }
 

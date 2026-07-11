@@ -5,7 +5,9 @@
     badges: [
       {%- for block in section.blocks -%}
         {
-          tag: {{ block.settings.trigger_tag | downcase | json }},
+          dataSource: {{ block.settings.data_source | json }},
+          operator: {{ block.settings.operator | json }},
+          compareValue: {{ block.settings.compare_value | downcase | json }},
           text: {{ block.settings.display_text | json }},
           backgroundColor: {{ block.settings.background_color | json }},
           textColor: {{ block.settings.text_color | json }},
@@ -54,10 +56,40 @@
       "name": "Ribbon Badge",
       "settings": [
         {
+          "type": "select",
+          "id": "data_source",
+          "label": "Data Source",
+          "options": [
+            { "value": "tag", "label": "Product Tag" },
+            { "value": "metafield", "label": "custom.badge Metafield" },
+            { "value": "rating", "label": "Product Rating" },
+            { "value": "inventory", "label": "Inventory Quantity" },
+            { "value": "price_sale", "label": "On Sale (Compare At > Price)" },
+            { "value": "vendor", "label": "Vendor" },
+            { "value": "type", "label": "Type" },
+            { "value": "title", "label": "Title" },
+            { "value": "age", "label": "Age (Days since created)" }
+          ],
+          "default": "tag"
+        },
+        {
+          "type": "select",
+          "id": "operator",
+          "label": "Operator",
+          "options": [
+            { "value": "equals", "label": "Equals (==)" },
+            { "value": "not_equals", "label": "Not Equals (!=)" },
+            { "value": "greater_than", "label": "Greater Than (>)" },
+            { "value": "less_than", "label": "Less Than (<)" },
+            { "value": "contains", "label": "Contains" }
+          ],
+          "default": "equals"
+        },
+        {
           "type": "text",
-          "id": "trigger_tag",
-          "label": "Trigger Tag",
-          "info": "The exact product tag that triggers this badge (e.g. 'bestseller').",
+          "id": "compare_value",
+          "label": "Compare Value",
+          "info": "The value to evaluate against. Leave blank for boolean checks like 'On Sale'.",
           "default": "badge:bestseller"
         },
         {
