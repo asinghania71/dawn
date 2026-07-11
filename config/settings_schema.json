@@ -8,12 +8,8 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
-    "name": "Custom Badges",
+    "name": "Review Widget",
     "settings": [
-      {
-        "type": "header",
-        "content": "Review Widget"
-      },
       {
         "type": "checkbox",
         "id": "enable_review_widget",

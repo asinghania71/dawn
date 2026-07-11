@@ -1,0 +1,12 @@
+{% comment %}
+  Renders custom floating ribbon badges on product images.
+  Accepts:
+  - product: {Object} Product Liquid object
+{% endcomment %}
+
+{{ 'component-product-ribbons.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-ribbons.js' | asset_url }}" defer="defer"></script>
+
+<div class="product-ribbons-wrapper">
+  <custom-product-ribbon data-tags="{{ product.tags | join: ',' | escape | downcase }}" data-metafield="{{ product.metafields.custom.badge | escape | downcase }}"></custom-product-ribbon>
+</div>

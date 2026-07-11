@@ -1,5 +1,5 @@
 <script>
-  window.customBadgesConfig = {
+  window.productRibbonsConfig = {
     position: {{ section.settings.position | json }},
     size: {{ section.settings.size | json }},
     badges: [
@@ -18,11 +18,11 @@
 
 {% schema %}
 {
-  "name": "Custom Badges Config",
+  "name": "Product Ribbons Config",
   "settings": [
     {
       "type": "paragraph",
-      "content": "This section powers the global Web Component for custom ribbon badges. Add this section once to your Footer Group to enable global badge logic."
+      "content": "This section powers the global Web Component for product ribbon badges. Add this section once to your Footer Group to enable global badge logic."
     },
     {
       "type": "select",
@@ -93,7 +93,7 @@
   ],
   "presets": [
     {
-      "name": "Custom Badges Config"
+      "name": "Product Ribbons Config"
     }
   ]
 }

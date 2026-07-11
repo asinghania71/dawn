@@ -1,0 +1,37 @@
+{% comment %}
+  Renders the floating review rating widget on product images.
+  Accepts:
+  - product: {Object} Product Liquid object
+{% endcomment %}
+
+{{ 'component-review-widget.css' | asset_url | stylesheet_tag }}
+
+<div class="review-widget-wrapper">
+  {%- liquid
+    assign rating = product.metafields.reviews.rating.value
+    assign rating_count = product.metafields.reviews.rating_count
+  -%}
+
+  {%- if rating != blank and settings.enable_review_widget -%}
+    {%- assign review_opacity = settings.review_widget_opacity | divided_by: 100.0 | default: 1.0 -%}
+    <div
+      class="review-widget review-widget--position-{{ settings.review_widget_position }} review-widget--size-{{ settings.review_widget_size }}"
+      style="opacity: {{ review_opacity }};"
+    >
+      <div class="review-widget__container color-{{ settings.review_widget_color_scheme }} gradient">
+        {%- if settings.show_review_title -%}
+          <div class="review-widget__title">Top Rated</div>
+        {%- endif -%}
+        <div class="review-widget__score">
+          <span class="review-widget__rating-value">{{ rating }}</span>
+          <svg viewBox="0 0 14 14" width="12" height="12" style="margin: 0 4px;">
+            <path d="M7 0L9.16 4.38L14 5.09L10.5 8.5L11.32 13.31L7 11.04L2.68 13.31L3.5 8.5L0 5.09L4.84 4.38L7 0Z" fill="currentColor"/>
+          </svg>
+          {%- if rating_count != blank -%}
+            <span class="review-widget__count">{{ rating_count }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>

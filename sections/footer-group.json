@@ -107,8 +107,8 @@
         "color_scheme": "scheme-1"
       }
     },
-    "custom-badges-config": {
-      "type": "custom-badges-config",
+    "product-ribbons-config": {
+      "type": "product-ribbons-config",
       "blocks": {
         "badge_1": {
           "type": "badge",
@@ -142,6 +142,6 @@
   "order": [
     "footer",
     "sticky-bottom-nav",
-    "custom-badges-config"
+    "product-ribbons-config"
   ]
 }

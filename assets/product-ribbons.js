@@ -5,17 +5,17 @@ class CustomProductRibbon extends HTMLElement {
 
   connectedCallback() {
     // Check if the global config is available
-    if (window.customBadgesConfig) {
+    if (window.productRibbonsConfig) {
       this.initBadge();
     } else {
       window.addEventListener('DOMContentLoaded', () => {
-        if (window.customBadgesConfig) this.initBadge();
+        if (window.productRibbonsConfig) this.initBadge();
       });
     }
   }
 
   initBadge() {
-    const config = window.customBadgesConfig;
+    const config = window.productRibbonsConfig;
     if (!config || !config.badges || config.badges.length === 0) return;
 
     const tagString = this.getAttribute('data-tags') || '';
@@ -36,7 +36,7 @@ class CustomProductRibbon extends HTMLElement {
     }
 
     if (winningBadge) {
-      this.renderBadge(winningBadge, config.position, config.size, config.opacity);
+      this.renderBadge(winningBadge, config.position, config.size, winningBadge.opacity);
     }
   }
 
