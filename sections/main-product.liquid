@@ -78,7 +78,7 @@
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
-        {% render 'product-media-gallery', variant_images: variant_images %}
+        {% render 'product-media-gallery', variant_images: variant_images, show_review_widget: section.settings.show_review_widget, review_widget_size: section.settings.review_widget_size, ribbon_size: section.settings.ribbon_size %}
       </div>
       <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
@@ -606,7 +606,10 @@
                                         quick_add: quick_add,
                                         section_id: section.id,
                                         horizontal_class: true,
-                                        horizontal_quick_add: true
+                                        horizontal_quick_add: true,
+                                        show_review_widget: block.settings.show_review_widget,
+                                        review_widget_size: block.settings.review_widget_size,
+                                        ribbon_size: block.settings.ribbon_size
                                       %}
                                     </li>
                                     {%- assign skip_card_product_styles = true -%}
@@ -1469,6 +1472,36 @@
           "id": "enable_quick_add",
           "label": "t:sections.main-product.blocks.complementary_products.settings.enable_quick_add.label",
           "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_review_widget",
+          "default": true,
+          "label": "Show review widget"
+        },
+        {
+          "type": "select",
+          "id": "review_widget_size",
+          "label": "Review Widget Size",
+          "options": [
+            { "value": "", "label": "Use Theme Default" },
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": ""
+        },
+        {
+          "type": "select",
+          "id": "ribbon_size",
+          "label": "Ribbon Size",
+          "options": [
+            { "value": "", "label": "Use Theme Default" },
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": ""
         }
       ]
     },
@@ -2272,6 +2305,36 @@
       "id": "enable_video_looping",
       "default": false,
       "label": "t:sections.main-product.settings.enable_video_looping.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_review_widget",
+      "default": true,
+      "label": "Show review widget"
+    },
+    {
+      "type": "select",
+      "id": "review_widget_size",
+      "label": "Review Widget Size",
+      "options": [
+        { "value": "", "label": "Use Theme Default" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "ribbon_size",
+      "label": "Ribbon Size",
+      "options": [
+        { "value": "", "label": "Use Theme Default" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": ""
     },
     {
       "type": "header",

@@ -99,7 +99,10 @@
                 show_secondary_image: block.settings.second_image,
                 extend_height: true,
                 placeholder_image: placeholder_image,
-                skip_styles: skip_card_product_styles
+                skip_styles: skip_card_product_styles,
+                show_review_widget: block.settings.show_review_widget,
+                review_widget_size: block.settings.review_widget_size,
+                ribbon_size: block.settings.ribbon_size
               %}
               {% assign skip_card_product_styles = true %}
             {%- when 'collection' -%}
@@ -369,6 +372,36 @@
           "id": "second_image",
           "default": false,
           "label": "t:sections.collage.blocks.product.settings.second_image.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_review_widget",
+          "default": true,
+          "label": "Show review widget"
+        },
+        {
+          "type": "select",
+          "id": "review_widget_size",
+          "label": "Review Widget Size",
+          "options": [
+            { "value": "", "label": "Use Theme Default" },
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": ""
+        },
+        {
+          "type": "select",
+          "id": "ribbon_size",
+          "label": "Ribbon Size",
+          "options": [
+            { "value": "", "label": "Use Theme Default" },
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": ""
         }
       ]
     },

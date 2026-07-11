@@ -57,8 +57,8 @@
         class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"
         style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
       >
-        {% render 'product-ribbons', product: card_product %}
-        {% render 'review-widget', product: card_product %}
+        {% render 'product-ribbons', product: card_product, ribbon_size: ribbon_size %}
+        {% render 'review-widget', product: card_product, show_review_widget: show_review_widget, review_widget_size: review_widget_size %}
         {%- if card_product.featured_media -%}
           <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
             <div class="media media--transparent media--hover-effect">
@@ -594,8 +594,8 @@
       <div
         class="card__inner{% if settings.card_style == 'standard' %} color-{{ settings.card_color_scheme }} gradient{% endif %} ratio"
       >
-        {% render 'product-ribbons', product: card_product %}
-        {% render 'review-widget', product: card_product %}
+        {% render 'product-ribbons', product: card_product, ribbon_size: ribbon_size %}
+        {% render 'review-widget', product: card_product, show_review_widget: show_review_widget, review_widget_size: review_widget_size %}
         <div
           class="card__media {% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}"
         >

@@ -37,7 +37,7 @@
       {%- endif -%}
 
       <recently-viewed-products class="recently-viewed-products" data-section-id="{{ section.id }}" data-limit="{{ section.settings.products_to_show }}">
-        {% render 'product-slider', products: search.results, limit: section.settings.products_to_show %}
+        {% render 'product-slider', products: search.results, limit: section.settings.products_to_show, show_review_widget: section.settings.show_review_widget, review_widget_size: section.settings.review_widget_size, ribbon_size: section.settings.ribbon_size %}
       </recently-viewed-products>
     </div>
   </div>
@@ -205,6 +205,36 @@
       "default": false,
       "label": "t:sections.featured-collection.settings.show_rating.label",
       "info": "t:sections.featured-collection.settings.show_rating.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_review_widget",
+      "default": true,
+      "label": "Show review widget"
+    },
+    {
+      "type": "select",
+      "id": "review_widget_size",
+      "label": "Review Widget Size",
+      "options": [
+        { "value": "", "label": "Use Theme Default" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "ribbon_size",
+      "label": "Ribbon Size",
+      "options": [
+        { "value": "", "label": "Use Theme Default" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": ""
     },
     {
       "type": "select",

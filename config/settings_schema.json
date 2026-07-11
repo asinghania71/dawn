@@ -40,12 +40,7 @@
         ],
         "default": "medium"
       },
-      {
-        "type": "checkbox",
-        "id": "show_review_title",
-        "label": "Show 'Top Rated' Title",
-        "default": true
-      },
+
       {
         "type": "color_scheme",
         "id": "review_widget_color_scheme",

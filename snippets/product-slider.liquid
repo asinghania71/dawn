@@ -53,7 +53,10 @@
             show_rating: section.settings.show_rating,
             skip_styles: skip_card_product_styles,
             section_id: section.id,
-            quick_add: section.settings.quick_add
+            quick_add: section.settings.quick_add,
+            show_review_widget: show_review_widget,
+            ribbon_size: ribbon_size,
+            review_widget_size: review_widget_size
           %}
         </li>
         {%- assign skip_card_product_styles = true -%}
@@ -82,7 +85,10 @@
             media_aspect_ratio: section.settings.image_ratio,
             image_shape: section.settings.image_shape,
             lazy_load: false,
-            placeholder_image: placeholder_image
+            placeholder_image: placeholder_image,
+            show_review_widget: show_review_widget,
+            ribbon_size: ribbon_size,
+            review_widget_size: review_widget_size
           %}
         </li>
       {%- endfor -%}

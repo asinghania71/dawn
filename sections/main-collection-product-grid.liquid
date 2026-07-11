@@ -179,7 +179,10 @@
                     lazy_load: lazy_load,
                     skip_styles: skip_card_product_styles,
                     quick_add: section.settings.quick_add,
-                    section_id: section.id
+                    section_id: section.id,
+                    show_review_widget: section.settings.show_review_widget,
+                    review_widget_size: section.settings.review_widget_size,
+                    ribbon_size: section.settings.ribbon_size
                   %}
                 </li>
                 {%- assign skip_card_product_styles = true -%}
@@ -341,6 +344,36 @@
       "default": false,
       "label": "t:sections.main-collection-product-grid.settings.show_rating.label",
       "info": "t:sections.main-collection-product-grid.settings.show_rating.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_review_widget",
+      "default": true,
+      "label": "Show review widget"
+    },
+    {
+      "type": "select",
+      "id": "review_widget_size",
+      "label": "Review Widget Size",
+      "options": [
+        { "value": "", "label": "Use Theme Default" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "ribbon_size",
+      "label": "Ribbon Size",
+      "options": [
+        { "value": "", "label": "Use Theme Default" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": ""
     },
     {
       "type": "select",

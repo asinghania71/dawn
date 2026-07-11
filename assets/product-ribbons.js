@@ -36,7 +36,9 @@ class CustomProductRibbon extends HTMLElement {
     }
 
     if (winningBadge) {
-      this.renderBadge(winningBadge, config.position, config.size, winningBadge.opacity);
+      const sizeAttr = this.getAttribute('data-size');
+      const finalSize = sizeAttr ? sizeAttr : config.size;
+      this.renderBadge(winningBadge, config.position, finalSize, winningBadge.opacity);
     }
   }
 
