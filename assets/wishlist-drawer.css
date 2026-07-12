@@ -65,6 +65,45 @@ wishlist-drawer.active .wishlist-modal__inner {
   transform: translateY(0);
 }
 
+/* Header Styles */
+wishlist-drawer .drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 2.5rem;
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+}
+
+wishlist-drawer .drawer__heading {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+
+wishlist-drawer .drawer__close {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 0;
+  margin: 0 -1.5rem 0 0;
+  color: rgb(var(--color-foreground));
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity var(--duration-default) ease;
+}
+
+wishlist-drawer .drawer__close:hover {
+  opacity: 0.7;
+}
+
+wishlist-drawer .drawer__close svg {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
 .wishlist-drawer__content {
   padding: 2rem;
   overflow-y: auto;
@@ -79,9 +118,30 @@ wishlist-drawer.active .wishlist-modal__inner {
 }
 
 .wishlist-drawer__content .grid {
-  display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Auto-fill responsive flex grids */
+.wishlist-grid--small,
+.wishlist-grid--large {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.wishlist-grid--small .grid__item,
+.wishlist-grid--large .grid__item {
+  width: 100% !important;
+  flex: 0 0 auto !important;
+}
+
+.wishlist-grid--small .grid__item {
+  max-width: 160px !important;
+}
+
+.wishlist-grid--large .grid__item {
+  max-width: 220px !important;
 }
 
 @media screen and (min-width: 750px) {
@@ -89,7 +149,17 @@ wishlist-drawer.active .wishlist-modal__inner {
     width: 70%;
     height: 80%;
   }
-  wishlist-drawer.wishlist-modal .wishlist-drawer__content .grid {
-    grid-template-columns: repeat(4, 1fr);
+
+  wishlist-drawer.wishlist-modal .wishlist-grid--small,
+  wishlist-drawer.wishlist-modal .wishlist-grid--large {
+    justify-content: flex-start;
+  }
+  
+  .wishlist-grid--small .grid__item {
+    max-width: 200px !important;
+  }
+  
+  .wishlist-grid--large .grid__item {
+    max-width: 280px !important;
   }
 }

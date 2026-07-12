@@ -1,0 +1,149 @@
+/* Shoppable Shorts Section CSS */
+
+.shoppable-shorts {
+  position: relative;
+}
+
+.shoppable-short-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background-color: rgb(var(--color-background));
+  border-radius: var(--product-card-corner-radius, 2rem);
+  border: var(--product-card-border-width, 0) solid rgba(var(--color-foreground), var(--product-card-border-opacity, 0.1));
+  box-shadow: var(--product-card-shadow-horizontal-offset, 0) var(--product-card-shadow-vertical-offset, 4px) var(--product-card-shadow-blur-radius, 20px) rgba(var(--color-shadow), var(--product-card-shadow-opacity, 0.05));
+  overflow: hidden;
+  display: block;
+}
+
+@media screen and (max-width: 749px) {
+  .shoppable-shorts--mobile-90 .grid__item {
+    width: 90% !important;
+  }
+}
+
+@supports not (aspect-ratio: 9 / 16) {
+  .shoppable-short-card::before {
+    content: '';
+    display: block;
+    padding-bottom: 177.77%;
+  }
+}
+
+.shoppable-short-card__media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.shoppable-short-card__iframe-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none; /* Let clicks pass through if we handle custom play, but allow interactions if native */
+}
+
+.shoppable-short-card__iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.shoppable-short-card__poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.shoppable-short-card__poster::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 40%);
+  z-index: -1;
+}
+
+.shoppable-short-card__poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.shoppable-short-card__play-icon {
+  width: 4.8rem;
+  height: 4.8rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(var(--color-foreground));
+  transition: transform 0.2s ease, background 0.2s ease;
+  position: absolute;
+  z-index: 2;
+}
+
+.shoppable-short-card__poster:hover .shoppable-short-card__play-icon {
+  transform: scale(1.1);
+  background: #ffffff;
+}
+
+.shoppable-short-card__play-icon svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-left: 3px;
+}
+
+.shoppable-short-card.is-playing .shoppable-short-card__poster {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.shoppable-short-card.is-playing .shoppable-short-card__iframe-wrapper {
+  pointer-events: auto;
+}
+
+/* Shop the Look Button */
+.shoppable-short-card__shop-link {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  width: calc(100% - 4rem);
+  text-decoration: none;
+}
+
+.shoppable-short-card__shop-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.shoppable-short-card__shop-button:hover {
+  transform: translateY(-2px);
+}
+
+.shoppable-short-card__shop-button svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}

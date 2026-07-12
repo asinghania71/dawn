@@ -87,8 +87,19 @@ if (!customElements.get('wishlist-products')) {
           const existingGrid = this.querySelector('.grid');
           if (existingGrid) {
             existingGrid.innerHTML = '';
-            sortedNodes.forEach(node => existingGrid.appendChild(node));
+            sortedNodes.forEach((node, index) => {
+              // Add required attributes for slider-component compatibility
+              node.id = `Slide-wishlist-${index + 1}`;
+              node.classList.add('slider__slide');
+              existingGrid.appendChild(node);
+            });
             this.removeAttribute('hidden');
+            
+            // Re-initialize slider if it exists
+            const sliderComponent = this.querySelector('slider-component');
+            if (sliderComponent && typeof sliderComponent.resetPages === 'function') {
+              sliderComponent.resetPages();
+            }
           }
         } else {
           this.innerHTML = '<p class="center" style="margin: 3rem 0;">No active products found in your wishlist.</p>';

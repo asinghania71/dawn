@@ -20,7 +20,6 @@ class CustomProductRibbon extends HTMLElement {
 
     const data = {
       tag: (this.getAttribute('data-tags') || '').split(',').map(t => t.trim().toLowerCase()),
-      metafield: this.getAttribute('data-metafield') || '',
       rating: parseFloat(this.getAttribute('data-rating')) || 0,
       inventory: parseInt(this.getAttribute('data-inventory')) || 0,
       price: parseFloat(this.getAttribute('data-price')) || 0,

@@ -1,4 +1,89 @@
 {%- if icon != 'none' -%}
-  {%- assign file = icon | replace: '_', '-' | prepend: 'icon-' | append: '.svg' -%}
-  <span class="svg-wrapper">{{ file | inline_asset_content }}</span>
+  <span class="svg-wrapper">
+    {% case icon %}
+      {% when '3d_model' %}{{ 'icon-3d-model.svg' | inline_asset_content }}
+      {% when 'account' %}{{ 'icon-account.svg' | inline_asset_content }}
+      {% when 'apple' %}{{ 'icon-apple.svg' | inline_asset_content }}
+      {% when 'arrow' %}{{ 'icon-arrow.svg' | inline_asset_content }}
+      {% when 'banana' %}{{ 'icon-banana.svg' | inline_asset_content }}
+      {% when 'bottle' %}{{ 'icon-bottle.svg' | inline_asset_content }}
+      {% when 'box' %}{{ 'icon-box.svg' | inline_asset_content }}
+      {% when 'caret' %}{{ 'icon-caret.svg' | inline_asset_content }}
+      {% when 'carrot' %}{{ 'icon-carrot.svg' | inline_asset_content }}
+      {% when 'cart_empty' %}{{ 'icon-cart-empty.svg' | inline_asset_content }}
+      {% when 'cart' %}{{ 'icon-cart.svg' | inline_asset_content }}
+      {% when 'chat_bubble' %}{{ 'icon-chat-bubble.svg' | inline_asset_content }}
+      {% when 'check_mark' %}{{ 'icon-check-mark.svg' | inline_asset_content }}
+      {% when 'checkmark' %}{{ 'icon-checkmark.svg' | inline_asset_content }}
+      {% when 'clipboard' %}{{ 'icon-clipboard.svg' | inline_asset_content }}
+      {% when 'close_small' %}{{ 'icon-close-small.svg' | inline_asset_content }}
+      {% when 'close' %}{{ 'icon-close.svg' | inline_asset_content }}
+      {% when 'copy' %}{{ 'icon-copy.svg' | inline_asset_content }}
+      {% when 'dairy_free' %}{{ 'icon-dairy-free.svg' | inline_asset_content }}
+      {% when 'dairy' %}{{ 'icon-dairy.svg' | inline_asset_content }}
+      {% when 'discount' %}{{ 'icon-discount.svg' | inline_asset_content }}
+      {% when 'dryer' %}{{ 'icon-dryer.svg' | inline_asset_content }}
+      {% when 'error' %}{{ 'icon-error.svg' | inline_asset_content }}
+      {% when 'eye' %}{{ 'icon-eye.svg' | inline_asset_content }}
+      {% when 'facebook' %}{{ 'icon-facebook.svg' | inline_asset_content }}
+      {% when 'filter' %}{{ 'icon-filter.svg' | inline_asset_content }}
+      {% when 'fire' %}{{ 'icon-fire.svg' | inline_asset_content }}
+      {% when 'gluten_free' %}{{ 'icon-gluten-free.svg' | inline_asset_content }}
+      {% when 'hamburger' %}{{ 'icon-hamburger.svg' | inline_asset_content }}
+      {% when 'heart' %}{{ 'icon-heart.svg' | inline_asset_content }}
+      {% when 'home' %}{{ 'icon-home.svg' | inline_asset_content }}
+      {% when 'info' %}{{ 'icon-info.svg' | inline_asset_content }}
+      {% when 'instagram' %}{{ 'icon-instagram.svg' | inline_asset_content }}
+      {% when 'inventory_status' %}{{ 'icon-inventory-status.svg' | inline_asset_content }}
+      {% when 'iron' %}{{ 'icon-iron.svg' | inline_asset_content }}
+      {% when 'leaf' %}{{ 'icon-leaf.svg' | inline_asset_content }}
+      {% when 'leather' %}{{ 'icon-leather.svg' | inline_asset_content }}
+      {% when 'lightning_bolt' %}{{ 'icon-lightning-bolt.svg' | inline_asset_content }}
+      {% when 'lipstick' %}{{ 'icon-lipstick.svg' | inline_asset_content }}
+      {% when 'lock' %}{{ 'icon-lock.svg' | inline_asset_content }}
+      {% when 'map_pin' %}{{ 'icon-map-pin.svg' | inline_asset_content }}
+      {% when 'minus' %}{{ 'icon-minus.svg' | inline_asset_content }}
+      {% when 'nut_free' %}{{ 'icon-nut-free.svg' | inline_asset_content }}
+      {% when 'padlock' %}{{ 'icon-padlock.svg' | inline_asset_content }}
+      {% when 'pants' %}{{ 'icon-pants.svg' | inline_asset_content }}
+      {% when 'pause' %}{{ 'icon-pause.svg' | inline_asset_content }}
+      {% when 'paw_print' %}{{ 'icon-paw-print.svg' | inline_asset_content }}
+      {% when 'pepper' %}{{ 'icon-pepper.svg' | inline_asset_content }}
+      {% when 'perfume' %}{{ 'icon-perfume.svg' | inline_asset_content }}
+      {% when 'pinterest' %}{{ 'icon-pinterest.svg' | inline_asset_content }}
+      {% when 'plane' %}{{ 'icon-plane.svg' | inline_asset_content }}
+      {% when 'plant' %}{{ 'icon-plant.svg' | inline_asset_content }}
+      {% when 'play' %}{{ 'icon-play.svg' | inline_asset_content }}
+      {% when 'plus' %}{{ 'icon-plus.svg' | inline_asset_content }}
+      {% when 'price_tag' %}{{ 'icon-price-tag.svg' | inline_asset_content }}
+      {% when 'question_mark' %}{{ 'icon-question-mark.svg' | inline_asset_content }}
+      {% when 'recycle' %}{{ 'icon-recycle.svg' | inline_asset_content }}
+      {% when 'remove' %}{{ 'icon-remove.svg' | inline_asset_content }}
+      {% when 'reset' %}{{ 'icon-reset.svg' | inline_asset_content }}
+      {% when 'return' %}{{ 'icon-return.svg' | inline_asset_content }}
+      {% when 'ruler' %}{{ 'icon-ruler.svg' | inline_asset_content }}
+      {% when 'search' %}{{ 'icon-search.svg' | inline_asset_content }}
+      {% when 'serving_dish' %}{{ 'icon-serving-dish.svg' | inline_asset_content }}
+      {% when 'share' %}{{ 'icon-share.svg' | inline_asset_content }}
+      {% when 'shirt' %}{{ 'icon-shirt.svg' | inline_asset_content }}
+      {% when 'shoe' %}{{ 'icon-shoe.svg' | inline_asset_content }}
+      {% when 'shopify' %}{{ 'icon-shopify.svg' | inline_asset_content }}
+      {% when 'silhouette' %}{{ 'icon-silhouette.svg' | inline_asset_content }}
+      {% when 'snapchat' %}{{ 'icon-snapchat.svg' | inline_asset_content }}
+      {% when 'snowflake' %}{{ 'icon-snowflake.svg' | inline_asset_content }}
+      {% when 'star' %}{{ 'icon-star.svg' | inline_asset_content }}
+      {% when 'stopwatch' %}{{ 'icon-stopwatch.svg' | inline_asset_content }}
+      {% when 'success' %}{{ 'icon-success.svg' | inline_asset_content }}
+      {% when 'tick' %}{{ 'icon-tick.svg' | inline_asset_content }}
+      {% when 'tiktok' %}{{ 'icon-tiktok.svg' | inline_asset_content }}
+      {% when 'truck' %}{{ 'icon-truck.svg' | inline_asset_content }}
+      {% when 'tumblr' %}{{ 'icon-tumblr.svg' | inline_asset_content }}
+      {% when 'twitter' %}{{ 'icon-twitter.svg' | inline_asset_content }}
+      {% when 'unavailable' %}{{ 'icon-unavailable.svg' | inline_asset_content }}
+      {% when 'vimeo' %}{{ 'icon-vimeo.svg' | inline_asset_content }}
+      {% when 'washing' %}{{ 'icon-washing.svg' | inline_asset_content }}
+      {% when 'youtube' %}{{ 'icon-youtube.svg' | inline_asset_content }}
+      {% when 'zoom' %}{{ 'icon-zoom.svg' | inline_asset_content }}
+    {% endcase %}
+  </span>
 {%- endif -%}

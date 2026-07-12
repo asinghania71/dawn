@@ -1505,7 +1505,7 @@
     ]
   },
   {
-    "name": "Wishlist & Recently Viewed",
+    "name": "Wishlist",
     "settings": [
       {
         "type": "checkbox",
@@ -1566,27 +1566,18 @@
         "label": "Show product rating"
       },
       {
-        "type": "range",
-        "id": "cards_columns_desktop",
-        "min": 1,
-        "max": 6,
-        "step": 1,
-        "default": 4,
-        "label": "Desktop columns"
-      },
-      {
         "type": "select",
-        "id": "cards_columns_mobile",
-        "default": "2",
-        "label": "Mobile columns",
+        "id": "wishlist_card_size",
+        "label": "Wishlist Card Size",
+        "default": "large",
         "options": [
           {
-            "value": "1",
-            "label": "1 column"
+            "value": "small",
+            "label": "Small (Fit More)"
           },
           {
-            "value": "2",
-            "label": "2 columns"
+            "value": "large",
+            "label": "Large (Standard)"
           }
         ]
       }

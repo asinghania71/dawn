@@ -1,0 +1,292 @@
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'shoppable-shorts.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'shoppable-shorts.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} isolate gradient">
+  <div class="shoppable-shorts section-{{ section.id }}-padding{% if section.settings.full_width %} shoppable-shorts--full-width{% else %} page-width{% endif %}">
+    
+    <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width">
+      {%- if section.settings.title != blank -%}
+        <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {{ section.settings.title }}
+        </h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="collection__description {{ section.settings.description_style }} rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <slider-component class="slider-mobile-gutter{% if section.settings.full_width %} slider-component-full-width{% endif %}">
+      <ul id="Slider-{{ section.id }}" class="grid product-grid contains-card grid--{{ section.settings.columns_desktop }}-col-desktop {% if section.settings.columns_mobile == '2' %}grid--2-col-tablet-down{% else %}grid--1-col-tablet-down{% endif %} slider slider--tablet slider--desktop {% if section.settings.columns_mobile == '1_90' %}grid--peek shoppable-shorts--mobile-90{% endif %}" role="list" aria-label="{{ 'general.slider.name' | t }}">
+        {%- for block in section.blocks -%}
+          <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="grid__item slider__slide" {{ block.shopify_attributes }}>
+            <shoppable-short 
+              data-url="{{ block.settings.video_url }}" 
+              data-autoplay="{{ section.settings.enable_autoplay }}"
+              data-has-poster="{% if block.settings.poster_image != blank %}true{% else %}false{% endif %}"
+            >
+              <div class="shoppable-short-card color-{{ section.settings.card_color_scheme }}">
+                
+                <div class="shoppable-short-card__poster">
+                  {%- if block.settings.poster_image != blank -%}
+                    {{ block.settings.poster_image | image_url: width: 600 | image_tag: loading: 'lazy' }}
+                  {%- else -%}
+                    {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                  {%- endif -%}
+                  
+                  <div class="shoppable-short-card__play-icon">
+                    {{- 'icon-play.svg' | inline_asset_content -}}
+                  </div>
+                </div>
+
+                <div class="shoppable-short-card__iframe-wrapper"></div>
+                
+                {%- if block.settings.linked_product != blank -%}
+                  {%- assign product = all_products[block.settings.linked_product] -%}
+                  <a href="{{ product.url }}" class="shoppable-short-card__shop-link">
+                    <button class="button shoppable-short-card__shop-button color-{{ section.settings.button_color_scheme }}" tabindex="-1">
+                      {%- if block.settings.button_label != blank -%}
+                        {{ block.settings.button_label }}
+                      {%- else -%}
+                        Shop {{ product.title | truncate: 15 }}
+                      {%- endif -%}
+                      {{- 'icon-arrow.svg' | inline_asset_content -}}
+                    </button>
+                  </a>
+                {%- endif -%}
+
+              </div>
+            </shoppable-short>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <div class="slider-buttons no-js-hidden">
+        <button type="button" class="slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}">
+          {{ 'icon-caret.svg' | inline_asset_content }}
+        </button>
+        <div class="slider-counter caption">
+          <span class="slider-counter--current">1</span>
+          <span aria-hidden="true"> / </span>
+          <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+          <span class="slider-counter--total">{{ section.blocks.size }}</span>
+        </div>
+        <button type="button" class="slider-button slider-button--next" name="next" aria-label="{{ 'general.slider.next_slide' | t }}">
+          {{ 'icon-caret.svg' | inline_asset_content }}
+        </button>
+      </div>
+    </slider-component>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shoppable Shorts",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Shop our feed",
+      "label": "t:sections.featured-collection.settings.title.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.featured-collection.settings.description.label"
+    },
+    {
+      "type": "select",
+      "id": "description_style",
+      "label": "t:sections.featured-collection.settings.description_style.label",
+      "options": [
+        {
+          "value": "body",
+          "label": "t:sections.featured-collection.settings.description_style.options__1.label"
+        },
+        {
+          "value": "subtitle",
+          "label": "t:sections.featured-collection.settings.description_style.options__2.label"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.featured-collection.settings.description_style.options__3.label"
+        }
+      ],
+      "default": "body"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Number of columns on desktop"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "1_90",
+      "label": "Number of columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 column (100% coverage)"
+        },
+        {
+          "value": "1_90",
+          "label": "1 column (90% coverage with peek)"
+        },
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable autoplay",
+      "info": "Videos will automatically start playing when scrolled into view. Note: Browsers may mute auto-playing videos.",
+      "default": false
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Section Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "card_color_scheme",
+      "label": "Card Color Scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "color_scheme",
+      "id": "button_color_scheme",
+      "label": "Shop Button Color Scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video_short",
+      "name": "Video Short",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL",
+          "info": "Paste the URL of a YouTube Short or Instagram Reel. Example: https://www.youtube.com/shorts/VIDEO_ID or https://www.instagram.com/reel/VIDEO_ID"
+        },
+        {
+          "type": "image_picker",
+          "id": "poster_image",
+          "label": "Cover Image",
+          "info": "Image shown before the video starts playing."
+        },
+        {
+          "type": "product",
+          "id": "linked_product",
+          "label": "Shop the Look Product"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop Now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shoppable Shorts",
+      "blocks": [
+        { "type": "video_short" },
+        { "type": "video_short" },
+        { "type": "video_short" },
+        { "type": "video_short" }
+      ]
+    }
+  ]
+}
+{% endschema %}

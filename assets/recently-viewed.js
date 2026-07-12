@@ -51,15 +51,15 @@ if (!customElements.get('recently-viewed-products')) {
         const queryToFetch = recentlyViewed.slice(0, this.limit);
         const query = encodeURIComponent(queryToFetch.map(handle => `handle:${handle}`).join(' OR '));
         
-        // 2. Fetch headless search template
-        const searchUrl = `${(window.routes && window.routes.search_url) || '/search'}?q=${query}&type=product&view=recently-viewed`;
+        // 2. Fetch section HTML using Section Rendering API
+        const searchUrl = `${(window.routes && window.routes.search_url) || '/search'}?q=${query}&type=product&section_id=${this.dataset.sectionId}`;
 
         const response = await fetch(searchUrl);
         const text = await response.text();
         const html = document.createElement('div');
         html.innerHTML = text;
 
-        // 3. Extract the product grid list
+        // 3. Extract the product grid list from the rendered section
         const productGrid = html.querySelector('.grid.product-grid');
         
         if (productGrid && productGrid.children.length > 0) {
