@@ -52,6 +52,15 @@
   font-weight: 500;
 }
 
+/* Size Modifiers */
+.sticky-bottom-nav--small { padding: 0.5rem 0; }
+.sticky-bottom-nav--small .sticky-bottom-nav__icon-wrapper { width: 2rem; height: 2rem; }
+.sticky-bottom-nav--small .sticky-bottom-nav__text { font-size: 0.9rem; }
+
+.sticky-bottom-nav--large { padding: 1.5rem 0; }
+.sticky-bottom-nav--large .sticky-bottom-nav__icon-wrapper { width: 2.8rem; height: 2.8rem; }
+.sticky-bottom-nav--large .sticky-bottom-nav__text { font-size: 1.1rem; }
+
 /* Active State */
 .sticky-bottom-nav__item.is-active {
   color: rgb(var(--color-foreground));

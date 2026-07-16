@@ -94,6 +94,29 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Sticky Header Size Modifiers */
+  .shopify-section-header-sticky sticky-header[data-sticky-size="small"] .header {
+    padding-top: {{ section.settings.padding_top | times: 0.25 | round: 0 }}px !important;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.25 | round: 0 }}px !important;
+  }
+  
+  .shopify-section-header-sticky sticky-header[data-sticky-size="large"] .header {
+    padding-top: {{ section.settings.padding_top | times: 1.25 | round: 0 }}px !important;
+    padding-bottom: {{ section.settings.padding_bottom | times: 1.25 | round: 0 }}px !important;
+  }
+  
+  .shopify-section-header-sticky sticky-header[data-sticky-size="small"] .header__heading-logo {
+    transform: scale(0.85);
+    transform-origin: left center;
+    transition: transform 0.2s ease;
+  }
+  
+  .shopify-section-header-sticky sticky-header[data-sticky-size="large"] .header__heading-logo {
+    transform: scale(1.15);
+    transform-origin: left center;
+    transition: transform 0.2s ease;
+  }
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
@@ -114,7 +137,7 @@
   endif
 %}
 
-<{{ header_tag }} {% if header_tag == 'sticky-header' %}data-sticky-type="{{ section.settings.sticky_header_type }}"{% endif %} class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}">
+<{{ header_tag }} {% if header_tag == 'sticky-header' %}data-sticky-type="{{ section.settings.sticky_header_type }}" data-sticky-size="{{ section.settings.sticky_header_size }}"{% endif %} class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}">
   {%- liquid
     assign social_links = false
     assign localization_forms = false
@@ -566,6 +589,26 @@
       ],
       "default": "on-scroll-up",
       "label": "t:sections.header.settings.sticky_header_type.label"
+    },
+    {
+      "type": "select",
+      "id": "sticky_header_size",
+      "label": "Sticky Header Size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (Default)"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium"
     },
     {
       "type": "checkbox",

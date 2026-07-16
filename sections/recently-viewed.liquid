@@ -28,13 +28,15 @@
 <div class="color-{{ section.settings.color_scheme }} isolate gradient">
   <div class="collection section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}">
     <div class="page-width">
-      {%- if section.settings.title != blank -%}
-        <div class="title-wrapper-with-link title-wrapper--self-padded-tablet-down title-wrapper--no-top-margin">
-          <h2 class="title inline-richtext {{ section.settings.heading_size }}">
-            {{ section.settings.title }}
-          </h2>
-        </div>
-      {%- endif -%}
+      {% render 'section-heading',
+        title: section.settings.title,
+        heading_size: section.settings.heading_size,
+        heading_alignment: section.settings.heading_alignment,
+        description: section.settings.description,
+        description_style: section.settings.description_style,
+        description_alignment: section.settings.description_alignment,
+        wrapper_classes: 'title-wrapper--self-padded-tablet-down'
+      %}
 
       <recently-viewed-products class="recently-viewed-products" data-section-id="{{ section.id }}" data-limit="{{ section.settings.products_to_show }}">
         {% render 'product-slider', products: search.results, limit: section.settings.products_to_show, show_review_widget: section.settings.show_review_widget, review_widget_size: section.settings.review_widget_size, ribbon_size: section.settings.ribbon_size %}
@@ -57,6 +59,26 @@
       "id": "title",
       "default": "Recently viewed",
       "label": "t:sections.featured-collection.settings.title.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "t:sections.all.heading_alignment.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.heading_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.heading_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.heading_alignment.options__3.label"
+        }
+      ],
+      "default": "left"
     },
     {
       "type": "select",
@@ -85,6 +107,51 @@
       ],
       "default": "h1",
       "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.featured-collection.settings.description.label"
+    },
+    {
+      "type": "select",
+      "id": "description_style",
+      "label": "t:sections.featured-collection.settings.description_style.label",
+      "options": [
+        {
+          "value": "body",
+          "label": "t:sections.featured-collection.settings.description_style.options__1.label"
+        },
+        {
+          "value": "subtitle",
+          "label": "t:sections.featured-collection.settings.description_style.options__2.label"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.featured-collection.settings.description_style.options__3.label"
+        }
+      ],
+      "default": "body"
+    },
+    {
+      "type": "select",
+      "id": "description_alignment",
+      "label": "t:sections.all.description_alignment.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.heading_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.heading_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.heading_alignment.options__3.label"
+        }
+      ],
+      "default": "left"
     },
     {
       "type": "range",

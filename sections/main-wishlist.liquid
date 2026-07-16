@@ -29,11 +29,11 @@
 <div class="color-{{ section.settings.color_scheme }} isolate gradient">
   <div class="collection section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}">
     <div class="page-width">
-      <div class="title-wrapper-with-link title-wrapper--self-padded-tablet-down title-wrapper--no-top-margin">
-        <h1 class="title h1 inline-richtext">
-          {{ page.title | escape }}
-        </h1>
-      </div>
+      {% render 'section-heading',
+        title: page.title,
+        heading_size: 'h1',
+        wrapper_classes: 'title-wrapper--self-padded-tablet-down'
+      %}
 
       <wishlist-products class="wishlist-products" data-section-id="{{ section.id }}">
         <ul class="grid product-grid wishlist-grid--{{ settings.wishlist_card_size }}">

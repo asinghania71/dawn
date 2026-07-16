@@ -120,30 +120,104 @@
   pointer-events: auto;
 }
 
-/* Shop the Look Button */
-.shoppable-short-card__shop-link {
+/* Product Banner Overlay */
+.shoppable-short-card__product-banner {
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;
-  width: calc(100% - 4rem);
-  text-decoration: none;
+  width: calc(100% - 3rem);
+  background-color: rgba(var(--color-button), 1);
+  color: rgba(var(--color-button-text), 1);
+  border-radius: var(--buttons-radius-outset, 1.2rem);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  overflow: hidden;
 }
 
-.shoppable-short-card__shop-button {
-  width: 100%;
+.shoppable-short-card__banner-link {
   display: flex;
   align-items: center;
+  padding: 0.8rem;
+  text-decoration: none;
+  color: inherit;
+  gap: 1.2rem;
+}
+
+.shoppable-short-card__banner-image {
+  width: 4.8rem;
+  height: 4.8rem;
+  flex-shrink: 0;
+  border-radius: 0.6rem;
+  overflow: hidden;
+  background-color: rgba(var(--color-background), 1);
+}
+
+.shoppable-short-card__banner-image img,
+.shoppable-short-card__banner-image svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.shoppable-short-card__banner-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 0;
   justify-content: center;
-  gap: 0.8rem;
 }
 
-.shoppable-short-card__shop-button:hover {
-  transform: translateY(-2px);
+.shoppable-short-card__banner-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.05rem;
 }
 
-.shoppable-short-card__shop-button svg {
-  width: 1.6rem;
-  height: 1.6rem;
+.shoppable-short-card__banner-action {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.shoppable-short-card__banner-action svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: currentColor;
+}
+
+.shoppable-short-card__banner-rating {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Push to far right if there's space */
+  padding-left: 0.8rem;
+}
+
+.shoppable-short-card__banner-rating .review-widget-wrapper {
+  position: relative !important;
+  width: auto !important;
+  height: auto !important;
+  pointer-events: auto !important;
+}
+
+.shoppable-short-card__banner-rating .review-widget {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+}
+
+.shoppable-short-card__banner-rating .review-widget__container {
+  box-shadow: none !important;
+  padding: 0 !important;
+  background: transparent !important;
 }

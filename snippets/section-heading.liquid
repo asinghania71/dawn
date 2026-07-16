@@ -1,0 +1,53 @@
+{% comment %}
+  Renders a consistent title wrapper for sections.
+
+  Accepts:
+  - title: {String} The heading text.
+  - heading_size: {String} The size of the heading (e.g., 'h1', 'h2').
+  - description: {String} (Optional) The subheading or rich text description.
+  - description_style: {String} (Optional) The style of the description ('body', 'subtitle', 'uppercase').
+  - link_url: {String} (Optional) The URL for the "View all" link.
+  - link_text: {String} (Optional) The text for the "View all" link.
+  - wrapper_classes: {String} (Optional) Custom classes to add to the title wrapper.
+  - heading_alignment: {String} (Optional) The alignment of the heading ('left', 'center', 'right').
+  - description_alignment: {String} (Optional) The alignment of the description ('left', 'center', 'right').
+  - show_mobile_slider: {Boolean} (Optional) Adds mobile padding if the slider is active on mobile.
+  - show_desktop_slider: {Boolean} (Optional) Adds desktop slider class.
+
+  Usage:
+  {% render 'section-heading', 
+    title: section.settings.title, 
+    heading_size: section.settings.heading_size,
+    heading_alignment: section.settings.heading_alignment,
+    description: section.settings.description,
+    description_style: section.settings.description_style,
+    description_alignment: section.settings.description_alignment,
+    link_url: section.settings.collection.url,
+    link_text: 'View all'
+  %}
+{% endcomment %}
+
+{%- liquid
+  assign alignment = heading_alignment | default: 'left'
+  assign desc_alignment = description_alignment | default: ''
+-%}
+
+<div class="title-wrapper{% if link_url != blank %} title-wrapper-with-link{% else %} title-wrapper--no-top-margin{% endif %} title-wrapper--{{ alignment }} {{ wrapper_classes }}{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
+  {%- if title != blank -%}
+    <h2 class="title inline-richtext {{ heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {{ title }}
+    </h2>
+  {%- endif -%}
+
+  {%- if description != blank -%}
+    <div class="collection__description {{ description_style }} {{ desc_alignment }} rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {{ description }}
+    </div>
+  {%- endif -%}
+
+  {%- if link_url != blank and link_text != blank -%}
+    <a href="{{ link_url }}" class="link underlined-link large-up-hide{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {{ link_text }}
+    </a>
+  {%- endif -%}
+</div>

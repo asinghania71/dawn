@@ -793,6 +793,29 @@ summary::-webkit-details-marker {
   flex-wrap: wrap;
 }
 
+.title-wrapper--left {
+  text-align: left;
+  justify-content: flex-start;
+}
+.title-wrapper--center {
+  text-align: center;
+  justify-content: center;
+}
+.title-wrapper--right {
+  text-align: right;
+  justify-content: flex-end;
+}
+.title-wrapper-with-link.title-wrapper--center,
+.title-wrapper-with-link.title-wrapper--right {
+  flex-direction: column;
+}
+.title-wrapper-with-link.title-wrapper--center {
+  align-items: center;
+}
+.title-wrapper-with-link.title-wrapper--right {
+  align-items: flex-end;
+}
+
 .title--primary {
   margin: 4rem 0;
 }

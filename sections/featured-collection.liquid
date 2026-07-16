@@ -68,25 +68,23 @@
     id="collection-{{ section.id }}"
     data-id="{{ section.id }}"
   >
-    <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
-      {%- if section.settings.title != blank -%}
-        <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          {{ section.settings.title }}
-        </h2>
-      {%- endif -%}
-      {%- if section.settings.description != blank
-        or section.settings.show_description
-        and section.settings.collection.description != empty
-      -%}
-        <div class="collection__description {{ section.settings.description_style }} rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          {%- if section.settings.show_description -%}
-            {{ section.settings.collection.description }}
-          {%- else -%}
-            {{ section.settings.description -}}
-          {%- endif %}
-        </div>
-      {%- endif -%}
-    </div>
+    {%- liquid
+      assign resolved_description = section.settings.description
+      if section.settings.show_description and section.settings.collection.description != empty
+        assign resolved_description = section.settings.collection.description
+      endif
+    -%}
+    {% render 'section-heading',
+      title: section.settings.title,
+      heading_size: section.settings.heading_size,
+      heading_alignment: section.settings.heading_alignment,
+      description: resolved_description,
+      description_style: section.settings.description_style,
+      description_alignment: section.settings.description_alignment,
+      wrapper_classes: 'collection__title page-width',
+      show_mobile_slider: show_mobile_slider,
+      show_desktop_slider: show_desktop_slider
+    %}
 
     <slider-component class="slider-mobile-gutter{% if section.settings.full_width %} slider-component-full-width{% endif %}{% if show_mobile_slider == false %} page-width{% endif %}{% if show_desktop_slider == false and section.settings.full_width == false %} page-width-desktop{% endif %}{% if show_desktop_slider %} slider-component-desktop{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       {%- if section.settings.collection.products.size > 0 -%}
@@ -150,6 +148,26 @@
     },
     {
       "type": "select",
+      "id": "heading_alignment",
+      "label": "t:sections.all.heading_alignment.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.heading_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.heading_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.heading_alignment.options__3.label"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
       "id": "heading_size",
       "options": [
         {
@@ -208,6 +226,26 @@
       "default": "body"
     },
     {
+      "type": "select",
+      "id": "description_alignment",
+      "label": "t:sections.all.description_alignment.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.heading_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.heading_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.heading_alignment.options__3.label"
+        }
+      ],
+      "default": "left"
+    },
+    {
       "type": "header",
       "content": "t:sections.featured-collection.settings.header_collection.content"
     },    
@@ -229,7 +267,7 @@
     {
       "type": "checkbox",
       "id": "full_width",
-      "label": "t:sections.featured-collection.settings.full_width.label",
+      "label": "t:sections.all.full_width.label",
       "default": false
     },
     {

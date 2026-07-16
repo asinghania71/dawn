@@ -393,6 +393,33 @@
         "label": "Color scheme",
         "has_cards_info": "To change the card color scheme, update your theme settings."
       },
+      "heading_alignment": {
+        "label": "Heading alignment",
+        "options__1": {
+          "label": "Left"
+        },
+        "options__2": {
+          "label": "Center"
+        },
+        "options__3": {
+          "label": "Right"
+        }
+      },
+      "description_alignment": {
+        "label": "Description alignment",
+        "options__1": {
+          "label": "Left"
+        },
+        "options__2": {
+          "label": "Center"
+        },
+        "options__3": {
+          "label": "Right"
+        }
+      },
+      "full_width": {
+        "label": "Make section full width"
+      },
       "heading_size": {
         "label": "Heading size",
         "options__1": {

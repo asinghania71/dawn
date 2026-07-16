@@ -60,16 +60,34 @@
                 
                 {%- if block.settings.linked_product != blank -%}
                   {%- assign product = all_products[block.settings.linked_product] -%}
-                  <a href="{{ product.url }}" class="shoppable-short-card__shop-link">
-                    <button class="button shoppable-short-card__shop-button color-{{ section.settings.button_color_scheme }}" tabindex="-1">
-                      {%- if block.settings.button_label != blank -%}
-                        {{ block.settings.button_label }}
-                      {%- else -%}
-                        Shop {{ product.title | truncate: 15 }}
+                  <div class="shoppable-short-card__product-banner color-{{ section.settings.button_color_scheme }}">
+                    <a href="{{ product.url }}" class="shoppable-short-card__banner-link" tabindex="-1">
+                      <div class="shoppable-short-card__banner-image">
+                        {%- if product.featured_image != blank -%}
+                          {{ product.featured_image | image_url: width: 80, height: 80 | image_tag: loading: 'lazy' }}
+                        {%- else -%}
+                          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {%- endif -%}
+                      </div>
+                      <div class="shoppable-short-card__banner-info">
+                        <span class="shoppable-short-card__banner-title">{{ product.title | truncate: 30 }}</span>
+                        <span class="shoppable-short-card__banner-action">
+                          {%- if block.settings.button_label != blank -%}
+                            {{ block.settings.button_label }}
+                          {%- else -%}
+                            Shop Now
+                          {%- endif -%}
+                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                        </span>
+                      </div>
+                      {%- assign rating = product.metafields.reviews.rating.value -%}
+                      {%- if rating != blank -%}
+                        <div class="shoppable-short-card__banner-rating">
+                          {% render 'review-widget', product: product, show_review_widget: true, review_widget_size: 'small' %}
+                        </div>
                       {%- endif -%}
-                      {{- 'icon-arrow.svg' | inline_asset_content -}}
-                    </button>
-                  </a>
+                    </a>
+                  </div>
                 {%- endif -%}
 
               </div>
