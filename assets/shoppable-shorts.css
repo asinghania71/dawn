@@ -7,7 +7,6 @@
 .shoppable-short-card {
   position: relative;
   width: 100%;
-  aspect-ratio: 9 / 16;
   background-color: rgb(var(--color-background));
   border-radius: var(--product-card-corner-radius, 2rem);
   border: var(--product-card-border-width, 0) solid rgba(var(--color-foreground), var(--product-card-border-opacity, 0.1));
@@ -22,11 +21,34 @@
   }
 }
 
+/* Aspect Ratio Modifiers */
+.shoppable-short-card--ratio-portrait {
+  aspect-ratio: 9 / 16;
+}
+
+.shoppable-short-card--ratio-square {
+  aspect-ratio: 1 / 1;
+}
+
+.shoppable-short-card--ratio-adapt {
+  /* Fallback to portrait if no poster image */
+  aspect-ratio: 9 / 16;
+}
+
+shoppable-short[data-has-poster="true"] .shoppable-short-card--ratio-adapt {
+  aspect-ratio: auto;
+}
+
 @supports not (aspect-ratio: 9 / 16) {
-  .shoppable-short-card::before {
+  .shoppable-short-card--ratio-portrait::before {
     content: '';
     display: block;
     padding-bottom: 177.77%;
+  }
+  .shoppable-short-card--ratio-square::before {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
   }
 }
 

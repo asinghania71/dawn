@@ -42,8 +42,11 @@
               data-autoplay="{{ section.settings.enable_autoplay }}"
               data-has-poster="{% if block.settings.poster_image != blank %}true{% else %}false{% endif %}"
             >
-              <div class="shoppable-short-card color-{{ section.settings.card_color_scheme }}">
-                
+              <div class="shoppable-short-card shoppable-short-card--ratio-{{ section.settings.image_ratio }} color-{{ section.settings.card_color_scheme }}"
+                {% if section.settings.image_ratio == 'adapt' and block.settings.poster_image != blank %}
+                  style="padding-bottom: {{ 100 | divided_by: block.settings.poster_image.aspect_ratio }}%;"
+                {% endif %}
+              >
                 <div class="shoppable-short-card__poster">
                   {%- if block.settings.poster_image != blank -%}
                     {{ block.settings.poster_image | image_url: width: 600 | image_tag: loading: 'lazy' }}
@@ -80,8 +83,9 @@
                           {{- 'icon-arrow.svg' | inline_asset_content -}}
                         </span>
                       </div>
+                      
                       {%- assign rating = product.metafields.reviews.rating.value -%}
-                      {%- if rating != blank -%}
+                      {%- if rating != blank and settings.enable_review_widget -%}
                         <div class="shoppable-short-card__banner-rating">
                           {% render 'review-widget', product: product, show_review_widget: true, review_widget_size: 'small' %}
                         </div>
@@ -207,6 +211,27 @@
           "label": "2 columns"
         }
       ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "portrait",
+      "label": "t:sections.featured-collection.settings.image_ratio.label",
+      "info": "Portrait uses a 9:16 vertical ratio ideal for short-form videos."
     },
     {
       "type": "checkbox",
