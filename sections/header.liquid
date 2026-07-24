@@ -108,13 +108,13 @@
   
   .shopify-section-header-sticky sticky-header[data-sticky-size="small"] .header__heading-logo {
     transform: scale(0.85);
-    transform-origin: left center;
+    transform-origin: center center;
     transition: transform 0.2s ease;
   }
   
   .shopify-section-header-sticky sticky-header[data-sticky-size="large"] .header__heading-logo {
     transform: scale(1.15);
-    transform-origin: left center;
+    transform-origin: center center;
     transition: transform 0.2s ease;
   }
 {%- endstyle -%}
@@ -593,19 +593,19 @@
     {
       "type": "select",
       "id": "sticky_header_size",
-      "label": "Sticky Header Size",
+      "label": "t:sections.header.settings.sticky_header_size.label",
       "options": [
         {
           "value": "small",
-          "label": "Small"
+          "label": "t:sections.header.settings.sticky_header_size.options.small"
         },
         {
           "value": "medium",
-          "label": "Medium (Default)"
+          "label": "t:sections.header.settings.sticky_header_size.options.medium"
         },
         {
           "value": "large",
-          "label": "Large"
+          "label": "t:sections.header.settings.sticky_header_size.options.large"
         }
       ],
       "default": "medium"

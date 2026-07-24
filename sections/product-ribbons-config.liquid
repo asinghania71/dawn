@@ -20,32 +20,32 @@
 
 {% schema %}
 {
-  "name": "Product Ribbons Config",
+  "name": "t:sections.product-ribbons-config.name",
   "settings": [
     {
       "type": "paragraph",
-      "content": "This section powers the global Web Component for product ribbon badges. Add this section once to your Footer Group to enable global badge logic."
+      "content": "t:sections.product-ribbons-config.settings.paragraph.content"
     },
     {
       "type": "select",
       "id": "position",
-      "label": "Ribbon Position",
+      "label": "t:sections.product-ribbons-config.settings.position.label",
       "options": [
-        { "value": "top-left", "label": "Top Left" },
-        { "value": "top-right", "label": "Top Right" },
-        { "value": "bottom-left", "label": "Bottom Left" },
-        { "value": "bottom-right", "label": "Bottom Right" }
+        { "value": "top-left", "label": "t:sections.product-ribbons-config.settings.position.options.top-left" },
+        { "value": "top-right", "label": "t:sections.product-ribbons-config.settings.position.options.top-right" },
+        { "value": "bottom-left", "label": "t:sections.product-ribbons-config.settings.position.options.bottom-left" },
+        { "value": "bottom-right", "label": "t:sections.product-ribbons-config.settings.position.options.bottom-right" }
       ],
       "default": "top-left"
     },
     {
       "type": "select",
       "id": "size",
-      "label": "Ribbon Size",
+      "label": "t:sections.product-ribbons-config.settings.size.label",
       "options": [
-        { "value": "small", "label": "Small" },
-        { "value": "medium", "label": "Medium" },
-        { "value": "large", "label": "Large" }
+        { "value": "small", "label": "t:sections.product-ribbons-config.settings.size.options.small" },
+        { "value": "medium", "label": "t:sections.product-ribbons-config.settings.size.options.medium" },
+        { "value": "large", "label": "t:sections.product-ribbons-config.settings.size.options.large" }
       ],
       "default": "medium"
     }
@@ -53,60 +53,60 @@
   "blocks": [
     {
       "type": "badge",
-      "name": "Ribbon Badge",
+      "name": "t:sections.product-ribbons-config.blocks.badge.name",
       "settings": [
         {
           "type": "select",
           "id": "data_source",
-          "label": "Data Source",
+          "label": "t:sections.product-ribbons-config.blocks.badge.settings.data_source.label",
           "options": [
-            { "value": "tag", "label": "Product Tag" },
-            { "value": "rating", "label": "Product Rating" },
-            { "value": "inventory", "label": "Inventory Quantity" },
-            { "value": "price_sale", "label": "On Sale (Compare At > Price)" },
-            { "value": "vendor", "label": "Vendor" },
-            { "value": "type", "label": "Type" },
-            { "value": "title", "label": "Title" },
-            { "value": "age", "label": "Age (Days since created)" }
+            { "value": "tag", "label": "t:sections.product-ribbons-config.blocks.badge.settings.data_source.options.tag" },
+            { "value": "rating", "label": "t:sections.product-ribbons-config.blocks.badge.settings.data_source.options.rating" },
+            { "value": "inventory", "label": "t:sections.product-ribbons-config.blocks.badge.settings.data_source.options.inventory" },
+            { "value": "price_sale", "label": "t:sections.product-ribbons-config.blocks.badge.settings.data_source.options.price_sale" },
+            { "value": "vendor", "label": "t:sections.product-ribbons-config.blocks.badge.settings.data_source.options.vendor" },
+            { "value": "type", "label": "t:sections.product-ribbons-config.blocks.badge.settings.data_source.options.type" },
+            { "value": "title", "label": "t:sections.product-ribbons-config.blocks.badge.settings.data_source.options.title" },
+            { "value": "age", "label": "t:sections.product-ribbons-config.blocks.badge.settings.data_source.options.age" }
           ],
           "default": "tag"
         },
         {
           "type": "select",
           "id": "operator",
-          "label": "Operator",
+          "label": "t:sections.product-ribbons-config.blocks.badge.settings.operator.label",
           "options": [
-            { "value": "equals", "label": "Equals (==)" },
-            { "value": "not_equals", "label": "Not Equals (!=)" },
-            { "value": "greater_than", "label": "Greater Than (>)" },
-            { "value": "less_than", "label": "Less Than (<)" },
-            { "value": "contains", "label": "Contains" }
+            { "value": "equals", "label": "t:sections.product-ribbons-config.blocks.badge.settings.operator.options.equals" },
+            { "value": "not_equals", "label": "t:sections.product-ribbons-config.blocks.badge.settings.operator.options.not_equals" },
+            { "value": "greater_than", "label": "t:sections.product-ribbons-config.blocks.badge.settings.operator.options.greater_than" },
+            { "value": "less_than", "label": "t:sections.product-ribbons-config.blocks.badge.settings.operator.options.less_than" },
+            { "value": "contains", "label": "t:sections.product-ribbons-config.blocks.badge.settings.operator.options.contains" }
           ],
           "default": "equals"
         },
         {
           "type": "text",
           "id": "compare_value",
-          "label": "Compare Value",
-          "info": "The value to evaluate against. Leave blank for boolean checks like 'On Sale'.",
+          "label": "t:sections.product-ribbons-config.blocks.badge.settings.compare_value.label",
+          "info": "t:sections.product-ribbons-config.blocks.badge.settings.compare_value.info",
           "default": "badge:bestseller"
         },
         {
           "type": "text",
           "id": "display_text",
-          "label": "Display Text",
+          "label": "t:sections.product-ribbons-config.blocks.badge.settings.display_text.label",
           "default": "Best Seller"
         },
         {
           "type": "color",
           "id": "background_color",
-          "label": "Background Color",
+          "label": "t:sections.product-ribbons-config.blocks.badge.settings.background_color.label",
           "default": "#000000"
         },
         {
           "type": "color",
           "id": "text_color",
-          "label": "Text Color",
+          "label": "t:sections.product-ribbons-config.blocks.badge.settings.text_color.label",
           "default": "#ffffff"
         },
         {
@@ -116,7 +116,7 @@
           "max": 100,
           "step": 10,
           "unit": "%",
-          "label": "Ribbon Opacity",
+          "label": "t:sections.product-ribbons-config.blocks.badge.settings.opacity.label",
           "default": 100
         }
       ]
@@ -124,7 +124,7 @@
   ],
   "presets": [
     {
-      "name": "Product Ribbons Config"
+      "name": "t:sections.product-ribbons-config.presets.name"
     }
   ]
 }

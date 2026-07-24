@@ -1,11 +1,15 @@
 {{ 'component-sticky-bottom-nav.css' | asset_url | stylesheet_tag }}
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  function initStickyNav() {
     document.body.classList.add('has-sticky-bottom-nav');
+    const nav = document.querySelector('.sticky-bottom-nav');
+    if (nav) {
+      document.body.style.setProperty('--sticky-bottom-nav-height', `${nav.offsetHeight}px`);
+    }
     
     // Highlight Active Link
-    const currentPath = window.location.pathname + window.location.search;
+    const currentPath = window.location.pathname;
     const navItems = document.querySelectorAll('.sticky-bottom-nav__item');
     navItems.forEach(item => {
       const href = item.getAttribute('href');
@@ -33,15 +37,25 @@
         }
       });
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStickyNav);
+  } else {
+    initStickyNav();
+  }
 </script>
 
-<nav class="sticky-bottom-nav sticky-bottom-nav--{{ section.settings.size }} sticky-bottom-nav--{{ section.settings.design_style }} color-{{ section.settings.color_scheme }} gradient">
+<nav class="sticky-bottom-nav sticky-bottom-nav--{{ section.settings.size }} sticky-bottom-nav--{{ section.settings.design_style }} color-{{ section.settings.color_scheme }} gradient" aria-label="{{ 'general.mobile_menu' | t | default: 'Mobile navigation' }}">
   {%- for block in section.blocks -%}
-    <a href="{{ block.settings.url | default: '#' }}" class="sticky-bottom-nav__item" data-action="{{ block.settings.action_type }}" {{ block.shopify_attributes }}>
+    {%- if block.settings.action_type == 'link' -%}
+      <a href="{{ block.settings.url | default: '#' }}" class="sticky-bottom-nav__item" data-action="{{ block.settings.action_type }}" {{ block.shopify_attributes }}>
+    {%- else -%}
+      <button type="button" class="sticky-bottom-nav__item" data-action="{{ block.settings.action_type }}" {{ block.shopify_attributes }}>
+    {%- endif -%}
       {%- if block.settings.custom_icon != blank -%}
         <div class="sticky-bottom-nav__icon-wrapper">
-          {{ block.settings.custom_icon | image_url: width: 48 | image_tag: style: 'max-width: 100%; height: auto; object-fit: contain;' }}
+          {{ block.settings.custom_icon | image_url: width: 48 | image_tag: style: 'max-width: 100%; height: auto; object-fit: contain;', alt: block.settings.title }}
         </div>
       {%- else -%}
         <div class="sticky-bottom-nav__icon-wrapper">
@@ -50,7 +64,11 @@
         </div>
       {%- endif -%}
       <span class="sticky-bottom-nav__text">{{ block.settings.text }}</span>
-    </a>
+    {%- if block.settings.action_type == 'link' -%}
+      </a>
+    {%- else -%}
+      </button>
+    {%- endif -%}
   {%- endfor -%}
 </nav>
 

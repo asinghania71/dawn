@@ -8,9 +8,13 @@ class CustomProductRibbon extends HTMLElement {
     if (window.productRibbonsConfig) {
       this.initBadge();
     } else {
-      window.addEventListener('DOMContentLoaded', () => {
+      if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', () => {
+          if (window.productRibbonsConfig) this.initBadge();
+        });
+      } else {
         if (window.productRibbonsConfig) this.initBadge();
-      });
+      }
     }
   }
 
@@ -19,14 +23,14 @@ class CustomProductRibbon extends HTMLElement {
     if (!config || !config.badges || config.badges.length === 0) return;
 
     const data = {
-      tag: (this.getAttribute('data-tags') || '').split(',').map(t => t.trim().toLowerCase()),
+      tag: (this.getAttribute('data-tags') || '').split(',').map(t => t.trim().toLowerCase()).filter(t => t.length > 0),
       rating: parseFloat(this.getAttribute('data-rating')) || 0,
       inventory: parseInt(this.getAttribute('data-inventory')) || 0,
       price: parseFloat(this.getAttribute('data-price')) || 0,
       compareAtPrice: parseFloat(this.getAttribute('data-compare-at-price')) || 0,
-      vendor: this.getAttribute('data-vendor') || '',
-      type: this.getAttribute('data-type') || '',
-      title: this.getAttribute('data-title') || '',
+      vendor: (this.getAttribute('data-vendor') || '').toLowerCase(),
+      type: (this.getAttribute('data-type') || '').toLowerCase(),
+      title: (this.getAttribute('data-title') || '').toLowerCase(),
       createdAt: this.getAttribute('data-created-at') || ''
     };
 

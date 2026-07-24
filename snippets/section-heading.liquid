@@ -34,9 +34,9 @@
 
 <div class="title-wrapper{% if link_url != blank %} title-wrapper-with-link{% else %} title-wrapper--no-top-margin{% endif %} title-wrapper--{{ alignment }} {{ wrapper_classes }}{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
   {%- if title != blank -%}
-    <h2 class="title inline-richtext {{ heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <{{ heading_tag | default: 'h2' }} class="title inline-richtext {{ heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       {{ title }}
-    </h2>
+    </{{ heading_tag | default: 'h2' }}>
   {%- endif -%}
 
   {%- if description != blank -%}
@@ -46,7 +46,7 @@
   {%- endif -%}
 
   {%- if link_url != blank and link_text != blank -%}
-    <a href="{{ link_url }}" class="link underlined-link large-up-hide{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <a href="{{ link_url }}" class="link underlined-link{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       {{ link_text }}
     </a>
   {%- endif -%}

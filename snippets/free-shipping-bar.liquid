@@ -1,0 +1,42 @@
+{%- if settings.enable_free_shipping -%}
+  {%- if settings.free_shipping_threshold > 0 -%}
+  <link rel="stylesheet" href="{{ 'component-free-shipping-bar.css' | asset_url }}" media="print" onload="this.media='all'">
+  <noscript>{{ 'component-free-shipping-bar.css' | asset_url | stylesheet_tag }}</noscript>
+
+  {%- liquid
+    assign threshold_cents = settings.free_shipping_threshold | times: 100.0
+    assign total_price = cart.total_price | times: 1.0
+    
+    if total_price >= threshold_cents
+      assign percentage = 100
+      assign remaining = 0
+      assign message = settings.free_shipping_success_text
+      assign success = true
+    else
+      assign percentage = total_price | divided_by: threshold_cents | times: 100.0 | round
+      assign remaining = threshold_cents | minus: total_price
+      assign formatted_remaining = remaining | money
+      assign message = settings.free_shipping_progress_text | replace: '[amount]', formatted_remaining
+      assign success = false
+    endif
+  -%}
+
+  <div class="free-shipping-bar {% if success %}free-shipping-bar--success{% endif %}" style="--progress-color: {{ settings.free_shipping_progress_color }}; --text-color: {{ settings.free_shipping_text_color }}; --success-text-color: {{ settings.free_shipping_success_text_color }};">
+    <div class="free-shipping-bar__message h5" style="color: {% if success %}var(--success-text-color){% else %}var(--text-color){% endif %};">
+      {%- if success -%}
+        <span class="svg-wrapper" style="margin-right: 0.5rem; color: currentColor; vertical-align: middle;">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </span>
+      {%- endif -%}
+      {{ message }}
+    </div>
+    <div class="free-shipping-bar__progress" role="progressbar" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100" aria-label="Free shipping progress">
+      <div class="free-shipping-bar__progress-fill" style="width: {{ percentage }}%; background-color: var(--progress-color);">
+        {%- if percentage > 0 and percentage < 100 -%}
+          <div class="free-shipping-bar__progress-glow"></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+{%- endif -%}

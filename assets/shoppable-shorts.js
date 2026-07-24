@@ -2,19 +2,40 @@ if (!customElements.get('shoppable-short')) {
   class ShoppableShort extends HTMLElement {
     constructor() {
       super();
+      this.hasLoaded = false;
+      this.isPlaying = false;
+    }
+    
+    connectedCallback() {
       this.card = this.querySelector('.shoppable-short-card');
       this.poster = this.querySelector('.shoppable-short-card__poster');
       this.iframeWrapper = this.querySelector('.shoppable-short-card__iframe-wrapper');
       
       this.url = this.dataset.url;
       this.autoplay = this.dataset.autoplay === 'true';
-      this.hasLoaded = false;
-      this.isPlaying = false;
       
       this.initObserver();
       
       if (this.poster && !this.autoplay) {
-        this.poster.addEventListener('click', this.play.bind(this));
+        this.playHandler = this.play.bind(this);
+        this.keydownHandler = (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            this.playHandler();
+          }
+        };
+        this.poster.addEventListener('click', this.playHandler);
+        this.poster.addEventListener('keydown', this.keydownHandler);
+      }
+    }
+    
+    disconnectedCallback() {
+      if (this.observer) {
+        this.observer.disconnect();
+      }
+      if (this.poster && this.playHandler) {
+        this.poster.removeEventListener('click', this.playHandler);
+        this.poster.removeEventListener('keydown', this.keydownHandler);
       }
     }
     
@@ -102,10 +123,12 @@ if (!customElements.get('shoppable-short')) {
           `;
           
           if (!window.instgrm) {
-            const script = document.createElement('script');
-            script.async = true;
-            script.src = "//www.instagram.com/embed.js";
-            document.body.appendChild(script);
+            if (!document.querySelector('script[src="//www.instagram.com/embed.js"]')) {
+              const script = document.createElement('script');
+              script.async = true;
+              script.src = "//www.instagram.com/embed.js";
+              document.body.appendChild(script);
+            }
           } else {
             window.instgrm.Embeds.process();
           }
@@ -133,6 +156,8 @@ if (!customElements.get('shoppable-short')) {
     play() {
       if (!this.hasLoaded) {
         this.loadIframe();
+      } else if (this.iframe && (this.iframe.src === '' || this.iframe.src === window.location.href)) {
+        this.iframe.src = this.iframe.dataset.src || this.parseUrl();
       }
       this.isPlaying = true;
       if (this.card) {
@@ -146,11 +171,14 @@ if (!customElements.get('shoppable-short')) {
         this.card.classList.remove('is-playing');
       }
       
-      // Quick way to stop iframe video without postMessage API is to reload the iframe source
       if (this.iframe) {
-        const currentSrc = this.iframe.src;
+        if (!this.iframe.dataset.src) {
+          this.iframe.dataset.src = this.iframe.src;
+        }
         this.iframe.src = '';
-        this.iframe.src = currentSrc;
+      } else if (this.iframeWrapper) {
+        this.iframeWrapper.innerHTML = '';
+        this.hasLoaded = false;
       }
     }
   }

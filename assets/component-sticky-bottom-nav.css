@@ -3,7 +3,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 2;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -29,7 +29,12 @@
   gap: 0.4rem;
   transition: all var(--duration-short) ease;
   padding: 0.5rem;
-  border-radius: 0.8rem;
+  border-radius: var(--buttons-radius);
+  appearance: none;
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
 }
 
 .sticky-bottom-nav__icon-wrapper {
@@ -84,7 +89,10 @@
 }
 
 .sticky-bottom-nav--pill .sticky-bottom-nav__text {
-  display: none;
+  max-width: 0;
+  overflow: hidden;
+  transition: max-width 0.3s;
+  opacity: 0;
 }
 
 .sticky-bottom-nav--pill .sticky-bottom-nav__item.is-active {
@@ -92,12 +100,13 @@
 }
 
 .sticky-bottom-nav--pill .sticky-bottom-nav__item.is-active .sticky-bottom-nav__text {
-  display: block;
+  max-width: 100px;
+  opacity: 1;
 }
 
 /* Push body up so content isn't hidden */
 body.has-sticky-bottom-nav {
-  padding-bottom: 70px;
+  padding-bottom: var(--sticky-bottom-nav-height);
 }
 @media screen and (min-width: 750px) {
   body.has-sticky-bottom-nav {

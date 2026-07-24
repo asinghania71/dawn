@@ -361,6 +361,34 @@
           "label": "Vertical space"
         }
       }
+    },
+    "free_shipping": {
+      "name": "Free Shipping Progress Bar",
+      "settings": {
+        "enable_free_shipping": {
+          "label": "Enable free shipping progress bar"
+        },
+        "free_shipping_progress_color": {
+          "label": "Progress bar color"
+        },
+        "free_shipping_text_color": {
+          "label": "Progress text color"
+        },
+        "free_shipping_success_text_color": {
+          "label": "Success text color"
+        },
+        "free_shipping_threshold": {
+          "label": "Free shipping threshold (in currency units)",
+          "info": "For example, enter 50 for $50.00"
+        },
+        "free_shipping_progress_text": {
+          "label": "Progress Text",
+          "info": "Use [amount] to show the remaining amount."
+        },
+        "free_shipping_success_text": {
+          "label": "Success Text"
+        }
+      }
     }
   },
   "sections": {
@@ -476,11 +504,11 @@
           "label": "Change every"
         },
         "heading_utilities": {
-         "content": "Utilities"
+          "content": "Utilities"
         },
         "paragraph": {
           "content": "Appear only on large screens"
-        },                     
+        },
         "show_social": {
           "label": "Social media icons",
           "info": "[Manage social accounts](/editor?context=theme&category=social%20media)"
@@ -544,7 +572,7 @@
         },
         "header_layout": {
           "content": "Layout"
-        },            
+        },
         "desktop_layout": {
           "label": "Layout",
           "options__1": {
@@ -635,9 +663,9 @@
           "default": "Collections",
           "label": "Heading"
         },
-         "header_layout": {
-        "content": "Layout"
-        },        
+        "header_layout": {
+          "content": "Layout"
+        },
         "image_ratio": {
           "label": "Image ratio",
           "options__1": {
@@ -719,17 +747,17 @@
           "label": "Heading"
         },
         "layout_header": {
-        "content": "Layout"
+          "content": "Layout"
         },
         "text_header": {
-        "content": "Text"
-        },        
+          "content": "Text"
+        },
         "blog": {
           "label": "Blog"
         },
         "post_limit": {
           "label": "Post count"
-        }, 
+        },
         "columns_desktop": {
           "label": "Columns"
         },
@@ -755,7 +783,7 @@
       "name": "Featured collection",
       "settings": {
         "header_text": {
-        "content": "Text"
+          "content": "Text"
         },
         "title": {
           "label": "Heading",
@@ -783,8 +811,8 @@
           "content": "Collection layout"
         },
         "header_mobile": {
-        "content": "Mobile layout"
-        },                 
+          "content": "Mobile layout"
+        },
         "collection": {
           "label": "Collection"
         },
@@ -958,7 +986,7 @@
               "default": "Share"
             },
             "featured_image_info": {
-              "content": "If you include a link in social media posts, the page’s featured image will be shown as the preview image. [Learn more](https://help.shopify.com/manual/online-store/images/showing-social-media-thumbnail-images)"
+              "content": "If you include a link in social media posts, the page\u2019s featured image will be shown as the preview image. [Learn more](https://help.shopify.com/manual/online-store/images/showing-social-media-thumbnail-images)"
             },
             "title_info": {
               "content": "A store title and description are included with the preview image. [Learn more](https://help.shopify.com/manual/promoting-marketing/seo/adding-keywords#set-a-title-and-description-for-your-online-store)"
@@ -995,7 +1023,7 @@
           }
         },
         "hide_variants": {
-          "label": "Hide unselected variants’ media on desktop"
+          "label": "Hide unselected variants\u2019 media on desktop"
         },
         "enable_video_looping": {
           "label": "Loop video"
@@ -1175,6 +1203,14 @@
         "enable_customer_avatar": {
           "label": "Customer account avatar",
           "info": "Only visible when customers are signed in with Shop. [Manage customer accounts](/admin/settings/customer_accounts)"
+        },
+        "sticky_header_size": {
+          "label": "Sticky Header Size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium (Default)",
+            "large": "Large"
+          }
         }
       }
     },
@@ -1204,7 +1240,7 @@
           "options__4": {
             "label": "Large"
           }
-          },
+        },
         "content": {
           "content": "Content"
         },
@@ -1309,9 +1345,9 @@
         "buttons": {
           "name": "Buttons",
           "settings": {
-          "header_1":{
-          "content": "Button 1"
-          },
+            "header_1": {
+              "content": "Button 1"
+            },
             "button_label_1": {
               "label": "Label",
               "info": "Leave blank to hide",
@@ -1323,7 +1359,7 @@
             "button_style_secondary_1": {
               "label": "Outline style"
             },
-            "header_2":{
+            "header_2": {
               "content": "Button 2"
             },
             "button_label_2": {
@@ -1347,12 +1383,12 @@
     "image-with-text": {
       "name": "Image with text",
       "settings": {
-      "header": {
-      "content": "Content"
-      },
-      "header_colors": {
-      "content": "Colors" 
-      },
+        "header": {
+          "content": "Content"
+        },
+        "header_colors": {
+          "content": "Colors"
+        },
         "image": {
           "label": "Image"
         },
@@ -1523,15 +1559,15 @@
         "image": {
           "label": "Image"
         },
-        "header":{
-        "content": "Image"
+        "header": {
+          "content": "Image"
         },
-        "header_2":{
-        "content": "Content"
+        "header_2": {
+          "content": "Content"
         },
-        "header_3":{
-        "content": "Colors"
-        },        
+        "header_3": {
+          "content": "Colors"
+        },
         "image_height": {
           "options__1": {
             "label": "Adapt to image"
@@ -2322,7 +2358,7 @@
             },
             "pairing_2": {
               "label": "Pairing 2"
-            },            
+            },
             "icon_2": {
               "label": "Icon"
             },
@@ -2334,8 +2370,8 @@
               "default": "Heading"
             },
             "pairing_3": {
-            "label": "Pairing 3"
-            },             
+              "label": "Pairing 3"
+            },
             "icon_3": {
               "label": "Icon"
             },
@@ -2456,7 +2492,7 @@
           "options__2": {
             "label": "2"
           }
-        },        
+        },
         "image_ratio": {
           "label": "Image ratio",
           "options__1": {
@@ -2508,10 +2544,10 @@
         },
         "header_layout": {
           "content": "Layout"
-        },                            
+        },
         "header_button": {
           "content": "Button"
-        }, 
+        },
         "image_width": {
           "label": "Width",
           "options__1": {
@@ -2718,7 +2754,7 @@
         },
         "content_header": {
           "content": "Content"
-        },        
+        },
         "desktop_content_alignment": {
           "options__1": {
             "label": "Left"
@@ -2950,8 +2986,8 @@
           "name": "Buttons",
           "settings": {
             "header_button1": {
-            "content": "Button 1"
-            }, 
+              "content": "Button 1"
+            },
             "button_label_1": {
               "label": "Label",
               "info": "Leave blank to hide",
@@ -2965,7 +3001,7 @@
             },
             "header_button2": {
               "content": "Button 2"
-            },             
+            },
             "button_label_2": {
               "label": "Label",
               "info": "Leave label blank to hide"
@@ -3105,7 +3141,7 @@
               "default": "Tell your brand's story through images"
             },
             "header_button": {
-            "content": "Button"      
+              "content": "Button"
             },
             "button_label": {
               "label": "Label",
@@ -3119,7 +3155,7 @@
               "label": "Outline style"
             },
             "box_align": {
-              "label": "Content position",              
+              "label": "Content position",
               "options__1": {
                 "label": "Top left"
               },
@@ -3149,7 +3185,7 @@
               }
             },
             "header_layout": {
-            "content": "Layout"                 
+              "content": "Layout"
             },
             "show_text_box": {
               "label": "Container"
@@ -3170,11 +3206,11 @@
               "label": "Overlay opacity"
             },
             "header_text": {
-            "content": "Text"      
+              "content": "Text"
             },
             "header_colors": {
-            "content": "Colors"                 
-            },            
+              "content": "Colors"
+            },
             "text_alignment_mobile": {
               "label": "Mobile content alignment",
               "options__1": {
@@ -3235,8 +3271,8 @@
           "label": "Container color scheme"
         },
         "section_color_scheme": {
-        "label": "Section color scheme"
-        },        
+          "label": "Section color scheme"
+        },
         "open_first_collapsible_row": {
           "label": "Open first row"
         },
@@ -3423,6 +3459,86 @@
       "presets": {
         "name": "Collapsible content"
       }
+    },
+    "product-ribbons-config": {
+      "name": "Product Ribbons Config",
+      "settings": {
+        "paragraph": {
+          "content": "This section powers the global Web Component for product ribbon badges. Add this section once to your Footer Group to enable global badge logic."
+        },
+        "position": {
+          "label": "Ribbon Position",
+          "options": {
+            "top-left": "Top Left",
+            "top-right": "Top Right",
+            "bottom-left": "Bottom Left",
+            "bottom-right": "Bottom Right"
+          }
+        },
+        "size": {
+          "label": "Ribbon Size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        }
+      },
+      "blocks": {
+        "badge": {
+          "name": "Ribbon Badge",
+          "settings": {
+            "data_source": {
+              "label": "Data Source",
+              "options": {
+                "tag": "Product Tag",
+                "rating": "Product Rating",
+                "inventory": "Inventory Quantity",
+                "price_sale": "On Sale (Compare At > Price)",
+                "vendor": "Vendor",
+                "type": "Type",
+                "title": "Title",
+                "age": "Age (Days since created)"
+              }
+            },
+            "operator": {
+              "label": "Operator",
+              "options": {
+                "equals": "Equals (==)",
+                "not_equals": "Not Equals (!=)",
+                "greater_than": "Greater Than (>)",
+                "less_than": "Less Than (<)",
+                "contains": "Contains"
+              }
+            },
+            "compare_value": {
+              "label": "Compare Value",
+              "info": "The value to evaluate against. Leave blank for boolean checks like \"On Sale\"."
+            },
+            "display_text": {
+              "label": "Display Text"
+            },
+            "background_color": {
+              "label": "Background Color"
+            },
+            "text_color": {
+              "label": "Text Color"
+            },
+            "opacity": {
+              "label": "Ribbon Opacity"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Product Ribbons Config"
+      }
+    }
+  },
+  "general": {
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collections"
     }
   }
 }

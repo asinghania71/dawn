@@ -20,18 +20,7 @@
 <div class="color-{{ section.settings.color_scheme }} isolate gradient">
   <div class="shoppable-shorts section-{{ section.id }}-padding{% if section.settings.full_width %} shoppable-shorts--full-width{% else %} page-width{% endif %}">
     
-    <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width">
-      {%- if section.settings.title != blank -%}
-        <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          {{ section.settings.title }}
-        </h2>
-      {%- endif -%}
-      {%- if section.settings.description != blank -%}
-        <div class="collection__description {{ section.settings.description_style }} rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          {{ section.settings.description }}
-        </div>
-      {%- endif -%}
-    </div>
+    {% render 'section-heading', title: section.settings.title, heading_size: section.settings.heading_size, heading_alignment: section.settings.heading_alignment %}
 
     <slider-component class="slider-mobile-gutter{% if section.settings.full_width %} slider-component-full-width{% endif %}">
       <ul id="Slider-{{ section.id }}" class="grid product-grid contains-card grid--{{ section.settings.columns_desktop }}-col-desktop {% if section.settings.columns_mobile == '2' %}grid--2-col-tablet-down{% else %}grid--1-col-tablet-down{% endif %} slider slider--tablet slider--desktop {% if section.settings.columns_mobile == '1_90' %}grid--peek shoppable-shorts--mobile-90{% endif %}" role="list" aria-label="{{ 'general.slider.name' | t }}">
@@ -47,7 +36,7 @@
                   style="padding-bottom: {{ 100 | divided_by: block.settings.poster_image.aspect_ratio }}%;"
                 {% endif %}
               >
-                <div class="shoppable-short-card__poster">
+                <div class="shoppable-short-card__poster" role="button" tabindex="0" aria-label="{{ 'general.play_video' | t | default: 'Play video' }}">
                   {%- if block.settings.poster_image != blank -%}
                     {{ block.settings.poster_image | image_url: width: 600 | image_tag: loading: 'lazy' }}
                   {%- else -%}
@@ -62,9 +51,9 @@
                 <div class="shoppable-short-card__iframe-wrapper"></div>
                 
                 {%- if block.settings.linked_product != blank -%}
-                  {%- assign product = all_products[block.settings.linked_product] -%}
+                  {%- assign product = block.settings.linked_product -%}
                   <div class="shoppable-short-card__product-banner color-{{ section.settings.button_color_scheme }}">
-                    <a href="{{ product.url }}" class="shoppable-short-card__banner-link" tabindex="-1">
+                    <a href="{{ product.url }}" class="shoppable-short-card__banner-link">
                       <div class="shoppable-short-card__banner-image">
                         {%- if product.featured_image != blank -%}
                           {{ product.featured_image | image_url: width: 80, height: 80 | image_tag: loading: 'lazy' }}

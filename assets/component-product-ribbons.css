@@ -18,7 +18,7 @@
 .custom-badge--position-top-left { top: 1rem; left: 0; bottom: auto; right: auto; }
 .custom-badge--position-top-right { top: 1rem; right: 0; bottom: auto; left: auto; }
 .custom-badge--position-bottom-left { bottom: 1rem; left: 0; top: auto; right: auto; }
-.custom-badge--position-bottom-right { bottom: 1rem; right: 1rem; top: auto; left: auto; }
+.custom-badge--position-bottom-right { bottom: 0; right: 0; top: auto; left: auto; }
 
 /* Ribbon Sizes */
 .custom-badge--size-small .custom-badge__ribbon { font-size: 0.9rem; padding: 0.3rem 1.2rem 0.3rem 0.6rem; }

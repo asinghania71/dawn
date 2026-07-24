@@ -1488,6 +1488,58 @@
       },
       {
         "type": "header",
+        "content": "t:settings_schema.free_shipping.name"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_free_shipping",
+        "label": "t:settings_schema.free_shipping.settings.enable_free_shipping.label",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "free_shipping_progress_color",
+        "label": "t:settings_schema.free_shipping.settings.free_shipping_progress_color.label",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "free_shipping_text_color",
+        "label": "t:settings_schema.free_shipping.settings.free_shipping_text_color.label",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "free_shipping_success_text_color",
+        "label": "t:settings_schema.free_shipping.settings.free_shipping_success_text_color.label",
+        "default": "#2E8B57"
+      },
+      {
+        "type": "range",
+        "id": "free_shipping_threshold",
+        "label": "t:settings_schema.free_shipping.settings.free_shipping_threshold.label",
+        "info": "t:settings_schema.free_shipping.settings.free_shipping_threshold.info",
+        "min": 0,
+        "max": 500,
+        "step": 5,
+        "unit": "$",
+        "default": 50
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_progress_text",
+        "label": "t:settings_schema.free_shipping.settings.free_shipping_progress_text.label",
+        "info": "t:settings_schema.free_shipping.settings.free_shipping_progress_text.info",
+        "default": "You are [amount] away from Free Shipping!"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_success_text",
+        "label": "t:settings_schema.free_shipping.settings.free_shipping_success_text.label",
+        "default": "Congratulations! You get Free Shipping!"
+      },
+      {
+        "type": "header",
         "content": "t:settings_schema.cart.settings.cart_drawer.header"
       },
       {

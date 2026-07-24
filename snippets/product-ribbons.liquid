@@ -4,13 +4,15 @@
   - product: {Object} Product Liquid object
 {% endcomment %}
 
-{{ 'component-product-ribbons.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'product-ribbons.js' | asset_url }}" defer="defer"></script>
+{%- if product != blank -%}
+  {{ 'component-product-ribbons.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'product-ribbons.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
 
 <div class="product-ribbons-wrapper">
   <custom-product-ribbon
     data-tags="{{ product.tags | join: ',' | escape | downcase }}"
-    data-rating="{{ product.metafields.reviews.rating.value | default: 0 }}"
+    data-rating="{{ product.metafields.reviews.rating.value | round: 1 | default: 0 }}"
     data-inventory="{{ product.first_available_variant.inventory_quantity | default: 0 }}"
     data-price="{{ product.price | default: 0 }}"
     data-compare-at-price="{{ product.compare_at_price | default: product.price }}"
