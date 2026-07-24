@@ -96,7 +96,7 @@
 }
 
 .sticky-bottom-nav--pill .sticky-bottom-nav__item.is-active {
-  background-color: rgba(var(--color-foreground), 0.08);
+  background-color: rgba(var(--color-foreground), 0.04);
 }
 
 .sticky-bottom-nav--pill .sticky-bottom-nav__item.is-active .sticky-bottom-nav__text {

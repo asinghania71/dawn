@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "image_banner": {
@@ -296,6 +287,50 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "shoppable-shorts": {
+      "type": "shoppable-shorts",
+      "settings": {
+        "title": "Shoppable Shorts",
+        "columns_desktop": 4,
+        "aspect_ratio": "portrait"
+      },
+      "blocks": {
+        "short_1": {
+          "type": "short",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "product": ""
+          }
+        },
+        "short_2": {
+          "type": "short",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "product": ""
+          }
+        },
+        "short_3": {
+          "type": "short",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "product": ""
+          }
+        },
+        "short_4": {
+          "type": "short",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "short_1",
+        "short_2",
+        "short_3",
+        "short_4"
+      ]
     }
   },
   "order": [
@@ -306,5 +341,13 @@
     "video",
     "multicolumn",
     "shoppable_shorts_TdUMad"
+  ],
+  "content_for_index": [
+    "image_banner",
+    "rich_text",
+    "featured_collection",
+    "shoppable-shorts",
+    "collage",
+    "multicolumn"
   ]
 }

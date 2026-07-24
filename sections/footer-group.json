@@ -23,7 +23,7 @@
           "type": "text",
           "settings": {
             "heading": "Our mission",
-            "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
+            "subtext": "<p>Share contact information, store details, and brand content with your customers.</p>"
           }
         }
       },
@@ -71,7 +71,7 @@
           "type": "link",
           "settings": {
             "text": "Shop",
-            "url": "shopify:\/\/collections\/all",
+            "url": "shopify://collections/all",
             "action_type": "link",
             "icon": "box"
           }
@@ -103,7 +103,7 @@
         "nav_5"
       ],
       "settings": {
-        "design_style": "classic",
+        "design_style": "pill",
         "color_scheme": "scheme-1"
       }
     },
@@ -127,11 +127,21 @@
             "background_color": "#F43F5E",
             "text_color": "#ffffff"
           }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "trigger_tag": "badge:staff-pick",
+            "display_text": "Staff Pick",
+            "background_color": "#10B981",
+            "text_color": "#ffffff"
+          }
         }
       },
       "block_order": [
         "badge_1",
-        "badge_2"
+        "badge_2",
+        "badge_3"
       ],
       "settings": {
         "position": "top-left",

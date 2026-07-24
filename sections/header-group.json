@@ -35,10 +35,19 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "free-shipping-bar": {
+      "type": "free-shipping-bar",
+      "settings": {
+        "threshold": 100,
+        "unlocked_message": "🎉 You have unlocked Free Shipping!",
+        "progress_message": "Spend [amount] more for Free Shipping!"
+      }
     }
   },
   "order": [
     "announcement-bar",
+    "free-shipping-bar",
     "header"
   ]
 }
