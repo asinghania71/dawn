@@ -31,8 +31,8 @@
               data-autoplay="{{ section.settings.enable_autoplay }}"
               data-has-poster="{% if block.settings.poster_image != blank %}true{% else %}false{% endif %}"
             >
-              <div class="shoppable-short-card shoppable-short-card--ratio-{{ section.settings.image_ratio }} color-{{ section.settings.card_color_scheme }}"
-                {% if section.settings.image_ratio == 'adapt' and block.settings.poster_image != blank %}
+              <div class="shoppable-short-card shoppable-short-card--ratio-{{ section.settings.video_ratio }} color-{{ section.settings.card_color_scheme }}"
+                {% if section.settings.video_ratio == 'adapt' and block.settings.poster_image != blank %}
                   style="padding-bottom: {{ 100 | divided_by: block.settings.poster_image.aspect_ratio }}%;"
                 {% endif %}
               >
@@ -54,9 +54,9 @@
                   {%- assign product = block.settings.linked_product -%}
                   <div class="shoppable-short-card__product-banner color-{{ section.settings.button_color_scheme }}">
                     <a href="{{ product.url }}" class="shoppable-short-card__banner-link">
-                      <div class="shoppable-short-card__banner-image">
+                      <div class="shoppable-short-card__banner-image shoppable-short-card__banner-image--{{ section.settings.image_ratio }}">
                         {%- if product.featured_image != blank -%}
-                          {{ product.featured_image | image_url: width: 80, height: 80 | image_tag: loading: 'lazy' }}
+                          {{ product.featured_image | image_url: width: 120 | image_tag: loading: 'lazy' }}
                         {%- else -%}
                           {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                         {%- endif -%}
@@ -173,6 +173,10 @@
       "default": "body"
     },
     {
+      "type": "header",
+      "content": "Video"
+    },
+    {
       "type": "range",
       "id": "columns_desktop",
       "min": 2,
@@ -203,7 +207,7 @@
     },
     {
       "type": "select",
-      "id": "image_ratio",
+      "id": "video_ratio",
       "options": [
         {
           "value": "adapt",
@@ -219,7 +223,7 @@
         }
       ],
       "default": "portrait",
-      "label": "t:sections.featured-collection.settings.image_ratio.label",
+      "label": "Video card ratio",
       "info": "Portrait uses a 9:16 vertical ratio ideal for short-form videos."
     },
     {
@@ -234,6 +238,35 @@
       "label": "Enable autoplay",
       "info": "Videos will automatically start playing when scrolled into view. Note: Browsers may mute auto-playing videos.",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Product banner"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        }
+      ],
+      "default": "square",
+      "label": "Product image ratio",
+      "info": "Shape of the product thumbnail in the shop banner overlay."
+    },
+    {
+      "type": "header",
+      "content": "Color schemes"
     },
     {
       "type": "color_scheme",
@@ -287,7 +320,7 @@
           "type": "text",
           "id": "video_url",
           "label": "Video URL",
-          "info": "Paste the URL of a YouTube Short or Instagram Reel. Example: https://www.youtube.com/shorts/VIDEO_ID or https://www.instagram.com/reel/VIDEO_ID"
+          "info": "Paste a YouTube URL. Supports Shorts, standard videos, and youtu.be links. Example: https://www.youtube.com/shorts/VIDEO_ID"
         },
         {
           "type": "image_picker",

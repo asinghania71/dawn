@@ -180,12 +180,32 @@ shoppable-short[data-has-poster="true"] .shoppable-short-card--ratio-adapt {
 }
 
 .shoppable-short-card__banner-image {
-  width: 4.8rem;
-  height: 4.8rem;
   flex-shrink: 0;
   border-radius: 0.6rem;
   overflow: hidden;
   background-color: rgba(var(--color-background), 1);
+}
+
+/* Product Image Ratio Modifiers */
+.shoppable-short-card__banner-image--square {
+  width: 4.8rem;
+  height: 4.8rem;
+}
+
+.shoppable-short-card__banner-image--portrait {
+  width: 4rem;
+  height: 5.4rem;
+}
+
+.shoppable-short-card__banner-image--adapt {
+  width: 4.8rem;
+  height: auto;
+}
+
+.shoppable-short-card__banner-image--adapt img,
+.shoppable-short-card__banner-image--adapt svg {
+  height: auto;
+  aspect-ratio: auto;
 }
 
 .shoppable-short-card__banner-image img,

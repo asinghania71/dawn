@@ -43,17 +43,13 @@ if (!customElements.get('shoppable-short')) {
       this.observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Lazy load the iframe when it enters the viewport
             if (!this.hasLoaded) {
               this.loadIframe();
             }
-            
-            // Autoplay if setting is enabled
             if (this.autoplay && !this.isPlaying) {
               this.play();
             }
           } else {
-            // Pause/reset if it leaves viewport to save resources
             if (this.autoplay && this.isPlaying) {
               this.pause();
             }
@@ -67,7 +63,7 @@ if (!customElements.get('shoppable-short')) {
     parseUrl() {
       if (!this.url) return null;
       
-      // YouTube Shorts parsing
+      // YouTube Shorts & standard video parsing
       const ytShortMatch = this.url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/);
       const ytWatchMatch = this.url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
       
@@ -76,37 +72,16 @@ if (!customElements.get('shoppable-short')) {
         
         // Auto-fetch YouTube thumbnail if no poster was provided
         if (this.dataset.hasPoster === 'false' && this.poster) {
-          // CSS layering: if maxresdefault 404s, hqdefault shows underneath it
           this.poster.style.backgroundImage = `url('https://i.ytimg.com/vi/${id}/maxresdefault.jpg'), url('https://i.ytimg.com/vi/${id}/hqdefault.jpg')`;
-          
-          // Hide the fallback SVG placeholder
           const svg = this.poster.querySelector('svg');
           if (svg) svg.style.display = 'none';
         }
         
-        // autoplay=1 enables play via postMessage if native click happened, loop requires playlist
         let embedUrl = `https://www.youtube.com/embed/${id}?enablejsapi=1&autoplay=1&loop=1&playlist=${id}&controls=0&rel=0&playsinline=1`;
         if (this.autoplay) {
           embedUrl += '&mute=1';
         }
         return embedUrl;
-      }
-      
-      // Instagram Reels parsing
-      const igMatch = this.url.match(/instagram\.com\/(?:reel|p)\/([a-zA-Z0-9_-]+)/);
-      if (igMatch) {
-        const id = igMatch[1];
-        
-        // If it's Instagram and no custom poster was provided, hide the fake SVG poster 
-        // and just show the native IG embed immediately.
-        if (this.dataset.hasPoster === 'false' && this.poster) {
-          this.poster.style.display = 'none';
-          this.isPlaying = true;
-          if (this.card) this.card.classList.add('is-playing');
-        }
-        
-        // Instagram requires the trailing slash on /embed/ to prevent CORS redirects
-        return `https://www.instagram.com/p/${id}/embed/`;
       }
       
       return null;
@@ -115,40 +90,16 @@ if (!customElements.get('shoppable-short')) {
     loadIframe() {
       const src = this.parseUrl();
       if (src && this.iframeWrapper) {
-        if (src.includes('instagram.com')) {
-          // Use Instagram's native blockquote embed for reliability against CORS/X-Frame-Options
-          const cleanUrl = src.replace('/embed/', '/');
-          this.iframeWrapper.innerHTML = `
-            <blockquote class="instagram-media" data-instgrm-permalink="${cleanUrl}" data-instgrm-version="14" style="background:#FFF; border:0; margin:0; max-width:100%; padding:0; width:100%; height:100%;"></blockquote>
-          `;
-          
-          if (!window.instgrm) {
-            if (!document.querySelector('script[src="//www.instagram.com/embed.js"]')) {
-              const script = document.createElement('script');
-              script.async = true;
-              script.src = "//www.instagram.com/embed.js";
-              document.body.appendChild(script);
-            }
-          } else {
-            window.instgrm.Embeds.process();
-          }
-          
-          // CSS override to try and make the IG embed fill the space nicely
-          this.iframeWrapper.style.overflow = 'hidden';
-          this.iframeWrapper.style.display = 'flex';
-          this.iframeWrapper.style.alignItems = 'center';
-          this.iframeWrapper.style.justifyContent = 'center';
-          this.iframeWrapper.style.background = '#FFF';
-        } else {
-          // YouTube uses standard iframe
-          const iframe = document.createElement('iframe');
-          iframe.src = src;
-          iframe.setAttribute('allow', 'autoplay; encrypted-media');
-          iframe.setAttribute('allowfullscreen', '');
-          iframe.setAttribute('loading', 'lazy'); // Additional native lazy loading backup
-          this.iframeWrapper.appendChild(iframe);
-          this.iframe = iframe;
-        }
+        const iframe = document.createElement('iframe');
+        iframe.src = src;
+        iframe.setAttribute('allow', 'autoplay; encrypted-media');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('loading', 'lazy');
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        this.iframeWrapper.appendChild(iframe);
+        this.iframe = iframe;
       }
       this.hasLoaded = true;
     }
@@ -176,9 +127,6 @@ if (!customElements.get('shoppable-short')) {
           this.iframe.dataset.src = this.iframe.src;
         }
         this.iframe.src = '';
-      } else if (this.iframeWrapper) {
-        this.iframeWrapper.innerHTML = '';
-        this.hasLoaded = false;
       }
     }
   }
