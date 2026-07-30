@@ -1553,15 +1553,11 @@
         "default": "#2E8B57"
       },
       {
-        "type": "range",
+        "type": "text",
         "id": "free_shipping_threshold",
         "label": "t:settings_schema.free_shipping.settings.free_shipping_threshold.label",
         "info": "t:settings_schema.free_shipping.settings.free_shipping_threshold.info",
-        "min": 0,
-        "max": 500,
-        "step": 5,
-        "unit": "$",
-        "default": 50
+        "default": "50"
       },
       {
         "type": "text",
