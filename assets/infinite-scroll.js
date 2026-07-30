@@ -39,6 +39,11 @@ class InfiniteScroll extends HTMLElement {
 
       if (currentGrid && newGridItems.length > 0) {
         newGridItems.forEach((item) => currentGrid.appendChild(item));
+        
+        // Re-initialize animations for the new items so they fade in
+        if (typeof initializeScrollAnimationTrigger === 'function') {
+          initializeScrollAnimationTrigger(currentGrid);
+        }
       }
 
       const newInfiniteScroll = doc.querySelector('infinite-scroll');

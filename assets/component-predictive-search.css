@@ -223,3 +223,126 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
   object-fit: contain;
   font-family: 'object-fit: contain';
 }
+
+/* Search Modal Layouts */
+.search-modal--drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 450px;
+  height: 100vh;
+  transform: translateX(100%);
+  transition: transform var(--duration-default) ease;
+  z-index: 100;
+  background-color: rgb(var(--color-background));
+  display: block;
+}
+
+details[open] > .search-modal--drawer {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.search-modal--drawer .search-modal__content {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 8rem 2rem 3rem;
+  overflow-y: auto;
+}
+
+.search-modal--overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+  background-color: rgb(var(--color-background));
+  display: block;
+}
+
+.search-modal--drawer .search-modal__form,
+.search-modal--overlay .search-modal__form {
+  max-width: 100%;
+  margin-bottom: 2rem;
+}
+
+.search-modal--overlay .search-modal__content {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 8rem 2rem 3rem;
+  overflow-y: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .search-modal--overlay .search-modal__content {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
+/* Ensure search drawer overlaps announcement bar */
+.shopify-section:has(details[open] > .search-modal),
+.shopify-section-group:has(details[open] > .search-modal),
+.header-wrapper:has(details[open] > .search-modal) {
+  position: relative;
+  z-index: 101 !important;
+}
+
+/* Empty State */
+.search-modal__empty-state {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.search-modal__popular-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.search-modal__featured-products {
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.predictive-search[loading] ~ .search-modal__empty-state,
+.predictive-search[open] ~ .search-modal__empty-state {
+  display: none !important;
+}
+
+/* Update Predictive Search Wrapper for Grid */
+.predictive-search--header {
+  position: static !important;
+  width: 100% !important;
+  max-height: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  display: block !important;
+}
+
+@media screen and (min-width: 750px) {
+  .search-modal--overlay .predictive-search__results-groups-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+  }
+}
+
+/* Fix search modal close button for new layouts */
+.search-modal--drawer .search-modal__close-button,
+.search-modal--overlay .search-modal__close-button {
+  position: absolute !important;
+  top: 2rem !important;
+  right: 2rem !important;
+  margin: 0 !important;
+  z-index: 2;
+}

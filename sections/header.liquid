@@ -699,6 +699,61 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "mega_menu",
+      "name": "Mega menu item",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Navigation item"
+        },
+        {
+          "type": "text",
+          "id": "nav_handle",
+          "label": "Navigation item handle",
+          "info": "Enter the handle of the top-level nav link this block configures (e.g. 'collections', 'men', 'women'). Find handles in Online Store > Navigation."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_column_images",
+          "label": "Show category images",
+          "default": true,
+          "info": "Displays the collection image above each column heading link."
+        },
+        {
+          "type": "header",
+          "content": "Promo tile"
+        },
+        {
+          "type": "image_picker",
+          "id": "promo_image",
+          "label": "Promo image"
+        },
+        {
+          "type": "text",
+          "id": "promo_heading",
+          "label": "Promo heading",
+          "default": "New Arrivals"
+        },
+        {
+          "type": "text",
+          "id": "promo_subtext",
+          "label": "Promo subtext",
+          "default": "Shop the latest drop"
+        },
+        {
+          "type": "text",
+          "id": "promo_cta",
+          "label": "Button text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "promo_link",
+          "label": "Button link"
+        }
+      ]
     }
   ]
 }

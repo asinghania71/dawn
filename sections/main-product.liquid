@@ -75,7 +75,9 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  {% render 'breadcrumbs' %}
+  {%- if section.settings.enable_breadcrumbs -%}
+    {% render 'breadcrumbs', color_scheme: section.settings.breadcrumbs_color_scheme %}
+  {%- endif -%}
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
@@ -2139,6 +2141,22 @@
     }
   ],
   "settings": [
+    {
+      "type": "header",
+      "content": "Breadcrumbs"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_breadcrumbs",
+      "default": true,
+      "label": "Show breadcrumb navigation"
+    },
+    {
+      "type": "color_scheme",
+      "id": "breadcrumbs_color_scheme",
+      "label": "Breadcrumb color scheme",
+      "default": "scheme-1"
+    },
     {
       "type": "header",
       "content": "Sticky Add to Cart"

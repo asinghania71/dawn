@@ -25,7 +25,7 @@
       </span>
     </summary>
     <div
-      class="search-modal modal__content gradient"
+      class="search-modal modal__content gradient search-modal--{{ settings.predictive_search_layout | default: 'drawer' }}"
       role="dialog"
       aria-modal="true"
       aria-label="{{ 'general.search.search' | t }}"
@@ -81,6 +81,32 @@
           </div>
 
           {%- if settings.predictive_search_enabled -%}
+            <div class="search-modal__empty-state" data-search-empty-state>
+              {%- if settings.predictive_search_popular_menu != blank -%}
+                <div class="search-modal__popular">
+                  <p class="h4">Popular Searches</p>
+                  <ul class="list-unstyled search-modal__popular-list">
+                    {%- for link in settings.predictive_search_popular_menu.links -%}
+                      <li><a href="{{ link.url }}" class="button button--secondary button--small">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+              
+              {%- if settings.predictive_search_featured_collection != blank -%}
+                <div class="search-modal__featured">
+                  <p class="h4">Trending Products</p>
+                  <ul class="list-unstyled search-modal__featured-products grid grid--2-col grid--4-col-desktop">
+                    {%- for product in settings.predictive_search_featured_collection.products limit: 4 -%}
+                      <li class="grid__item">
+                        {% render 'card-product', card_product: product, show_quick_add: settings.predictive_search_quick_add, section_id: 'predictive-search-empty' %}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+            </div>
+
             <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
               {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
             </div>

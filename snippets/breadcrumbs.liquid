@@ -1,66 +1,85 @@
 <style>
+.breadcrumb-container {
+  padding: 1.2rem 0;
+  margin-bottom: 2rem;
+}
 .breadcrumb {
-  padding: 1.5rem 0;
   font-size: 1.3rem;
-  color: rgba(var(--color-foreground), 0.75);
+  line-height: 1.6;
+  color: rgb(var(--color-foreground));
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.8rem 1rem;
 }
 .breadcrumb a {
-  color: inherit;
+  color: rgba(var(--color-foreground), 0.75);
   text-decoration: none;
+  transition: color var(--duration-short) ease;
 }
 .breadcrumb a:hover {
+  color: rgb(var(--color-foreground));
   text-decoration: underline;
+  text-underline-offset: 0.3rem;
 }
 .breadcrumb span[aria-hidden="true"] {
-  opacity: 0.5;
-  font-size: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  color: rgba(var(--color-foreground), 0.4);
+  font-size: 1.2rem;
+  user-select: none;
   line-height: 1;
 }
+.breadcrumb span[aria-current="page"] {
+  color: rgb(var(--color-foreground));
+  font-weight: 500;
+  word-break: break-word;
+}
 </style>
-<nav class="breadcrumb page-width" role="navigation" aria-label="breadcrumbs">
-  <a href="{{ routes.root_url }}">{{ 'general.breadcrumbs.home' | t | default: 'Home' }}</a>
-  {% if template contains 'page' %}
-    <span aria-hidden="true">&rsaquo;</span>
-    <span aria-current="page">{{ page.title }}</span>
-  {% elsif template contains 'product' %}
-    <span aria-hidden="true">&rsaquo;</span>
-    <a href="{{ routes.collections_url }}">{{ 'general.breadcrumbs.collections' | t | default: 'Collections' }}</a>
-    {% if product.collections.size > 0 %}
-      <span aria-hidden="true">&rsaquo;</span>
-      <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
-    {% endif %}
-    <span aria-hidden="true">&rsaquo;</span>
-    <span aria-current="page">{{ product.title }}</span>
-  {% elsif template contains 'collection' and collection.handle %}
-    <span aria-hidden="true">&rsaquo;</span>
-    {% if current_tags %}
-      {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
-      {{ collection.title | link_to: url }}
-      <span aria-hidden="true">&rsaquo;</span>
-      <span aria-current="page">{{ current_tags | join: " + " }}</span>
-    {% else %}
-      <span aria-current="page">{{ collection.title }}</span>
-    {% endif %}
-  {% elsif template == 'blog' %}
-    <span aria-hidden="true">&rsaquo;</span>
-    {% if current_tags %}
-      {{ blog.title | link_to: blog.url }}
-      <span aria-hidden="true">&rsaquo;</span>
-      <span aria-current="page">{{ current_tags | join: " + " }}</span>
-    {% else %}
-    <span aria-current="page">{{ blog.title }}</span>
-    {% endif %}
-  {% elsif template == 'article' %}
-    <span aria-hidden="true">&rsaquo;</span>
-    {{ blog.title | link_to: blog.url }}
-    <span aria-hidden="true">&rsaquo;</span>
-    <span aria-current="page">{{ article.title }}</span>
-  {% else %}
-    <span aria-hidden="true">&rsaquo;</span>
-    <span aria-current="page">{{ page_title }}</span>
-  {% endif %}
-</nav>
+<div class="color-{{ color_scheme | default: 'scheme-1' }} isolate gradient breadcrumb-container">
+  <div class="page-width">
+    <nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+      <a href="{{ routes.root_url }}">{{ 'general.breadcrumbs.home' | t | default: 'Home' }}</a>
+      {% if template contains 'page' %}
+        <span aria-hidden="true">&rsaquo;</span>
+        <span aria-current="page">{{ page.title }}</span>
+      {% elsif template contains 'product' %}
+        <span aria-hidden="true">&rsaquo;</span>
+        <a href="{{ routes.collections_url }}">{{ 'general.breadcrumbs.collections' | t | default: 'Collections' }}</a>
+        {% if product.collections.size > 0 %}
+          <span aria-hidden="true">&rsaquo;</span>
+          <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+        {% endif %}
+        <span aria-hidden="true">&rsaquo;</span>
+        <span aria-current="page">{{ product.title }}</span>
+      {% elsif template contains 'collection' and collection.handle %}
+        <span aria-hidden="true">&rsaquo;</span>
+        {% if current_tags %}
+          {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+          {{ collection.title | link_to: url }}
+          <span aria-hidden="true">&rsaquo;</span>
+          <span aria-current="page">{{ current_tags | join: " + " }}</span>
+        {% else %}
+          <span aria-current="page">{{ collection.title }}</span>
+        {% endif %}
+      {% elsif template == 'blog' %}
+        <span aria-hidden="true">&rsaquo;</span>
+        {% if current_tags %}
+          {{ blog.title | link_to: blog.url }}
+          <span aria-hidden="true">&rsaquo;</span>
+          <span aria-current="page">{{ current_tags | join: " + " }}</span>
+        {% else %}
+        <span aria-current="page">{{ blog.title }}</span>
+        {% endif %}
+      {% elsif template == 'article' %}
+        <span aria-hidden="true">&rsaquo;</span>
+        {{ blog.title | link_to: blog.url }}
+        <span aria-hidden="true">&rsaquo;</span>
+        <span aria-current="page">{{ article.title }}</span>
+      {% else %}
+        <span aria-hidden="true">&rsaquo;</span>
+        <span aria-current="page">{{ page_title }}</span>
+      {% endif %}
+    </nav>
+  </div>
+</div>

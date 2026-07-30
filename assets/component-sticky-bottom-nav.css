@@ -51,6 +51,13 @@
   fill: none;
 }
 
+/* The Dawn cart SVGs have a lot of padding in their 40x40 viewBox, so they need to be scaled to 220% to visually match the 18x18 icons */
+.sticky-bottom-nav__item svg.icon-cart-empty,
+.sticky-bottom-nav__item svg.icon-cart {
+  width: 220%;
+  height: 220%;
+}
+
 .sticky-bottom-nav__text {
   font-size: 1rem;
   line-height: 1;

@@ -24,6 +24,13 @@
               {%- for link in section.settings.menu.links -%}
                 <li>
                   {%- if link.links != blank -%}
+                    {%- assign mega_block = nil -%}
+                    {%- for block in section.blocks -%}
+                      {%- if block.type == 'mega_menu' and block.settings.nav_handle == link.handle -%}
+                        {%- assign mega_block = block -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
                       <summary
                         id="HeaderDrawer-{{ link.handle }}"
@@ -116,6 +123,24 @@
                               </li>
                             {%- endfor -%}
                           </ul>
+                          {%- if mega_block and mega_block.settings.promo_image != blank -%}
+                            <div class="menu-drawer__promo">
+                              <a href="{{ mega_block.settings.promo_link }}" class="menu-drawer__promo-card">
+                                {{ mega_block.settings.promo_image | image_url: width: 400 | image_tag: class: 'menu-drawer__promo-image', loading: 'lazy' }}
+                                <div class="menu-drawer__promo-content">
+                                  {%- if mega_block.settings.promo_heading != blank -%}
+                                    <p class="menu-drawer__promo-heading">{{ mega_block.settings.promo_heading }}</p>
+                                  {%- endif -%}
+                                  {%- if mega_block.settings.promo_subtext != blank -%}
+                                    <p class="menu-drawer__promo-subtext">{{ mega_block.settings.promo_subtext }}</p>
+                                  {%- endif -%}
+                                  {%- if mega_block.settings.promo_cta != blank -%}
+                                    <span class="menu-drawer__promo-cta button button--secondary">{{ mega_block.settings.promo_cta }}</span>
+                                  {%- endif -%}
+                                </div>
+                              </a>
+                            </div>
+                          {%- endif -%}
                         </div>
                       </div>
                     </details>

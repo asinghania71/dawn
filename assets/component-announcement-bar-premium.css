@@ -1,0 +1,137 @@
+/* ============================================================
+   MARQUEE ANIMATION
+   ============================================================ */
+.announcement-bar-wrapper--marquee {
+  overflow: hidden;
+  width: 100%;
+}
+
+.announcement-bar-marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: announcement-marquee var(--marquee-duration, 20s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .announcement-bar-marquee {
+    animation: none;
+  }
+}
+
+.announcement-bar-marquee:hover {
+  animation-play-state: paused;
+}
+
+.announcement-bar-marquee__content {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.announcement-bar-marquee__content .announcement-bar__announcement {
+  /* Override base.css which sets width:100%, height:100%, grid-area:announcements
+     causing all items to stack on top of each other in the same grid cell */
+  width: auto;
+  height: auto;
+  grid-area: unset;
+  flex-shrink: 0;
+  white-space: nowrap;
+  /* Each item fills the full viewport so only one is visible at a time */
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes announcement-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================================
+   ANNOUNCEMENT ICONS
+   ============================================================ */
+.announcement-bar__icon {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 0.6rem;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.announcement-bar__icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+/* ============================================================
+   CLOSE / DISMISS BUTTON
+   ============================================================ */
+.utility-bar {
+  position: relative;
+}
+
+.announcement-bar__close {
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.announcement-bar__close:hover {
+  opacity: 1;
+}
+
+.announcement-bar__close svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+announcement-bar-manager[hidden] {
+  display: none !important;
+}
+
+/* ============================================================
+   COUNTDOWN TIMER
+   ============================================================ */
+countdown-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.countdown-timer__display {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   CART GOAL TRACKER
+   ============================================================ */
+cart-goal-tracker {
+  display: inline-block;
+}
+
+.cart-goal-tracker__text {
+  font-weight: 600;
+}

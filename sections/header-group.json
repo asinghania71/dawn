@@ -21,11 +21,27 @@
     },
     "header": {
       "type": "header",
+      "blocks": {
+        "mega_1": {
+          "type": "mega_menu",
+          "settings": {
+            "nav_handle": "catalog",
+            "show_column_images": true,
+            "promo_heading": "Summer Collection",
+            "promo_subtext": "Explore the latest arrivals for this season.",
+            "promo_cta": "Shop Now",
+            "promo_link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "mega_1"
+      ],
       "settings": {
         "color_scheme": "scheme-1",
         "logo_position": "middle-left",
         "menu": "main-menu",
-        "menu_type_desktop": "dropdown",
+        "menu_type_desktop": "mega",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
         "enable_country_selector": true,
@@ -35,19 +51,10 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
-    },
-    "free-shipping-bar": {
-      "type": "free-shipping-bar",
-      "settings": {
-        "threshold": 100,
-        "unlocked_message": "🎉 You have unlocked Free Shipping!",
-        "progress_message": "Spend [amount] more for Free Shipping!"
-      }
     }
   },
   "order": [
     "announcement-bar",
-    "free-shipping-bar",
     "header"
   ]
 }

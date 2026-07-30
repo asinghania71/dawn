@@ -10,6 +10,13 @@
     {%- for link in section.settings.menu.links -%}
       <li>
         {%- if link.links != blank -%}
+          {%- assign mega_block = nil -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'mega_menu' and block.settings.nav_handle == link.handle -%}
+              {%- assign mega_block = block -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
           <header-menu>
             <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu">
               <summary
@@ -35,7 +42,12 @@
                   role="list"
                 >
                   {%- for childlink in link.links -%}
-                    <li>
+                    <li class="mega-menu__column">
+                      {%- if mega_block and mega_block.settings.show_column_images and childlink.object.image -%}
+                        <a href="{{ childlink.url }}" class="mega-menu__column-image-link">
+                          {{ childlink.object.image | image_url: width: 400 | image_tag: class: 'mega-menu__column-image', loading: 'lazy' }}
+                        </a>
+                      {%- endif -%}
                       <a
                         id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
                         href="{{ childlink.url }}"
@@ -66,6 +78,24 @@
                       {%- endif -%}
                     </li>
                   {%- endfor -%}
+                  {%- if mega_block and mega_block.settings.promo_image != blank -%}
+                    <li class="mega-menu__column mega-menu__column--promo">
+                      <a href="{{ mega_block.settings.promo_link }}" class="mega-menu__promo-card">
+                        {{ mega_block.settings.promo_image | image_url: width: 600 | image_tag: class: 'mega-menu__promo-image', loading: 'lazy' }}
+                        <div class="mega-menu__promo-content">
+                          {%- if mega_block.settings.promo_heading != blank -%}
+                            <p class="mega-menu__promo-heading">{{ mega_block.settings.promo_heading }}</p>
+                          {%- endif -%}
+                          {%- if mega_block.settings.promo_subtext != blank -%}
+                            <p class="mega-menu__promo-subtext">{{ mega_block.settings.promo_subtext }}</p>
+                          {%- endif -%}
+                          {%- if mega_block.settings.promo_cta != blank -%}
+                            <span class="mega-menu__promo-cta button button--secondary">{{ mega_block.settings.promo_cta }}</span>
+                          {%- endif -%}
+                        </div>
+                      </a>
+                    </li>
+                  {%- endif -%}
                 </ul>
               </div>
             </details>

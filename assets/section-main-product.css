@@ -551,7 +551,25 @@ a.product__text {
   height: 1.4rem;
 }
 
-.product__media-icon,
+.product__media-icon {
+  background-color: rgb(var(--color-background));
+  border-radius: 50%;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  color: rgb(var(--color-foreground));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+  position: absolute;
+  right: 1.2rem;
+  top: 1.2rem;
+  left: auto;
+  z-index: 4;
+  pointer-events: none;
+  transition: color var(--duration-short) ease, opacity var(--duration-short) ease;
+}
+
 .thumbnail__badge {
   background-color: rgb(var(--color-background));
   border-radius: 50%;
@@ -565,6 +583,7 @@ a.product__text {
   position: absolute;
   left: 1.2rem;
   top: 1.2rem;
+  right: auto;
   z-index: 1;
   transition: color var(--duration-short) ease, opacity var(--duration-short) ease;
 }
