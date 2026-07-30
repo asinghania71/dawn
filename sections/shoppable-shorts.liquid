@@ -82,7 +82,7 @@
                       {%- assign rating = product.metafields.reviews.rating.value -%}
                       {%- if rating != blank and settings.enable_review_widget -%}
                         <div class="shoppable-short-card__banner-rating">
-                          {% render 'review-widget', product: product, show_review_widget: true, review_widget_size: 'small' %}
+                          {% render 'review-widget', product: product, show_review_widget: true, review_widget_size: 'medium' %}
                         </div>
                       {%- endif -%}
                     </a>
