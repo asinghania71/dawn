@@ -81,8 +81,8 @@
                       
                       {%- assign rating = product.metafields.reviews.rating.value -%}
                       {%- if rating != blank and settings.enable_review_widget -%}
-                        <div class="shoppable-short-card__banner-rating color-{{ section.settings.rating_color_scheme | default: 'scheme-1' }} gradient">
-                          {% render 'review-widget', product: product, show_review_widget: true, review_widget_size: 'medium' %}
+                        <div class="shoppable-short-card__banner-rating">
+                          {% render 'review-widget', product: product, show_review_widget: true, review_widget_size: 'medium', color_scheme: section.settings.rating_color_scheme %}
                         </div>
                       {%- endif -%}
                     </a>

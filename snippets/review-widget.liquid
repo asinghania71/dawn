@@ -25,13 +25,18 @@
     {%- assign local_widget_size = review_widget_size -%}
   {%- endif -%}
 
+  {%- assign local_color_scheme = settings.review_widget_color_scheme -%}
+  {%- if color_scheme != nil and color_scheme != blank -%}
+    {%- assign local_color_scheme = color_scheme -%}
+  {%- endif -%}
+
   {%- if rating_val != blank and settings.enable_review_widget and local_show_widget -%}
     {%- assign review_opacity = settings.review_widget_opacity | divided_by: 100.0 | default: 1.0 -%}
     <div
       class="review-widget review-widget--position-{{ settings.review_widget_position }} review-widget--size-{{ local_widget_size }}"
       style="opacity: {{ review_opacity }};"
     >
-      <div class="review-widget__container color-{{ settings.review_widget_color_scheme }} gradient">
+      <div class="review-widget__container color-{{ local_color_scheme }} gradient">
 
         <div class="review-widget__score">
           <span class="review-widget__rating-value">{{ rating_val | round: 1 }}</span>
