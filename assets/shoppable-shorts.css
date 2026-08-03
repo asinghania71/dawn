@@ -250,10 +250,11 @@ shoppable-short[data-has-poster="true"] .shoppable-short-card--ratio-adapt {
 }
 
 .shoppable-short-card__banner-rating {
-  display: flex;
+  border-radius: var(--text-boxes-radius);
+  padding: 0.2rem 0.6rem;
+  display: inline-flex;
   align-items: center;
-  margin-left: auto; /* Push to far right if there's space */
-  padding-left: 0.8rem;
+  margin-left: auto;
 }
 
 .shoppable-short-card__banner-rating .review-widget-wrapper {
@@ -285,5 +286,5 @@ shoppable-short[data-has-poster="true"] .shoppable-short-card--ratio-adapt {
 
 .shoppable-short-card__banner-rating .review-widget__score {
   background: transparent !important;
-  color: rgba(var(--color-foreground), 0.85);
+  color: rgb(var(--color-foreground));
 }

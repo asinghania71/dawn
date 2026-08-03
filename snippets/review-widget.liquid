@@ -6,11 +6,11 @@
 
 <div class="review-widget-wrapper">
   {%- liquid
-    assign rating = product.metafields.reviews.rating.value
-    assign rating_count = product.metafields.reviews.rating_count.value
+    assign rating_val = product.metafields.reviews.rating.value.rating | default: product.metafields.reviews.rating.value | default: product.metafields.reviews.rating
+    assign rating_count_val = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count
   -%}
 
-  {%- if rating_count != blank -%}
+  {%- if rating_count_val != blank -%}
     <link rel="stylesheet" href="{{ 'component-review-widget.css' | asset_url }}" media="print" onload="this.media='all'">
     <noscript>{{ 'component-review-widget.css' | asset_url | stylesheet_tag }}</noscript>
   {%- endif -%}
@@ -25,7 +25,7 @@
     {%- assign local_widget_size = review_widget_size -%}
   {%- endif -%}
 
-  {%- if rating != blank and settings.enable_review_widget and local_show_widget -%}
+  {%- if rating_val != blank and settings.enable_review_widget and local_show_widget -%}
     {%- assign review_opacity = settings.review_widget_opacity | divided_by: 100.0 | default: 1.0 -%}
     <div
       class="review-widget review-widget--position-{{ settings.review_widget_position }} review-widget--size-{{ local_widget_size }}"
@@ -34,13 +34,13 @@
       <div class="review-widget__container color-{{ settings.review_widget_color_scheme }} gradient">
 
         <div class="review-widget__score">
-          <span class="review-widget__rating-value">{{ rating | round: 1 }}</span>
+          <span class="review-widget__rating-value">{{ rating_val | round: 1 }}</span>
           <svg viewBox="0 0 14 14" width="12" height="12" style="margin: 0 4px;">
             <path d="M7 0L9.16 4.38L14 5.09L10.5 8.5L11.32 13.31L7 11.04L2.68 13.31L3.5 8.5L0 5.09L4.84 4.38L7 0Z" fill="currentColor"/>
           </svg>
-          {%- if rating_count != blank -%}
+          {%- if rating_count_val != blank -%}
             <span class="review-widget__separator" style="margin-right: 4px; opacity: 0.5;">|</span>
-            <span class="review-widget__count">{{ rating_count }}</span>
+            <span class="review-widget__count">{{ rating_count_val }}</span>
           {%- endif -%}
         </div>
       </div>
