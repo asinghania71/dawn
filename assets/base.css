@@ -2582,16 +2582,14 @@ input[type='checkbox'] {
   vertical-align: middle;
 }
 
-.header__icon,
-.header__icon--cart .icon {
+.header__icon {
   height: 4.4rem;
   width: 4.4rem;
   padding: 0;
 }
 
 @media screen and (max-width: 989px) {
-  .header__icon,
-  .header__icon--cart .icon {
+  .header__icon {
     height: 4.8rem;
     width: 4.8rem;
   }
