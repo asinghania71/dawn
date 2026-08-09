@@ -297,13 +297,5 @@
     "video",
     "multicolumn",
     "shoppable_shorts_TdUMad"
-  ],
-  "content_for_index": [
-    "image_banner",
-    "rich_text",
-    "featured_collection",
-    "shoppable-shorts",
-    "collage",
-    "multicolumn"
   ]
 }
