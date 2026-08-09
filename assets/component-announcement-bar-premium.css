@@ -37,8 +37,8 @@
   grid-area: unset;
   flex-shrink: 0;
   white-space: nowrap;
-  /* Each item fills the full viewport so only one is visible at a time */
-  min-width: 100vw;
+  /* Add padding to separate the announcements in the ticker */
+  padding: 0 4rem;
   display: flex;
   justify-content: center;
   align-items: center;

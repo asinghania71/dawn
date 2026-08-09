@@ -1,0 +1,183 @@
+{{ 'component-before-after.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'before-after.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="before-after section-{{ section.id }}-padding{% if section.settings.full_width %} before-after--full-width{% else %} page-width{% endif %}">
+    
+    {%- if section.settings.title != blank -%}
+      <div class="before-after__header page-width">
+        <h2 class="before-after__heading {{ section.settings.heading_size }}">{{ section.settings.title }}</h2>
+      </div>
+    {%- endif -%}
+
+    <before-after-slider class="before-after__container" style="--percent: 50%;">
+      <div class="before-after__image-wrapper media media--transparent ratio"
+        {% if section.settings.image_before != blank %}
+          style="--ratio-percent: {{ 1 | divided_by: section.settings.image_before.aspect_ratio | times: 100 }}%;"
+        {% else %}
+          style="--ratio-percent: 56.25%;"
+        {% endif %}
+      >
+        <!-- Before Image (Bottom Layer) -->
+        <div class="before-after__layer before-after__layer--before">
+          {%- if section.settings.image_before != blank -%}
+            {{ section.settings.image_before | image_url: width: 3200 | image_tag: 
+              class: 'before-after__image',
+              widths: '320, 550, 750, 1100, 1500, 1920, 2560, 3200',
+              sizes: '100vw'
+            }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg before-after__image' }}
+          {%- endif -%}
+          {%- if section.settings.label_before != blank -%}
+            <span class="before-after__label before-after__label--before">{{ section.settings.label_before }}</span>
+          {%- endif -%}
+        </div>
+
+        <!-- After Image (Top Layer with clip-path) -->
+        <div class="before-after__layer before-after__layer--after">
+          {%- if section.settings.image_after != blank -%}
+            {{ section.settings.image_after | image_url: width: 3200 | image_tag: 
+              class: 'before-after__image',
+              widths: '320, 550, 750, 1100, 1500, 1920, 2560, 3200',
+              sizes: '100vw'
+            }}
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg before-after__image before-after__image--placeholder' }}
+          {%- endif -%}
+          {%- if section.settings.label_after != blank -%}
+            <span class="before-after__label before-after__label--after">{{ section.settings.label_after }}</span>
+          {%- endif -%}
+        </div>
+
+        <!-- Slider Handle -->
+        <div class="before-after__handle">
+          <div class="before-after__handle-line"></div>
+          <div class="before-after__handle-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L4.5 12m0 0l3.75-3m-3.75 3h15m-3.75 3l3.75-3m0 0l-3.75-3" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Hidden input for accessibility -->
+        <input type="range" class="before-after__range visually-hidden" min="0" max="100" value="50" aria-label="Percentage of before photo shown">
+      </div>
+    </before-after-slider>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Before & After Slider",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "See the results",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Before Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_before",
+      "label": "Before Image"
+    },
+    {
+      "type": "text",
+      "id": "label_before",
+      "label": "Before Label",
+      "default": "Before"
+    },
+    {
+      "type": "header",
+      "content": "After Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_after",
+      "label": "After Image"
+    },
+    {
+      "type": "text",
+      "id": "label_after",
+      "label": "After Label",
+      "default": "After"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Before & After Slider"
+    }
+  ]
+}
+{% endschema %}

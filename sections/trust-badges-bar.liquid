@@ -1,0 +1,323 @@
+{{ 'component-trust-badges-bar.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  {%- if section.settings.icon_color != blank -%}
+    #TrustBadges-{{ section.id }} {
+      --trust-badge-icon-color: {{ section.settings.icon_color }};
+    }
+  {%- endif -%}
+{%- endstyle -%}
+
+<div id="TrustBadges-{{ section.id }}" class="color-{{ section.settings.color_scheme }} gradient trust-badges-bar{% if section.settings.show_dividers %} trust-badges-bar--show-dividers{% endif %}">
+  <div class="section-{{ section.id }}-padding{% if section.settings.full_width %} trust-badges-bar--full-width{% else %} page-width{% endif %}">
+    
+    {%- if section.settings.title != blank -%}
+      {% render 'section-heading', title: section.settings.title, heading_size: section.settings.heading_size, heading_alignment: section.settings.heading_alignment %}
+    {%- endif -%}
+
+    <div class="trust-badges-bar__grid trust-badges-bar__grid--mobile-{{ section.settings.columns_mobile }}" style="--columns-desktop: {{ section.settings.columns_desktop }};">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.link != blank -%}
+          <a href="{{ block.settings.link }}" class="trust-badges-bar__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.custom_icon_image != blank -%}
+              <div class="trust-badges-bar__icon-wrapper">
+                {{ block.settings.custom_icon_image | image_url: width: 100 | image_tag: class: 'trust-badges-bar__custom-image', loading: 'lazy' }}
+              </div>
+            {%- elsif block.settings.icon != 'none' -%}
+              <div class="trust-badges-bar__icon-wrapper">
+                {%- case block.settings.icon -%}
+                  {%- when 'shield' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751A11.959 11.959 0 0112 2.714z" />
+                    </svg>
+                  {%- else -%}
+                    {% render 'icon-accordion', icon: block.settings.icon %}
+                {%- endcase -%}
+              </div>
+            {%- endif -%}
+
+            <div class="trust-badges-bar__content">
+              {%- if block.settings.heading != blank -%}
+                <div class="trust-badges-bar__heading">{{ block.settings.heading }}</div>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <div class="trust-badges-bar__text">{{ block.settings.text }}</div>
+              {%- endif -%}
+            </div>
+          </a>
+        {%- else -%}
+          <div class="trust-badges-bar__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.custom_icon_image != blank -%}
+              <div class="trust-badges-bar__icon-wrapper">
+                {{ block.settings.custom_icon_image | image_url: width: 100 | image_tag: class: 'trust-badges-bar__custom-image', loading: 'lazy' }}
+              </div>
+            {%- elsif block.settings.icon != 'none' -%}
+              <div class="trust-badges-bar__icon-wrapper">
+                {%- case block.settings.icon -%}
+                  {%- when 'shield' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751A11.959 11.959 0 0112 2.714z" />
+                    </svg>
+                  {%- else -%}
+                    {% render 'icon-accordion', icon: block.settings.icon %}
+                {%- endcase -%}
+              </div>
+            {%- endif -%}
+
+            <div class="trust-badges-bar__content">
+              {%- if block.settings.heading != blank -%}
+                <div class="trust-badges-bar__heading">{{ block.settings.heading }}</div>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <div class="trust-badges-bar__text">{{ block.settings.text }}</div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust Badges & Value Bar",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Section Heading (Optional)"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
+      ],
+      "default": "h2",
+      "label": "Heading Size"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Heading Alignment"
+    },
+    {
+      "type": "header",
+      "content": "Layout & Style"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dividers",
+      "label": "Show vertical dividers between badges",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop columns"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+        {
+          "value": "2",
+          "label": "2 columns grid"
+        },
+        {
+          "value": "scroll",
+          "label": "Horizontal scroll"
+        }
+      ],
+      "default": "2",
+      "label": "Mobile layout"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Section Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#b8986a",
+      "info": "Custom accent color for the icons. Leave blank to inherit text color."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Trust Badge Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "truck", "label": "Free Shipping (Truck)" },
+            { "value": "return", "label": "30-Day Returns" },
+            { "value": "shield", "label": "Secure Shield" },
+            { "value": "star", "label": "Star Rating" },
+            { "value": "lock", "label": "Lock / Padlock" },
+            { "value": "box", "label": "Package Box" },
+            { "value": "check_mark", "label": "Checkmark" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "plane", "label": "Airplane" },
+            { "value": "lightning_bolt", "label": "Lightning Bolt" },
+            { "value": "chat_bubble", "label": "Chat Bubble" }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon_image",
+          "label": "Custom Icon Image (Optional)",
+          "info": "Overrides the selected SVG icon if uploaded."
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Free Shipping",
+          "label": "Heading"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "On orders over $150",
+          "label": "Text / Subheading"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Badges & Value Bar",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "truck",
+            "heading": "Free Shipping",
+            "text": "On orders over $150"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "return",
+            "heading": "30-Day Returns",
+            "text": "Hassle-free policy"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "shield",
+            "heading": "Secure Checkout",
+            "text": "256-bit encryption"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "star",
+            "heading": "4.8★ Rated",
+            "text": "12,000+ reviews"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

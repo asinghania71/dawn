@@ -1,0 +1,243 @@
+{{ 'component-shop-the-look.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'shop-the-look.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="shop-the-look section-{{ section.id }}-padding{% if section.settings.full_width %} shop-the-look--full-width{% else %} page-width{% endif %}">
+    
+    {%- if section.settings.title != blank -%}
+      <div class="shop-the-look__header page-width">
+        <h2 class="shop-the-look__heading {{ section.settings.heading_size }}">{{ section.settings.title }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="shop-the-look__container">
+      <div class="shop-the-look__image-wrapper media media--transparent ratio" 
+        {% if section.settings.image != blank %}
+          style="--ratio-percent: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;"
+        {% else %}
+          style="--ratio-percent: 56.25%;"
+        {% endif %}
+      >
+        {%- if section.settings.image != blank -%}
+          {%- liquid
+            assign image_class = 'shop-the-look__image'
+            if section.settings.image_mobile != blank
+              assign image_class = image_class | append: ' small-hide'
+            endif
+          -%}
+          {{ section.settings.image | image_url: width: 3200 | image_tag: 
+            class: image_class,
+            widths: '320, 550, 750, 1100, 1500, 1920, 2560, 3200',
+            sizes: '100vw'
+          }}
+          {%- if section.settings.image_mobile != blank -%}
+            {{ section.settings.image_mobile | image_url: width: 1100 | image_tag: 
+              class: 'shop-the-look__image medium-hide large-up-hide',
+              widths: '320, 550, 750, 1100',
+              sizes: '100vw'
+            }}
+          {%- endif -%}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <shop-the-look class="shop-the-look__hotspots">
+        {%- for block in section.blocks -%}
+          {%- assign hotspot_product = block.settings.product -%}
+          {%- if hotspot_product != blank -%}
+            <div class="shop-the-look__hotspot" 
+              {{ block.shopify_attributes }}
+              style="--hotspot-x: {{ block.settings.horizontal_position }}%; --hotspot-y: {{ block.settings.vertical_position }}%;"
+            >
+              <button type="button" class="shop-the-look__hotspot-button" aria-expanded="false" aria-controls="ShopTheLook-Tooltip-{{ block.id }}" style="background-color: {{ block.settings.hotspot_color }};">
+                <span class="visually-hidden">Expand</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="14" height="14">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </button>
+
+              <div id="ShopTheLook-Tooltip-{{ block.id }}" class="shop-the-look__tooltip" aria-hidden="true">
+                <button type="button" class="shop-the-look__tooltip-close">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                <div class="shop-the-look__tooltip-content">
+                  <a href="{{ hotspot_product.url }}" class="shop-the-look__tooltip-image">
+                    {%- if hotspot_product.featured_image != blank -%}
+                      {{ hotspot_product.featured_image | image_url: width: 200 | image_tag: loading: 'lazy' }}
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                  </a>
+                  <div class="shop-the-look__tooltip-info">
+                    <a href="{{ hotspot_product.url }}" class="shop-the-look__tooltip-title h5">{{ hotspot_product.title }}</a>
+                    <div class="shop-the-look__tooltip-price">{% render 'price', product: hotspot_product %}</div>
+                    
+                    {%- if hotspot_product.available -%}
+                      {%- form 'product', hotspot_product, class: 'shop-the-look__quick-add-form' -%}
+                        <input type="hidden" name="id" value="{{ hotspot_product.selected_or_first_available_variant.id }}">
+                        <button type="submit" class="button button--primary button--small shop-the-look__quick-add-button" name="add">
+                          <span>Add to cart</span>
+                        </button>
+                      {%- endform -%}
+                    {%- else -%}
+                      <button class="button button--primary button--small shop-the-look__quick-add-button" disabled>Sold out</button>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </shop-the-look>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop the Look",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Shop the look",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile Image (Optional)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Product Hotspot",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "color",
+          "id": "hotspot_color",
+          "label": "Hotspot color",
+          "default": "#121212"
+        },
+        {
+          "type": "range",
+          "id": "horizontal_position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Horizontal position",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "vertical_position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Vertical position",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the Look",
+      "blocks": [
+        {
+          "type": "hotspot",
+          "settings": {
+            "horizontal_position": 30,
+            "vertical_position": 40
+          }
+        },
+        {
+          "type": "hotspot",
+          "settings": {
+            "horizontal_position": 60,
+            "vertical_position": 70
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
