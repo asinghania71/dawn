@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -278,14 +287,77 @@
         "description_style": "body",
         "columns_desktop": 4,
         "columns_mobile": "1_90",
-        "image_ratio": "portrait",
+        "video_ratio": "portrait",
         "full_width": true,
         "enable_autoplay": false,
+        "image_ratio": "portrait",
         "color_scheme": "",
         "card_color_scheme": "",
         "button_color_scheme": "",
+        "rating_color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "trust_badges_bar_6ncmWG": {
+      "type": "trust-badges-bar",
+      "blocks": {
+        "badge_47xP4m": {
+          "type": "badge",
+          "settings": {
+            "icon": "truck",
+            "heading": "Free Shipping",
+            "text": "On orders over $150",
+            "link": ""
+          }
+        },
+        "badge_q4qngJ": {
+          "type": "badge",
+          "settings": {
+            "icon": "return",
+            "heading": "30-Day Returns",
+            "text": "Hassle-free policy",
+            "link": ""
+          }
+        },
+        "badge_Jmy4r8": {
+          "type": "badge",
+          "settings": {
+            "icon": "shield",
+            "heading": "Secure Checkout",
+            "text": "256-bit encryption",
+            "link": ""
+          }
+        },
+        "badge_LKVYDY": {
+          "type": "badge",
+          "settings": {
+            "icon": "star",
+            "heading": "4.8★ Rated",
+            "text": "12,000+ reviews",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "badge_47xP4m",
+        "badge_q4qngJ",
+        "badge_Jmy4r8",
+        "badge_LKVYDY"
+      ],
+      "name": "Trust Badges & Value Bar",
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "heading_alignment": "center",
+        "full_width": true,
+        "show_dividers": true,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "",
+        "icon_color": "#b8986a",
+        "padding_top": 20,
+        "padding_bottom": 20
       }
     }
   },
@@ -296,6 +368,7 @@
     "collage",
     "video",
     "multicolumn",
-    "shoppable_shorts_TdUMad"
+    "shoppable_shorts_TdUMad",
+    "trust_badges_bar_6ncmWG"
   ]
 }
