@@ -41,6 +41,8 @@
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
+    {{ 'component-spa-router.css' | asset_url | stylesheet_tag }}
+
     {{ content_for_header }}
 
     {%- liquid
@@ -376,5 +378,7 @@
     {%- endif -%}
 
     {% section 'wishlist-drawer' %}
+
+    <script src="{{ 'spa-router.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

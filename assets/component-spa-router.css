@@ -1,0 +1,33 @@
+.spa-loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background-color: rgba(var(--color-button), 1);
+  z-index: 9999;
+  width: 0;
+  opacity: 0;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.spa-loading-bar.is-loading {
+  opacity: 1;
+  width: 70%;
+  transition: width 5s cubic-bezier(0.1, 0.5, 0.1, 1);
+}
+
+.spa-loading-bar.is-finishing {
+  opacity: 1;
+  width: 100%;
+  transition: width 0.3s ease;
+}
+
+/* Optional: Slight fade on main content when loading */
+#MainContent {
+  transition: opacity 0.3s ease;
+}
+.is-spa-loading #MainContent {
+  opacity: 0.6;
+  pointer-events: none;
+}
