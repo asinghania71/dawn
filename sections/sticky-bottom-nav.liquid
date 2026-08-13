@@ -29,8 +29,17 @@
           if (cartIcon) cartIcon.click();
         } else if (actionType === 'search') {
           e.preventDefault();
-          const searchIcon = document.querySelector('details-modal.header__search summary');
-          if (searchIcon) searchIcon.click();
+          // Force open the visible search modal
+          const searchModals = document.querySelectorAll('details-modal.header__search details');
+          searchModals.forEach(modal => {
+            if (modal.parentElement.offsetParent !== null) {
+              modal.setAttribute('open', 'true');
+              const summary = modal.querySelector('summary');
+              if (summary) summary.setAttribute('aria-expanded', 'true');
+              const input = modal.querySelector('input');
+              if (input) setTimeout(() => input.focus(), 100);
+            }
+          });
         } else if (actionType === 'wishlist') {
           e.preventDefault();
           window.dispatchEvent(new Event('wishlist:open'));
