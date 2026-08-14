@@ -25,7 +25,7 @@
   }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} isolate gradient">
+<div class="color-{{ section.settings.color_scheme }} isolate gradient" id="recently-viewed-wrapper-{{ section.id }}" {% unless request.design_mode or search.performed %}style="display: none;"{% endunless %}>
   <div class="collection section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}">
     <div class="page-width">
       {% render 'section-heading',

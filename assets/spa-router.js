@@ -84,69 +84,43 @@ class SPARouter {
       const newMain = newDocument.getElementById('MainContent');
 
       if (currentMain && newMain) {
+        // Swap content
+        currentMain.innerHTML = newMain.innerHTML;
+        
+        // Update Title
+        document.title = newDocument.title;
+        
+        // Push State
+        if (pushState) {
+          window.history.pushState(null, document.title, url);
+        }
+
+        // Re-evaluate scripts within the new main content
+        this.reEvaluateScripts(currentMain);
+
+        // Update active states (like sticky bottom nav)
+        this.updateActiveLinks();
+
+        // Manage scroll positions
         const newPathname = new URL(url).pathname;
-        const currentPathname = window.location.pathname;
+        if (pushState) {
+          // If we are clicking a new link, scroll to its saved position or top
+          if (this.scrollPositions[newPathname] !== undefined) {
+            window.scrollTo(0, this.scrollPositions[newPathname]);
+          } else {
+            window.scrollTo(0, 0);
+          }
+        } else {
+          // If it's a popstate (browser back/forward), restore position
+          if (this.scrollPositions[newPathname] !== undefined) {
+            window.scrollTo(0, this.scrollPositions[newPathname]);
+          } else {
+            window.scrollTo(0, 0);
+          }
+        }
 
-        // Determine direction
-        // If clicking a link to '/', or clicking back to a previous state that is closer to root
-        const isBackward = !pushState || newPathname === '/' || (currentPathname.startsWith(newPathname) && currentPathname !== newPathname);
-        const directionClass = isBackward ? 'is-navigating-backward' : 'is-navigating-forward';
-
-        // Prepare scroll variables
-        const currentScroll = window.scrollY;
-        const targetScroll = this.scrollPositions[newPathname] || 0;
-        const scrollOffset = targetScroll - currentScroll;
-
-        // Wrap current and new content for transition
-        const currentHTML = currentMain.innerHTML;
-        currentMain.innerHTML = `
-          <div class="spa-transition-wrapper ${directionClass}">
-            <div class="spa-page spa-page--outgoing" style="--scroll-offset: ${scrollOffset}px">${currentHTML}</div>
-            <div class="spa-page spa-page--incoming">${newMain.innerHTML}</div>
-          </div>
-        `;
-        
-        // Ensure height doesn't collapse during absolute positioning
-        const wrapper = currentMain.querySelector('.spa-transition-wrapper');
-        const incomingPage = currentMain.querySelector('.spa-page--incoming');
-        const outgoingPage = currentMain.querySelector('.spa-page--outgoing');
-        
-        // Wait a frame for DOM to update
-        requestAnimationFrame(() => {
-          // Temporarily set height to max of both so footer doesn't jump
-          wrapper.style.height = Math.max(outgoingPage.offsetHeight, incomingPage.offsetHeight) + 'px';
-
-          // Shift window instantly to target scroll (outgoing page offset counteracts this visually)
-          window.scrollTo(0, targetScroll);
-
-          requestAnimationFrame(() => {
-            // Trigger hardware animation
-            wrapper.classList.add('is-animating');
-            
-            // Wait for CSS transition (400ms)
-            setTimeout(() => {
-              // Commit changes permanently
-              currentMain.innerHTML = newMain.innerHTML;
-              
-              // Update Title
-              document.title = newDocument.title;
-              
-              // Push State
-              if (pushState) {
-                window.history.pushState(null, document.title, url);
-              }
-
-              // Re-evaluate scripts within the new main content
-              this.reEvaluateScripts(currentMain);
-
-              // Update active states
-              this.updateActiveLinks();
-
-              // Finish Loading
-              this.finishLoading();
-            }, 400); // match CSS transition duration
-          });
-        });
+        // Finish Loading
+        this.finishLoading();
       } else {
         // Fallback: If no MainContent found, hard redirect
         window.location.href = url;
