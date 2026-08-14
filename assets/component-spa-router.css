@@ -21,63 +21,13 @@
   opacity: 1;
   width: 100%;
   transition: width 0.3s ease;
-}/* iOS-Style Slide Transitions */
-.spa-transition-wrapper {
-  position: relative;
-  width: 100%;
-  overflow: hidden; /* prevents horizontal scrollbar during slide */
 }
 
-.spa-page {
-  width: 100%;
-  /* iOS-like spring animation */
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  background-color: rgb(var(--color-background));
+/* Optional: Slight fade on main content when loading */
+#MainContent {
+  transition: opacity 0.3s ease;
 }
-
-.spa-page--outgoing {
-  /* position relative so its height keeps the footer in the right place */
-  position: relative; 
-  transform: translateY(var(--scroll-offset, 0px)) translateX(0);
-}
-
-.spa-page--incoming {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  /* hide by default */
-  visibility: hidden;
-  transform: translateX(0);
-}
-
-/* Forward navigation */
-.is-navigating-forward .spa-page--incoming {
-  visibility: visible;
-  transform: translateX(100%);
-}
-.is-navigating-forward .spa-page--outgoing {
-  transform: translateY(var(--scroll-offset, 0px)) translateX(0);
-}
-.is-navigating-forward.is-animating .spa-page--incoming {
-  transform: translateX(0);
-}
-.is-navigating-forward.is-animating .spa-page--outgoing {
-  transform: translateY(var(--scroll-offset, 0px)) translateX(-30%); /* parallax effect */
-}
-
-/* Backward navigation */
-.is-navigating-backward .spa-page--incoming {
-  visibility: visible;
-  transform: translateX(-30%);
-}
-.is-navigating-backward .spa-page--outgoing {
-  transform: translateY(var(--scroll-offset, 0px)) translateX(0);
-  z-index: 10; /* Outgoing goes OVER incoming when going back */
-}
-.is-navigating-backward.is-animating .spa-page--incoming {
-  transform: translateX(0);
-}
-.is-navigating-backward.is-animating .spa-page--outgoing {
-  transform: translateY(var(--scroll-offset, 0px)) translateX(100%);
+.is-spa-loading #MainContent {
+  opacity: 0.6;
+  pointer-events: none;
 }

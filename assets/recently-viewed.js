@@ -82,6 +82,10 @@ if (!customElements.get('recently-viewed-products')) {
               existingGrid.appendChild(node);
             });
             this.removeAttribute('hidden');
+            
+            // Unhide the outer section wrapper
+            const wrapper = this.closest('.isolate');
+            if (wrapper) wrapper.style.display = '';
           }
         } else {
           this.innerHTML = '';
