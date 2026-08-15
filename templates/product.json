@@ -53,6 +53,7 @@
           "type": "buy_buttons",
           "settings": {
             "show_dynamic_checkout": true,
+            "show_price_in_button": false,
             "show_gift_card_recipient": true
           }
         },
@@ -120,20 +121,25 @@
         "share"
       ],
       "settings": {
-        "enable_sticky_add_to_cart": true,
+        "enable_breadcrumbs": true,
+        "breadcrumbs_color_scheme": "scheme-3",
+        "enable_sticky_add_to_cart": false,
         "sticky_add_to_cart_position": "bottom",
         "enable_sticky_info": true,
         "color_scheme": "",
-        "media_size": "large",
+        "media_size": "small",
         "constrain_to_viewport": true,
         "media_fit": "contain",
-        "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
         "media_position": "left",
-        "image_zoom": "lightbox",
+        "image_zoom": "hover",
         "hide_variants": true,
         "enable_video_looping": false,
-        "padding_top": 36,
+        "show_review_widget": true,
+        "review_widget_size": "",
+        "ribbon_size": "",
+        "padding_top": 0,
         "padding_bottom": 12
       }
     },
@@ -202,7 +208,11 @@
       ],
       "settings": {
         "title": "",
+        "heading_alignment": "left",
         "heading_size": "h1",
+        "description": "",
+        "description_style": "body",
+        "description_alignment": "left",
         "image_width": "full",
         "image_ratio": "adapt",
         "button_label": "",
@@ -211,6 +221,7 @@
         "column_alignment": "left",
         "background_style": "none",
         "color_scheme": "scheme-1",
+        "full_width": false,
         "columns_mobile": "1",
         "swipe_on_mobile": false,
         "padding_top": 36,
@@ -231,6 +242,9 @@
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
+        "show_review_widget": true,
+        "review_widget_size": "",
+        "ribbon_size": "",
         "padding_top": 36,
         "padding_bottom": 28
       }
@@ -240,7 +254,11 @@
       "name": "Recently viewed",
       "settings": {
         "title": "Recently viewed",
+        "heading_alignment": "left",
         "heading_size": "h1",
+        "description": "",
+        "description_style": "body",
+        "description_alignment": "left",
         "products_to_show": 7,
         "columns_desktop": 3,
         "enable_desktop_slider": true,
@@ -251,6 +269,9 @@
         "show_secondary_image": true,
         "show_vendor": true,
         "show_rating": true,
+        "show_review_widget": true,
+        "review_widget_size": "",
+        "ribbon_size": "",
         "quick_add": "standard",
         "columns_mobile": "2",
         "swipe_on_mobile": true,
