@@ -15,6 +15,11 @@
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
+  
+  .section-{{ section.id }}-tabs {
+    --tab-image-size-mobile: {{ section.settings.tab_image_size_mobile }}px;
+    --tab-image-size-desktop: {{ section.settings.tab_image_size }}px;
+  }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
@@ -24,8 +29,8 @@
   }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} isolate gradient">
-  <div class="collection section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}">
+<div class="color-{{ section.settings.color_scheme }} isolate gradient section-{{ section.id }}-tabs">
+  <div class="collection section-{{ section.id }}-padding">
     
     {% render 'section-heading',
       title: section.settings.title,
@@ -48,9 +53,9 @@
             -%}
             <li class="multi-collection-tabs__item" role="presentation" {{ block.shopify_attributes }}>
               <button class="multi-collection-tabs__button{% if forloop.first %} active{% endif %}" data-url="{{ collection.url }}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
-                <div class="multi-collection-tabs__image-wrapper">
+                <div class="multi-collection-tabs__image-wrapper shape--{{ section.settings.tab_image_shape }}">
                   {%- if image != blank -%}
-                    {{ image | image_url: width: 150 | image_tag: loading: 'lazy', class: 'multi-collection-tabs__image' }}
+                    {{ image | image_url: width: 300 | image_tag: loading: 'lazy', class: 'multi-collection-tabs__image' }}
                   {%- else -%}
                     {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg multi-collection-tabs__image' }}
                   {%- endif -%}
@@ -125,6 +130,58 @@
         }
       ],
       "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Tab Styles"
+    },
+    {
+      "type": "select",
+      "id": "tab_image_shape",
+      "label": "Image shape",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "rounded",
+          "label": "Rounded"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape (Rectangular)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (Rectangular)"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "range",
+      "id": "tab_image_size",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Image size (desktop)",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "tab_image_size_mobile",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Image size (mobile)",
+      "default": 70
     },
     {
       "type": "checkbox",
