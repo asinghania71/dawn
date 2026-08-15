@@ -359,6 +359,50 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "multi_collection_tabs_xHzPXq": {
+      "type": "multi-collection-tabs",
+      "blocks": {
+        "collection_3FUyjC": {
+          "type": "collection",
+          "settings": {
+            "collection": "family-combo",
+            "title": ""
+          }
+        },
+        "collection_wckEch": {
+          "type": "collection",
+          "settings": {
+            "collection": "couple-combo",
+            "title": ""
+          }
+        },
+        "collection_pNEBw7": {
+          "type": "collection",
+          "settings": {
+            "collection": "all-styles",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_3FUyjC",
+        "collection_wckEch",
+        "collection_pNEBw7"
+      ],
+      "name": "Multi-Collection Tabs",
+      "settings": {
+        "title": "Featured Collections",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "tab_image_shape": "circle",
+        "tab_image_size": 90,
+        "tab_image_size_mobile": 80,
+        "full_width": false,
+        "color_scheme": "scheme-2",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -369,6 +413,7 @@
     "video",
     "multicolumn",
     "shoppable_shorts_TdUMad",
-    "trust_badges_bar_6ncmWG"
+    "trust_badges_bar_6ncmWG",
+    "multi_collection_tabs_xHzPXq"
   ]
 }
