@@ -2620,7 +2620,7 @@ details .header__icon-close {
 }
 
 details[open] .header__icon-close {
-  display: inline-block;
+  display: none;
 }
 
 account-icon {

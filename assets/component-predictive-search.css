@@ -23,8 +23,10 @@
 
 .predictive-search__results-groups-wrapper {
   display: flex;
+  flex-direction: column;
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
   padding-bottom: 1rem;
+  gap: 2rem;
 }
 
 @media screen and (max-width: 749px) {
@@ -32,10 +34,6 @@
     right: 0;
     left: 0;
     top: 100%;
-  }
-
-  .predictive-search__results-groups-wrapper {
-    flex-direction: column;
   }
 
   .predictive-search__results-groups-wrapper:not(.predictive-search__results-groups-wrapper--no-suggestions) {
@@ -82,7 +80,7 @@ predictive-search[loading] .predictive-search {
     display: initial;
   }
   .predictive-search__result-group:first-child {
-    flex: 0 0 26.4rem;
+    flex: auto; /* Allow full width since we are stacked vertically */
   }
   .predictive-search__results-groups-wrapper--no-products .predictive-search__result-group:first-child,
   .predictive-search__result-group:only-child {
