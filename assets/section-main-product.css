@@ -41,20 +41,26 @@ product-info {
   }
 
   .product__media-wrapper .slider-button {
-    pointer-events: auto;
-    background-color: rgb(var(--color-background));
-    border-radius: 0;
-    width: 4rem;
-    height: 4rem;
-    opacity: 0.9;
+    display: none !important; /* Hide arrows on mobile */
   }
 
   .product__media-wrapper .slider-counter {
     position: absolute;
-    bottom: 1rem;
+    bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
     pointer-events: auto;
+    background: rgba(var(--color-foreground), 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgb(var(--color-background));
+    padding: 0.6rem 1.4rem;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    line-height: 1;
+    z-index: 2;
   }
 
   .product__media-wrapper .global-media-settings,
@@ -62,6 +68,12 @@ product-info {
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+  }
+  
+  /* Disable modal opener on mobile so pinch-zoom works */
+  .product__modal-opener .product__media-toggle {
+    pointer-events: none !important;
+    display: none !important;
   }
 }
 
@@ -591,7 +603,19 @@ a.product__text {
 .product__media-video .product__media-icon {
   opacity: 1;
 }
-
+.autoplay-video-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.autoplay-video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .product__modal-opener--image .product__media-toggle:hover {
   cursor: zoom-in;
 }

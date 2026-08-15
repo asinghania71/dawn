@@ -77,7 +77,7 @@
       {% endcase %}
     </span>
     {%- render 'loading-spinner' -%}
-    <div class="product__media media media--transparent">
+    <pinch-zoom class="product__media media media--transparent" style="display: block;">
       {{
         media.preview_image
         | image_url: width: 1946
@@ -87,7 +87,7 @@
           sizes: sizes,
           widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
       }}
-    </div>
+    </pinch-zoom>
     <button
       class="product__media-toggle quick-add-hidden product__media-zoom-{{ section.settings.image_zoom }}"
       type="button"
@@ -103,49 +103,54 @@
   {%- if media.media_type != 'image' -%}
     {%- if media.media_type == 'model' -%}
       <product-model class="deferred-media media media--transparent" data-media-id="{{ media.id }}">
+    {%- elsif media.media_type == 'video' -%}
+      <div class="media media--transparent autoplay-video-wrapper" data-media-id="{{ media.id }}">
+        {{ media | video_tag: image_size: '2048x', autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: 'width: 100%; height: 100%; object-fit: cover;' }}
+      </div>
     {%- else -%}
       <deferred-media class="deferred-media media media--transparent" data-media-id="{{ media.id }}">
     {%- endif -%}
-    <button id="Deferred-Poster-Modal-{{ media.id }}" class="deferred-media__poster" type="button">
-      <span class="deferred-media__poster-button motion-reduce">
-        {%- if media.media_type == 'model' -%}
-          <span class="visually-hidden">{{ 'products.product.media.play_model' | t }}</span>
-          <span class="svg-wrapper">
-            {{- 'icon-3d-model.svg' | inline_asset_content -}}
-          </span>
-        {%- else -%}
-          <span class="visually-hidden">{{ 'products.product.media.play_video' | t }}</span>
-          <span class="svg-wrapper">
-            {{- 'icon-play.svg' | inline_asset_content -}}
-          </span>
-        {%- endif -%}
-      </span>
-      {{
-        media.preview_image
-        | image_url: width: 1946
-        | image_tag:
-          loading: lazy,
-          sizes: sizes,
-          widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
-      }}
-    </button>
-    <template>
-      {%- liquid
-        case media.media_type
-          when 'external_video'
-            assign video_class = 'js-' | append: media.host
-            if media.host == 'youtube'
-              echo media | external_video_url: autoplay: true, loop: loop, playlist: media.external_id | external_video_tag: class: video_class, loading: 'lazy'
-            else
-              echo media | external_video_url: autoplay: true, loop: loop | external_video_tag: class: video_class, loading: 'lazy'
-            endif
-          when 'video'
-            echo media | media_tag: image_size: '2048x', autoplay: true, loop: loop, controls: true, preload: 'none'
-          when 'model'
-            echo media | media_tag: image_size: '2048x', toggleable: true
-        endcase
-      -%}
-    </template>
+    
+    {%- if media.media_type != 'video' -%}
+      <button id="Deferred-Poster-Modal-{{ media.id }}" class="deferred-media__poster" type="button">
+        <span class="deferred-media__poster-button motion-reduce">
+          {%- if media.media_type == 'model' -%}
+            <span class="visually-hidden">{{ 'products.product.media.play_model' | t }}</span>
+            <span class="svg-wrapper">
+              {{- 'icon-3d-model.svg' | inline_asset_content -}}
+            </span>
+          {%- else -%}
+            <span class="visually-hidden">{{ 'products.product.media.play_video' | t }}</span>
+            <span class="svg-wrapper">
+              {{- 'icon-play.svg' | inline_asset_content -}}
+            </span>
+          {%- endif -%}
+        </span>
+        {{
+          media.preview_image
+          | image_url: width: 1946
+          | image_tag:
+            loading: lazy,
+            sizes: sizes,
+            widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+        }}
+      </button>
+      <template>
+        {%- liquid
+          case media.media_type
+            when 'external_video'
+              assign video_class = 'js-' | append: media.host
+              if media.host == 'youtube'
+                echo media | external_video_url: autoplay: true, loop: loop, playlist: media.external_id | external_video_tag: class: video_class, loading: 'lazy'
+              else
+                echo media | external_video_url: autoplay: true, loop: loop | external_video_tag: class: video_class, loading: 'lazy'
+              endif
+            when 'model'
+              echo media | media_tag: image_size: '2048x', toggleable: true
+          endcase
+        -%}
+      </template>
+    {%- endif -%}
 
     {%- if media.media_type == 'model' -%}
       </product-model>
@@ -165,6 +170,8 @@
           {{ 'products.product.xr_button' | t }}
         </button>
       {%- endif -%}
+    {%- elsif media.media_type == 'video' -%}
+      </div>
     {%- else -%}
       </deferred-media>
     {%- endif -%}
