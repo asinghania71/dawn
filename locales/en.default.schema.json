@@ -2464,6 +2464,21 @@
             "label": "Hide thumbnails"
           }
         },
+        "mobile_pagination_style": {
+          "label": "Mobile pagination style",
+          "options__1": {
+            "label": "Counter"
+          },
+          "options__2": {
+            "label": "Dots"
+          },
+          "options__3": {
+            "label": "Progress bar"
+          }
+        },
+        "mobile_show_arrows": {
+          "label": "Show arrows on mobile"
+        },
         "hide_variants": {
           "label": "Hide other variant media after one is selected"
         },
