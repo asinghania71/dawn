@@ -16,16 +16,16 @@ product-info {
 }
 
 @media screen and (max-width: 749px) {
-  body {
+  html, body {
     overflow-x: hidden;
   }
 
   .product__media-wrapper {
     padding-left: 0;
-    margin-left: -2rem;
-    margin-right: -2rem;
-    width: calc(100% + 4rem);
-    max-width: calc(100% + 4rem) !important;
+    width: 100vw;
+    max-width: 100vw !important;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
   }
 
   .product__media-wrapper .slider-mobile-gutter {
@@ -44,11 +44,16 @@ product-info {
     justify-content: space-between;
   }
 
-  .product__media-wrapper .slider-button {
-    display: none !important; /* Hide arrows on mobile */
+  .product__media-wrapper .slider-buttons:not(.show-arrows-mobile) .slider-button {
+    display: none !important; /* Hide arrows on mobile by default */
   }
 
-  .product__media-wrapper .slider-counter {
+  .product__media-wrapper .slider-buttons.show-arrows-mobile .slider-button {
+    pointer-events: auto;
+  }
+
+  /* Counter (Pill) Style */
+  .product__media-wrapper .slider-counter--counter {
     position: absolute;
     bottom: 1.5rem;
     left: 50%;
@@ -58,13 +63,48 @@ product-info {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     color: rgb(var(--color-background));
-    padding: 0.6rem 1.4rem;
+    padding: 0.6rem 1.6rem;
     border-radius: 20px;
     font-size: 1.2rem;
-    font-weight: 600;
     letter-spacing: 0.1rem;
-    line-height: 1;
-    z-index: 2;
+    font-weight: 500;
+  }
+
+  /* Dots & Progress Positioning */
+  .product__media-wrapper .slider-counter--dots,
+  .product__media-wrapper .slider-counter--progress {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: auto;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .product__media-wrapper .slider-counter--dots .slideshow__control-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Progress Bar Style */
+  .slider-counter--progress .slideshow__control-wrapper {
+    display: flex;
+    gap: 4px;
+    width: calc(100% - 3rem);
+    max-width: 400px;
+  }
+  .slider-counter__link--progress {
+    flex: 1;
+    height: 3px;
+    background: rgba(var(--color-foreground), 0.3);
+    border-radius: 2px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+  }
+  .slider-counter__link--active.slider-counter__link--progress {
+    background: rgba(var(--color-foreground), 1);
   }
 
   .product__media-wrapper .global-media-settings,
