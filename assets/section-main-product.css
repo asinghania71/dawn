@@ -16,12 +16,16 @@ product-info {
 }
 
 @media screen and (max-width: 749px) {
+  body {
+    overflow-x: hidden;
+  }
+
   .product__media-wrapper {
     padding-left: 0;
-    margin-left: -1.5rem;
-    margin-right: -1.5rem;
-    width: calc(100% + 3rem);
-    max-width: calc(100% + 3rem) !important;
+    margin-left: -2rem;
+    margin-right: -2rem;
+    width: calc(100% + 4rem);
+    max-width: calc(100% + 4rem) !important;
   }
 
   .product__media-wrapper .slider-mobile-gutter {
@@ -1452,6 +1456,14 @@ a.product__text {
 }
 
 @media screen and (max-width: 749px) {
+  /* Force 100% width on mobile to maintain edge-to-edge for portrait images */
+  .product-media-container.constrain-height.media-fit-contain {
+    width: 100%;
+  }
+  .product-media-container.constrain-height .media {
+    padding-top: var(--ratio-percent);
+  }
+
   .product-media-container.media-fit-cover {
     display: flex;
     align-self: stretch;
