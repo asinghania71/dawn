@@ -776,6 +776,18 @@ class SliderComponent extends HTMLElement {
       this.pageTotalElement.textContent = this.totalPages;
     }
 
+    const sliderControlButtons = this.querySelectorAll('.slider-counter__link');
+    if (sliderControlButtons.length) {
+      sliderControlButtons.forEach((link) => {
+        link.classList.remove('slider-counter__link--active');
+        link.removeAttribute('aria-current');
+      });
+      if (sliderControlButtons[this.currentPage - 1]) {
+        sliderControlButtons[this.currentPage - 1].classList.add('slider-counter__link--active');
+        sliderControlButtons[this.currentPage - 1].setAttribute('aria-current', true);
+      }
+    }
+
     if (this.currentPage != previousPage) {
       this.dispatchEvent(
         new CustomEvent('slideChanged', {

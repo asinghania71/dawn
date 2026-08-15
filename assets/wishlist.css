@@ -1,8 +1,8 @@
 .wishlist-button {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  display: inline-flex;
+  position: relative;
   z-index: 2;
+  margin: 0 0.5rem;
 }
 
 .wishlist-button__btn {
@@ -19,6 +19,16 @@
   transition: transform 0.2s ease, background-color 0.2s ease;
   color: rgb(var(--color-foreground));
   padding: 0;
+}
+
+.card__wishlist-button .wishlist-button__btn {
+  width: 3.6rem;
+  height: 3.6rem;
+}
+
+.card__wishlist-button .wishlist-button__btn .icon-heart {
+  width: 1.6rem;
+  height: 1.6rem;
 }
 
 .wishlist-button__btn:hover {

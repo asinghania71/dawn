@@ -50,6 +50,19 @@ product-info {
 
   .product__media-wrapper .slider-buttons.show-arrows-mobile .slider-button {
     pointer-events: auto;
+    width: 4.4rem;
+    height: 4.4rem;
+    background: rgba(var(--color-background), 0.7);
+    border-radius: 50%;
+    margin: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product__media-wrapper .slider-buttons.show-arrows-mobile .slider-button .svg-wrapper {
+    width: 2rem;
+    height: 2rem;
   }
 
   /* Counter (Pill) Style */
@@ -70,16 +83,21 @@ product-info {
     font-weight: 500;
   }
 
-  /* Dots & Progress Positioning */
+  /* Dots & Progress Positioning (Below Image) */
   .product__media-wrapper .slider-counter--dots,
   .product__media-wrapper .slider-counter--progress {
     position: absolute;
-    bottom: 1.5rem;
+    bottom: -2.5rem;
     left: 50%;
     transform: translateX(-50%);
     pointer-events: auto;
     width: 100%;
     justify-content: center;
+  }
+
+  .product__media-wrapper:has(.slider-counter--dots) .slider-mobile-gutter,
+  .product__media-wrapper:has(.slider-counter--progress) .slider-mobile-gutter {
+    margin-bottom: 2.5rem;
   }
 
   .product__media-wrapper .slider-counter--dots .slideshow__control-wrapper {
@@ -91,13 +109,13 @@ product-info {
   .slider-counter--progress .slideshow__control-wrapper {
     display: flex;
     gap: 4px;
-    width: calc(100% - 3rem);
-    max-width: 400px;
+    width: 100%;
+    max-width: 120px;
   }
   .slider-counter__link--progress {
     flex: 1;
     height: 3px;
-    background: rgba(var(--color-foreground), 0.3);
+    background: rgba(var(--color-foreground), 0.2);
     border-radius: 2px;
     padding: 0;
     border: none;
@@ -490,22 +508,6 @@ a.product__text {
 
 .product-form__buttons .product-form__submit {
   flex: 1;
-}
-
-.product-form__buttons wishlist-button {
-  position: static;
-  flex: 0 0 auto;
-  display: block;
-}
-
-.product-form__buttons .wishlist-button__btn {
-  border-radius: 0;
-  border: 0.1rem solid rgba(var(--color-foreground), 1);
-  width: auto;
-  height: 100%;
-  padding: 0 2rem;
-  box-shadow: none;
-  background: transparent;
 }
 
 .product-form__buttons .shopify-payment-button {

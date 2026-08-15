@@ -142,7 +142,7 @@
         {%- if section.settings.mobile_pagination_style == 'dots' or section.settings.mobile_pagination_style == 'progress' -%}
           <div class="slideshow__control-wrapper">
             {%- for media in product.media -%}
-              <button class="slider-counter__link slider-counter__link--{{ section.settings.mobile_pagination_style }} link" aria-label="{{ 'general.slider.next_slide' | t }}" aria-controls="GalleryViewer-{{ section.id }}">
+              <button class="slider-counter__link slider-counter__link--{{ section.settings.mobile_pagination_style }} link{% if forloop.first %} slider-counter__link--active{% endif %}" aria-label="{{ 'general.slider.next_slide' | t }}" aria-controls="GalleryViewer-{{ section.id }}">
                 {%- if section.settings.mobile_pagination_style == 'dots' -%}
                   <span class="dot"></span>
                 {%- elsif section.settings.mobile_pagination_style == 'progress' -%}

@@ -96,9 +96,6 @@
             </span>
             {%- render 'loading-spinner' -%}
           </button>
-          {% if settings.enable_wishlist %}
-            {% render 'wishlist-button', product_handle: product.handle %}
-          {% endif %}
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
@@ -116,9 +113,6 @@
         >
           {{ 'products.product.sold_out' | t }}
         </button>
-        {% if settings.enable_wishlist %}
-          {% render 'wishlist-button', product_handle: product.handle %}
-        {% endif %}
       </div>
     </div>
   {%- endif -%}
