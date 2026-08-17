@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="">
+    <meta name="theme-color" content="{{ settings.colors_background_1 }}">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="dns-prefetch" href="https://cdn.shopify.com">
@@ -246,7 +246,7 @@
         margin: 0;
         font-size: 1.5rem;
         letter-spacing: 0.06rem;
-        line-height: calc(1 + 0.8 / var(--font-body-scale));
+        line-height: calc(1 + 0.8 / max(1, var(--font-body-scale)));
         font-family: var(--font-body-family);
         font-style: var(--font-body-style);
         font-weight: var(--font-body-weight);
@@ -300,6 +300,9 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+
+    {{ 'wishlist.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">

@@ -1591,30 +1591,30 @@
     ]
   },
   {
-    "name": "Wishlist",
+    "name": "t:settings_schema.wishlist.name",
     "settings": [
       {
         "type": "checkbox",
         "id": "enable_wishlist",
-        "label": "Enable Wishlist feature",
+        "label": "t:settings_schema.wishlist.settings.enable_wishlist.label",
         "default": true
       },
       {
         "type": "select",
         "id": "wishlist_type",
-        "label": "Wishlist display type",
+        "label": "t:settings_schema.wishlist.settings.wishlist_type.label",
         "options": [
           {
             "value": "drawer",
-            "label": "Drawer"
+            "label": "t:settings_schema.wishlist.settings.wishlist_type.options__1.label"
           },
           {
             "value": "modal",
-            "label": "Modal Popup"
+            "label": "t:settings_schema.wishlist.settings.wishlist_type.options__2.label"
           },
           {
             "value": "page",
-            "label": "Standalone Page"
+            "label": "t:settings_schema.wishlist.settings.wishlist_type.options__3.label"
           }
         ],
         "default": "modal"
@@ -1625,45 +1625,45 @@
         "options": [
           {
             "value": "adapt",
-            "label": "Adapt to image"
+            "label": "t:settings_schema.wishlist.settings.cards_image_ratio.options__1.label"
           },
           {
             "value": "portrait",
-            "label": "Portrait"
+            "label": "t:settings_schema.wishlist.settings.cards_image_ratio.options__2.label"
           },
           {
             "value": "square",
-            "label": "Square"
+            "label": "t:settings_schema.wishlist.settings.cards_image_ratio.options__3.label"
           }
         ],
         "default": "adapt",
-        "label": "Card image ratio"
+        "label": "t:settings_schema.wishlist.settings.cards_image_ratio.label"
       },
       {
         "type": "checkbox",
         "id": "cards_show_vendor",
         "default": false,
-        "label": "Show product vendor"
+        "label": "t:settings_schema.wishlist.settings.cards_show_vendor.label"
       },
       {
         "type": "checkbox",
         "id": "cards_show_rating",
         "default": false,
-        "label": "Show product rating"
+        "label": "t:settings_schema.wishlist.settings.cards_show_rating.label"
       },
       {
         "type": "select",
         "id": "wishlist_card_size",
-        "label": "Wishlist Card Size",
+        "label": "t:settings_schema.wishlist.settings.wishlist_card_size.label",
         "default": "large",
         "options": [
           {
             "value": "small",
-            "label": "Small (Fit More)"
+            "label": "t:settings_schema.wishlist.settings.wishlist_card_size.options__1.label"
           },
           {
             "value": "large",
-            "label": "Large (Standard)"
+            "label": "t:settings_schema.wishlist.settings.wishlist_card_size.options__2.label"
           }
         ]
       }

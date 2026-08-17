@@ -91,14 +91,16 @@ class CustomProductRibbon extends HTMLElement {
 
   renderBadge(badge, position, size, opacity) {
     const opacityValue = opacity ? opacity / 100 : 1.0;
-    const html = `
-      <div class="custom-badge custom-badge--position-${position} custom-badge--size-${size}">
-        <span class="custom-badge__ribbon" style="background-color: ${badge.backgroundColor}; color: ${badge.textColor}; opacity: ${opacityValue};">
-          ${badge.text}
-        </span>
-      </div>
-    `;
-    this.innerHTML = html;
+    const wrapper = document.createElement('div');
+    wrapper.className = `custom-badge custom-badge--position-${position} custom-badge--size-${size}`;
+    const span = document.createElement('span');
+    span.className = 'custom-badge__ribbon';
+    span.style.cssText = `background-color: ${badge.backgroundColor}; color: ${badge.textColor}; opacity: ${opacityValue};`;
+    // Use textContent to safely escape any HTML in badge text (prevents XSS)
+    span.textContent = badge.text;
+    wrapper.appendChild(span);
+    this.innerHTML = '';
+    this.appendChild(wrapper);
   }
 }
 

@@ -309,6 +309,27 @@
   margin-bottom: 0;
 }
 
+.card__heading-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card__heading-wrapper .card__heading {
+  margin-bottom: 0;
+  flex-grow: 1;
+}
+
+.card__heading-wrapper .card__wishlist-button {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  margin-right: 0.5rem;
+}
+
+
 .card--horizontal .card__heading,
 .card--horizontal .price__container .price-item,
 .card--horizontal__quick-add {

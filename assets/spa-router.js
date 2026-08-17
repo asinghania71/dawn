@@ -24,16 +24,12 @@ class SPARouter {
     document.addEventListener('click', (e) => {
       // Find the closest anchor tag
       const link = e.target.closest('a');
-      console.log('SPA Router clicked element:', e.target, 'Closest a:', link);
-      
+
       // If no link, or modifier keys are pressed (cmd/ctrl click), let default happen
       if (!link || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
 
       // If the event was already handled by another script (e.g. opening a drawer/modal), ignore it
-      if (e.defaultPrevented) {
-        console.log('SPA Router: defaultPrevented is true, ignoring.');
-        return;
-      }
+      if (e.defaultPrevented) return;
 
       // Check if it's an internal link
       const url = new URL(link.href);
@@ -48,11 +44,9 @@ class SPARouter {
 
       // Ignore checkout links as they are external
       if (url.pathname.startsWith('/checkout')) {
-         console.log('SPA Router: ignoring /checkout link');
          return;
       }
 
-      console.log('SPA Router: Intercepting and navigating to', url.href);
       // Intercept!
       e.preventDefault();
       this.navigate(url.href, true);
@@ -137,8 +131,16 @@ class SPARouter {
   reEvaluateScripts(container) {
     const scripts = container.querySelectorAll('script');
     scripts.forEach(oldScript => {
-      // Only re-evaluate standard inline scripts or specific src scripts inside main
-      // Note: custom elements (web components) automatically initialize when inserted into DOM via innerHTML
+      // Don't re-evaluate JSON data scripts
+      if (oldScript.type && (oldScript.type === 'application/json' || oldScript.type === 'application/ld+json')) {
+        return;
+      }
+      
+      // Deduplicate external scripts
+      if (oldScript.src && document.head.querySelector(`script[src="${oldScript.src}"]`)) {
+        return;
+      }
+      
       const newScript = document.createElement('script');
       
       Array.from(oldScript.attributes).forEach(attr => {
@@ -150,6 +152,11 @@ class SPARouter {
       }
       
       oldScript.parentNode.replaceChild(newScript, oldScript);
+      
+      // Move new external scripts to head to prevent duplicate injection on next navigate
+      if (newScript.src) {
+        document.head.appendChild(newScript);
+      }
     });
   }
 

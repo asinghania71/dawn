@@ -141,14 +141,25 @@
       <div class="slider-counter slider-counter--{{ section.settings.mobile_pagination_style | default: 'counter' }} caption">
         {%- if section.settings.mobile_pagination_style == 'dots' or section.settings.mobile_pagination_style == 'progress' -%}
           <div class="slideshow__control-wrapper">
+            {%- assign dot_index = 0 -%}
+            {%- assign dot_media_position = 0 -%}
             {%- for media in product.media -%}
-              <button class="slider-counter__link slider-counter__link--{{ section.settings.mobile_pagination_style }} link" aria-label="{{ 'general.slider.next_slide' | t }}" aria-controls="GalleryViewer-{{ section.id }}">
+              {%- assign dot_media_position = dot_media_position | plus: 1 -%}
+              {% if dot_media_position >= limit
+                or dot_media_position >= 1
+                and section.settings.hide_variants
+                and variant_images contains media.src
+              %}
+                {% continue %}
+              {% endif %}
+              <button class="slider-counter__link slider-counter__link--{{ section.settings.mobile_pagination_style }} link{% if dot_index == 0 %} slider-counter__link--active{% endif %}" aria-label="{{ 'general.slider.next_slide' | t }}" aria-controls="GalleryViewer-{{ section.id }}">
                 {%- if section.settings.mobile_pagination_style == 'dots' -%}
                   <span class="dot"></span>
                 {%- elsif section.settings.mobile_pagination_style == 'progress' -%}
                   <span class="progress-segment"></span>
                 {%- endif -%}
               </button>
+              {%- assign dot_index = dot_index | plus: 1 -%}
             {%- endfor -%}
           </div>
         {%- else -%}
@@ -262,7 +273,6 @@
                   widths: '54, 74, 104, 162, 208, 324, 416',
                   id: thumbnail_id,
                   alt: featured_media.alt
-                | escape
               }}
             </button>
           </li>
@@ -324,7 +334,6 @@
                     widths: '54, 74, 104, 162, 208, 324, 416',
                     id: thumbnail_id,
                     alt: media.alt
-                  | escape
                 }}
               </button>
             </li>

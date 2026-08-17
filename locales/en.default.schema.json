@@ -389,6 +389,47 @@
           "label": "Success Text"
         }
       }
+    },
+    "wishlist": {
+      "name": "Wishlist",
+      "settings": {
+        "enable_wishlist": {
+          "label": "Enable Wishlist feature"
+        },
+        "wishlist_type": {
+          "label": "Wishlist display type",
+          "options__1": {
+            "label": "Drawer"
+          },
+          "options__2": {
+            "label": "Modal Popup"
+          },
+          "options__3": {
+            "label": "Standalone Page"
+          }
+        },
+        "cards_image_ratio": {
+          "label": "Card image ratio",
+          "options__1": { "label": "Adapt to image" },
+          "options__2": { "label": "Portrait" },
+          "options__3": { "label": "Square" }
+        },
+        "cards_show_vendor": {
+          "label": "Show product vendor"
+        },
+        "cards_show_rating": {
+          "label": "Show product rating"
+        },
+        "wishlist_card_size": {
+          "label": "Wishlist Card Size",
+          "options__1": {
+            "label": "Small (Fit More)"
+          },
+          "options__2": {
+            "label": "Large (Standard)"
+          }
+        }
+      }
     }
   },
   "sections": {
@@ -2386,6 +2427,9 @@
         }
       },
       "settings": {
+        "enable_breadcrumbs": {
+          "label": "Show breadcrumb navigation"
+        },
         "header": {
           "content": "Media"
         },

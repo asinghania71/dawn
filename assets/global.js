@@ -466,7 +466,7 @@ class MenuDrawer extends HTMLElement {
       if (isOpen) event.preventDefault();
       isOpen ? this.closeMenuDrawer(event, summaryElement) : this.openMenuDrawer(summaryElement);
 
-      if (window.matchMedia('(max-width: 990px)')) {
+      if (window.matchMedia('(max-width: 990px)').matches) {
         document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
       }
     } else {
@@ -563,7 +563,7 @@ class HeaderDrawer extends MenuDrawer {
   openMenuDrawer(summaryElement) {
     this.header = this.header || document.querySelector('.section-header');
     this.borderOffset =
-      this.borderOffset || this.closest('.header-wrapper').classList.contains('header-wrapper--border-bottom') ? 1 : 0;
+      this.borderOffset ?? (this.closest('.header-wrapper')?.classList.contains('header-wrapper--border-bottom') ? 1 : 0);
     document.documentElement.style.setProperty(
       '--header-bottom-position',
       `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`
@@ -739,12 +739,16 @@ class SliderComponent extends HTMLElement {
     if (!this.slider || !this.nextButton) return;
 
     this.initPages();
-    const resizeObserver = new ResizeObserver((entries) => this.initPages());
-    resizeObserver.observe(this.slider);
+    this.resizeObserver = new ResizeObserver((entries) => this.initPages());
+    this.resizeObserver.observe(this.slider);
 
     this.slider.addEventListener('scroll', this.update.bind(this));
     this.prevButton.addEventListener('click', this.onButtonClick.bind(this));
     this.nextButton.addEventListener('click', this.onButtonClick.bind(this));
+  }
+
+  disconnectedCallback() {
+    if (this.resizeObserver) this.resizeObserver.disconnect();
   }
 
   initPages() {
@@ -774,6 +778,18 @@ class SliderComponent extends HTMLElement {
     if (this.currentPageElement && this.pageTotalElement) {
       this.currentPageElement.textContent = this.currentPage;
       this.pageTotalElement.textContent = this.totalPages;
+    }
+
+    const sliderControlButtons = this.querySelectorAll('.slider-counter__link');
+    if (sliderControlButtons.length) {
+      sliderControlButtons.forEach((link) => {
+        link.classList.remove('slider-counter__link--active');
+        link.removeAttribute('aria-current');
+      });
+      if (sliderControlButtons[this.currentPage - 1]) {
+        sliderControlButtons[this.currentPage - 1].classList.add('slider-counter__link--active');
+        sliderControlButtons[this.currentPage - 1].setAttribute('aria-current', 'true');
+      }
     }
 
     if (this.currentPage != previousPage) {
@@ -870,14 +886,24 @@ class SlideshowComponent extends SliderComponent {
 
   setAutoPlay() {
     this.autoplaySpeed = this.slider.dataset.speed * 1000;
-    this.addEventListener('mouseover', this.focusInHandling.bind(this));
-    this.addEventListener('mouseleave', this.focusOutHandling.bind(this));
-    this.addEventListener('focusin', this.focusInHandling.bind(this));
-    this.addEventListener('focusout', this.focusOutHandling.bind(this));
+    
+    // Only bind and add listeners once
+    if (!this._focusInHandler) {
+      this._focusInHandler = this.focusInHandling.bind(this);
+      this._focusOutHandler = this.focusOutHandling.bind(this);
+      this._autoPlayToggleHandler = this.autoPlayToggle.bind(this);
+      
+      this.addEventListener('mouseover', this._focusInHandler);
+      this.addEventListener('mouseleave', this._focusOutHandler);
+      this.addEventListener('focusin', this._focusInHandler);
+      this.addEventListener('focusout', this._focusOutHandler);
+    }
 
     if (this.querySelector('.slideshow__autoplay')) {
       this.sliderAutoplayButton = this.querySelector('.slideshow__autoplay');
-      this.sliderAutoplayButton.addEventListener('click', this.autoPlayToggle.bind(this));
+      // Remove before adding to prevent accumulation if setAutoPlay is called again
+      this.sliderAutoplayButton.removeEventListener('click', this._autoPlayToggleHandler);
+      this.sliderAutoplayButton.addEventListener('click', this._autoPlayToggleHandler);
       this.autoplayButtonIsSetToPlay = true;
       this.play();
     } else {
@@ -929,8 +955,13 @@ class SlideshowComponent extends SliderComponent {
       link.classList.remove('slider-counter__link--active');
       link.removeAttribute('aria-current');
     });
-    this.sliderControlButtons[this.currentPage - 1].classList.add('slider-counter__link--active');
-    this.sliderControlButtons[this.currentPage - 1].setAttribute('aria-current', true);
+
+    // Guard against out-of-bounds if page count differs from button count
+    const activeBtn = this.sliderControlButtons[this.currentPage - 1];
+    if (activeBtn) {
+      activeBtn.classList.add('slider-counter__link--active');
+      activeBtn.setAttribute('aria-current', 'true');
+    }
   }
 
   autoPlayToggle() {
@@ -1185,7 +1216,14 @@ class AccountIcon extends HTMLElement {
   }
 
   connectedCallback() {
-    document.addEventListener('storefront:signincompleted', this.handleStorefrontSignInCompleted.bind(this));
+    this.signInHandler = this.handleStorefrontSignInCompleted.bind(this);
+    document.addEventListener('storefront:signincompleted', this.signInHandler);
+  }
+
+  disconnectedCallback() {
+    if (this.signInHandler) {
+      document.removeEventListener('storefront:signincompleted', this.signInHandler);
+    }
   }
 
   handleStorefrontSignInCompleted(event) {
