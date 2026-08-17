@@ -52,7 +52,6 @@
   padding: 0.6rem 1.6rem;
   background: rgba(var(--color-background), 0.8);
   color: rgb(var(--color-foreground));
-  backdrop-filter: blur(4px);
   border-radius: 4px;
   font-size: 1.3rem;
   font-weight: 600;
@@ -60,6 +59,14 @@
   text-transform: uppercase;
   z-index: 3;
   pointer-events: none;
+}
+
+@supports (backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px)) {
+  .before-after__label {
+    background: rgba(var(--color-background), 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
 }
 
 .before-after__label--before {
@@ -86,8 +93,8 @@
   left: -2px;
   width: 4px;
   height: 100%;
-  background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background-color: rgb(var(--color-background));
+  box-shadow: 0 0 10px rgba(var(--color-foreground), 0.3);
 }
 
 .before-after__handle-button {
@@ -97,13 +104,13 @@
   transform: translate(-50%, -50%);
   width: 40px;
   height: 40px;
-  background-color: #ffffff;
+  background-color: rgb(var(--color-background));
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  color: #121212;
+  box-shadow: 0 4px 10px rgba(var(--color-foreground), 0.2);
+  color: rgb(var(--color-foreground));
   pointer-events: auto;
   cursor: ew-resize;
   transition: transform 0.2s ease;

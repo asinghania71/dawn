@@ -4,18 +4,27 @@ if (!customElements.get('wishlist-button')) {
       super();
       this.btn = this.querySelector('button');
       this.productHandle = this.dataset.productHandle;
+      // Store bound ref for removal in disconnectedCallback
+      this._checkStatusHandler = this.checkStatus.bind(this);
+    }
 
+    connectedCallback() {
       if (!this.productHandle) return;
-
       this.checkStatus();
-      this.btn.addEventListener('click', this.toggleWishlist.bind(this));
-      window.addEventListener('wishlist:updated', this.checkStatus.bind(this));
+      if (this.btn) {
+        this.btn.addEventListener('click', this.toggleWishlist.bind(this));
+      }
+      window.addEventListener('wishlist:updated', this._checkStatusHandler);
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('wishlist:updated', this._checkStatusHandler);
     }
 
     checkStatus() {
       const wishlist = JSON.parse(localStorage.getItem('dawn_wishlist') || '[]');
       const inWishlist = wishlist.includes(this.productHandle);
-      this.btn.setAttribute('aria-pressed', inWishlist.toString());
+      if (this.btn) this.btn.setAttribute('aria-pressed', inWishlist.toString());
       if (inWishlist) {
         this.classList.add('wishlist-button--active');
       } else {
@@ -44,37 +53,45 @@ if (!customElements.get('wishlist-products')) {
   class WishlistProducts extends HTMLElement {
     constructor() {
       super();
+      // Store bound ref for removal in disconnectedCallback
+      this._initHandler = this.init.bind(this);
+    }
+
+    connectedCallback() {
       this.init();
-      window.addEventListener('wishlist:updated', this.init.bind(this));
+      window.addEventListener('wishlist:updated', this._initHandler);
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('wishlist:updated', this._initHandler);
     }
 
     async init() {
       try {
         const wishlist = JSON.parse(localStorage.getItem('dawn_wishlist') || '[]');
-        
+
         if (wishlist.length === 0) {
           this.innerHTML = '<p class="center" style="margin: 3rem 0;">Your wishlist is empty.</p>';
           this.removeAttribute('hidden');
           return;
         }
 
-        // 1. Build batched handle query
-        const queryToFetch = wishlist.slice(0, 50); // limit to 50 for search bounds
+        // Build batched handle query (limit to 50)
+        const queryToFetch = wishlist.slice(0, 50);
         const query = encodeURIComponent(queryToFetch.map(handle => `handle:${handle}`).join(' OR '));
-        
-        // 2. Fetch headless search template
         const searchUrl = `${(window.routes && window.routes.search_url) || '/search'}?q=${query}&type=product&view=recently-viewed`;
 
         const response = await fetch(searchUrl);
+        // Guard against non-2xx responses that fetch() doesn't throw for
+        if (!response.ok) throw new Error(`Wishlist fetch failed: HTTP ${response.status}`);
+
         const text = await response.text();
         const html = document.createElement('div');
         html.innerHTML = text;
 
-        // 3. Extract the product grid list
         const productGrid = html.querySelector('.grid.product-grid');
-        
+
         if (productGrid && productGrid.children.length > 0) {
-          // 4. Sort nodes to match the exact chronological sequence in our array
           const sortedNodes = [];
           queryToFetch.forEach(handle => {
             const matchedNode = Array.from(productGrid.children).find(
@@ -83,19 +100,17 @@ if (!customElements.get('wishlist-products')) {
             if (matchedNode) sortedNodes.push(matchedNode);
           });
 
-          // 5. Clear and inject into existing grid
           const existingGrid = this.querySelector('.grid');
           if (existingGrid) {
             existingGrid.innerHTML = '';
             sortedNodes.forEach((node, index) => {
-              // Add required attributes for slider-component compatibility
-              node.id = `Slide-wishlist-${index + 1}`;
+              // Use data attribute for slider tracking to avoid ID conflicts
+              node.dataset.wishlistIndex = index + 1;
               node.classList.add('slider__slide');
               existingGrid.appendChild(node);
             });
             this.removeAttribute('hidden');
-            
-            // Re-initialize slider if it exists
+
             const sliderComponent = this.querySelector('slider-component');
             if (sliderComponent && typeof sliderComponent.resetPages === 'function') {
               sliderComponent.resetPages();
@@ -114,3 +129,4 @@ if (!customElements.get('wishlist-products')) {
   }
   customElements.define('wishlist-products', WishlistProducts);
 }
+

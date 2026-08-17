@@ -241,7 +241,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 .text-body {
   font-size: 1.5rem;
   letter-spacing: 0.06rem;
-  line-height: calc(1 + 0.8 / var(--font-body-scale));
+  line-height: calc(1 + 0.8 / max(1, var(--font-body-scale)));
   font-family: var(--font-body-family);
   font-style: var(--font-body-style);
   font-weight: var(--font-body-weight);
@@ -371,7 +371,7 @@ blockquote {
 .caption {
   font-size: 1rem;
   letter-spacing: 0.07rem;
-  line-height: calc(1 + 0.7 / var(--font-body-scale));
+  line-height: calc(1 + 0.7 / max(1, var(--font-body-scale)));
 }
 
 @media screen and (min-width: 750px) {
@@ -383,7 +383,7 @@ blockquote {
 .caption-with-letter-spacing {
   font-size: 1rem;
   letter-spacing: 0.13rem;
-  line-height: calc(1 + 0.2 / var(--font-body-scale));
+  line-height: calc(1 + 0.2 / max(1, var(--font-body-scale)));
   text-transform: uppercase;
 }
 
@@ -404,7 +404,7 @@ blockquote {
 .form__label,
 .select__select {
   font-size: 1.3rem;
-  line-height: calc(1 + 0.5 / var(--font-body-scale));
+  line-height: calc(1 + 0.5 / max(1, var(--font-body-scale)));
   letter-spacing: 0.04rem;
 }
 
@@ -883,7 +883,7 @@ summary::-webkit-details-marker {
 
 .subtitle {
   font-size: 1.8rem;
-  line-height: calc(1 + 0.8 / var(--font-body-scale));
+  line-height: calc(1 + 0.8 / max(1, var(--font-body-scale)));
   letter-spacing: 0.06rem;
   color: rgba(var(--color-foreground), 0.7);
 }
@@ -1325,7 +1325,7 @@ button.shopify-payment-button__button--unbranded {
 .customer button {
   font-size: 1.5rem;
   letter-spacing: 0.1rem;
-  line-height: calc(1 + 0.2 / var(--font-body-scale));
+  line-height: calc(1 + 0.2 / max(1, var(--font-body-scale)));
 }
 
 .button--tertiary {
@@ -1713,7 +1713,7 @@ details[open] > .share-button__fallback {
 .select__select,
 .customer select {
   cursor: pointer;
-  line-height: calc(1 + 0.6 / var(--font-body-scale));
+  line-height: calc(1 + 0.6 / max(1, var(--font-body-scale)));
   padding: 0 calc(var(--inputs-border-width) + 3rem) 0 2rem;
   margin: var(--inputs-border-width);
   min-height: calc(var(--inputs-border-width) * 2);
@@ -2109,7 +2109,7 @@ input[type='checkbox'] {
   font-size: 0.9rem;
   bottom: 0.8rem;
   left: 2.2rem;
-  line-height: calc(1 + 0.1 / var(--font-body-scale));
+  line-height: calc(1 + 0.1 / max(1, var(--font-body-scale)));
 }
 
 /* utility-bar */
@@ -2707,7 +2707,7 @@ details[open] .modal-overlay::after {
   width: 100%;
   height: 100%;
   padding: 0 5rem 0 1rem;
-  line-height: calc(1 + 0.8 / var(--font-body-scale));
+  line-height: calc(1 + 0.8 / max(1, var(--font-body-scale)));
   position: relative;
 }
 
