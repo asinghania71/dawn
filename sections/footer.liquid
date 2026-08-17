@@ -75,8 +75,8 @@
                   style="--animation-order: {{ forloop.index }};"
                 {% endif %}
               >
-                {%- if block.settings.heading != blank -%}
-                  <h2 class="footer-block__heading inline-richtext">{{- block.settings.heading -}}</h2>
+                {%- if block.settings.heading != blank and block.type != 'link_list' -%}
+                  <h2 class="footer-block__heading inline-richtext footer-block__heading--{{ section.settings.heading_style }}">{{- block.settings.heading -}}</h2>
                 {%- endif -%}
 
                 {%- case block.type -%}
@@ -88,18 +88,32 @@
                     </div>
                   {%- when 'link_list' -%}
                     {%- if block.settings.menu != blank -%}
-                      <ul class="footer-block__details-content list-unstyled">
-                        {%- for link in block.settings.menu.links -%}
-                          <li>
-                            <a
-                              href="{{ link.url }}"
-                              class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}"
-                            >
-                              {{ link.title | escape }}
-                            </a>
-                          </li>
-                        {%- endfor -%}
-                      </ul>
+                      <details class="footer-block__details" id="Details-{{ block.id }}-{{ section.id }}">
+                        <summary class="footer-block__summary">
+                          {%- if block.settings.heading != blank -%}
+                            <h2 class="footer-block__heading inline-richtext footer-block__heading--{{ section.settings.heading_style }}">
+                              {{- block.settings.heading -}}
+                            </h2>
+                          {%- endif -%}
+                          <span class="svg-wrapper">
+                            {{- 'icon-caret.svg' | inline_asset_content -}}
+                          </span>
+                        </summary>
+                        <nav aria-label="{{ block.settings.heading }}" class="footer-block__details-content">
+                          <ul class="list-unstyled">
+                            {%- for link in block.settings.menu.links -%}
+                              <li>
+                                <a
+                                  href="{{ link.url }}"
+                                  class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}"
+                                >
+                                  {{ link.title | escape }}
+                                </a>
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        </nav>
+                      </details>
                     {%- endif -%}
                   {%- when 'brand_information' -%}
                     <div class="footer-block__brand-info">
@@ -286,9 +300,9 @@
         {%- if section.settings.payment_enable -%}
           <div class="footer__payment">
             <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
-            <ul class="list list-payment" role="list">
+            <ul class="list list-payment{% if section.settings.payment_icons_grayscale %} list-payment--grayscale{% endif %}" role="list">
               {%- for type in shop.enabled_payment_types -%}
-                <li class="list-payment__item">
+                <li class="list-payment__item" title="{{ type | replace: '_', ' ' | capitalize }}">
                   {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
                 </li>
               {%- endfor -%}
@@ -320,6 +334,37 @@
     </div>
   </div>
 </footer>
+
+{%- if section.blocks.size > 0 -%}
+  {%- assign brand_block = section.blocks | where: 'type', 'brand_information' | first -%}
+  {%- if brand_block -%}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": {{ shop.name | json }},
+        {% if settings.brand_image %}
+          "logo": {{ settings.brand_image | image_url: width: 500 | prepend: "https:" | json }},
+        {% endif %}
+        "url": {{ shop.url | append: page.url | json }}
+        {%- assign social_links = '' -%}
+        {%- if settings.social_facebook_link != blank -%}{%- assign social_links = social_links | append: settings.social_facebook_link | append: '|' -%}{%- endif -%}
+        {%- if settings.social_twitter_link != blank -%}{%- assign social_links = social_links | append: settings.social_twitter_link | append: '|' -%}{%- endif -%}
+        {%- if settings.social_instagram_link != blank -%}{%- assign social_links = social_links | append: settings.social_instagram_link | append: '|' -%}{%- endif -%}
+        {%- if settings.social_tiktok_link != blank -%}{%- assign social_links = social_links | append: settings.social_tiktok_link | append: '|' -%}{%- endif -%}
+        {%- if settings.social_youtube_link != blank -%}{%- assign social_links = social_links | append: settings.social_youtube_link | append: '|' -%}{%- endif -%}
+        {%- if settings.social_pinterest_link != blank -%}{%- assign social_links = social_links | append: settings.social_pinterest_link | append: '|' -%}{%- endif -%}
+        {%- if settings.social_snapchat_link != blank -%}{%- assign social_links = social_links | append: settings.social_snapchat_link | append: '|' -%}{%- endif -%}
+        {%- if settings.social_tumblr_link != blank -%}{%- assign social_links = social_links | append: settings.social_tumblr_link | append: '|' -%}{%- endif -%}
+        {%- if settings.social_vimeo_link != blank -%}{%- assign social_links = social_links | append: settings.social_vimeo_link | append: '|' -%}{%- endif -%}
+        {%- assign social_links_array = social_links | split: '|' | compact -%}
+        {%- if social_links_array.size > 0 -%}
+          ,"sameAs": {{ social_links_array | json }}
+        {%- endif -%}
+      }
+    </script>
+  {%- endif -%}
+{%- endif -%}
 
 {% schema %}
 {
@@ -431,6 +476,22 @@
       "default": "scheme-1"
     },
     {
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading style",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "normal"
+    },
+    {
       "type": "header",
       "content": "t:sections.footer.settings.header__1.content",
       "info": "t:sections.footer.settings.header__1.info"
@@ -484,6 +545,12 @@
       "id": "payment_enable",
       "default": true,
       "label": "t:sections.footer.settings.payment_enable.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_icons_grayscale",
+      "default": false,
+      "label": "Grayscale payment icons"
     },
     {
       "type": "checkbox",
