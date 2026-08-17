@@ -1,0 +1,30 @@
+{% comment %}
+  Renders an approximate server-side countdown value.
+  JS will take over within milliseconds to keep it ticking.
+
+  Accepts:
+  - end_date: {String} Date string (YYYY-MM-DD)
+  - end_time: {String} Time string (HH:MM)
+{% endcomment %}
+
+{%- assign now_epoch = 'now' | date: '%s' | plus: 0 -%}
+{%- assign end_string = end_date | append: 'T' | append: end_time | append: ':00' -%}
+{%- assign end_epoch = end_string | date: '%s' | plus: 0 -%}
+{%- assign diff_secs = end_epoch | minus: now_epoch -%}
+
+{%- if diff_secs > 0 -%}
+  {%- assign cd_days = diff_secs | divided_by: 86400 -%}
+  {%- assign cd_remainder = diff_secs | modulo: 86400 -%}
+  {%- assign cd_hours = cd_remainder | divided_by: 3600 -%}
+  {%- assign cd_remainder = cd_remainder | modulo: 3600 -%}
+  {%- assign cd_mins = cd_remainder | divided_by: 60 -%}
+  {%- assign cd_secs = cd_remainder | modulo: 60 -%}
+  {%- comment -%} Zero-pad each value {%- endcomment -%}
+  {%- if cd_days < 10 -%}{%- assign cd_days_str = '0' | append: cd_days -%}{%- else -%}{%- assign cd_days_str = cd_days -%}{%- endif -%}
+  {%- if cd_hours < 10 -%}{%- assign cd_hours_str = '0' | append: cd_hours -%}{%- else -%}{%- assign cd_hours_str = cd_hours -%}{%- endif -%}
+  {%- if cd_mins < 10 -%}{%- assign cd_mins_str = '0' | append: cd_mins -%}{%- else -%}{%- assign cd_mins_str = cd_mins -%}{%- endif -%}
+  {%- if cd_secs < 10 -%}{%- assign cd_secs_str = '0' | append: cd_secs -%}{%- else -%}{%- assign cd_secs_str = cd_secs -%}{%- endif -%}
+  {{- cd_days_str -}}:{{- cd_hours_str -}}:{{- cd_mins_str -}}:{{- cd_secs_str -}}
+{%- else -%}
+  00:00:00:00
+{%- endif -%}

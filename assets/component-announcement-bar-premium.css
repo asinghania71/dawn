@@ -135,3 +135,11 @@ cart-goal-tracker {
 .cart-goal-tracker__text {
   font-weight: 600;
 }
+
+/* Anti-FOUC: hide dismissible bar until JS confirms it should be shown */
+announcement-bar-manager[data-dismissible] {
+  display: none;
+}
+announcement-bar-manager[data-dismissible].is-revealed {
+  display: block;
+}

@@ -1,25 +1,232 @@
 {% comment %}
-  Renders custom floating ribbon badges on product images.
+  Renders custom floating ribbon badges on product images using pure Liquid.
+  No JavaScript required — all conditions are evaluated server-side.
+
   Accepts:
   - product: {Object} Product Liquid object
+  - ribbon_size: {String} Optional size override (small, medium, large)
 {% endcomment %}
 
 {%- if product != blank -%}
   {{ 'component-product-ribbons.css' | asset_url | stylesheet_tag }}
-  <script src="{{ 'product-ribbons.js' | asset_url }}" defer="defer"></script>
-{%- endif -%}
 
-<div class="product-ribbons-wrapper">
-  <custom-product-ribbon
-    data-tags="{{ product.tags | join: ',' | escape | downcase }}"
-    data-rating="{{ product.metafields.reviews.rating.value | round: 1 | default: 0 }}"
-    data-inventory="{{ product.first_available_variant.inventory_quantity | default: 0 }}"
-    data-price="{{ product.price | default: 0 }}"
-    data-compare-at-price="{{ product.compare_at_price | default: product.price }}"
-    data-vendor="{{ product.vendor | escape | downcase }}"
-    data-type="{{ product.type | escape | downcase }}"
-    data-title="{{ product.title | escape | downcase }}"
-    data-created-at="{{ product.created_at }}"
-    {% if ribbon_size %} data-size="{{ ribbon_size }}"{% endif %}
-  ></custom-product-ribbon>
-</div>
+  {%- comment -%}
+    Access the ribbons config section from the footer-group.
+    The section must be included in the footer section group with the key 'product-ribbons-config'.
+  {%- endcomment -%}
+  {%- assign ribbon_config = sections['product-ribbons-config'] -%}
+
+  {%- if ribbon_config != blank and ribbon_config.blocks.size > 0 -%}
+    {%- assign ribbon_position = ribbon_config.settings.position | default: 'top-left' -%}
+    {%- assign ribbon_default_size = ribbon_config.settings.size | default: 'medium' -%}
+    {%- assign final_size = ribbon_size | default: ribbon_default_size -%}
+
+    {%- comment -%} Prepare product data for comparison {%- endcomment -%}
+    {%- assign product_tags_downcase = product.tags | join: ',' | downcase -%}
+    {%- assign product_vendor_downcase = product.vendor | downcase -%}
+    {%- assign product_type_downcase = product.type | downcase -%}
+    {%- assign product_title_downcase = product.title | downcase -%}
+    {%- assign product_inventory = product.first_available_variant.inventory_quantity | default: 0 -%}
+    {%- assign product_rating = product.metafields.reviews.rating.value | round: 1 | default: 0 -%}
+    {%- assign product_price = product.price | default: 0 -%}
+    {%- assign product_compare_at_price = product.compare_at_price | default: product.price -%}
+    {%- assign is_on_sale = false -%}
+    {%- if product_compare_at_price > product_price -%}
+      {%- assign is_on_sale = true -%}
+    {%- endif -%}
+    {%- assign product_age_days = 0 -%}
+    {%- if product.created_at != blank -%}
+      {%- assign now_epoch = 'now' | date: '%s' | plus: 0 -%}
+      {%- assign created_epoch = product.created_at | date: '%s' | plus: 0 -%}
+      {%- assign age_seconds = now_epoch | minus: created_epoch -%}
+      {%- assign product_age_days = age_seconds | divided_by: 86400 -%}
+    {%- endif -%}
+
+    {%- comment -%} Evaluate each badge block in priority order, stop at first match {%- endcomment -%}
+    {%- assign winning_badge = nil -%}
+
+    {%- for block in ribbon_config.blocks -%}
+      {%- if winning_badge != nil -%}
+        {%- break -%}
+      {%- endif -%}
+
+      {%- assign data_source = block.settings.data_source -%}
+      {%- assign operator = block.settings.operator -%}
+      {%- assign compare_value = block.settings.compare_value | downcase -%}
+      {%- assign condition_met = false -%}
+
+      {%- case data_source -%}
+        {%- when 'tag' -%}
+          {%- assign product_tags_array = product_tags_downcase | split: ',' -%}
+          {%- case operator -%}
+            {%- when 'equals' -%}
+              {%- for tag in product_tags_array -%}
+                {%- assign tag_trimmed = tag | strip -%}
+                {%- if tag_trimmed == compare_value -%}
+                  {%- assign condition_met = true -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- when 'not_equals' -%}
+              {%- assign condition_met = true -%}
+              {%- for tag in product_tags_array -%}
+                {%- assign tag_trimmed = tag | strip -%}
+                {%- if tag_trimmed == compare_value -%}
+                  {%- assign condition_met = false -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- when 'contains' -%}
+              {%- for tag in product_tags_array -%}
+                {%- assign tag_trimmed = tag | strip -%}
+                {%- if tag_trimmed contains compare_value -%}
+                  {%- assign condition_met = true -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+          {%- endcase -%}
+
+        {%- when 'price_sale' -%}
+          {%- case operator -%}
+            {%- when 'equals' -%}
+              {%- if is_on_sale -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'not_equals' -%}
+              {%- unless is_on_sale -%}
+                {%- assign condition_met = true -%}
+              {%- endunless -%}
+          {%- endcase -%}
+
+        {%- when 'vendor' -%}
+          {%- case operator -%}
+            {%- when 'equals' -%}
+              {%- if product_vendor_downcase == compare_value -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'not_equals' -%}
+              {%- if product_vendor_downcase != compare_value -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'contains' -%}
+              {%- if product_vendor_downcase contains compare_value -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+          {%- endcase -%}
+
+        {%- when 'type' -%}
+          {%- case operator -%}
+            {%- when 'equals' -%}
+              {%- if product_type_downcase == compare_value -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'not_equals' -%}
+              {%- if product_type_downcase != compare_value -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'contains' -%}
+              {%- if product_type_downcase contains compare_value -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+          {%- endcase -%}
+
+        {%- when 'title' -%}
+          {%- case operator -%}
+            {%- when 'equals' -%}
+              {%- if product_title_downcase == compare_value -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'not_equals' -%}
+              {%- if product_title_downcase != compare_value -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'contains' -%}
+              {%- if product_title_downcase contains compare_value -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+          {%- endcase -%}
+
+        {%- when 'inventory' -%}
+          {%- assign compare_num = compare_value | plus: 0 -%}
+          {%- case operator -%}
+            {%- when 'equals' -%}
+              {%- if product_inventory == compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'not_equals' -%}
+              {%- if product_inventory != compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'greater_than' -%}
+              {%- if product_inventory > compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'less_than' -%}
+              {%- if product_inventory < compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+          {%- endcase -%}
+
+        {%- when 'rating' -%}
+          {%- assign compare_num = compare_value | plus: 0.0 -%}
+          {%- case operator -%}
+            {%- when 'equals' -%}
+              {%- if product_rating == compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'not_equals' -%}
+              {%- if product_rating != compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'greater_than' -%}
+              {%- if product_rating > compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'less_than' -%}
+              {%- if product_rating < compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+          {%- endcase -%}
+
+        {%- when 'age' -%}
+          {%- assign compare_num = compare_value | plus: 0 -%}
+          {%- case operator -%}
+            {%- when 'equals' -%}
+              {%- if product_age_days == compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'not_equals' -%}
+              {%- if product_age_days != compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'greater_than' -%}
+              {%- if product_age_days > compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+            {%- when 'less_than' -%}
+              {%- if product_age_days < compare_num -%}
+                {%- assign condition_met = true -%}
+              {%- endif -%}
+          {%- endcase -%}
+      {%- endcase -%}
+
+      {%- if condition_met -%}
+        {%- assign winning_badge = block -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if winning_badge -%}
+      {%- assign opacity_value = winning_badge.settings.opacity | divided_by: 100.0 -%}
+      <div class="product-ribbons-wrapper">
+        <div class="custom-badge custom-badge--position-{{ ribbon_position }} custom-badge--size-{{ final_size }}">
+          <span
+            class="custom-badge__ribbon"
+            style="background-color: {{ winning_badge.settings.background_color }}; color: {{ winning_badge.settings.text_color }}; opacity: {{ opacity_value }};"
+          >
+            {{- winning_badge.settings.display_text -}}
+          </span>
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
