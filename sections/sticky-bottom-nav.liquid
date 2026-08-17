@@ -7,45 +7,75 @@
 </style>
 
 <script>
-  function initStickyNav() {
-    // SPA Behaviors
-    const navItems = document.querySelectorAll('.sticky-bottom-nav__item');
-    navItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        const actionType = item.dataset.action;
-        if (actionType === 'cart') {
-          e.preventDefault();
-          const cartIcon = document.getElementById('cart-icon-bubble');
-          if (cartIcon) cartIcon.click();
-        } else if (actionType === 'search') {
-          e.preventDefault();
-          // Force open the visible search modal
-          const searchModals = document.querySelectorAll('details-modal.header__search details');
-          searchModals.forEach(modal => {
-            if (modal.parentElement.offsetParent !== null) {
-              modal.setAttribute('open', 'true');
-              const summary = modal.querySelector('summary');
-              if (summary) summary.setAttribute('aria-expanded', 'true');
-              const input = modal.querySelector('input');
-              if (input) setTimeout(() => input.focus(), 100);
+  if (!customElements.get('sticky-bottom-nav')) {
+    customElements.define('sticky-bottom-nav', class StickyBottomNav extends HTMLElement {
+      constructor() {
+        super();
+        this.nav = this.querySelector('nav');
+        this.behavior = this.getAttribute('data-behavior');
+        this.currentScrollTop = 0;
+        
+        if (this.behavior !== 'always') {
+          window.addEventListener('scroll', this.onScroll.bind(this), { passive: true });
+        }
+        
+        this.initSPA();
+      }
+      
+      onScroll() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        
+        if (this.behavior === 'on-scroll-up') {
+          if (scrollTop > this.currentScrollTop && scrollTop > 150) {
+            this.nav.classList.add('is-hidden');
+          } else {
+            this.nav.classList.remove('is-hidden');
+          }
+        } else if (this.behavior === 'reduce-on-scroll') {
+          if (scrollTop > 100) {
+            this.nav.classList.add('is-reduced');
+          } else {
+            this.nav.classList.remove('is-reduced');
+          }
+        }
+        
+        this.currentScrollTop = scrollTop;
+      }
+      
+      initSPA() {
+        const navItems = this.querySelectorAll('.sticky-bottom-nav__item');
+        navItems.forEach(item => {
+          item.addEventListener('click', (e) => {
+            const actionType = item.dataset.action;
+            if (actionType === 'cart') {
+              e.preventDefault();
+              const cartIcon = document.getElementById('cart-icon-bubble');
+              if (cartIcon) cartIcon.click();
+            } else if (actionType === 'search') {
+              e.preventDefault();
+              const searchModals = document.querySelectorAll('details-modal.header__search details');
+              searchModals.forEach(modal => {
+                if (modal.parentElement.offsetParent !== null) {
+                  modal.setAttribute('open', 'true');
+                  const summary = modal.querySelector('summary');
+                  if (summary) summary.setAttribute('aria-expanded', 'true');
+                  const input = modal.querySelector('input');
+                  if (input) setTimeout(() => input.focus(), 100);
+                }
+              });
+            } else if (actionType === 'wishlist') {
+              e.preventDefault();
+              window.dispatchEvent(new Event('wishlist:open'));
             }
           });
-        } else if (actionType === 'wishlist') {
-          e.preventDefault();
-          window.dispatchEvent(new Event('wishlist:open'));
-        }
-      });
+        });
+      }
     });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initStickyNav);
-  } else {
-    initStickyNav();
   }
 </script>
 
-<nav class="sticky-bottom-nav sticky-bottom-nav--{{ section.settings.size }} sticky-bottom-nav--{{ section.settings.design_style }} color-{{ section.settings.color_scheme }} gradient" aria-label="{{ 'general.mobile_menu' | t | default: 'Mobile navigation' }}">
+<sticky-bottom-nav data-behavior="{{ section.settings.sticky_behavior }}">
+  <nav class="sticky-bottom-nav sticky-bottom-nav--{{ section.settings.size }} sticky-bottom-nav--{{ section.settings.design_style }} color-{{ section.settings.color_scheme }} gradient" aria-label="{{ 'general.mobile_menu' | t | default: 'Mobile navigation' }}">
   {%- for block in section.blocks -%}
     {%- assign is_nav_active = false -%}
     {%- if block.settings.action_type == 'link' and block.settings.url != blank -%}
@@ -77,6 +107,7 @@
     {%- endif -%}
   {%- endfor -%}
 </nav>
+</sticky-bottom-nav>
 
 {% schema %}
 {
@@ -110,6 +141,17 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "sticky_behavior",
+      "label": "Scroll Behavior",
+      "options": [
+        { "value": "always", "label": "Always sticky" },
+        { "value": "on-scroll-up", "label": "Auto-hide (show on scroll up)" },
+        { "value": "reduce-on-scroll", "label": "Reduce size on scroll" }
+      ],
+      "default": "always"
     }
   ],
   "blocks": [
