@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
@@ -34,12 +43,15 @@
       ],
       "settings": {
         "color_scheme": "scheme-1",
+        "heading_style": "normal",
         "newsletter_enable": true,
         "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": false,
         "enable_language_selector": false,
         "payment_enable": true,
+        "payment_icons_grayscale": false,
         "show_policy": false,
         "margin_top": 48,
         "padding_top": 36,
@@ -104,7 +116,9 @@
       ],
       "settings": {
         "design_style": "pill",
-        "color_scheme": "scheme-1"
+        "size": "large",
+        "color_scheme": "scheme-1",
+        "sticky_behavior": "reduce-on-scroll"
       }
     },
     "product-ribbons-config": {
@@ -113,28 +127,37 @@
         "badge_1": {
           "type": "badge",
           "settings": {
-            "trigger_tag": "badge:bestseller",
+            "data_source": "tag",
+            "operator": "equals",
+            "compare_value": "badge:bestseller",
             "display_text": "Best Seller",
-            "background_color": "#A855F7",
-            "text_color": "#ffffff"
+            "background_color": "#a855f7",
+            "text_color": "#ffffff",
+            "opacity": 100
           }
         },
         "badge_2": {
           "type": "badge",
           "settings": {
-            "trigger_tag": "badge:new",
+            "data_source": "tag",
+            "operator": "equals",
+            "compare_value": "badge:bestseller",
             "display_text": "New Arrival",
-            "background_color": "#F43F5E",
-            "text_color": "#ffffff"
+            "background_color": "#f43f5e",
+            "text_color": "#ffffff",
+            "opacity": 100
           }
         },
         "badge_3": {
           "type": "badge",
           "settings": {
-            "trigger_tag": "badge:staff-pick",
+            "data_source": "tag",
+            "operator": "equals",
+            "compare_value": "badge:bestseller",
             "display_text": "Staff Pick",
-            "background_color": "#10B981",
-            "text_color": "#ffffff"
+            "background_color": "#10b981",
+            "text_color": "#ffffff",
+            "opacity": 100
           }
         }
       },
