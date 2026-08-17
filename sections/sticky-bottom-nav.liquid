@@ -1,25 +1,15 @@
 {{ 'component-sticky-bottom-nav.css' | asset_url | stylesheet_tag }}
 
+<style>
+  body { --sticky-bottom-nav-height: {% if section.settings.size == 'small' %}5.2rem{% elsif section.settings.size == 'large' %}7.2rem{% else %}6.2rem{% endif %}; }
+  body { padding-bottom: var(--sticky-bottom-nav-height); }
+  @media screen and (min-width: 990px) { body { padding-bottom: 0; } }
+</style>
+
 <script>
   function initStickyNav() {
-    document.body.classList.add('has-sticky-bottom-nav');
-    const nav = document.querySelector('.sticky-bottom-nav');
-    if (nav) {
-      document.body.style.setProperty('--sticky-bottom-nav-height', `${nav.offsetHeight}px`);
-    }
-    
-    // Highlight Active Link
-    const currentPath = window.location.pathname;
-    const navItems = document.querySelectorAll('.sticky-bottom-nav__item');
-    navItems.forEach(item => {
-      const href = item.getAttribute('href');
-      // Exact match for SPA accuracy
-      if (href === currentPath) {
-        item.classList.add('is-active');
-      }
-    });
-
     // SPA Behaviors
+    const navItems = document.querySelectorAll('.sticky-bottom-nav__item');
     navItems.forEach(item => {
       item.addEventListener('click', (e) => {
         const actionType = item.dataset.action;
@@ -57,10 +47,17 @@
 
 <nav class="sticky-bottom-nav sticky-bottom-nav--{{ section.settings.size }} sticky-bottom-nav--{{ section.settings.design_style }} color-{{ section.settings.color_scheme }} gradient" aria-label="{{ 'general.mobile_menu' | t | default: 'Mobile navigation' }}">
   {%- for block in section.blocks -%}
+    {%- assign is_nav_active = false -%}
+    {%- if block.settings.action_type == 'link' and block.settings.url != blank -%}
+      {%- assign link_path = block.settings.url | split: '?' | first -%}
+      {%- if request.path == link_path -%}
+        {%- assign is_nav_active = true -%}
+      {%- endif -%}
+    {%- endif -%}
     {%- if block.settings.action_type == 'link' -%}
-      <a href="{{ block.settings.url | default: '#' }}" class="sticky-bottom-nav__item" data-action="{{ block.settings.action_type }}" {{ block.shopify_attributes }}>
+      <a href="{{ block.settings.url | default: '#' }}" class="sticky-bottom-nav__item{% if is_nav_active %} is-active{% endif %}" data-action="{{ block.settings.action_type }}" {{ block.shopify_attributes }}>
     {%- else -%}
-      <button type="button" class="sticky-bottom-nav__item" data-action="{{ block.settings.action_type }}" {{ block.shopify_attributes }}>
+      <button type="button" class="sticky-bottom-nav__item{% if is_nav_active %} is-active{% endif %}" data-action="{{ block.settings.action_type }}" {{ block.shopify_attributes }}>
     {%- endif -%}
       {%- if block.settings.custom_icon != blank -%}
         <div class="sticky-bottom-nav__icon-wrapper">

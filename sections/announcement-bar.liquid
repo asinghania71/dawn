@@ -62,11 +62,19 @@
                       {%- when 'countdown' -%}
                         <countdown-timer class="announcement-bar__message h5" data-end-date="{{ block.settings.end_date }}" data-end-time="{{ block.settings.end_time }}">
                           <span>{{ block.settings.text | escape }}</span>
-                          <span class="countdown-timer__display">--:--:--:--</span>
+                          <span class="countdown-timer__display">{%- render 'countdown-initial', end_date: block.settings.end_date, end_time: block.settings.end_time -%}</span>
                         </countdown-timer>
                       {%- when 'cart_goal' -%}
                         <cart-goal-tracker class="announcement-bar__message h5" data-threshold="{{ block.settings.threshold | times: 100 }}" data-progress-text="{{ block.settings.progress_text | escape }}" data-success-text="{{ block.settings.success_text | escape }}" data-text-color="{{ block.settings.text_color }}" data-success-color="{{ block.settings.success_color }}" style="color: {{ block.settings.text_color }};">
-                          <span class="cart-goal-tracker__text">Loading your goal...</span>
+                          <span class="cart-goal-tracker__text">
+                            {%- assign threshold_cents = block.settings.threshold | times: 100 -%}
+                            {%- if cart.total_price >= threshold_cents -%}
+                              {{ block.settings.success_text }}
+                            {%- else -%}
+                              {%- assign remaining = threshold_cents | minus: cart.total_price -%}
+                              {{ block.settings.progress_text | replace: '[amount]', remaining | money }}
+                            {%- endif -%}
+                          </span>
                         </cart-goal-tracker>
                     {%- endcase -%}
                   </div>
@@ -103,7 +111,7 @@
                 {%- when 'countdown' -%}
                   <countdown-timer class="announcement-bar__message h5" data-end-date="{{ block.settings.end_date }}" data-end-time="{{ block.settings.end_time }}">
                     <span>{{ block.settings.text | escape }}</span>
-                    <span class="countdown-timer__display">--:--:--:--</span>
+                    <span class="countdown-timer__display">{%- render 'countdown-initial', end_date: block.settings.end_date, end_time: block.settings.end_time -%}</span>
                   </countdown-timer>
                 {%- when 'cart_goal' -%}
                   <cart-goal-tracker class="announcement-bar__message h5" data-threshold="{{ block.settings.threshold | times: 100 }}" data-progress-text="{{ block.settings.progress_text | escape }}" data-success-text="{{ block.settings.success_text | escape }}" data-text-color="{{ block.settings.text_color }}" data-success-color="{{ block.settings.success_color }}" style="color: {{ block.settings.text_color }};">
@@ -146,11 +154,19 @@
                           {%- when 'countdown' -%}
                             <countdown-timer class="announcement-bar__message h5" data-end-date="{{ block.settings.end_date }}" data-end-time="{{ block.settings.end_time }}">
                               <span>{{ block.settings.text | escape }}</span>
-                              <span class="countdown-timer__display">--:--:--:--</span>
+                              <span class="countdown-timer__display">{%- render 'countdown-initial', end_date: block.settings.end_date, end_time: block.settings.end_time -%}</span>
                             </countdown-timer>
                           {%- when 'cart_goal' -%}
                             <cart-goal-tracker class="announcement-bar__message h5" data-threshold="{{ block.settings.threshold | times: 100 }}" data-progress-text="{{ block.settings.progress_text | escape }}" data-success-text="{{ block.settings.success_text | escape }}" data-text-color="{{ block.settings.text_color }}" data-success-color="{{ block.settings.success_color }}" style="color: {{ block.settings.text_color }};">
-                              <span class="cart-goal-tracker__text">Loading your goal...</span>
+                              <span class="cart-goal-tracker__text">
+                            {%- assign threshold_cents = block.settings.threshold | times: 100 -%}
+                            {%- if cart.total_price >= threshold_cents -%}
+                              {{ block.settings.success_text }}
+                            {%- else -%}
+                              {%- assign remaining = threshold_cents | minus: cart.total_price -%}
+                              {{ block.settings.progress_text | replace: '[amount]', remaining | money }}
+                            {%- endif -%}
+                          </span>
                             </cart-goal-tracker>
                         {%- endcase -%}
                       </div>

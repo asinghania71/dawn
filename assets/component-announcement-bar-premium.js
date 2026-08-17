@@ -16,6 +16,8 @@ class AnnouncementBarManager extends HTMLElement {
       return;
     }
 
+    this.classList.add('is-revealed');
+
     this.closeButton = this.querySelector('.announcement-bar__close');
     if (this.closeButton) {
       this.closeButton.addEventListener('click', () => {
@@ -109,8 +111,6 @@ class CartGoalTracker extends HTMLElement {
     this.threshold = parseInt(this.dataset.threshold, 10);
     this.progressText = this.dataset.progressText;
     this.successText = this.dataset.successText;
-
-    this.updateGoal();
 
     if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
       this.unsubscriber = subscribe(PUB_SUB_EVENTS.cartUpdate, this.updateGoal.bind(this));
