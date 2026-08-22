@@ -15,7 +15,9 @@ if (!customElements.get('multi-collection-tabs')) {
       } else if (hasInitialGrid && this.buttons.length > 0) {
         const initialUrl = this.buttons[0].getAttribute('data-url');
         if (initialUrl) {
-          const fetchUrl = initialUrl.includes('?') ? `${initialUrl}&section_id=main-collection-product-grid` : `${initialUrl}?section_id=main-collection-product-grid`;
+          const parsedUrl = new URL(initialUrl, window.location.origin);
+          parsedUrl.searchParams.set('section_id', 'main-collection-product-grid');
+          const fetchUrl = parsedUrl.toString();
           this.cache[fetchUrl] = this.container.innerHTML;
         }
         this.applyCustomPagination();
@@ -98,7 +100,9 @@ if (!customElements.get('multi-collection-tabs')) {
       if (!url) return;
       this.container.classList.add('loading');
       
-      const fetchUrl = url.includes('?') ? `${url}&section_id=main-collection-product-grid` : `${url}?section_id=main-collection-product-grid`;
+      const parsedUrl = new URL(url, window.location.origin);
+      parsedUrl.searchParams.set('section_id', 'main-collection-product-grid');
+      const fetchUrl = parsedUrl.toString();
 
       if (useCache && this.cache[fetchUrl]) {
         this.injectHTML(this.cache[fetchUrl]);
@@ -121,7 +125,9 @@ if (!customElements.get('multi-collection-tabs')) {
       // Disconnect mutation observer briefly so our manual appending doesn't trigger it recursively
       this.mutationObserver.disconnect();
       
-      const fetchUrl = url.includes('?') ? `${url}&section_id=main-collection-product-grid` : `${url}?section_id=main-collection-product-grid`;
+      const parsedUrl = new URL(url, window.location.origin);
+      parsedUrl.searchParams.set('section_id', 'main-collection-product-grid');
+      const fetchUrl = parsedUrl.toString();
       
       fetch(fetchUrl)
         .then(response => response.text())

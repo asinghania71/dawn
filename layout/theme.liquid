@@ -303,7 +303,7 @@
 
     {{ 'wishlist.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'recently-viewed.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'product-tracker.js' | asset_url }}" defer="defer"></script>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
