@@ -68,8 +68,63 @@
       </div>
 
       <div class="multi-collection-tabs__content">
-        <div id="MultiCollectionGridContainer" class="multi-collection-tabs__pane active" style="min-height: 400px; position: relative;">
-          {%- render 'loading-spinner' -%}
+        <div id="MultiCollectionGridContainer" class="multi-collection-tabs__pane active" style="position: relative;">
+          {%- assign first_block = section.blocks.first -%}
+          {%- assign first_collection = first_block.settings.collection -%}
+          {%- if first_collection != blank and first_collection.all_products_count > 0 -%}
+            <div class="product-grid-container" id="ProductGridContainer">
+              <div class="collection page-width">
+                <ul
+                  id="product-grid"
+                  data-id="main-collection-product-grid"
+                  class="
+                    grid product-grid grid--2-col-tablet-down
+                    grid--4-col-desktop
+                  "
+                >
+                  {%- for product in first_collection.products limit: section.settings.products_limit -%}
+                    <li class="grid__item">
+                      {% render 'card-product',
+                        card_product: product,
+                        media_aspect_ratio: 'adapt',
+                        show_secondary_image: true,
+                        section_id: section.id
+                      %}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </div>
+          {%- elsif first_collection != blank and first_collection.all_products_count == 0 -%}
+            <div id="ProductGridContainer">
+              <div class="collection page-width center" style="padding: 4rem 0;">
+                <p class="h3">{{ 'sections.collection_template.empty' | t | default: 'No products found' }}</p>
+              </div>
+            </div>
+          {%- else -%}
+            <div id="ProductGridContainer">
+              <div class="collection page-width">
+                <ul
+                  id="product-grid"
+                  data-id="main-collection-product-grid"
+                  class="
+                    grid product-grid grid--2-col-tablet-down
+                    grid--4-col-desktop
+                  "
+                >
+                  {%- for i in (1..section.settings.products_limit) -%}
+                    <li class="grid__item">
+                      {% render 'card-product',
+                        show_vendor: false,
+                        media_aspect_ratio: 'adapt',
+                        section_id: section.id
+                      %}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </div>
+          {%- endif -%}
         </div>
       </div>
     </multi-collection-tabs>

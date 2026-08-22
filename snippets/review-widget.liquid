@@ -11,8 +11,7 @@
   -%}
 
   {%- if rating_count_val != blank -%}
-    <link rel="stylesheet" href="{{ 'component-review-widget.css' | asset_url }}" media="print" onload="this.media='all'">
-    <noscript>{{ 'component-review-widget.css' | asset_url | stylesheet_tag }}</noscript>
+    {{ 'component-review-widget.css' | asset_url | stylesheet_tag }}
   {%- endif -%}
 
   {%- assign local_show_widget = true -%}

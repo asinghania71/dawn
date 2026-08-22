@@ -24,10 +24,8 @@
 }
 
 /* Optional: Slight fade on main content when loading */
-#MainContent {
-  transition: opacity 0.3s ease;
-}
 .is-spa-loading #MainContent {
   opacity: 0.6;
   pointer-events: none;
+  transition: opacity 0.3s ease;
 }

@@ -9,8 +9,17 @@ if (!customElements.get('multi-collection-tabs')) {
       
       this.bindEvents();
       
-      if (this.buttons.length > 0) {
+      const hasInitialGrid = this.container && this.container.querySelector('#product-grid');
+      if (this.buttons.length > 0 && !hasInitialGrid) {
         this.loadCollection(this.buttons[0].getAttribute('data-url'), true);
+      } else if (hasInitialGrid && this.buttons.length > 0) {
+        const initialUrl = this.buttons[0].getAttribute('data-url');
+        if (initialUrl) {
+          const fetchUrl = initialUrl.includes('?') ? `${initialUrl}&section_id=main-collection-product-grid` : `${initialUrl}?section_id=main-collection-product-grid`;
+          this.cache[fetchUrl] = this.container.innerHTML;
+        }
+        this.applyCustomPagination();
+        this.startObservingFacets();
       }
 
       this.observer = new IntersectionObserver((entries) => {
