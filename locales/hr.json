@@ -55,6 +55,12 @@
       "next_slide": "Klizno pomakni udesno",
       "previous_slide": "Klizno pomakni ulijevo",
       "name": "Kliznik"
+    },
+    "play_video": "Play video",
+    "mobile_menu": "Mobile navigation",
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collections"
     }
   },
   "newsletter": {
@@ -538,5 +544,9 @@
       "expanded": "Obrazac primatelja poklon-kartice je povećan",
       "collapsed": "Obrazac primatelja poklon-kartice je smanjen"
     }
+  },
+  "wishlist": {
+    "add": "Add to wishlist",
+    "view": "View wishlist"
   }
 }

@@ -221,25 +221,27 @@
   "max_blocks": 12,
   "class": "announcement-bar-section",
   "enabled_on": {
-    "groups": ["header"]
+    "groups": [
+      "header"
+    ]
   },
   "settings": [
     {
       "type": "header",
-      "content": "Display"
+      "content": "t:sections.announcement-bar.headers.display.content"
     },
     {
       "type": "select",
       "id": "display_style",
-      "label": "Display Style",
+      "label": "t:sections.announcement-bar.settings.display_style.label",
       "options": [
         {
-          "value": "carousel",
-          "label": "Carousel"
+          "value": "slider",
+          "label": "t:sections.announcement-bar.settings.display_style.options__carousel.label"
         },
         {
           "value": "marquee",
-          "label": "Scrolling Marquee"
+          "label": "t:sections.announcement-bar.settings.display_style.options__marquee.label"
         }
       ],
       "default": "carousel"
@@ -247,13 +249,13 @@
     {
       "type": "checkbox",
       "id": "enable_dismiss",
-      "label": "Enable dismiss button",
-      "info": "Allows customers to hide the bar for the duration of their browsing session.",
+      "label": "t:sections.announcement-bar.settings.enable_dismiss.label",
+      "info": "t:sections.announcement-bar.settings.enable_dismiss.info",
       "default": false
     },
     {
       "type": "header",
-      "content": "Carousel Settings"
+      "content": "t:sections.announcement-bar.headers.carousel.content"
     },
     {
       "type": "checkbox",
@@ -273,7 +275,7 @@
     },
     {
       "type": "header",
-      "content": "Marquee Settings"
+      "content": "t:sections.announcement-bar.headers.marquee.content"
     },
     {
       "type": "range",
@@ -282,13 +284,13 @@
       "max": 30,
       "step": 1,
       "unit": "s",
-      "label": "Marquee Speed",
-      "info": "Lower value = faster scroll.",
+      "label": "t:sections.announcement-bar.settings.marquee_speed.label",
+      "info": "t:sections.announcement-bar.settings.marquee_speed.info",
       "default": 15
     },
     {
       "type": "header",
-      "content": "Appearance"
+      "content": "t:sections.announcement-bar.headers.appearance.content"
     },
     {
       "type": "color_scheme",
@@ -346,20 +348,56 @@
         {
           "type": "select",
           "id": "icon",
-          "label": "Icon",
+          "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.label",
           "options": [
-            { "value": "none", "label": "None" },
-            { "value": "check-mark", "label": "Check Mark" },
-            { "value": "truck", "label": "Truck" },
-            { "value": "star", "label": "Star" },
-            { "value": "fire", "label": "Fire" },
-            { "value": "box", "label": "Box" },
-            { "value": "discount", "label": "Discount" },
-            { "value": "heart", "label": "Heart" },
-            { "value": "price-tag", "label": "Price Tag" },
-            { "value": "return", "label": "Return" },
-            { "value": "plane", "label": "Plane" },
-            { "value": "lightning-bolt", "label": "Lightning Bolt" }
+            {
+              "value": "none",
+              "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__1.label"
+            },
+            {
+              "value": "check-mark",
+              "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__8.label"
+            },
+            {
+              "value": "truck",
+              "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__43.label"
+            },
+            {
+              "value": "star",
+              "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__41.label"
+            },
+            {
+              "value": "fire",
+              "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__14.label"
+            },
+            {
+              "value": "box",
+              "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__5.label"
+            },
+            {
+              "value": "discount",
+              "label": "t:sections.all.icons.discount.label"
+            },
+            {
+              "value": "heart",
+              "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__16.label"
+            },
+            {
+              "value": "price-tag",
+              "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__31.label"
+            },
+            {
+              "value": "return",
+              "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__34.label"
+            },
+            {
+              "value": "plane",
+              "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__29.label"
+            },
+            {
+              "value": "lightning-bolt",
+              "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__20.label"
+            }
           ],
           "default": "none"
         },
@@ -372,62 +410,62 @@
     },
     {
       "type": "countdown",
-      "name": "Countdown Timer",
+      "name": "t:sections.announcement-bar.blocks.countdown.name",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "label": "Heading text",
+          "label": "t:sections.announcement-bar.blocks.countdown.settings.text.label",
           "default": "Flash Sale Ends In:"
         },
         {
           "type": "text",
           "id": "end_date",
-          "label": "End Date (YYYY-MM-DD)",
-          "default": "2024-12-31"
+          "label": "t:sections.announcement-bar.blocks.countdown.settings.end_date.label",
+          "default": "2026-12-31"
         },
         {
           "type": "text",
           "id": "end_time",
-          "label": "End Time (HH:MM) - 24hr format",
+          "label": "t:sections.announcement-bar.blocks.countdown.settings.end_time.label",
           "default": "23:59"
         }
       ]
     },
     {
       "type": "cart_goal",
-      "name": "Dynamic Cart Goal",
+      "name": "t:sections.announcement-bar.blocks.cart_goal.name",
       "settings": [
         {
           "type": "number",
           "id": "threshold",
-          "label": "Goal Amount",
-          "info": "Enter the amount without currency symbols (e.g. 50 for $50).",
+          "label": "t:sections.announcement-bar.blocks.cart_goal.settings.threshold.label",
+          "info": "t:sections.announcement-bar.blocks.cart_goal.settings.threshold.info",
           "default": 100
         },
         {
           "type": "text",
           "id": "progress_text",
-          "label": "Progress Text",
-          "info": "Use [amount] to show the remaining amount.",
+          "label": "t:sections.announcement-bar.blocks.cart_goal.settings.progress_text.label",
+          "info": "t:sections.announcement-bar.blocks.cart_goal.settings.progress_text.info",
           "default": "You are [amount] away from Free Shipping!"
         },
         {
           "type": "text",
           "id": "success_text",
-          "label": "Success Text",
+          "label": "t:sections.announcement-bar.blocks.cart_goal.settings.success_text.label",
           "default": "You qualify for Free Shipping!"
         },
         {
           "type": "color",
           "id": "text_color",
-          "label": "Text Color",
+          "label": "t:sections.announcement-bar.blocks.cart_goal.settings.text_color.label",
           "default": "#FFFFFF"
         },
         {
           "type": "color",
           "id": "success_color",
-          "label": "Success Text Color",
+          "label": "t:sections.announcement-bar.blocks.cart_goal.settings.success_color.label",
           "default": "#428b1e"
         }
       ]

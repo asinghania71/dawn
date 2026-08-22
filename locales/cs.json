@@ -55,6 +55,12 @@
       "next_slide": "Snímek vpravo",
       "previous_slide": "Snímek vlevo",
       "name": "Posuvník"
+    },
+    "play_video": "Play video",
+    "mobile_menu": "Mobile navigation",
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collections"
     }
   },
   "newsletter": {
@@ -550,5 +556,9 @@
       "expanded": "Formulář pro příjemce dárkové karty se rozbalil.",
       "collapsed": "Formulář pro příjemce dárkové karty se sbalil."
     }
+  },
+  "wishlist": {
+    "add": "Add to wishlist",
+    "view": "View wishlist"
   }
 }

@@ -55,6 +55,12 @@
       "next_slide": "Slinkti dešinėn",
       "previous_slide": "Slinkti kairėn",
       "name": "Slankiklis"
+    },
+    "play_video": "Play video",
+    "mobile_menu": "Mobile navigation",
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collections"
     }
   },
   "newsletter": {
@@ -550,5 +556,9 @@
       "expanded": "Išskleista dovanų kortelės gavėjo forma",
       "collapsed": "Suskleista dovanų kortelės gavėjo forma"
     }
+  },
+  "wishlist": {
+    "add": "Add to wishlist",
+    "view": "View wishlist"
   }
 }

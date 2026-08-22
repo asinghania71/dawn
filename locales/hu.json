@@ -55,6 +55,12 @@
       "next_slide": "Következő dia",
       "previous_slide": "Előző dia",
       "name": "Csúszka"
+    },
+    "play_video": "Play video",
+    "mobile_menu": "Mobile navigation",
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collections"
     }
   },
   "newsletter": {
@@ -526,5 +532,9 @@
       "expanded": "Ajándékkártya címzettjének űrlapja kibontva",
       "collapsed": "Ajándékkártya címzettjének űrlapja összecsukva"
     }
+  },
+  "wishlist": {
+    "add": "Add to wishlist",
+    "view": "View wishlist"
   }
 }

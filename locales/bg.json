@@ -55,6 +55,12 @@
       "next_slide": "Плъзгане надясно",
       "previous_slide": "Плъзгане наляво",
       "name": "Плъзгач"
+    },
+    "play_video": "Play video",
+    "mobile_menu": "Mobile navigation",
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collections"
     }
   },
   "newsletter": {
@@ -526,5 +532,9 @@
       "expanded": "Формулярът за получател на ваучер за подарък е разгънат",
       "collapsed": "Формулярът за получател на ваучер за подарък е свит"
     }
+  },
+  "wishlist": {
+    "add": "Add to wishlist",
+    "view": "View wishlist"
   }
 }

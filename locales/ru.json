@@ -55,6 +55,12 @@
       "next_slide": "Листать вперед",
       "previous_slide": "Листать назад",
       "name": "Ползунок"
+    },
+    "play_video": "Play video",
+    "mobile_menu": "Mobile navigation",
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collections"
     }
   },
   "newsletter": {
@@ -550,5 +556,9 @@
       "expanded": "Форма с данными получателя подарочной карты развернута",
       "collapsed": "Форма с данными получателя подарочной карты свернута"
     }
+  },
+  "wishlist": {
+    "add": "Add to wishlist",
+    "view": "View wishlist"
   }
 }

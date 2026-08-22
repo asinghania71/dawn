@@ -55,6 +55,12 @@
       "next_slide": "投影片右側",
       "previous_slide": "投影片左側",
       "name": "投影播放器"
+    },
+    "play_video": "播放视频",
+    "mobile_menu": "移动导航",
+    "breadcrumbs": {
+      "home": "首页",
+      "collections": "商品系列"
     }
   },
   "newsletter": {
@@ -526,5 +532,9 @@
       "expanded": "禮品卡收件人表單已展開",
       "collapsed": "禮品卡收件人表單已收合"
     }
+  },
+  "wishlist": {
+    "add": "加入心愿单",
+    "view": "查看心愿单"
   }
 }

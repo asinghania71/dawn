@@ -55,6 +55,12 @@
       "next_slide": "向右滑动",
       "previous_slide": "向左滑动",
       "name": "滑块"
+    },
+    "play_video": "播放视频",
+    "mobile_menu": "移动导航",
+    "breadcrumbs": {
+      "home": "首页",
+      "collections": "商品系列"
     }
   },
   "newsletter": {
@@ -526,5 +532,9 @@
       "expanded": "礼品卡收件人表单已展开",
       "collapsed": "礼品卡收件人表单已折叠"
     }
+  },
+  "wishlist": {
+    "add": "加入心愿单",
+    "view": "查看心愿单"
   }
 }

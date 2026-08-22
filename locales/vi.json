@@ -55,6 +55,12 @@
       "next_slide": "Trượt sang phải",
       "previous_slide": "Trượt sang trái",
       "name": "Thanh trượt"
+    },
+    "play_video": "Play video",
+    "mobile_menu": "Mobile navigation",
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collections"
     }
   },
   "newsletter": {
@@ -526,5 +532,9 @@
       "expanded": "Đã mở rộng biểu mẫu người nhận thẻ quà tặng",
       "collapsed": "Đã thu nhỏ biểu mẫu người nhận thẻ quà tặng"
     }
+  },
+  "wishlist": {
+    "add": "Add to wishlist",
+    "view": "View wishlist"
   }
 }

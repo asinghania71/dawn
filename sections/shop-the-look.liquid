@@ -112,51 +112,79 @@
 
 {% schema %}
 {
-  "name": "Shop the Look",
+  "name": "t:sections.shop-the-look.name",
   "tag": "section",
   "class": "section",
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   },
   "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.featured-collection.settings.header.content"
+    },
     {
       "type": "inline_richtext",
       "id": "title",
       "default": "Shop the look",
-      "label": "Heading"
+      "label": "t:sections.featured-collection.settings.title.label"
     },
     {
       "type": "select",
       "id": "heading_size",
       "options": [
-        { "value": "h2", "label": "Small" },
-        { "value": "h1", "label": "Medium" },
-        { "value": "h0", "label": "Large" }
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
       ],
       "default": "h1",
-      "label": "Heading size"
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.shop-the-look.headers.images.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.shop-the-look.settings.image.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "t:sections.shop-the-look.settings.image_mobile.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.multi-collection-tabs.headers.layout_colors.content"
     },
     {
       "type": "checkbox",
       "id": "full_width",
-      "label": "Make section full width",
+      "label": "t:sections.featured-collection.settings.full_width.label",
       "default": false
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.colors.label",
       "default": "scheme-1"
     },
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Desktop Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_mobile",
-      "label": "Mobile Image (Optional)"
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
     },
     {
       "type": "range",
@@ -165,7 +193,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Top padding",
+      "label": "t:sections.all.padding.padding_top",
       "default": 36
     },
     {
@@ -175,24 +203,24 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Bottom padding",
+      "label": "t:sections.all.padding.padding_bottom",
       "default": 36
     }
   ],
   "blocks": [
     {
       "type": "hotspot",
-      "name": "Product Hotspot",
+      "name": "t:sections.shop-the-look.blocks.hotspot.name",
       "settings": [
         {
           "type": "product",
           "id": "product",
-          "label": "Product"
+          "label": "t:sections.shop-the-look.blocks.hotspot.settings.product.label"
         },
         {
           "type": "color",
           "id": "hotspot_color",
-          "label": "Hotspot color",
+          "label": "t:sections.shop-the-look.blocks.hotspot.settings.hotspot_color.label",
           "default": "#121212"
         },
         {
@@ -202,7 +230,7 @@
           "max": 100,
           "step": 1,
           "unit": "%",
-          "label": "Horizontal position",
+          "label": "t:sections.shop-the-look.blocks.hotspot.settings.horizontal_position.label",
           "default": 50
         },
         {
@@ -212,7 +240,7 @@
           "max": 100,
           "step": 1,
           "unit": "%",
-          "label": "Vertical position",
+          "label": "t:sections.shop-the-look.blocks.hotspot.settings.vertical_position.label",
           "default": 50
         }
       ]
@@ -220,7 +248,7 @@
   ],
   "presets": [
     {
-      "name": "Shop the Look",
+      "name": "t:sections.shop-the-look.presets.name",
       "blocks": [
         {
           "type": "hotspot",

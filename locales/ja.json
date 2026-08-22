@@ -55,6 +55,12 @@
       "next_slide": "右にスライド",
       "previous_slide": "左にスライド",
       "name": "スライダー"
+    },
+    "play_video": "動画を再生",
+    "mobile_menu": "モバイルナビゲーション",
+    "breadcrumbs": {
+      "home": "ホーム",
+      "collections": "コレクション"
     }
   },
   "newsletter": {
@@ -526,5 +532,9 @@
       "expanded": "ギフトカードカードの受取人フォームを展開しました",
       "collapsed": "ギフトカードカードの受取人フォームを折りたたみました"
     }
+  },
+  "wishlist": {
+    "add": "お気に入りに追加",
+    "view": "お気に入りを表示"
   }
 }

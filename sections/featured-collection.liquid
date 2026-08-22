@@ -119,7 +119,10 @@
   "tag": "section",
   "class": "section",
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   },
   "settings": [
     {
@@ -135,11 +138,11 @@
       "step": 1,
       "default": 4,
       "label": "t:sections.featured-collection.settings.products_to_show.label"
-    },     
+    },
     {
       "type": "header",
       "content": "t:sections.featured-collection.settings.header_text.content"
-    },   
+    },
     {
       "type": "inline_richtext",
       "id": "title",
@@ -203,7 +206,7 @@
       "type": "checkbox",
       "id": "show_description",
       "label": "t:sections.featured-collection.settings.show_description.label",
-      "default": false   
+      "default": false
     },
     {
       "type": "select",
@@ -248,7 +251,7 @@
     {
       "type": "header",
       "content": "t:sections.featured-collection.settings.header_collection.content"
-    },    
+    },
     {
       "type": "range",
       "id": "columns_desktop",
@@ -258,7 +261,7 @@
       "default": 4,
       "label": "t:sections.featured-collection.settings.columns_desktop.label"
     },
-        {
+    {
       "type": "checkbox",
       "id": "enable_desktop_slider",
       "label": "t:sections.featured-collection.settings.enable_desktop_slider.label",
@@ -296,7 +299,7 @@
         }
       ],
       "default": "solid"
-    }, 
+    },
     {
       "type": "color_scheme",
       "id": "color_scheme",
@@ -391,29 +394,53 @@
       "type": "checkbox",
       "id": "show_review_widget",
       "default": true,
-      "label": "Show review widget"
+      "label": "t:sections.all.review_widget.show.label"
     },
     {
       "type": "select",
       "id": "review_widget_size",
-      "label": "Review Widget Size",
+      "label": "t:sections.all.review_widget.size.label",
       "options": [
-        { "value": "", "label": "Use Theme Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "medium", "label": "Medium" },
-        { "value": "large", "label": "Large" }
+        {
+          "value": "",
+          "label": "t:sections.all.review_widget.size.options__default.label"
+        },
+        {
+          "value": "small",
+          "label": "t:sections.all.review_widget.size.options__small.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.all.review_widget.size.options__medium.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.all.review_widget.size.options__large.label"
+        }
       ],
       "default": ""
     },
     {
       "type": "select",
       "id": "ribbon_size",
-      "label": "Ribbon Size",
+      "label": "t:sections.all.ribbon.size.label",
       "options": [
-        { "value": "", "label": "Use Theme Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "medium", "label": "Medium" },
-        { "value": "large", "label": "Large" }
+        {
+          "value": "",
+          "label": "t:sections.all.ribbon.size.options__default.label"
+        },
+        {
+          "value": "small",
+          "label": "t:sections.all.ribbon.size.options__small.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.all.ribbon.size.options__medium.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.all.ribbon.size.options__large.label"
+        }
       ],
       "default": ""
     },
@@ -456,13 +483,13 @@
           "label": "t:sections.featured-collection.settings.columns_mobile.options__2.label"
         }
       ]
-    },    
+    },
     {
       "type": "checkbox",
       "id": "swipe_on_mobile",
       "default": false,
       "label": "t:sections.featured-collection.settings.swipe_on_mobile.label"
-    },          
+    },
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"

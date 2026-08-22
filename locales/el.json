@@ -55,6 +55,12 @@
       "next_slide": "Σύρετε δεξιά",
       "previous_slide": "Σύρετε αριστερά",
       "name": "Ρυθμιστικό"
+    },
+    "play_video": "Play video",
+    "mobile_menu": "Mobile navigation",
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collections"
     }
   },
   "newsletter": {
@@ -526,5 +532,9 @@
       "expanded": "Η φόρμα παραλήπτη δωροκάρτας αναπτύχθηκε",
       "collapsed": "Η φόρμα παραλήπτη δωροκάρτας συμπτύχθηκε"
     }
+  },
+  "wishlist": {
+    "add": "Add to wishlist",
+    "view": "View wishlist"
   }
 }
