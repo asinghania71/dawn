@@ -55,6 +55,12 @@
       "next_slide": "Deslizar para a direita",
       "previous_slide": "Deslizar para a esquerda",
       "name": "Slider"
+    },
+    "play_video": "Reproduzir vídeo",
+    "mobile_menu": "Navegação móvel",
+    "breadcrumbs": {
+      "home": "Início",
+      "collections": "Coleções"
     }
   },
   "newsletter": {
@@ -538,5 +544,9 @@
       "expanded": "Formulário de destinatário do cartão de oferta expandido",
       "collapsed": "Formulário de destinatário do cartão de oferta fechado"
     }
+  },
+  "wishlist": {
+    "add": "Adicionar à lista de desejos",
+    "view": "Ver lista de desejos"
   }
 }

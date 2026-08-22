@@ -19,7 +19,10 @@
 - **Performance First:** Every component must justify its existence. Targets: Lighthouse 95+, LCP <2s, CLS <0.05, INP <200ms.
 - **Conversion First:** Every screen should help users purchase. Every component should reduce friction.
 - **Accessibility First:** Meet WCAG AA standards. Support keyboard navigation, screen readers, focus states, high contrast, and reduced motion.
-- **Schema Translations:** ALWAYS verify that a translation key (e.g. `t:sections.all.heading_alignment.label`) exists in `locales/en.default.schema.json` before using it in a section's `{% schema %}`. If it does not exist, you must add it to the locale file to prevent missing translation errors across different locales (like `en-IN` or `en`).
+- **Zero Hardcoded Strings in Schemas (Strict Tokenization):** NEVER write hardcoded English strings for `"name"`, `"label"`, `"content"`, or `"info"` in any section's `{% schema %}` block. ALWAYS use Shopify translation tokens (e.g. `"t:sections.<section_name>.<setting>"`, `"t:settings_schema.<group>.<setting>"`, or `"t:sections.all.*"`).
+- **Multi-Language Synchronization:** Whenever introducing or modifying ANY translation key in `locales/en.default.schema.json` or `locales/en.default.json`, you MUST immediately propagate and provide translations across ALL other locale files (all 20 `*.schema.json` and 31 `*.json` files). A key must NEVER exist in `en.default` without being present in every other language file.
+- **Canonical Icon Tokens:** When adding SVG icon selectors in schemas, ALWAYS reuse Dawn's standard icon tokens (`t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__...`) instead of inventing custom icon labels.
+- **Storefront String Localization:** All user-facing frontend strings in `.liquid` templates and snippets MUST use the Liquid translation filter (`{{ 'general.xyz' | t }}`), with keys defined across all storefront locale files (`locales/*.json`).
 - **Balanced Customization:** "Premium First" refers to the final frontend user experience, not backend code minimalism. Do not optimize for developer-centric DRYness (like removing schema options) at the expense of merchant control. ALWAYS include balanced, granular schema settings per section (like independent alignments, sizes, and styles) to ensure the theme is versatile enough for multiple stores to create diverse, custom layouts while maintaining premium defaults.
 - **Ask When Confused:** If you are unsure about the user's design intent, how a specific component should look, or if a requirement is ambiguous, DO NOT make assumptions or guess. Stop and ask the user for clarification before proceeding.
 
@@ -38,7 +41,9 @@
 - **Audit Wide on Class-of-Error:** If a pattern-level mistake is found (e.g., shapes incorrectly standardized), immediately `grep` across ALL `/assets/*.css` files for the same error before declaring the fix done. Never fix just the reported file.
 - **Read Before Planning:** ALWAYS `view_file` the actual current file before writing any plan or making edits. Never plan changes against an assumed or remembered state.
 
-### Schema Design
+### Schema Design & Localization
+- **100% Tokenized Options:** Every `select` option label in `{% schema %}` MUST use `"t:..."` translation references, including common reusable options like image ratios, heading sizes, colors, alignments, and icon sets.
+- **Verify Key Existence Before Committing:** Before finishing any task, programmatically verify that every single `t:...` token across all section schemas resolves cleanly against `locales/en.default.schema.json` and all `*.schema.json` files with 0 missing keys.
 - **Mirror Dawn's Standard Options Exactly:** Before writing any `select` schema setting, look up the equivalent in an existing Dawn section and copy its option values verbatim. Standard conventions:
   - `image_ratio`: `adapt`, `portrait`, `square` (never "landscape", never "adapt to image" as value)
   - `heading_size`: `h2`, `h1`, `h0`, `hxl`, `hxxl`
@@ -50,4 +55,5 @@
 ### Platform & Third-Party Features
 - **Verify Platform Capability Before Building:** Before implementing any third-party embed (Instagram, TikTok, Pinterest, etc.), confirm whether the platform allows clean iframe embedding. Instagram Reels do NOT support iframe embeds — they block it via `X-Frame-Options`. The correct fallback is a poster image + link that opens the URL externally.
 - **Validate Default/Example URLs:** Any example URL used in a section preset or template JSON must be a format the section's JS actually handles. Test regex patterns against example URLs before committing.
+
 

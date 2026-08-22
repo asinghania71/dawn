@@ -26,7 +26,15 @@
         assign heading_classes = 'page-width'
       endif
     -%}
-    {% render 'section-heading', title: section.settings.title, heading_size: section.settings.heading_size, heading_alignment: section.settings.heading_alignment, wrapper_classes: heading_classes %}
+    {% render 'section-heading',
+      title: section.settings.title,
+      heading_size: section.settings.heading_size,
+      heading_alignment: section.settings.heading_alignment,
+      description: section.settings.description,
+      description_style: section.settings.description_style,
+      description_alignment: section.settings.heading_alignment,
+      wrapper_classes: heading_classes
+    %}
 
     <slider-component class="slider-mobile-gutter{% if section.settings.full_width %} slider-component-full-width{% endif %}">
       <ul id="Slider-{{ section.id }}" class="grid product-grid contains-card grid--{{ section.settings.columns_desktop }}-col-desktop {% if section.settings.columns_mobile == '2' %}grid--2-col-tablet-down{% else %}grid--1-col-tablet-down{% endif %} slider slider--tablet slider--desktop {% if section.settings.columns_mobile == '1_90' %}grid--peek shoppable-shorts--mobile-90{% endif %}" role="list" aria-label="{{ 'general.slider.name' | t }}">
@@ -115,10 +123,14 @@
 
 {% schema %}
 {
-  "name": "Shoppable Shorts",
+  "name": "t:sections.shoppable-shorts.name",
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.featured-collection.settings.header.content"
+    },
     {
       "type": "inline_richtext",
       "id": "title",
@@ -154,6 +166,26 @@
       "label": "t:sections.all.heading_size.label"
     },
     {
+      "type": "select",
+      "id": "heading_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.all.heading_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.all.heading_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.all.heading_alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.all.heading_alignment.label"
+    },
+    {
       "type": "richtext",
       "id": "description",
       "label": "t:sections.featured-collection.settings.description.label"
@@ -180,7 +212,7 @@
     },
     {
       "type": "header",
-      "content": "Video"
+      "content": "t:sections.shoppable-shorts.headers.video.content"
     },
     {
       "type": "range",
@@ -189,25 +221,25 @@
       "max": 6,
       "step": 1,
       "default": 4,
-      "label": "Number of columns on desktop"
+      "label": "t:sections.shoppable-shorts.settings.columns_desktop.label"
     },
     {
       "type": "select",
       "id": "columns_mobile",
       "default": "1_90",
-      "label": "Number of columns on mobile",
+      "label": "t:sections.shoppable-shorts.settings.columns_mobile.label",
       "options": [
         {
           "value": "1",
-          "label": "1 column (100% coverage)"
+          "label": "t:sections.shoppable-shorts.settings.columns_mobile.options__1.label"
         },
         {
           "value": "1_90",
-          "label": "1 column (90% coverage with peek)"
+          "label": "t:sections.shoppable-shorts.settings.columns_mobile.options__1_90.label"
         },
         {
           "value": "2",
-          "label": "2 columns"
+          "label": "t:sections.shoppable-shorts.settings.columns_mobile.options__2.label"
         }
       ]
     },
@@ -229,25 +261,25 @@
         }
       ],
       "default": "portrait",
-      "label": "Video card ratio",
-      "info": "Portrait uses a 9:16 vertical ratio ideal for short-form videos."
+      "label": "t:sections.shoppable-shorts.settings.video_ratio.label",
+      "info": "t:sections.shoppable-shorts.settings.video_ratio.info"
     },
     {
       "type": "checkbox",
       "id": "full_width",
-      "label": "Make section full width",
+      "label": "t:sections.featured-collection.settings.full_width.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "enable_autoplay",
-      "label": "Enable autoplay",
-      "info": "Videos will automatically start playing when scrolled into view. Note: Browsers may mute auto-playing videos.",
+      "label": "t:sections.shoppable-shorts.settings.enable_autoplay.label",
+      "info": "t:sections.shoppable-shorts.settings.enable_autoplay.info",
       "default": false
     },
     {
       "type": "header",
-      "content": "Product banner"
+      "content": "t:sections.shoppable-shorts.headers.product_banner.content"
     },
     {
       "type": "select",
@@ -255,47 +287,47 @@
       "options": [
         {
           "value": "square",
-          "label": "Square"
+          "label": "t:sections.featured-collection.settings.image_ratio.options__3.label"
         },
         {
           "value": "portrait",
-          "label": "Portrait"
+          "label": "t:sections.featured-collection.settings.image_ratio.options__2.label"
         },
         {
           "value": "adapt",
-          "label": "Adapt to image"
+          "label": "t:sections.featured-collection.settings.image_ratio.options__1.label"
         }
       ],
       "default": "square",
-      "label": "Product image ratio",
-      "info": "Shape of the product thumbnail in the shop banner overlay."
+      "label": "t:sections.shoppable-shorts.settings.image_ratio.label",
+      "info": "t:sections.shoppable-shorts.settings.image_ratio.info"
     },
     {
       "type": "header",
-      "content": "Color schemes"
+      "content": "t:sections.all.colors.label"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Section Color Scheme",
+      "label": "t:sections.all.colors.label",
       "default": "scheme-1"
     },
     {
       "type": "color_scheme",
       "id": "card_color_scheme",
-      "label": "Card Color Scheme",
+      "label": "t:sections.all.colors.label",
       "default": "scheme-2"
     },
     {
       "type": "color_scheme",
       "id": "button_color_scheme",
-      "label": "Shop Button Color Scheme",
+      "label": "t:sections.all.colors.label",
       "default": "scheme-4"
     },
     {
       "type": "color_scheme",
       "id": "rating_color_scheme",
-      "label": "Rating Widget Color Scheme",
+      "label": "t:sections.all.colors.label",
       "default": "scheme-1"
     },
     {
@@ -326,29 +358,29 @@
   "blocks": [
     {
       "type": "video_short",
-      "name": "Video Short",
+      "name": "t:sections.shoppable-shorts.blocks.video_short.name",
       "settings": [
         {
           "type": "text",
           "id": "video_url",
-          "label": "Video URL",
-          "info": "Paste a YouTube URL. Supports Shorts, standard videos, and youtu.be links. Example: https://www.youtube.com/shorts/VIDEO_ID"
+          "label": "t:sections.shoppable-shorts.blocks.video_short.settings.video_url.label",
+          "info": "t:sections.shoppable-shorts.blocks.video_short.settings.video_url.info"
         },
         {
           "type": "image_picker",
           "id": "poster_image",
-          "label": "Cover Image",
-          "info": "Image shown before the video starts playing."
+          "label": "t:sections.shoppable-shorts.blocks.video_short.settings.poster_image.label",
+          "info": "t:sections.shoppable-shorts.blocks.video_short.settings.poster_image.info"
         },
         {
           "type": "product",
           "id": "linked_product",
-          "label": "Shop the Look Product"
+          "label": "t:sections.shoppable-shorts.blocks.video_short.settings.linked_product.label"
         },
         {
           "type": "text",
           "id": "button_label",
-          "label": "Button Label",
+          "label": "t:sections.shoppable-shorts.blocks.video_short.settings.button_label.label",
           "default": "Shop Now"
         }
       ]
@@ -356,12 +388,20 @@
   ],
   "presets": [
     {
-      "name": "Shoppable Shorts",
+      "name": "t:sections.shoppable-shorts.presets.name",
       "blocks": [
-        { "type": "video_short" },
-        { "type": "video_short" },
-        { "type": "video_short" },
-        { "type": "video_short" }
+        {
+          "type": "video_short"
+        },
+        {
+          "type": "video_short"
+        },
+        {
+          "type": "video_short"
+        },
+        {
+          "type": "video_short"
+        }
       ]
     }
   ]

@@ -55,6 +55,12 @@
       "next_slide": "Scorri verso destra",
       "previous_slide": "Scorri verso sinistra",
       "name": "Cursore"
+    },
+    "play_video": "Riproduci video",
+    "mobile_menu": "Navigazione mobile",
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collezioni"
     }
   },
   "newsletter": {
@@ -538,5 +544,9 @@
       "expanded": "Modulo destinatario del buono regalo espanso",
       "collapsed": "Modulo destinatario del buono regalo compresso"
     }
+  },
+  "wishlist": {
+    "add": "Aggiungi alla lista dei desideri",
+    "view": "Visualizza lista dei desideri"
   }
 }

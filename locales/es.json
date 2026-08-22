@@ -55,6 +55,12 @@
       "next_slide": "Diapositiva a la derecha",
       "previous_slide": "Diapositiva a la izquierda",
       "name": "Carrusel"
+    },
+    "play_video": "Reproducir video",
+    "mobile_menu": "Navegación móvil",
+    "breadcrumbs": {
+      "home": "Inicio",
+      "collections": "Colecciones"
     }
   },
   "newsletter": {
@@ -538,5 +544,9 @@
       "expanded": "Formulario del destinatario de la tarjeta de regalo expandido",
       "collapsed": "Formulario del destinatario de tarjeta de regalo contraído"
     }
+  },
+  "wishlist": {
+    "add": "Añadir a la lista de deseos",
+    "view": "Ver lista de deseos"
   }
 }

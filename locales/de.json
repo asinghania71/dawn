@@ -55,6 +55,12 @@
       "next_slide": "Nach rechts schieben",
       "previous_slide": "Nach links schieben",
       "name": "Slider"
+    },
+    "play_video": "Video abspielen",
+    "mobile_menu": "Mobile Navigation",
+    "breadcrumbs": {
+      "home": "Startseite",
+      "collections": "Kategorien"
     }
   },
   "newsletter": {
@@ -526,5 +532,9 @@
       "expanded": "Formular für den Empfänger des Gutscheins erweitert",
       "collapsed": "Formular für den Empfänger des Gutscheins minimiert"
     }
+  },
+  "wishlist": {
+    "add": "Zur Wunschliste hinzufügen",
+    "view": "Wunschliste anzeigen"
   }
 }

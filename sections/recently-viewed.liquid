@@ -47,11 +47,14 @@
 
 {% schema %}
 {
-  "name": "Recently viewed",
+  "name": "t:sections.recently-viewed.name",
   "tag": "section",
   "class": "section",
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   },
   "settings": [
     {
@@ -277,29 +280,53 @@
       "type": "checkbox",
       "id": "show_review_widget",
       "default": true,
-      "label": "Show review widget"
+      "label": "t:sections.all.review_widget.show.label"
     },
     {
       "type": "select",
       "id": "review_widget_size",
-      "label": "Review Widget Size",
+      "label": "t:sections.all.review_widget.size.label",
       "options": [
-        { "value": "", "label": "Use Theme Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "medium", "label": "Medium" },
-        { "value": "large", "label": "Large" }
+        {
+          "value": "",
+          "label": "t:sections.all.review_widget.size.options__default.label"
+        },
+        {
+          "value": "small",
+          "label": "t:sections.all.review_widget.size.options__small.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.all.review_widget.size.options__medium.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.all.review_widget.size.options__large.label"
+        }
       ],
       "default": ""
     },
     {
       "type": "select",
       "id": "ribbon_size",
-      "label": "Ribbon Size",
+      "label": "t:sections.all.ribbon.size.label",
       "options": [
-        { "value": "", "label": "Use Theme Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "medium", "label": "Medium" },
-        { "value": "large", "label": "Large" }
+        {
+          "value": "",
+          "label": "t:sections.all.ribbon.size.options__default.label"
+        },
+        {
+          "value": "small",
+          "label": "t:sections.all.ribbon.size.options__small.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.all.ribbon.size.options__medium.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.all.ribbon.size.options__large.label"
+        }
       ],
       "default": ""
     },
@@ -342,13 +369,13 @@
           "label": "t:sections.featured-collection.settings.columns_mobile.options__2.label"
         }
       ]
-    },    
+    },
     {
       "type": "checkbox",
       "id": "swipe_on_mobile",
       "default": false,
       "label": "t:sections.featured-collection.settings.swipe_on_mobile.label"
-    },          
+    },
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
@@ -376,7 +403,7 @@
   ],
   "presets": [
     {
-      "name": "Recently viewed"
+      "name": "t:sections.recently-viewed.presets.name"
     }
   ]
 }

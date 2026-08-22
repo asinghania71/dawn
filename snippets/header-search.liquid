@@ -99,7 +99,13 @@
                   <ul class="list-unstyled search-modal__featured-products grid grid--2-col grid--4-col-desktop">
                     {%- for product in settings.predictive_search_featured_collection.products limit: 4 -%}
                       <li class="grid__item">
-                        {% render 'card-product', card_product: product, show_quick_add: settings.predictive_search_quick_add, section_id: 'predictive-search-empty' %}
+                        {% render 'card-product',
+                          card_product: product,
+                          show_quick_add: settings.predictive_search_quick_add,
+                          show_vendor: settings.predictive_search_show_vendor,
+                          show_price: settings.predictive_search_show_price,
+                          section_id: 'predictive-search-empty'
+                        %}
                       </li>
                     {%- endfor -%}
                   </ul>

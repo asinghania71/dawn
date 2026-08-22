@@ -55,6 +55,12 @@
       "next_slide": "Faire glisser vers la droite",
       "previous_slide": "Faire glisser vers la gauche",
       "name": "Carrousel"
+    },
+    "play_video": "Lire la vidéo",
+    "mobile_menu": "Navigation mobile",
+    "breadcrumbs": {
+      "home": "Accueil",
+      "collections": "Collections"
     }
   },
   "newsletter": {
@@ -538,5 +544,9 @@
       "expanded": "Formulaire de destinataire de carte-cadeau agrandi",
       "collapsed": "Formulaire de destinataire de carte-cadeau réduit"
     }
+  },
+  "wishlist": {
+    "add": "Ajouter aux favoris",
+    "view": "Voir les favoris"
   }
 }

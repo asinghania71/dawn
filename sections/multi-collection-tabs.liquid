@@ -2,17 +2,13 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'quick-add.css' | asset_url | stylesheet_tag }}
 {{ 'multi-collection-tabs.css' | asset_url | stylesheet_tag }}
 
-<script src="{{ 'multi-collection-tabs.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-
-
-{{ 'quick-add.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'multi-collection-tabs.js' | asset_url }}" defer="defer"></script>
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -34,16 +30,22 @@
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} isolate gradient section-{{ section.id }}-tabs">
-  <div class="collection section-{{ section.id }}-padding">
+  <div class="collection section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}">
     
+    {%- liquid
+      assign heading_classes = 'collection__title'
+      unless section.settings.full_width
+        assign heading_classes = heading_classes | append: ' page-width'
+      endunless
+    -%}
     {% render 'section-heading',
       title: section.settings.title,
       heading_size: section.settings.heading_size,
       heading_alignment: section.settings.heading_alignment,
       description: section.settings.description,
       description_style: section.settings.description_style,
-      description_alignment: section.settings.description_alignment,
-      wrapper_classes: 'collection__title page-width'
+      description_alignment: section.settings.heading_alignment,
+      wrapper_classes: heading_classes
     %}
 
     <multi-collection-tabs data-pagination-type="{{ section.settings.pagination_type }}" data-limit="{{ section.settings.products_limit }}">
@@ -82,13 +84,20 @@
 
 {% schema %}
 {
-  "name": "Multi-Collection Tabs",
+  "name": "t:sections.multi-collection-tabs.name",
   "tag": "section",
   "class": "section",
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   },
   "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.featured-collection.settings.header.content"
+    },
     {
       "type": "inline_richtext",
       "id": "title",
@@ -122,47 +131,72 @@
       "options": [
         {
           "value": "left",
-          "label": "Left"
+          "label": "t:sections.all.heading_alignment.options__1.label"
         },
         {
           "value": "center",
-          "label": "Center"
+          "label": "t:sections.all.heading_alignment.options__2.label"
         },
         {
           "value": "right",
-          "label": "Right"
+          "label": "t:sections.all.heading_alignment.options__3.label"
         }
       ],
       "default": "center"
     },
     {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.featured-collection.settings.description.label"
+    },
+    {
+      "type": "select",
+      "id": "description_style",
+      "label": "t:sections.featured-collection.settings.description_style.label",
+      "options": [
+        {
+          "value": "body",
+          "label": "t:sections.featured-collection.settings.description_style.options__1.label"
+        },
+        {
+          "value": "subtitle",
+          "label": "t:sections.featured-collection.settings.description_style.options__2.label"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.featured-collection.settings.description_style.options__3.label"
+        }
+      ],
+      "default": "body"
+    },
+    {
       "type": "header",
-      "content": "Tab Styles"
+      "content": "t:sections.multi-collection-tabs.headers.tab_styles.content"
     },
     {
       "type": "select",
       "id": "tab_image_shape",
-      "label": "Image shape",
+      "label": "t:sections.multi-collection-tabs.settings.tab_image_shape.label",
       "options": [
         {
           "value": "circle",
-          "label": "Circle"
+          "label": "t:sections.multi-collection-tabs.settings.tab_image_shape.options__circle.label"
         },
         {
           "value": "rounded",
-          "label": "Rounded"
+          "label": "t:sections.multi-collection-tabs.settings.tab_image_shape.options__rounded.label"
         },
         {
           "value": "square",
-          "label": "Square"
+          "label": "t:sections.multi-collection-tabs.settings.tab_image_shape.options__square.label"
         },
         {
           "value": "landscape",
-          "label": "Landscape (Rectangular)"
+          "label": "t:sections.multi-collection-tabs.settings.tab_image_shape.options__landscape.label"
         },
         {
           "value": "portrait",
-          "label": "Portrait (Rectangular)"
+          "label": "t:sections.multi-collection-tabs.settings.tab_image_shape.options__portrait.label"
         }
       ],
       "default": "circle"
@@ -174,7 +208,7 @@
       "max": 150,
       "step": 5,
       "unit": "px",
-      "label": "Image size (desktop)",
+      "label": "t:sections.multi-collection-tabs.settings.tab_image_size.label",
       "default": 90
     },
     {
@@ -184,8 +218,49 @@
       "max": 120,
       "step": 5,
       "unit": "px",
-      "label": "Image size (mobile)",
+      "label": "t:sections.multi-collection-tabs.settings.tab_image_size_mobile.label",
       "default": 70
+    },
+    {
+      "type": "header",
+      "content": "t:sections.multi-collection-tabs.headers.grid_pagination.content"
+    },
+    {
+      "type": "select",
+      "id": "pagination_type",
+      "label": "t:sections.multi-collection-tabs.settings.pagination_type.label",
+      "options": [
+        {
+          "value": "pages",
+          "label": "t:sections.multi-collection-tabs.settings.pagination_type.options__pages.label"
+        },
+        {
+          "value": "load_more",
+          "label": "t:sections.multi-collection-tabs.settings.pagination_type.options__load_more.label"
+        },
+        {
+          "value": "infinite",
+          "label": "t:sections.multi-collection-tabs.settings.pagination_type.options__infinite.label"
+        },
+        {
+          "value": "none",
+          "label": "t:sections.multi-collection-tabs.settings.pagination_type.options__none.label"
+        }
+      ],
+      "default": "load_more"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 4,
+      "max": 36,
+      "step": 4,
+      "default": 8,
+      "label": "t:sections.multi-collection-tabs.settings.products_limit.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.multi-collection-tabs.headers.layout_colors.content"
     },
     {
       "type": "checkbox",
@@ -223,61 +298,36 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
-    },
-    {
-      "type": "header",
-      "content": "Grid & Pagination"
-    },
-    {
-      "type": "select",
-      "id": "pagination_type",
-      "label": "Pagination style",
-      "options": [
-        { "value": "pages", "label": "Page numbers (AJAX)" },
-        { "value": "load_more", "label": "Load more button" },
-        { "value": "infinite", "label": "Infinite scroll" },
-        { "value": "none", "label": "None (Show limited products)" }
-      ],
-      "default": "load_more"
-    },
-    {
-      "type": "range",
-      "id": "products_limit",
-      "min": 4,
-      "max": 36,
-      "step": 4,
-      "default": 8,
-      "label": "Products per tab (initial load)"
     }
   ],
   "blocks": [
     {
       "type": "collection",
-      "name": "Collection Tab",
+      "name": "t:sections.multi-collection-tabs.blocks.collection.name",
       "settings": [
         {
           "type": "collection",
           "id": "collection",
-          "label": "Collection"
+          "label": "t:sections.multi-collection-tabs.blocks.collection.settings.collection.label"
         },
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Custom Image",
-          "info": "Overrides the collection image. Circle shape applied automatically."
+          "label": "t:sections.multi-collection-tabs.blocks.collection.settings.image.label",
+          "info": "t:sections.multi-collection-tabs.blocks.collection.settings.image.info"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Custom Title",
-          "info": "Overrides the collection title."
+          "label": "t:sections.multi-collection-tabs.blocks.collection.settings.title.label",
+          "info": "t:sections.multi-collection-tabs.blocks.collection.settings.title.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Multi-Collection Tabs",
+      "name": "t:sections.multi-collection-tabs.presets.name",
       "blocks": [
         {
           "type": "collection"

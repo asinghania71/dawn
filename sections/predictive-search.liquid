@@ -136,7 +136,13 @@
                   role="option"
                   aria-selected="false"
                 >
-                  {% render 'card-product', card_product: product, show_quick_add: settings.predictive_search_quick_add, section_id: 'predictive-search-results' %}
+                  {% render 'card-product',
+                    card_product: product,
+                    show_quick_add: settings.predictive_search_quick_add,
+                    show_vendor: settings.predictive_search_show_vendor,
+                    show_price: settings.predictive_search_show_price,
+                    section_id: 'predictive-search-results'
+                  %}
                 </li>
               {%- endfor -%}
             </ul>

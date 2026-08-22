@@ -83,75 +83,95 @@
 
 {% schema %}
 {
-  "name": "Before & After Slider",
+  "name": "t:sections.before-after-slider.name",
   "tag": "section",
   "class": "section",
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   },
   "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.featured-collection.settings.header.content"
+    },
     {
       "type": "inline_richtext",
       "id": "title",
       "default": "See the results",
-      "label": "Heading"
+      "label": "t:sections.featured-collection.settings.title.label"
     },
     {
       "type": "select",
       "id": "heading_size",
       "options": [
-        { "value": "h2", "label": "Small" },
-        { "value": "h1", "label": "Medium" },
-        { "value": "h0", "label": "Large" }
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
       ],
       "default": "h1",
-      "label": "Heading size"
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.before-after-slider.headers.before_image.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_before",
+      "label": "t:sections.before-after-slider.settings.image_before.label"
+    },
+    {
+      "type": "text",
+      "id": "label_before",
+      "label": "t:sections.before-after-slider.settings.label_before.label",
+      "default": "Before"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.before-after-slider.headers.after_image.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_after",
+      "label": "t:sections.before-after-slider.settings.image_after.label"
+    },
+    {
+      "type": "text",
+      "id": "label_after",
+      "label": "t:sections.before-after-slider.settings.label_after.label",
+      "default": "After"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.multi-collection-tabs.headers.layout_colors.content"
     },
     {
       "type": "checkbox",
       "id": "full_width",
-      "label": "Make section full width",
+      "label": "t:sections.featured-collection.settings.full_width.label",
       "default": false
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.colors.label",
       "default": "scheme-1"
     },
     {
       "type": "header",
-      "content": "Before Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_before",
-      "label": "Before Image"
-    },
-    {
-      "type": "text",
-      "id": "label_before",
-      "label": "Before Label",
-      "default": "Before"
-    },
-    {
-      "type": "header",
-      "content": "After Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_after",
-      "label": "After Image"
-    },
-    {
-      "type": "text",
-      "id": "label_after",
-      "label": "After Label",
-      "default": "After"
-    },
-    {
-      "type": "header",
-      "content": "Section Padding"
+      "content": "t:sections.all.padding.section_padding_heading"
     },
     {
       "type": "range",
@@ -160,7 +180,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Top padding",
+      "label": "t:sections.all.padding.padding_top",
       "default": 36
     },
     {
@@ -170,13 +190,13 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Bottom padding",
+      "label": "t:sections.all.padding.padding_bottom",
       "default": 36
     }
   ],
   "presets": [
     {
-      "name": "Before & After Slider"
+      "name": "t:sections.before-after-slider.presets.name"
     }
   ]
 }
