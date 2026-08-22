@@ -1,0 +1,222 @@
+{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+{{ 'section-scrolling-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% if section.settings.image_height == 'small' %}
+    #ScrollingBanner-{{ section.id }} .scrolling-banner-section {
+      --section-banner-height: 42rem;
+      --section-banner-height-mobile: 28rem;
+    }
+  {% elsif section.settings.image_height == 'medium' %}
+    #ScrollingBanner-{{ section.id }} .scrolling-banner-section {
+      --section-banner-height: 56rem;
+      --section-banner-height-mobile: 34rem;
+    }
+  {% elsif section.settings.image_height == 'large' %}
+    #ScrollingBanner-{{ section.id }} .scrolling-banner-section {
+      --section-banner-height: 72rem;
+      --section-banner-height-mobile: 39rem;
+    }
+  {% elsif section.settings.image_height == 'viewport' %}
+    #ScrollingBanner-{{ section.id }} .scrolling-banner-section {
+      --section-banner-height: 100vh;
+      --section-banner-height-mobile: 100vh;
+    }
+  {% endif %}
+  
+  {%- for block in section.blocks -%}
+    #Slide-{{ section.id }}-{{ forloop.index }}::after {
+      opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.0 }};
+    }
+  {%- endfor -%}
+{%- endstyle -%}
+
+<div id="ScrollingBanner-{{ section.id }}" class="scrolling-banner-container">
+  <div class="scrolling-banner-section">
+    <div class="scrolling-banner__track">
+      {%- for block in section.blocks -%}
+        <div id="Slide-{{ section.id }}-{{ forloop.index }}" class="scrolling-banner__item banner" {{ block.shopify_attributes }}>
+          
+          {%- if block.settings.image != blank -%}
+            <div class="banner__media media">
+              {{ block.settings.image | image_url: width: 3840 | image_tag: loading: 'lazy', class: 'banner__media-image', widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840' }}
+            </div>
+          {%- else -%}
+            <div class="banner__media media placeholder">
+              {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+
+          <div class="banner__content banner__content--{{ block.settings.desktop_content_position }} page-width">
+            <div class="banner__box content-container color-{{ block.settings.color_scheme }} gradient">
+              {%- if block.settings.heading != blank -%}
+                <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
+                  {{ block.settings.heading }}
+                </h2>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <div class="banner__text rte">
+                  <p>{{ block.settings.text }}</p>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.button_label != blank -%}
+                <div class="banner__buttons">
+                  <a {% if block.settings.button_link == blank %} role="link" aria-disabled="true" {% else %} href="{{ block.settings.button_link }}" {% endif %} class="button button--primary">
+                    {{ block.settings.button_label | escape }}
+                  </a>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Vertical slideshow",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_height",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "viewport",
+          "label": "Full screen (100vh)"
+        }
+      ],
+      "default": "viewport",
+      "label": "Banner height"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "range",
+          "id": "image_overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "%",
+          "label": "Image overlay opacity",
+          "default": 0
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:sections.all.colors.label",
+          "default": "scheme-1"
+        },
+        {
+          "type": "select",
+          "id": "desktop_content_position",
+          "options": [
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-center", "label": "Top center" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "middle-left", "label": "Middle left" },
+            { "value": "middle-center", "label": "Middle center" },
+            { "value": "middle-right", "label": "Middle right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-center", "label": "Bottom center" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ],
+          "default": "middle-center",
+          "label": "Desktop content position"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Image banner",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            { "value": "h2", "label": "Small" },
+            { "value": "h1", "label": "Medium" },
+            { "value": "h0", "label": "Large" },
+            { "value": "hxl", "label": "Extra large" }
+          ],
+          "default": "h1",
+          "label": "Heading size"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "Give customers details about the banner image(s) or content on the template.",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vertical slideshow",
+      "settings": {
+        "image_height": "viewport"
+      },
+      "blocks": [
+        {
+          "type": "banner",
+          "settings": {
+            "heading": "Premium Quality"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "heading": "Free Shipping"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "heading": "Secure Checkout"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

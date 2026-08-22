@@ -5,6 +5,10 @@
 {{ 'multi-collection-tabs.css' | asset_url | stylesheet_tag }}
 
 <script src="{{ 'multi-collection-tabs.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
 
 {{ 'quick-add.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
@@ -42,7 +46,7 @@
       wrapper_classes: 'collection__title page-width'
     %}
 
-    <multi-collection-tabs>
+    <multi-collection-tabs data-pagination-type="{{ section.settings.pagination_type }}" data-limit="{{ section.settings.products_limit }}">
       <div class="page-width">
         <ul class="multi-collection-tabs__list list-unstyled" role="tablist">
           {%- for block in section.blocks -%}
@@ -219,6 +223,31 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Grid & Pagination"
+    },
+    {
+      "type": "select",
+      "id": "pagination_type",
+      "label": "Pagination style",
+      "options": [
+        { "value": "pages", "label": "Page numbers (AJAX)" },
+        { "value": "load_more", "label": "Load more button" },
+        { "value": "infinite", "label": "Infinite scroll" },
+        { "value": "none", "label": "None (Show limited products)" }
+      ],
+      "default": "load_more"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 4,
+      "max": 36,
+      "step": 4,
+      "default": 8,
+      "label": "Products per tab (initial load)"
     }
   ],
   "blocks": [

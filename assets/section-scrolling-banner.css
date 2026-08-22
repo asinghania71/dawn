@@ -1,0 +1,46 @@
+.scrolling-banner-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: var(--section-banner-height-mobile, 100vh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-y: contain; /* Prevents pull-to-refresh on mobile inside the container, but allows scroll chaining */
+}
+
+/* Allow chaining so when user hits the end, page scrolls */
+.scrolling-banner-section {
+  overscroll-behavior-y: auto;
+}
+
+.scrolling-banner-section::-webkit-scrollbar {
+  display: none;
+}
+
+.scrolling-banner__track {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.scrolling-banner__item {
+  width: 100%;
+  height: var(--section-banner-height-mobile, 100vh);
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+}
+
+@media screen and (min-width: 750px) {
+  .scrolling-banner-section {
+    height: var(--section-banner-height, 100vh);
+  }
+  .scrolling-banner__item {
+    height: var(--section-banner-height, 100vh);
+  }
+}

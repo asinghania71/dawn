@@ -5,19 +5,47 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement-bar-0": {
+        "countdown": {
+          "type": "countdown",
+          "settings": {
+            "text": "Flash Sale ends in:",
+            "end_date": "2026-12-31",
+            "end_time": "23:59"
+          }
+        },
+        "cart_goal": {
+          "type": "cart_goal",
+          "settings": {
+            "threshold": 100,
+            "progress_text": "You are [amount] away from Free Shipping",
+            "success_text": "You unlocked Free Shipping!",
+            "text_color": "#ffffff",
+            "success_color": "#22c55e"
+          }
+        },
+        "announcement": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "Welcome to our Premium Store",
             "text_alignment": "center",
-            "color_scheme": "scheme-1",
-            "link": ""
+            "color_scheme": "scheme-1"
           }
         }
       },
       "block_order": [
-        "announcement-bar-0"
-      ]
+        "countdown",
+        "cart_goal",
+        "announcement"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "show_line_separator": true,
+        "header_separator_color": "rgba(255,255,255,0.1)",
+        "dismissible": true,
+        "display_mode": "slider",
+        "auto_rotate": true,
+        "slider_speed": 4
+      }
     },
     "header": {
       "type": "header",

@@ -297,7 +297,7 @@ class FacetFiltersForm extends HTMLElement {
 FacetFiltersForm.filterData = [];
 FacetFiltersForm.searchParamsInitial = window.location.search.slice(1);
 FacetFiltersForm.searchParamsPrev = window.location.search.slice(1);
-customElements.define('facet-filters-form', FacetFiltersForm);
+if (!customElements.get('facet-filters-form')) customElements.define('facet-filters-form', FacetFiltersForm);
 FacetFiltersForm.setListeners();
 
 class PriceRange extends HTMLElement {
@@ -342,7 +342,7 @@ class PriceRange extends HTMLElement {
   }
 }
 
-customElements.define('price-range', PriceRange);
+if (!customElements.get('price-range')) customElements.define('price-range', PriceRange);
 
 class FacetRemove extends HTMLElement {
   constructor() {
@@ -363,4 +363,4 @@ class FacetRemove extends HTMLElement {
   }
 }
 
-customElements.define('facet-remove', FacetRemove);
+if (!customElements.get('facet-remove')) customElements.define('facet-remove', FacetRemove);
