@@ -9,8 +9,6 @@
  */
 {
   "current": {
-    "review_widget_color_scheme": "scheme-3",
-    "review_widget_opacity": 90,
     "logo_width": 90,
     "type_header_font": "assistant_n4",
     "heading_scale": 100,
@@ -105,6 +103,8 @@
     "badge_corner_radius": 40,
     "sale_badge_color_scheme": "scheme-5",
     "sold_out_badge_color_scheme": "scheme-3",
+    "review_widget_color_scheme": "scheme-3",
+    "review_widget_opacity": 90,
     "social_facebook_link": "",
     "social_instagram_link": "",
     "social_youtube_link": "",
@@ -121,8 +121,8 @@
     "cart_type": "drawer",
     "show_vendor": false,
     "show_cart_note": false,
-    "free_shipping_progress_color": "#FF0000",
-    "free_shipping_text_color": "#FF0000",
+    "free_shipping_progress_color": "#0000FF",
+    "free_shipping_text_color": "#0000FF",
     "free_shipping_threshold": "1299",
     "cart_drawer_collection": "",
     "sections": {
