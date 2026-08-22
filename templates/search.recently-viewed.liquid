@@ -5,10 +5,11 @@
       <li class="grid__item" data-handle="{{ product.handle }}">
         {% render 'card-product',
           card_product: product,
-          media_aspect_ratio: settings.wishlist_image_ratio,
+          media_aspect_ratio: 'adapt',
           show_secondary_image: true,
-          show_vendor: settings.wishlist_show_vendor,
-          show_rating: settings.wishlist_show_rating
+          show_vendor: false,
+          show_rating: false,
+          show_review_widget: true
         %}
       </li>
     {% endfor %}

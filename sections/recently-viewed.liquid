@@ -24,14 +24,14 @@
     }
   }
 
-  {%- unless request.design_mode or search.performed -%}
-    #shopify-section-{{ section.id }} {
-      display: none;
+  {%- unless request.design_mode -%}
+    .recently-viewed-section:not(.is-active) {
+      display: none !important;
     }
   {%- endunless -%}
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} isolate gradient" id="recently-viewed-wrapper-{{ section.id }}" {% unless request.design_mode or search.performed %}style="display: none;"{% endunless %}>
+<div class="color-{{ section.settings.color_scheme }} isolate gradient recently-viewed-section" id="recently-viewed-wrapper-{{ section.id }}">
   <div class="collection section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}">
     {% render 'section-heading',
       title: section.settings.title,

@@ -40,18 +40,18 @@ if (!customElements.get('recently-viewed-products')) {
     }
 
     _hideSection() {
-      if (document.body.classList.contains('shopify-design-mode')) return;
+      if (document.body.classList.contains('shopify-design-mode') || window.Shopify?.designMode) return;
       const sectionEl = this.closest('.shopify-section') || document.getElementById(`shopify-section-${this.dataset.sectionId}`);
-      if (sectionEl) sectionEl.style.display = 'none';
-      const wrapper = this.closest('.isolate') || document.getElementById(`recently-viewed-wrapper-${this.dataset.sectionId}`);
-      if (wrapper) wrapper.style.display = 'none';
+      if (sectionEl) sectionEl.classList.remove('is-active');
+      const wrapper = this.closest('.recently-viewed-section') || document.getElementById(`recently-viewed-wrapper-${this.dataset.sectionId}`);
+      if (wrapper) wrapper.classList.remove('is-active');
     }
 
     _showSection() {
       const sectionEl = this.closest('.shopify-section') || document.getElementById(`shopify-section-${this.dataset.sectionId}`);
-      if (sectionEl) sectionEl.style.display = '';
-      const wrapper = this.closest('.isolate') || document.getElementById(`recently-viewed-wrapper-${this.dataset.sectionId}`);
-      if (wrapper) wrapper.style.display = '';
+      if (sectionEl) sectionEl.classList.add('is-active');
+      const wrapper = this.closest('.recently-viewed-section') || document.getElementById(`recently-viewed-wrapper-${this.dataset.sectionId}`);
+      if (wrapper) wrapper.classList.add('is-active');
     }
 
     async init() {
@@ -65,8 +65,16 @@ if (!customElements.get('recently-viewed-products')) {
         }
 
         // 0. Filter out current product if on a product page
+        let currentHandle = null;
         const currentTracker = document.querySelector('product-tracker');
-        const currentHandle = currentTracker ? currentTracker.dataset.productHandle : null;
+        if (currentTracker && currentTracker.dataset.productHandle) {
+          currentHandle = currentTracker.dataset.productHandle;
+        } else if (window.location.pathname.includes('/products/')) {
+          const parts = window.location.pathname.split('/products/');
+          if (parts[1]) {
+            currentHandle = parts[1].split('/')[0].split('?')[0];
+          }
+        }
         if (currentHandle) {
           recentlyViewed = recentlyViewed.filter(handle => handle !== currentHandle);
         }
@@ -88,8 +96,8 @@ if (!customElements.get('recently-viewed-products')) {
 
         const query = encodeURIComponent(queryToFetch.map(handle => `handle:${handle}`).join(' OR '));
 
-        // 2. Fetch section HTML using Section Rendering API
-        const searchUrl = `${(window.routes && window.routes.search_url) || '/search'}?q=${query}&type=product&section_id=${this.dataset.sectionId}`;
+        // 2. Fetch section HTML using search.recently-viewed template
+        const searchUrl = `${(window.routes && window.routes.search_url) || '/search'}?q=${query}&type=product&view=recently-viewed`;
 
         const response = await fetch(searchUrl);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -97,7 +105,7 @@ if (!customElements.get('recently-viewed-products')) {
         const html = document.createElement('div');
         html.innerHTML = text;
 
-        // 3. Extract the product grid list from the rendered section
+        // 3. Extract the product grid list from the rendered template
         const productGrid = html.querySelector('.grid.product-grid');
 
         if (productGrid && productGrid.children.length > 0) {
