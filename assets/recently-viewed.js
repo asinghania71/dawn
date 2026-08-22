@@ -3,21 +3,29 @@ if (!customElements.get('product-tracker')) {
     connectedCallback() {
       const productHandle = this.dataset.productHandle;
       if (!productHandle) return;
-  
-      let recentlyViewed = JSON.parse(localStorage.getItem('dawn_recently_viewed') || '[]');
-      
+
+      let recentlyViewed = [];
+      try {
+        recentlyViewed = JSON.parse(localStorage.getItem('dawn_recently_viewed') || '[]');
+        if (!Array.isArray(recentlyViewed)) recentlyViewed = [];
+      } catch (e) {
+        recentlyViewed = [];
+      }
+
       // Remove if already exists to move it to the front
       recentlyViewed = recentlyViewed.filter(handle => handle !== productHandle);
-      
+
       // Add to front
       recentlyViewed.unshift(productHandle);
-      
+
       // Keep only the last 12
       if (recentlyViewed.length > 12) {
         recentlyViewed.pop();
       }
-      
-      localStorage.setItem('dawn_recently_viewed', JSON.stringify(recentlyViewed));
+
+      try {
+        localStorage.setItem('dawn_recently_viewed', JSON.stringify(recentlyViewed));
+      } catch (e) {}
     }
   }
   customElements.define('product-tracker', ProductTracker);
@@ -31,37 +39,67 @@ if (!customElements.get('recently-viewed-products')) {
       this.init();
     }
 
+    _hideSection() {
+      if (document.body.classList.contains('shopify-design-mode')) return;
+      const sectionEl = this.closest('.shopify-section') || document.getElementById(`shopify-section-${this.dataset.sectionId}`);
+      if (sectionEl) sectionEl.style.display = 'none';
+      const wrapper = this.closest('.isolate') || document.getElementById(`recently-viewed-wrapper-${this.dataset.sectionId}`);
+      if (wrapper) wrapper.style.display = 'none';
+    }
+
+    _showSection() {
+      const sectionEl = this.closest('.shopify-section') || document.getElementById(`shopify-section-${this.dataset.sectionId}`);
+      if (sectionEl) sectionEl.style.display = '';
+      const wrapper = this.closest('.isolate') || document.getElementById(`recently-viewed-wrapper-${this.dataset.sectionId}`);
+      if (wrapper) wrapper.style.display = '';
+    }
+
     async init() {
       try {
-        let recentlyViewed = JSON.parse(localStorage.getItem('dawn_recently_viewed') || '[]');
-        
-        if (recentlyViewed.length === 0) {
-          this.innerHTML = '';
-          return;
+        let recentlyViewed = [];
+        try {
+          recentlyViewed = JSON.parse(localStorage.getItem('dawn_recently_viewed') || '[]');
+          if (!Array.isArray(recentlyViewed)) recentlyViewed = [];
+        } catch (e) {
+          recentlyViewed = [];
         }
 
-        // 0. Filter out current product
+        // 0. Filter out current product if on a product page
         const currentTracker = document.querySelector('product-tracker');
         const currentHandle = currentTracker ? currentTracker.dataset.productHandle : null;
         if (currentHandle) {
           recentlyViewed = recentlyViewed.filter(handle => handle !== currentHandle);
         }
 
+        // If no recently viewed products remain, hide section and exit immediately
+        if (recentlyViewed.length === 0) {
+          this.innerHTML = '';
+          this._hideSection();
+          return;
+        }
+
         // 1. Build batched handle query
         const queryToFetch = recentlyViewed.slice(0, this.limit);
+        if (queryToFetch.length === 0) {
+          this.innerHTML = '';
+          this._hideSection();
+          return;
+        }
+
         const query = encodeURIComponent(queryToFetch.map(handle => `handle:${handle}`).join(' OR '));
-        
+
         // 2. Fetch section HTML using Section Rendering API
         const searchUrl = `${(window.routes && window.routes.search_url) || '/search'}?q=${query}&type=product&section_id=${this.dataset.sectionId}`;
 
         const response = await fetch(searchUrl);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const text = await response.text();
         const html = document.createElement('div');
         html.innerHTML = text;
 
         // 3. Extract the product grid list from the rendered section
         const productGrid = html.querySelector('.grid.product-grid');
-        
+
         if (productGrid && productGrid.children.length > 0) {
           // 4. Sort nodes to match the exact chronological sequence in our array
           const sortedNodes = [];
@@ -72,27 +110,38 @@ if (!customElements.get('recently-viewed-products')) {
             if (matchedNode) sortedNodes.push(matchedNode);
           });
 
-          // 5. Clear and inject into existing grid
-          const existingGrid = this.querySelector('.grid');
-          if (existingGrid) {
-            const isSlider = existingGrid.classList.contains('slider');
-            existingGrid.innerHTML = '';
-            sortedNodes.forEach(node => {
-              if (isSlider) node.classList.add('slider__slide');
-              existingGrid.appendChild(node);
-            });
-            this.removeAttribute('hidden');
-            
-            // Unhide the outer section wrapper
-            const wrapper = this.closest('.isolate');
-            if (wrapper) wrapper.style.display = '';
+          if (sortedNodes.length > 0) {
+            // 5. Clear and inject into existing grid
+            const existingGrid = this.querySelector('.grid');
+            if (existingGrid) {
+              const isSlider = existingGrid.classList.contains('slider');
+              existingGrid.innerHTML = '';
+              sortedNodes.forEach(node => {
+                if (isSlider) node.classList.add('slider__slide');
+                existingGrid.appendChild(node);
+              });
+              this.removeAttribute('hidden');
+              this._showSection();
+
+              const sliderComponent = this.querySelector('slider-component');
+              if (sliderComponent && typeof sliderComponent.resetPages === 'function') {
+                sliderComponent.resetPages();
+              }
+            } else {
+              this._hideSection();
+            }
+          } else {
+            this.innerHTML = '';
+            this._hideSection();
           }
         } else {
           this.innerHTML = '';
+          this._hideSection();
         }
       } catch (e) {
         console.error('Failed to load recently viewed products', e);
         this.innerHTML = '';
+        this._hideSection();
       }
     }
   }

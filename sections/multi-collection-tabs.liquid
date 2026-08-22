@@ -32,12 +32,6 @@
 <div class="color-{{ section.settings.color_scheme }} isolate gradient section-{{ section.id }}-tabs">
   <div class="collection section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}">
     
-    {%- liquid
-      assign heading_classes = 'collection__title'
-      unless section.settings.full_width
-        assign heading_classes = heading_classes | append: ' page-width'
-      endunless
-    -%}
     {% render 'section-heading',
       title: section.settings.title,
       heading_size: section.settings.heading_size,
@@ -45,7 +39,7 @@
       description: section.settings.description,
       description_style: section.settings.description_style,
       description_alignment: section.settings.heading_alignment,
-      wrapper_classes: heading_classes
+      wrapper_classes: 'collection__title page-width'
     %}
 
     <multi-collection-tabs data-pagination-type="{{ section.settings.pagination_type }}" data-limit="{{ section.settings.products_limit }}">
@@ -73,7 +67,7 @@
         </ul>
       </div>
 
-      <div class="multi-collection-tabs__content page-width">
+      <div class="multi-collection-tabs__content">
         <div id="MultiCollectionGridContainer" class="multi-collection-tabs__pane active" style="min-height: 400px; position: relative;">
           {%- render 'loading-spinner' -%}
         </div>

@@ -16,96 +16,105 @@
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="shop-the-look section-{{ section.id }}-padding{% if section.settings.full_width %} shop-the-look--full-width{% else %} page-width{% endif %}">
+  <div class="shop-the-look section-{{ section.id }}-padding{% if section.settings.full_width %} shop-the-look--full-width{% endif %}">
     
     {%- if section.settings.title != blank -%}
-      <div class="shop-the-look__header page-width">
-        <h2 class="shop-the-look__heading {{ section.settings.heading_size }}">{{ section.settings.title }}</h2>
-      </div>
+      {% render 'section-heading',
+        title: section.settings.title,
+        heading_size: section.settings.heading_size,
+        wrapper_classes: 'shop-the-look__title page-width'
+      %}
     {%- endif -%}
 
-    <div class="shop-the-look__container">
-      <div class="shop-the-look__image-wrapper media media--transparent ratio" 
-        {% if section.settings.image != blank %}
-          style="--ratio-percent: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;"
-        {% else %}
-          style="--ratio-percent: 56.25%;"
-        {% endif %}
-      >
-        {%- if section.settings.image != blank -%}
-          {%- liquid
-            assign image_class = 'shop-the-look__image'
-            if section.settings.image_mobile != blank
-              assign image_class = image_class | append: ' small-hide'
-            endif
-          -%}
-          {{ section.settings.image | image_url: width: 3200 | image_tag: 
-            class: image_class,
-            widths: '320, 550, 750, 1100, 1500, 1920, 2560, 3200',
-            sizes: '100vw'
-          }}
-          {%- if section.settings.image_mobile != blank -%}
-            {{ section.settings.image_mobile | image_url: width: 1100 | image_tag: 
-              class: 'shop-the-look__image medium-hide large-up-hide',
-              widths: '320, 550, 750, 1100',
+    <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+      <div class="shop-the-look__container">
+        <div class="shop-the-look__image-wrapper media media--transparent ratio" 
+          {% if section.settings.image != blank %}
+            style="--ratio-percent: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;"
+          {% else %}
+            style="--ratio-percent: 56.25%;"
+          {% endif %}
+        >
+          {%- if section.settings.image != blank -%}
+            {%- liquid
+              assign image_class = 'shop-the-look__image'
+              if section.settings.image_mobile != blank
+                assign image_class = image_class | append: ' small-hide'
+              endif
+            -%}
+            {{ section.settings.image | image_url: width: 3200 | image_tag: 
+              class: image_class,
+              widths: '320, 550, 750, 1100, 1500, 1920, 2560, 3200',
               sizes: '100vw'
             }}
+            {%- if section.settings.image_mobile != blank -%}
+              {{ section.settings.image_mobile | image_url: width: 1100 | image_tag: 
+                class: 'shop-the-look__image medium-hide large-up-hide',
+                widths: '320, 550, 750, 1100',
+                sizes: '100vw'
+              }}
+            {%- endif -%}
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
           {%- endif -%}
-        {%- else -%}
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
-        {%- endif -%}
-      </div>
+        </div>
 
-      <shop-the-look class="shop-the-look__hotspots">
-        {%- for block in section.blocks -%}
-          {%- assign hotspot_product = block.settings.product -%}
-          {%- if hotspot_product != blank -%}
-            <div class="shop-the-look__hotspot" 
-              {{ block.shopify_attributes }}
-              style="--hotspot-x: {{ block.settings.horizontal_position }}%; --hotspot-y: {{ block.settings.vertical_position }}%;"
-            >
-              <button type="button" class="shop-the-look__hotspot-button" aria-expanded="false" aria-controls="ShopTheLook-Tooltip-{{ block.id }}" style="background-color: {{ block.settings.hotspot_color }};">
-                <span class="visually-hidden">Expand</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="14" height="14">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-              </button>
-
-              <div id="ShopTheLook-Tooltip-{{ block.id }}" class="shop-the-look__tooltip" aria-hidden="true">
-                <button type="button" class="shop-the-look__tooltip-close">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        <shop-the-look class="shop-the-look__hotspots">
+          {%- for block in section.blocks -%}
+            {%- assign hotspot_product = block.settings.product -%}
+            {%- if hotspot_product != blank -%}
+              <div class="shop-the-look__hotspot" 
+                {{ block.shopify_attributes }}
+                style="--hotspot-x: {{ block.settings.horizontal_position }}%; --hotspot-y: {{ block.settings.vertical_position }}%;"
+              >
+                <button type="button" class="shop-the-look__hotspot-button" aria-expanded="false" aria-controls="ShopTheLook-Tooltip-{{ block.id }}" style="background-color: {{ block.settings.hotspot_color }};">
+                  <span class="visually-hidden">Expand</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="14" height="14">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                   </svg>
                 </button>
-                <div class="shop-the-look__tooltip-content">
-                  <a href="{{ hotspot_product.url }}" class="shop-the-look__tooltip-image">
-                    {%- if hotspot_product.featured_image != blank -%}
-                      {{ hotspot_product.featured_image | image_url: width: 200 | image_tag: loading: 'lazy' }}
-                    {%- else -%}
-                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                    {%- endif -%}
-                  </a>
-                  <div class="shop-the-look__tooltip-info">
-                    <a href="{{ hotspot_product.url }}" class="shop-the-look__tooltip-title h5">{{ hotspot_product.title }}</a>
-                    <div class="shop-the-look__tooltip-price">{% render 'price', product: hotspot_product %}</div>
-                    
-                    {%- if hotspot_product.available -%}
-                      {%- form 'product', hotspot_product, class: 'shop-the-look__quick-add-form' -%}
-                        <input type="hidden" name="id" value="{{ hotspot_product.selected_or_first_available_variant.id }}">
-                        <button type="submit" class="button button--primary button--small shop-the-look__quick-add-button" name="add">
-                          <span>Add to cart</span>
+
+                <div id="ShopTheLook-Tooltip-{{ block.id }}" class="shop-the-look__tooltip" aria-hidden="true">
+                  <button type="button" class="shop-the-look__tooltip-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                  <div class="shop-the-look__tooltip-content">
+                    <div class="shop-the-look__tooltip-image">
+                      {%- if hotspot_product.featured_image != blank -%}
+                        {{ hotspot_product.featured_image | image_url: width: 200 | image_tag: loading: 'lazy' }}
+                      {%- else -%}
+                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {%- endif -%}
+                    </div>
+                    <div class="shop-the-look__tooltip-info">
+                      <a href="{{ hotspot_product.url }}" class="shop-the-look__tooltip-title">{{ hotspot_product.title }}</a>
+                      <div class="shop-the-look__tooltip-price">
+                        {% render 'price', product: hotspot_product, price_class: '' %}
+                      </div>
+                      {%- if hotspot_product.available -%}
+                        <product-form>
+                          {%- form 'product', hotspot_product, id: 'product-form-hotspot', class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                            <input type="hidden" name="id" value="{{ hotspot_product.selected_or_first_available_variant.id }}">
+                            <button type="submit" name="add" class="button button--secondary shop-the-look__quick-add-button">
+                              <span>{{ 'products.product.add_to_cart' | t }}</span>
+                            </button>
+                          {%- endform -%}
+                        </product-form>
+                      {%- else -%}
+                        <button type="button" class="button button--secondary shop-the-look__quick-add-button" disabled>
+                          <span>{{ 'products.product.sold_out' | t }}</span>
                         </button>
-                      {%- endform -%}
-                    {%- else -%}
-                      <button class="button button--primary button--small shop-the-look__quick-add-button" disabled>Sold out</button>
-                    {%- endif -%}
+                      {%- endif -%}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </shop-the-look>
+            {%- endif -%}
+          {%- endfor -%}
+        </shop-the-look>
+      </div>
     </div>
   </div>
 </div>

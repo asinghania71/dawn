@@ -24,7 +24,12 @@
   <div class="section-{{ section.id }}-padding{% if section.settings.full_width %} trust-badges-bar--full-width{% else %} page-width{% endif %}">
     
     {%- if section.settings.title != blank -%}
-      {% render 'section-heading', title: section.settings.title, heading_size: section.settings.heading_size, heading_alignment: section.settings.heading_alignment %}
+      {% render 'section-heading',
+        title: section.settings.title,
+        heading_size: section.settings.heading_size,
+        heading_alignment: section.settings.heading_alignment,
+        wrapper_classes: 'page-width'
+      %}
     {%- endif -%}
 
     <div class="trust-badges-bar__grid trust-badges-bar__grid--mobile-{{ section.settings.columns_mobile }}" style="--columns-desktop: {{ section.settings.columns_desktop }};">
