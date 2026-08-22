@@ -16,68 +16,72 @@
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="before-after section-{{ section.id }}-padding{% if section.settings.full_width %} before-after--full-width{% else %} page-width{% endif %}">
+  <div class="before-after section-{{ section.id }}-padding{% if section.settings.full_width %} before-after--full-width{% endif %}">
     
     {%- if section.settings.title != blank -%}
-      <div class="before-after__header page-width">
-        <h2 class="before-after__heading {{ section.settings.heading_size }}">{{ section.settings.title }}</h2>
-      </div>
+      {% render 'section-heading',
+        title: section.settings.title,
+        heading_size: section.settings.heading_size,
+        wrapper_classes: 'before-after__title page-width'
+      %}
     {%- endif -%}
 
-    <before-after-slider class="before-after__container" style="--percent: 50%;">
-      <div class="before-after__image-wrapper media media--transparent ratio"
-        {% if section.settings.image_before != blank %}
-          style="--ratio-percent: {{ 1 | divided_by: section.settings.image_before.aspect_ratio | times: 100 }}%;"
-        {% else %}
-          style="--ratio-percent: 56.25%;"
-        {% endif %}
-      >
-        <!-- Before Image (Bottom Layer) -->
-        <div class="before-after__layer before-after__layer--before">
-          {%- if section.settings.image_before != blank -%}
-            {{ section.settings.image_before | image_url: width: 3200 | image_tag: 
-              class: 'before-after__image',
-              widths: '320, 550, 750, 1100, 1500, 1920, 2560, 3200',
-              sizes: '100vw'
-            }}
-          {%- else -%}
-            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg before-after__image' }}
-          {%- endif -%}
-          {%- if section.settings.label_before != blank -%}
-            <span class="before-after__label before-after__label--before">{{ section.settings.label_before }}</span>
-          {%- endif -%}
-        </div>
-
-        <!-- After Image (Top Layer with clip-path) -->
-        <div class="before-after__layer before-after__layer--after">
-          {%- if section.settings.image_after != blank -%}
-            {{ section.settings.image_after | image_url: width: 3200 | image_tag: 
-              class: 'before-after__image',
-              widths: '320, 550, 750, 1100, 1500, 1920, 2560, 3200',
-              sizes: '100vw'
-            }}
-          {%- else -%}
-            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg before-after__image before-after__image--placeholder' }}
-          {%- endif -%}
-          {%- if section.settings.label_after != blank -%}
-            <span class="before-after__label before-after__label--after">{{ section.settings.label_after }}</span>
-          {%- endif -%}
-        </div>
-
-        <!-- Slider Handle -->
-        <div class="before-after__handle">
-          <div class="before-after__handle-line"></div>
-          <div class="before-after__handle-button">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L4.5 12m0 0l3.75-3m-3.75 3h15m-3.75 3l3.75-3m0 0l-3.75-3" />
-            </svg>
+    <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+      <before-after-slider class="before-after__container" style="--percent: 50%;">
+        <div class="before-after__image-wrapper media media--transparent ratio"
+          {% if section.settings.image_before != blank %}
+            style="--ratio-percent: {{ 1 | divided_by: section.settings.image_before.aspect_ratio | times: 100 }}%;"
+          {% else %}
+            style="--ratio-percent: 56.25%;"
+          {% endif %}
+        >
+          <!-- Before Image (Bottom Layer) -->
+          <div class="before-after__layer before-after__layer--before">
+            {%- if section.settings.image_before != blank -%}
+              {{ section.settings.image_before | image_url: width: 3200 | image_tag: 
+                class: 'before-after__image',
+                widths: '320, 550, 750, 1100, 1500, 1920, 2560, 3200',
+                sizes: '100vw'
+              }}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg before-after__image' }}
+            {%- endif -%}
+            {%- if section.settings.label_before != blank -%}
+              <span class="before-after__label before-after__label--before">{{ section.settings.label_before }}</span>
+            {%- endif -%}
           </div>
-        </div>
 
-        <!-- Hidden input for accessibility -->
-        <input type="range" class="before-after__range visually-hidden" min="0" max="100" value="50" aria-label="Percentage of before photo shown">
-      </div>
-    </before-after-slider>
+          <!-- After Image (Top Layer with clip-path) -->
+          <div class="before-after__layer before-after__layer--after">
+            {%- if section.settings.image_after != blank -%}
+              {{ section.settings.image_after | image_url: width: 3200 | image_tag: 
+                class: 'before-after__image',
+                widths: '320, 550, 750, 1100, 1500, 1920, 2560, 3200',
+                sizes: '100vw'
+              }}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg before-after__image before-after__image--placeholder' }}
+            {%- endif -%}
+            {%- if section.settings.label_after != blank -%}
+              <span class="before-after__label before-after__label--after">{{ section.settings.label_after }}</span>
+            {%- endif -%}
+          </div>
+
+          <!-- Slider Handle -->
+          <div class="before-after__handle">
+            <div class="before-after__handle-line"></div>
+            <div class="before-after__handle-button">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L4.5 12m0 0l3.75-3m-3.75 3h15m-3.75 3l3.75-3m0 0l-3.75-3" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Hidden input for accessibility -->
+          <input type="range" class="before-after__range visually-hidden" min="0" max="100" value="50" aria-label="Percentage of before photo shown">
+        </div>
+      </before-after-slider>
+    </div>
   </div>
 </div>
 

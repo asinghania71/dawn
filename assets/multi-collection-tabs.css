@@ -165,3 +165,11 @@
     transform: translateY(0);
   }
 }
+
+/* Injected Grid Spacing Normalization */
+#MultiCollectionGridContainer .section-main-collection-product-grid-padding,
+#MultiCollectionGridContainer .facets-vertical {
+  padding-top: 1.5rem;
+  padding-bottom: 0;
+}
+
