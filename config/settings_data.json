@@ -122,9 +122,10 @@
     "show_vendor": false,
     "show_cart_note": false,
     "free_shipping_progress_color": "#0000FF",
-    "free_shipping_text_color": "#0000FF",
+    "free_shipping_text_color": "#000000",
     "free_shipping_threshold": "1299",
     "cart_drawer_collection": "",
+    "cart_color_scheme": "scheme-2",
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
