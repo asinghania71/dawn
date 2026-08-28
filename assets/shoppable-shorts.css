@@ -13,6 +13,7 @@
   box-shadow: var(--product-card-shadow-horizontal-offset, 0) var(--product-card-shadow-vertical-offset, 4px) var(--product-card-shadow-blur-radius, 20px) rgba(var(--color-shadow), var(--product-card-shadow-opacity, 0.05));
   overflow: hidden;
   display: block;
+  z-index: 1; /* Creates a stacking context so internal high z-indexes (like 4) don't overlap the sticky header (z-index 3) */
 }
 
 @media screen and (max-width: 749px) {

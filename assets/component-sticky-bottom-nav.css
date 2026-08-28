@@ -3,7 +3,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 1;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -28,6 +28,11 @@
 .sticky-bottom-nav.is-reduced .sticky-bottom-nav__text {
   font-size: 0.85rem;
   transition: font-size 0.3s ease;
+}
+
+/* Hide when drawers (menu, cart, filters) are open */
+body.overflow-hidden .sticky-bottom-nav {
+  display: none !important;
 }
 
 @media screen and (min-width: 750px) {
