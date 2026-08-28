@@ -5,23 +5,15 @@ if (!customElements.get('multi-collection-tabs')) {
       this.buttons = this.querySelectorAll('.multi-collection-tabs__button');
       this.container = this.querySelector('#MultiCollectionGridContainer');
       this.paginationType = this.getAttribute('data-pagination-type') || 'load_more';
+      this.viewAllLink = this.querySelector('.multi-collection-tabs__view-all');
       this.cache = {};
       
       this.bindEvents();
       
-      const hasInitialGrid = this.container && this.container.querySelector('#product-grid');
-      if (this.buttons.length > 0 && !hasInitialGrid) {
+      // Always fetch the first collection from the server to get the full
+      // main-collection-product-grid section with the correct layout.
+      if (this.buttons.length > 0) {
         this.loadCollection(this.buttons[0].getAttribute('data-url'), true);
-      } else if (hasInitialGrid && this.buttons.length > 0) {
-        const initialUrl = this.buttons[0].getAttribute('data-url');
-        if (initialUrl) {
-          const parsedUrl = new URL(initialUrl, window.location.origin);
-          parsedUrl.searchParams.set('section_id', 'main-collection-product-grid');
-          const fetchUrl = parsedUrl.toString();
-          this.cache[fetchUrl] = this.container.innerHTML;
-        }
-        this.applyCustomPagination();
-        this.startObservingFacets();
       }
 
       this.observer = new IntersectionObserver((entries) => {
@@ -36,22 +28,6 @@ if (!customElements.get('multi-collection-tabs')) {
           }
         });
       }, { rootMargin: '0px 0px 400px 0px' });
-
-      // Observe DOM changes caused by facets.js (filter/sort)
-      this.mutationObserver = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-          if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-            // Check if pagination wrapper was added or replaced
-            const hasPagination = Array.from(mutation.addedNodes).some(node => 
-              node.classList && (node.classList.contains('pagination-wrapper') || node.querySelector?.('.pagination-wrapper'))
-            );
-            
-            if (hasPagination) {
-              this.applyCustomPagination();
-            }
-          }
-        }
-      });
     }
 
     bindEvents() {
@@ -92,17 +68,26 @@ if (!customElements.get('multi-collection-tabs')) {
         }
       });
       
+      const url = clickedButton.getAttribute('data-url');
+      if (this.viewAllLink && url) {
+        this.viewAllLink.href = url;
+      }
+
       clickedButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      this.loadCollection(clickedButton.getAttribute('data-url'), true);
+      this.loadCollection(url, true);
+    }
+
+    getFetchUrl(baseUrl) {
+      const url = new URL(baseUrl, window.location.origin);
+      url.searchParams.set('section_id', 'main-collection-product-grid');
+      return url.toString();
     }
 
     loadCollection(url, useCache) {
       if (!url) return;
       this.container.classList.add('loading');
       
-      const parsedUrl = new URL(url, window.location.origin);
-      parsedUrl.searchParams.set('section_id', 'main-collection-product-grid');
-      const fetchUrl = parsedUrl.toString();
+      const fetchUrl = this.getFetchUrl(url);
 
       if (useCache && this.cache[fetchUrl]) {
         this.injectHTML(this.cache[fetchUrl]);
@@ -122,12 +107,7 @@ if (!customElements.get('multi-collection-tabs')) {
     }
 
     loadMore(url, triggerElement) {
-      // Disconnect mutation observer briefly so our manual appending doesn't trigger it recursively
-      this.mutationObserver.disconnect();
-      
-      const parsedUrl = new URL(url, window.location.origin);
-      parsedUrl.searchParams.set('section_id', 'main-collection-product-grid');
-      const fetchUrl = parsedUrl.toString();
+      const fetchUrl = this.getFetchUrl(url);
       
       fetch(fetchUrl)
         .then(response => response.text())
@@ -148,43 +128,30 @@ if (!customElements.get('multi-collection-tabs')) {
           if (newPaginationWrapper) {
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = newPaginationWrapper.outerHTML;
-            this.container.querySelector('#ProductGridContainer').appendChild(tempDiv.firstElementChild);
+            const targetGridContainer = this.container.querySelector('.product-grid-container') || this.container;
+            targetGridContainer.appendChild(tempDiv.firstElementChild);
             this.applyCustomPagination();
           }
-          
-          this.startObservingFacets();
-        })
-        .catch(() => {
-          this.startObservingFacets();
         });
     }
 
     injectHTML(html) {
-      this.mutationObserver.disconnect();
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
       
-      const newSection = doc.querySelector('.shopify-section');
-      if (newSection) {
-        this.container.innerHTML = newSection.innerHTML;
-        this.applyCustomPagination();
-        this.startObservingFacets();
+      const sectionNode = doc.querySelector('.shopify-section > div[class*="-padding"]');
+      if (sectionNode) {
+        this.container.innerHTML = sectionNode.innerHTML;
       }
+      
+      this.applyCustomPagination();
       this.container.classList.remove('loading');
     }
     
-    startObservingFacets() {
-      const productGridContainer = this.container.querySelector('#ProductGridContainer');
-      if (productGridContainer) {
-        this.mutationObserver.observe(productGridContainer, { childList: true, subtree: true });
-      }
-    }
-
     applyCustomPagination() {
       const paginationWrapper = this.container.querySelector('.pagination-wrapper');
       if (!paginationWrapper) return;
       
-      // If already processed, skip
       if (paginationWrapper.hasAttribute('data-customized')) return;
       paginationWrapper.setAttribute('data-customized', 'true');
 
@@ -208,7 +175,7 @@ if (!customElements.get('multi-collection-tabs')) {
         return;
       }
       
-      const nextUrl = nextLink.href;
+      const nextUrl = nextLink.getAttribute('href');
       
       if (this.paginationType === 'load_more') {
         paginationWrapper.innerHTML = `<div class="center margin-top-1rem"><button type="button" class="button button--secondary btn-load-more" data-url="${nextUrl}">Load More</button></div>`;
@@ -220,3 +187,4 @@ if (!customElements.get('multi-collection-tabs')) {
     }
   });
 }
+

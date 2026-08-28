@@ -1,0 +1,55 @@
+--- a/assets/facets.js
++++ b/assets/facets.js
+@@ -5,14 +5,10 @@
+ 
+     this.debouncedOnSubmit = debounce((event) => {
+       this.onSubmitHandler(event);
+-    }, 500);
+-  }
+-
+-  connectedCallback() {
++    }, 800);
++
+     const facetForm = this.querySelector('form');
+-    if (facetForm) {
+-      facetForm.addEventListener('input', this.debouncedOnSubmit.bind(this));
+-    }
++    facetForm.addEventListener('input', this.debouncedOnSubmit.bind(this));
+ 
+     const facetWrapper = this.querySelector('#FacetsWrapperDesktop');
+     if (facetWrapper) facetWrapper.addEventListener('keyup', onKeyUpEscape);
+@@ -307,9 +303,6 @@
+ class PriceRange extends HTMLElement {
+   constructor() {
+     super();
+-  }
+-
+-  connectedCallback() {
+     this.querySelectorAll('input').forEach((element) => {
+       element.addEventListener('change', this.onRangeChange.bind(this));
+       element.addEventListener('keydown', this.onKeyDown.bind(this));
+@@ -354,18 +347,13 @@
+ class FacetRemove extends HTMLElement {
+   constructor() {
+     super();
+-  }
+-
+-  connectedCallback() {
+     const facetLink = this.querySelector('a');
+-    if (facetLink) {
+-      facetLink.setAttribute('role', 'button');
+-      facetLink.addEventListener('click', this.closeFilter.bind(this));
+-      facetLink.addEventListener('keyup', (event) => {
+-        event.preventDefault();
+-        if (event.code.toUpperCase() === 'SPACE') this.closeFilter(event);
+-      });
+-    }
++    facetLink.setAttribute('role', 'button');
++    facetLink.addEventListener('click', this.closeFilter.bind(this));
++    facetLink.addEventListener('keyup', (event) => {
++      event.preventDefault();
++      if (event.code.toUpperCase() === 'SPACE') this.closeFilter(event);
++    });
+   }
+ 
+   closeFilter(event) {

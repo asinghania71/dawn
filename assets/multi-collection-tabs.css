@@ -149,6 +149,8 @@
 .multi-collection-tabs__pane {
   display: none;
   animation: fadeIn 0.4s ease;
+  position: relative;
+  z-index: 1; /* Creates a stacking context so loading spinner z-index 3 doesn't overlap header */
 }
 
 .multi-collection-tabs__pane.active {
@@ -166,10 +168,48 @@
   }
 }
 
-/* Injected Grid Spacing Normalization */
-#MultiCollectionGridContainer .section-main-collection-product-grid-padding,
-#MultiCollectionGridContainer .facets-vertical {
-  padding-top: 1.5rem;
-  padding-bottom: 0;
+/* Sort Bar and Header Actions */
+.multi-collection-tabs__header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 2rem;
 }
 
+.multi-collection-tabs__pane.loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(var(--color-background), 0.7);
+  z-index: 2;
+}
+
+.multi-collection-tabs__pane.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3rem;
+  height: 3rem;
+  border: 0.3rem solid rgba(var(--color-foreground), 0.1);
+  border-top-color: rgb(var(--color-foreground));
+  border-radius: 50%;
+  animation: multiCollectionSpin 0.6s linear infinite;
+  z-index: 3;
+}
+
+@keyframes multiCollectionSpin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@media screen and (max-width: 749px) {
+  .multi-collection-tabs__header-actions {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1.5rem;
+  }
+}

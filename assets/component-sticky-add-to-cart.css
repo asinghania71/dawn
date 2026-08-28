@@ -15,6 +15,11 @@
   border-top: 1px solid rgba(var(--color-foreground), 0.08);
 }
 
+/* Hide when drawers (menu, cart, filters) are open */
+body.overflow-hidden .sticky-add-to-cart {
+  display: none !important;
+}
+
 body.has-sticky-bottom-nav .sticky-add-to-cart--bottom {
   bottom: 70px;
 }

@@ -67,12 +67,22 @@
         </ul>
       </div>
 
+      <div class="page-width multi-collection-tabs__header-actions" style="justify-content: flex-end;">
+        {%- assign first_block = section.blocks.first -%}
+        {%- assign first_collection = first_block.settings.collection -%}
+        <a href="{{ first_collection.url | default: '#' }}" class="multi-collection-tabs__view-all link underlined-link" id="ViewAll-{{ section.id }}">{{ 'sections.featured_collection.view_all' | t }}</a>
+      </div>
+
       <div class="multi-collection-tabs__content">
         <div id="MultiCollectionGridContainer" class="multi-collection-tabs__pane active" style="position: relative;">
-          {%- assign first_block = section.blocks.first -%}
-          {%- assign first_collection = first_block.settings.collection -%}
-          
-          <div class="product-grid-container" id="ProductGridContainer">
+
+          {%- comment -%}
+            Server-rendered initial grid. The JS component will replace this container's
+            innerHTML with the full main-collection-product-grid section (which includes
+            facets, sorting, and its own #ProductGridContainer). We must NOT use
+            id="ProductGridContainer" here to avoid duplicate IDs that break facets.js.
+          {%- endcomment -%}
+          <div class="product-grid-container" id="MultiCollectionInitialGrid">
             {%- if first_collection != blank and first_collection.all_products_count == 0 -%}
               <div class="collection page-width center" style="padding: 4rem 0;">
                 <p class="h3">{{ 'sections.collection_template.empty' | t | default: 'No products found' }}</p>

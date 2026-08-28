@@ -787,6 +787,10 @@ a.active-facets__button.focused .active-facets__button-inner {
   );
 }
 
+body.has-sticky-bottom-nav .mobile-facets__inner {
+  padding-bottom: var(--sticky-bottom-nav-height, 0);
+}
+
 .menu-opening .mobile-facets__inner {
   transform: translateX(0);
 }
