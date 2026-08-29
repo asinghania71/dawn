@@ -1,0 +1,56 @@
+{{ 'component-fbt.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'fbt-bundle.js' | asset_url }}" defer="defer"></script>
+
+<frequently-bought-together
+  class="fbt-bundle"
+  data-url="{{ routes.product_recommendations_url }}?limit={{ block.settings.product_limit }}&intent=complementary"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-main-variant="{{ product.selected_or_first_available_variant.id }}"
+>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <div class="fbt-bundle__container color-{{ section.settings.color_scheme }} gradient">
+      <h3 class="fbt-bundle__heading h4">{{ block.settings.heading }}</h3>
+      
+      <div class="fbt-bundle__items">
+        <div class="fbt-bundle__item fbt-bundle__item--main">
+          <input type="checkbox" checked disabled class="fbt-bundle__checkbox-main">
+          <div class="fbt-bundle__image">
+            <img src="{{ product.featured_media | image_url: width: 150 }}" alt="{{ product.title | escape }}" loading="lazy" width="75" height="75">
+          </div>
+          <div class="fbt-bundle__info">
+            <span class="fbt-bundle__title"><strong>This item:</strong> {{ product.title }}</span>
+            <span class="fbt-bundle__price" data-price="{{ product.selected_or_first_available_variant.price }}">{{ product.selected_or_first_available_variant.price | money }}</span>
+          </div>
+        </div>
+
+        {%- for rec_product in recommendations.products limit: block.settings.product_limit -%}
+          <div class="fbt-bundle__plus">
+            <svg viewBox="0 0 14 14" width="14" height="14" fill="none"><path d="M7 1v12m6-6H1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <label class="fbt-bundle__item">
+            <input type="checkbox" checked data-variant-id="{{ rec_product.selected_or_first_available_variant.id }}" class="fbt-bundle__checkbox">
+            <div class="fbt-bundle__image">
+              <img src="{{ rec_product.featured_media | image_url: width: 150 }}" alt="{{ rec_product.title | escape }}" loading="lazy" width="75" height="75">
+            </div>
+            <div class="fbt-bundle__info">
+              <a href="{{ rec_product.url }}" class="fbt-bundle__title">{{ rec_product.title }}</a>
+              <span class="fbt-bundle__price" data-price="{{ rec_product.selected_or_first_available_variant.price }}">{{ rec_product.selected_or_first_available_variant.price | money }}</span>
+            </div>
+          </label>
+        {%- endfor -%}
+      </div>
+
+      <div class="fbt-bundle__summary">
+        <div class="fbt-bundle__total">
+          <span class="fbt-bundle__total-label">Total Price:</span>
+          <span class="fbt-bundle__total-price"></span>
+        </div>
+        <button type="button" class="button button--primary fbt-bundle__add-button">
+          Add selected to cart
+        </button>
+        <span class="fbt-bundle__error-message hidden" style="color: var(--color-error); margin-top: 1rem; display: block;"></span>
+      </div>
+    </div>
+  {%- endif -%}
+</frequently-bought-together>
