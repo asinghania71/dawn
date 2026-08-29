@@ -1,0 +1,46 @@
+{% layout none %}
+{%- paginate collection.products by 12 -%}
+<div class="multi-collection-ajax-wrapper facets-vertical page-width">
+  <aside aria-labelledby="verticalTitle" class="facets-wrapper" id="main-collection-filters" data-id="{{ section.id }}">
+    {% render 'facets', results: collection, enable_filtering: true, enable_sorting: true, filter_type: 'vertical' %}
+  </aside>
+  
+  <div class="product-grid-container" id="ProductGridContainer">
+    {%- if collection.products.size == 0 -%}
+      <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
+        <div class="loading-overlay gradient"></div>
+        <div class="title-wrapper center">
+          <h2 class="title title--primary">{{ 'sections.collection_template.empty' | t }}</h2>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="collection page-width">
+        <ul id="product-grid" data-id="{{ section.id }}" class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop">
+          {%- for product in collection.products -%}
+            <li class="grid__item">
+              {% render 'card-product', card_product: product, section_id: section.id %}
+            </li>
+          {%- endfor -%}
+        </ul>
+        
+        {%- if paginate.pages > 1 -%}
+          <infinite-scroll data-next-url="{{ paginate.next.url }}">
+            <div class="loading-overlay__spinner" style="width: 100%; text-align: center; padding: 2rem 0;">
+              <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+              </svg>
+            </div>
+          </infinite-scroll>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Multi Collection AJAX",
+  "settings": []
+}
+{% endschema %}

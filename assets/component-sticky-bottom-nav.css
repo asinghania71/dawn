@@ -31,7 +31,9 @@
 }
 
 /* Hide when drawers (menu, cart, filters) are open */
-body.overflow-hidden .sticky-bottom-nav {
+body.overflow-hidden .sticky-bottom-nav,
+body.overflow-hidden-mobile .sticky-bottom-nav,
+body.overflow-hidden-tablet .sticky-bottom-nav {
   display: none !important;
 }
 

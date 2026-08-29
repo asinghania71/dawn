@@ -1,6 +1,7 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'component-facets.css' | asset_url | stylesheet_tag }}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'quick-add.css' | asset_url | stylesheet_tag }}
 {{ 'multi-collection-tabs.css' | asset_url | stylesheet_tag }}
@@ -8,6 +9,7 @@
 <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'infinite-scroll.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'multi-collection-tabs.js' | asset_url }}" defer="defer"></script>
 
 {%- style -%}
@@ -74,54 +76,11 @@
       </div>
 
       <div class="multi-collection-tabs__content">
-        <div id="MultiCollectionGridContainer" class="multi-collection-tabs__pane active" style="position: relative;">
-
-          {%- comment -%}
-            Server-rendered initial grid. The JS component will replace this container's
-            innerHTML with the full main-collection-product-grid section (which includes
-            facets, sorting, and its own #ProductGridContainer). We must NOT use
-            id="ProductGridContainer" here to avoid duplicate IDs that break facets.js.
-          {%- endcomment -%}
-          <div class="product-grid-container" id="MultiCollectionInitialGrid">
-            {%- if first_collection != blank and first_collection.all_products_count == 0 -%}
-              <div class="collection page-width center" style="padding: 4rem 0;">
-                <p class="h3">{{ 'sections.collection_template.empty' | t | default: 'No products found' }}</p>
-              </div>
-            {%- else -%}
-              <div class="collection page-width">
-                <ul
-                  id="product-grid"
-                  data-id="main-collection-product-grid"
-                  class="
-                    grid product-grid grid--2-col-tablet-down
-                    grid--4-col-desktop
-                  "
-                >
-                  {%- if first_collection != blank -%}
-                    {%- for product in first_collection.products limit: section.settings.products_limit -%}
-                      <li class="grid__item">
-                        {% render 'card-product',
-                          card_product: product,
-                          media_aspect_ratio: 'adapt',
-                          show_secondary_image: true,
-                          section_id: section.id
-                        %}
-                      </li>
-                    {%- endfor -%}
-                  {%- else -%}
-                    {%- for i in (1..section.settings.products_limit) -%}
-                      <li class="grid__item">
-                        {% render 'card-product',
-                          show_vendor: false,
-                          media_aspect_ratio: 'adapt',
-                          section_id: section.id
-                        %}
-                      </li>
-                    {%- endfor -%}
-                  {%- endif -%}
-                </ul>
-              </div>
-            {%- endif -%}
+        <div id="MultiCollectionGridContainer" class="multi-collection-tabs__pane active" style="position: relative; min-height: 400px;">
+          <div class="loading-overlay__spinner" style="width: 100%; text-align: center; padding: 10rem 0;">
+            <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+              <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+            </svg>
           </div>
         </div>
       </div>

@@ -16,7 +16,9 @@
 }
 
 /* Hide when drawers (menu, cart, filters) are open */
-body.overflow-hidden .sticky-add-to-cart {
+body.overflow-hidden .sticky-add-to-cart,
+body.overflow-hidden-mobile .sticky-add-to-cart,
+body.overflow-hidden-tablet .sticky-add-to-cart {
   display: none !important;
 }
 

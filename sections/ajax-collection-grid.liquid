@@ -1,0 +1,26 @@
+{% layout none %}
+<div class="ajax-collection-grid__inner">
+  {% render 'facets', results: collection, enable_filtering: true, enable_sorting: true, filter_type: 'vertical' %}
+  
+  <div class="product-grid-container" id="ProductGridContainer">
+    {%- paginate collection.products by 12 -%}
+      <div class="collection page-width">
+        <ul id="product-grid" class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop">
+          {%- for product in collection.products -%}
+            <li class="grid__item">
+              {% render 'card-product', card_product: product, section_id: section.id %}
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if paginate.pages > 1 -%}
+          <div class="ajax-pagination" data-next-url="{{ paginate.next.url }}">
+            {%- if paginate.next -%}
+              <button class="button" id="LoadMoreButton">Load More</button>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endpaginate -%}
+  </div>
+</div>
