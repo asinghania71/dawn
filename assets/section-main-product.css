@@ -1692,3 +1692,26 @@ a.product__text {
     border: none;
   }
 }
+
+.product__estimated-delivery {
+  display: block;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+}
+.estimated-delivery__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem;
+  background-color: rgba(var(--color-foreground), 0.04);
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+  border-radius: var(--product-card-corner-radius);
+  font-size: 1.3rem;
+}
+.estimated-delivery__icon svg {
+  width: 1.8rem;
+  height: 1.8rem;
+  fill: currentColor;
+}

@@ -127,7 +127,9 @@
                     product: product,
                     use_variant: true,
                     show_badges: true,
-                    price_class: 'price--large'
+                    price_class: 'price--large',
+                    show_discount_badge: block.settings.show_discount_badge,
+                    discount_badge_color: block.settings.discount_badge_color
                   -%}
                 </div>
                 {%- if product.quantity_price_breaks_configured? -%}
@@ -503,21 +505,44 @@
                   show_price_in_button: block.settings.show_price_in_button
                 -%}
               {%- when 'estimated_delivery' -%}
-                <estimated-delivery
-                  data-min-days="{{ block.settings.min_days }}"
-                  data-max-days="{{ block.settings.max_days }}"
-                  data-cutoff="{{ block.settings.cutoff_hour }}"
-                  class="product__estimated-delivery"
+                {%- style -%}
+                  .product__estimated-delivery--{{ block.id }} {
+                    padding: {{ block.settings.padding_top }}px 1.5rem {{ block.settings.padding_bottom }}px 1.5rem;
+                    border-radius: {{ block.settings.border_radius }}px;
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 1.5rem;
+                  }
+                  .product__estimated-delivery--{{ block.id }} .estimated-delivery__icon {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 1.2rem;
+                    width: {{ block.settings.icon_size }}px;
+                    height: {{ block.settings.icon_size }}px;
+                  }
+                  .product__estimated-delivery--{{ block.id }} .estimated-delivery__icon svg {
+                    width: 100%;
+                    height: 100%;
+                  }
+                {%- endstyle -%}
+                <div
+                  class="product__estimated-delivery product__estimated-delivery--{{ block.id }} color-{{ block.settings.color_scheme }} gradient"
                   {{ block.shopify_attributes }}
                 >
-                  <div class="estimated-delivery__inner">
-                    {%- if block.settings.icon != blank -%}
-                      <span class="estimated-delivery__icon">{{ block.settings.icon }}</span>
-                    {%- endif -%}
-                    <span class="estimated-delivery__text">Calculating delivery...</span>
+                  {%- if block.settings.custom_icon != blank -%}
+                    <span class="estimated-delivery__icon">
+                      {{ block.settings.custom_icon | image_url: width: 100 | image_tag: style: 'width: 100%; height: 100%; object-fit: contain;' }}
+                    </span>
+                  {%- elsif block.settings.icon != 'none' -%}
+                    <span class="estimated-delivery__icon">
+                      {% render 'icon-accordion', icon: block.settings.icon %}
+                    </span>
+                  {%- endif -%}
+                  <div class="estimated-delivery__text {% if block.settings.text_style == 'uppercase' %}caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %}subtitle{% endif %}" style="flex: 1;">
+                    {% render 'estimated-delivery-date', block: block %}
                   </div>
-                </estimated-delivery>
-                <script src="{{ 'estimated-delivery.js' | asset_url }}" defer="defer"></script>
+                </div>
               {%- when 'fbt_bundle' -%}
                 {%- render 'product-fbt', block: block, product: product -%}
               {%- when 'rating' -%}
@@ -829,7 +854,21 @@
     {
       "type": "price",
       "name": "t:sections.main-product.blocks.price.name",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_discount_badge",
+          "default": true,
+          "label": "t:sections.main-product.blocks.price.settings.show_discount_badge.label"
+        },
+        {
+          "type": "color",
+          "id": "discount_badge_color",
+          "default": "#b30000",
+          "label": "t:sections.main-product.blocks.price.settings.discount_badge_color.label"
+        }
+      ]
     },
     {
       "type": "sku",
@@ -982,41 +1021,365 @@
       "limit": 1,
       "settings": [
         {
+          "type": "header",
+          "content": "Timing"
+        },
+        {
+          "type": "text",
+          "id": "cutoff_time",
+          "label": "Cutoff time (HH:MM)",
+          "default": "14:30"
+        },
+        {
+          "type": "text",
+          "id": "off_days",
+          "label": "Off Days (0=Sun, 6=Sat)",
+          "default": "0,6",
+          "info": "Comma separated days to skip."
+        },
+        {
+          "type": "header",
+          "content": "Cities & Fallback"
+        },
+        {
+          "type": "textarea",
+          "id": "cities",
+          "label": "Specific Cities",
+          "info": "Format: CityName:MinDays:MaxDays (one per line). Example: Mumbai:1:2"
+        },
+        {
           "type": "range",
           "id": "min_days",
-          "label": "Minimum days",
+          "label": "Others: Min days",
           "min": 1,
           "max": 30,
           "step": 1,
-          "default": 3
+          "default": 2
         },
         {
           "type": "range",
           "id": "max_days",
-          "label": "Maximum days",
+          "label": "Others: Max days",
           "min": 1,
           "max": 30,
           "step": 1,
-          "default": 5
+          "default": 4
         },
         {
-          "type": "number",
-          "id": "cutoff_hour",
-          "label": "Cutoff hour (0-23)",
-          "default": 14,
-          "info": "Orders placed after this hour will add an extra day."
+          "type": "header",
+          "content": "Icons"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__1.label"
+            },
+            {
+              "value": "apple",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__2.label"
+            },
+            {
+              "value": "banana",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__3.label"
+            },
+            {
+              "value": "bottle",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__4.label"
+            },
+            {
+              "value": "box",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__5.label"
+            },
+            {
+              "value": "carrot",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__6.label"
+            },
+            {
+              "value": "chat_bubble",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__7.label"
+            },
+            {
+              "value": "check_mark",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__8.label"
+            },
+            {
+              "value": "clipboard",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__9.label"
+            },
+            {
+              "value": "dairy",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__10.label"
+            },
+            {
+              "value": "dairy_free",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__11.label"
+            },
+            {
+              "value": "dryer",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__12.label"
+            },
+            {
+              "value": "eye",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__13.label"
+            },
+            {
+              "value": "fire",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__14.label"
+            },
+            {
+              "value": "gluten_free",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__15.label"
+            },
+            {
+              "value": "heart",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__16.label"
+            },
+            {
+              "value": "iron",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__17.label"
+            },
+            {
+              "value": "leaf",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__18.label"
+            },
+            {
+              "value": "leather",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__19.label"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__20.label"
+            },
+            {
+              "value": "lipstick",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__21.label"
+            },
+            {
+              "value": "lock",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__22.label"
+            },
+            {
+              "value": "map_pin",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__23.label"
+            },
+            {
+              "value": "nut_free",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__24.label"
+            },
+            {
+              "value": "pants",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__25.label"
+            },
+            {
+              "value": "paw_print",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__26.label"
+            },
+            {
+              "value": "pepper",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__27.label"
+            },
+            {
+              "value": "perfume",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__28.label"
+            },
+            {
+              "value": "plane",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__29.label"
+            },
+            {
+              "value": "plant",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__30.label"
+            },
+            {
+              "value": "price_tag",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__31.label"
+            },
+            {
+              "value": "question_mark",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__32.label"
+            },
+            {
+              "value": "recycle",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__33.label"
+            },
+            {
+              "value": "return",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__34.label"
+            },
+            {
+              "value": "ruler",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__35.label"
+            },
+            {
+              "value": "serving_dish",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__36.label"
+            },
+            {
+              "value": "shirt",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__37.label"
+            },
+            {
+              "value": "shoe",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__38.label"
+            },
+            {
+              "value": "silhouette",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__39.label"
+            },
+            {
+              "value": "snowflake",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__40.label"
+            },
+            {
+              "value": "star",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__41.label"
+            },
+            {
+              "value": "stopwatch",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__42.label"
+            },
+            {
+              "value": "truck",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__43.label"
+            },
+            {
+              "value": "washing",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__44.label"
+            }
+          ],
+          "default": "truck",
+          "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon"
+        },
+        {
+          "type": "header",
+          "content": "Text"
         },
         {
           "type": "text",
-          "id": "icon",
-          "label": "Icon (SVG code)",
-          "info": "Optional custom SVG icon."
+          "id": "message_standard",
+          "label": "Standard msg",
+          "default": "<strong>[city]</strong>: [start] - [end]",
+          "info": "Variables you can use: [city], [start], [end]"
+        },
+        {
+          "type": "range",
+          "id": "urgent_hours",
+          "label": "Show urgent message within (hours)",
+          "min": 1,
+          "max": 24,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "text",
+          "id": "message_urgent",
+          "label": "Urgent msg",
+          "default": "<strong>[city]</strong>: [start] - [end] (Order within [hours]h [mins]m)",
+          "info": "Variables: [city], [start], [end], [hours], [mins]"
+        },
+        {
+          "type": "select",
+          "id": "date_format",
+          "label": "Date format",
+          "options": [
+            {
+              "value": "%b %e",
+              "label": "Aug 4"
+            },
+            {
+              "value": "%B %e",
+              "label": "August 4"
+            },
+            {
+              "value": "%m/%d/%Y",
+              "label": "08/04/2026"
+            },
+            {
+              "value": "%d/%m/%Y",
+              "label": "04/08/2026"
+            }
+          ],
+          "default": "%b %e"
+        },
+        {
+          "type": "header",
+          "content": "Design"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-1"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "label": "Text style",
+          "options": [
+            {
+              "value": "body",
+              "label": "Body"
+            },
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            }
+          ],
+          "default": "body"
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "label": "Icon size",
+          "min": 10,
+          "max": 50,
+          "step": 2,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top padding",
+          "min": 0,
+          "max": 40,
+          "step": 4,
+          "unit": "px",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom padding",
+          "min": 0,
+          "max": 40,
+          "step": 4,
+          "unit": "px",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 24,
+          "step": 2,
+          "unit": "px",
+          "default": 0
         }
       ]
     },
     {
       "type": "fbt_bundle",
-      "name": "Frequently Bought Together",
+      "name": "Bought Together",
       "limit": 1,
       "settings": [
         {

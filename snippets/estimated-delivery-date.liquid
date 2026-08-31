@@ -1,0 +1,100 @@
+{%- assign current_time = 'now' | date: '%s' | plus: 0 -%}
+{%- assign current_hour = 'now' | date: '%H' | plus: 0 -%}
+{%- assign current_minute = 'now' | date: '%M' | plus: 0 -%}
+{%- assign current_day_of_week = 'now' | date: '%w' | plus: 0 -%}
+
+{%- assign cutoff_parts = block.settings.cutoff_time | split: ':' -%}
+{%- assign cutoff_hour = cutoff_parts[0] | plus: 0 | default: 14 -%}
+{%- assign cutoff_minute = cutoff_parts[1] | plus: 0 | default: 0 -%}
+
+{%- assign current_total_mins = current_hour | times: 60 | plus: current_minute -%}
+{%- assign cutoff_total_mins = cutoff_hour | times: 60 | plus: cutoff_minute -%}
+
+{%- if current_total_mins >= cutoff_total_mins -%}
+  {%- assign past_cutoff = true -%}
+  {%- assign mins_until_midnight = 1440 | minus: current_total_mins -%}
+  {%- assign total_mins_remaining = mins_until_midnight | plus: cutoff_total_mins -%}
+{%- else -%}
+  {%- assign past_cutoff = false -%}
+  {%- assign total_mins_remaining = cutoff_total_mins | minus: current_total_mins -%}
+{%- endif -%}
+
+{%- assign hours_remaining = total_mins_remaining | divided_by: 60 -%}
+{%- assign mins_remaining = total_mins_remaining | modulo: 60 -%}
+
+{%- assign off_days_str = block.settings.off_days | default: "0,6" -%}
+
+<ul class="estimated-delivery__list list-unstyled" style="margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+{%- assign cities_parsed = "" -%}
+{%- if block.settings.cities != blank -%}
+  {%- assign raw_lines = block.settings.cities | newline_to_br | split: '<br />' -%}
+  {%- for line in raw_lines -%}
+    {%- assign clean_line = line | strip -%}
+    {%- if clean_line != blank -%}
+      {%- assign cities_parsed = cities_parsed | append: clean_line | append: "|" -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- assign fallback_str = "Others:" | append: block.settings.min_days | append: ":" | append: block.settings.max_days -%}
+{%- assign cities_parsed = cities_parsed | append: fallback_str -%}
+{%- assign all_cities = cities_parsed | split: '|' -%}
+
+{%- for city_row in all_cities -%}
+  {%- assign city_parts = city_row | split: ':' -%}
+  {%- assign c_name = city_parts[0] | strip -%}
+  {%- assign c_min = city_parts[1] | plus: 0 -%}
+  {%- assign c_max = city_parts[2] | plus: 0 -%}
+  
+  {%- if c_name == blank -%}{%- continue -%}{%- endif -%}
+
+  {%- assign start_d = c_min -%}
+  {%- assign end_d = c_max -%}
+  {%- if past_cutoff -%}
+    {%- assign start_d = start_d | plus: 1 -%}
+    {%- assign end_d = end_d | plus: 1 -%}
+  {%- endif -%}
+
+  {%- assign added_start = 0 -%}
+  {%- assign actual_start = 0 -%}
+  {%- for i in (1..60) -%}
+    {%- assign actual_start = actual_start | plus: 1 -%}
+    {%- assign check_day = current_day_of_week | plus: actual_start | modulo: 7 | append: "" -%}
+    {%- unless off_days_str contains check_day -%}
+      {%- assign added_start = added_start | plus: 1 -%}
+    {%- endunless -%}
+    {%- if added_start == start_d -%}{%- break -%}{%- endif -%}
+  {%- endfor -%}
+
+  {%- assign added_end = 0 -%}
+  {%- assign actual_end = 0 -%}
+  {%- for i in (1..60) -%}
+    {%- assign actual_end = actual_end | plus: 1 -%}
+    {%- assign check_day = current_day_of_week | plus: actual_end | modulo: 7 | append: "" -%}
+    {%- unless off_days_str contains check_day -%}
+      {%- assign added_end = added_end | plus: 1 -%}
+    {%- endunless -%}
+    {%- if added_end == end_d -%}{%- break -%}{%- endif -%}
+  {%- endfor -%}
+
+  {%- assign actual_start_seconds = actual_start | times: 86400 -%}
+  {%- assign actual_end_seconds = actual_end | times: 86400 -%}
+
+  {%- assign date_format = block.settings.date_format | default: '%b %e' -%}
+  {%- assign start_date = current_time | plus: actual_start_seconds | date: date_format -%}
+  {%- assign end_date = current_time | plus: actual_end_seconds | date: date_format -%}
+
+  {%- assign msg_std = block.settings.message_standard | default: '<strong>[city]</strong>: [start] - [end]' -%}
+  {%- assign msg_urg = block.settings.message_urgent | default: '<strong>[city]</strong>: [start] - [end] (Order within [hours]h [mins]m)' -%}
+
+  {%- assign urgent_window = block.settings.urgent_hours | default: 12 | plus: 0 -%}
+  {%- assign urgent_window_mins = urgent_window | times: 60 -%}
+  <li>
+    {%- if total_mins_remaining >= 0 and total_mins_remaining <= urgent_window_mins -%}
+      {{ msg_urg | replace: '[city]', c_name | replace: '[hours]', hours_remaining | replace: '[mins]', mins_remaining | replace: '[start]', start_date | replace: '[end]', end_date }}
+    {%- else -%}
+      {{ msg_std | replace: '[city]', c_name | replace: '[start]', start_date | replace: '[end]', end_date }}
+    {%- endif -%}
+  </li>
+{%- endfor -%}
+</ul>

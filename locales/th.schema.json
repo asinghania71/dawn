@@ -2327,7 +2327,15 @@
           "name": "ชื่อ"
         },
         "price": {
-          "name": "ราคา"
+          "name": "ราคา",
+          "settings": {
+            "show_discount_badge": {
+              "label": "Show discount badge"
+            },
+            "discount_badge_color": {
+              "label": "Discount badge color"
+            }
+          }
         },
         "quantity_selector": {
           "name": "ตัวเลือกจำนวน"

@@ -102,6 +102,26 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "estimated_delivery": {
+          "type": "estimated_delivery",
+          "settings": {
+            "min_days": 2,
+            "max_days": 4,
+            "icon": "truck"
+          }
+        },
+        "authenticity": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "horizontal",
+            "heading_1": "100% Authentic",
+            "icon_1": "check_mark",
+            "heading_2": "Easy Returns",
+            "icon_2": "return",
+            "heading_3": "Free Shipping",
+            "icon_3": "truck"
+          }
         }
       },
       "block_order": [
@@ -113,6 +133,8 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "estimated_delivery",
+        "authenticity",
         "description",
         "collapsible-row-0",
         "collapsible-row-1",

@@ -2112,7 +2112,15 @@
           "name": "Tittel"
         },
         "price": {
-          "name": "Pris"
+          "name": "Pris",
+          "settings": {
+            "show_discount_badge": {
+              "label": "Show discount badge"
+            },
+            "discount_badge_color": {
+              "label": "Discount badge color"
+            }
+          }
         },
         "quantity_selector": {
           "name": "Antallsvelger"

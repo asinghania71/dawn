@@ -2113,7 +2113,15 @@
           "name": "Název"
         },
         "price": {
-          "name": "Cena"
+          "name": "Cena",
+          "settings": {
+            "show_discount_badge": {
+              "label": "Show discount badge"
+            },
+            "discount_badge_color": {
+              "label": "Discount badge color"
+            }
+          }
         },
         "quantity_selector": {
           "name": "Selektor množství"

@@ -2435,7 +2435,15 @@
           "name": "Title"
         },
         "price": {
-          "name": "Price"
+          "name": "Price",
+          "settings": {
+            "show_discount_badge": {
+              "label": "Show discount badge"
+            },
+            "discount_badge_color": {
+              "label": "Discount badge color"
+            }
+          }
         },
         "inventory": {
           "name": "Inventory status",
