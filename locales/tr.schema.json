@@ -2103,7 +2103,15 @@
           "name": "Başlık"
         },
         "price": {
-          "name": "Fiyat"
+          "name": "Fiyat",
+          "settings": {
+            "show_discount_badge": {
+              "label": "Show discount badge"
+            },
+            "discount_badge_color": {
+              "label": "Discount badge color"
+            }
+          }
         },
         "quantity_selector": {
           "name": "Adet seçici"

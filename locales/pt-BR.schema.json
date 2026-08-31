@@ -2103,7 +2103,15 @@
           "name": "Título"
         },
         "price": {
-          "name": "Preço"
+          "name": "Preço",
+          "settings": {
+            "show_discount_badge": {
+              "label": "Show discount badge"
+            },
+            "discount_badge_color": {
+              "label": "Discount badge color"
+            }
+          }
         },
         "quantity_selector": {
           "name": "Seletor de quantidade"

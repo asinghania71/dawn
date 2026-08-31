@@ -24,13 +24,7 @@
         </ul>
         
         {%- if paginate.pages > 1 -%}
-          <infinite-scroll data-next-url="{{ paginate.next.url }}">
-            <div class="loading-overlay__spinner" style="width: 100%; text-align: center; padding: 2rem 0;">
-              <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
-              </svg>
-            </div>
-          </infinite-scroll>
+          {% render 'pagination', paginate: paginate %}
         {%- endif -%}
       </div>
     {%- endif -%}

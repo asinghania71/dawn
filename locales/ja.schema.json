@@ -2318,7 +2318,15 @@
           "name": "タイトル"
         },
         "price": {
-          "name": "商品価格"
+          "name": "商品価格",
+          "settings": {
+            "show_discount_badge": {
+              "label": "Show discount badge"
+            },
+            "discount_badge_color": {
+              "label": "Discount badge color"
+            }
+          }
         },
         "quantity_selector": {
           "name": "数量セレクター"

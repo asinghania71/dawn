@@ -2318,7 +2318,15 @@
           "name": "제목"
         },
         "price": {
-          "name": "가격"
+          "name": "가격",
+          "settings": {
+            "show_discount_badge": {
+              "label": "Show discount badge"
+            },
+            "discount_badge_color": {
+              "label": "Discount badge color"
+            }
+          }
         },
         "quantity_selector": {
           "name": "수량 선택기"

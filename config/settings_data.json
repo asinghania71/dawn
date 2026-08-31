@@ -3,9 +3,9 @@
     "review_widget_color_scheme": "scheme-3",
     "review_widget_opacity": 90,
     "logo_width": 90,
-    "type_header_font": "assistant_n4",
+    "type_header_font": "dm_sans_n4",
     "heading_scale": 100,
-    "type_body_font": "assistant_n4",
+    "type_body_font": "dm_sans_n4",
     "body_scale": 100,
     "page_width": 1200,
     "spacing_sections": 0,
@@ -135,7 +135,7 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#FFFFFF",
+          "background": "#F9F8F5",
           "background_gradient": "",
           "text": "#111110",
           "button": "#111110",

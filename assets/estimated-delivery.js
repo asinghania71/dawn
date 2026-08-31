@@ -1,6 +1,9 @@
 class EstimatedDelivery extends HTMLElement {
   constructor() {
     super();
+  }
+
+  connectedCallback() {
     this.textElement = this.querySelector('.estimated-delivery__text');
     this.minDays = parseInt(this.dataset.minDays || 3, 10);
     this.maxDays = parseInt(this.dataset.maxDays || 5, 10);

@@ -2318,7 +2318,15 @@
           "name": "標題"
         },
         "price": {
-          "name": "價格"
+          "name": "價格",
+          "settings": {
+            "show_discount_badge": {
+              "label": "Show discount badge"
+            },
+            "discount_badge_color": {
+              "label": "Discount badge color"
+            }
+          }
         },
         "quantity_selector": {
           "name": "數量選擇器"
