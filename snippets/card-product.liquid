@@ -225,7 +225,7 @@
             {%- endif -%}
 
             {%- if show_price != false -%}
-              {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+              {% render 'price', product: card_product, price_class: '', show_compare_at_price: true, show_discount_badge: show_discount_badge, discount_badge_color: discount_badge_color %}
             {%- endif -%}
             {%- if card_product.quantity_price_breaks_configured? -%}
               {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
@@ -534,7 +534,7 @@
                         <a href="{{ card_product.url }}" class="full-unstyled-link">
                           <h3>{{ card_product.title | escape }}</h3>
                         </a>
-                        {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+                        {% render 'price', product: card_product, price_class: '', show_compare_at_price: true, show_discount_badge: show_discount_badge, discount_badge_color: discount_badge_color %}
                         {%- if card_product.quantity_price_breaks_configured? -%}
                           <div class="card__information-volume-pricing-note">
                             <span class="caption">{{ 'products.product.volume_pricing.note' | t }}</span>
@@ -549,7 +549,7 @@
                             {{ card_product.title | escape }}
                           </h3>
                         </a>
-                        {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+                        {% render 'price', product: card_product, price_class: '', show_compare_at_price: true, show_discount_badge: show_discount_badge, discount_badge_color: discount_badge_color %}
                         {%- if card_product.quantity_price_breaks_configured? -%}
                           <div class="card__information-volume-pricing-note">
                             <span class="caption">{{ 'products.product.volume_pricing.note' | t }}</span>
@@ -640,7 +640,7 @@
               <div class="caption-with-letter-spacing light">{{ 'products.product.vendor' | t }}</div>
             {%- endif -%}
             {%- if show_price != false -%}
-              {% render 'price', placeholder: placeholder, show_compare_at_price: true %}
+              {% render 'price', placeholder: placeholder, show_compare_at_price: true, show_discount_badge: show_discount_badge, discount_badge_color: discount_badge_color %}
             {%- endif -%}
           </div>
         </div>

@@ -84,7 +84,7 @@
                       {%- assign rating = product.metafields.reviews.rating.value -%}
                       {%- if rating != blank and settings.enable_review_widget -%}
                         <div class="shoppable-short-card__banner-rating">
-                          {% render 'review-widget', product: product, show_review_widget: true, review_widget_size: 'medium', color_scheme: section.settings.rating_color_scheme %}
+                          {% render 'review-widget', product: product, show_review_widget: section.settings.show_review_widget, review_widget_size: section.settings.review_widget_size, color_scheme: section.settings.rating_color_scheme %}
                         </div>
                       {%- endif -%}
                     </a>
@@ -323,6 +323,27 @@
       "id": "rating_color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Review Widget"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_review_widget",
+      "default": true,
+      "label": "t:sections.main-product.blocks.price.settings.show_discount_badge.label" 
+    },
+    {
+      "type": "select",
+      "id": "review_widget_size",
+      "options": [
+        { "value": "small", "label": "t:sections.main-product.blocks.sku.settings.text_style.options__1.label" },
+        { "value": "medium", "label": "t:sections.main-product.blocks.sku.settings.text_style.options__2.label" },
+        { "value": "large", "label": "t:sections.main-product.blocks.sku.settings.text_style.options__3.label" }
+      ],
+      "default": "medium",
+      "label": "t:sections.main-product.blocks.text.settings.text_style.label"
     },
     {
       "type": "header",

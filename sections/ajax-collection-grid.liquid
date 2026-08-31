@@ -1,6 +1,6 @@
 {% layout none %}
 <div class="ajax-collection-grid__inner">
-  {% render 'facets', results: collection, enable_filtering: true, enable_sorting: true, filter_type: 'vertical' %}
+  {% render 'facets', results: collection, enable_filtering: section.settings.enable_filtering, enable_sorting: section.settings.enable_sorting, filter_type: section.settings.filter_type %}
   
   <div class="product-grid-container" id="ProductGridContainer">
     {%- paginate collection.products by 12 -%}

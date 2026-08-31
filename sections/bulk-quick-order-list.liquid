@@ -2,7 +2,7 @@
 
 <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
 
-{% render 'quick-order-list', product: product, show_image: true, show_sku: true, is_modal: true %}
+{% render 'quick-order-list', product: product, show_image: section.settings.show_image, show_sku: section.settings.show_sku, is_modal: true %}
 
 {% schema %}
 {
@@ -10,6 +10,21 @@
   "limit": 1,
   "enabled_on": {
     "templates": ["product"]
-  }
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "default": true,
+      "label": "t:sections.main-product.blocks.share.settings.show_share_label.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sku",
+      "default": true,
+      "label": "t:sections.main-product.blocks.sku.name"
+    }
+  ]
 }
 {% endschema %}
+

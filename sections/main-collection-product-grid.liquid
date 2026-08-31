@@ -180,6 +180,8 @@
                     skip_styles: skip_card_product_styles,
                     quick_add: section.settings.quick_add,
                     section_id: section.id,
+                    show_discount_badge: section.settings.show_discount_badge,
+                    discount_badge_color: section.settings.discount_badge_color,
                     show_review_widget: section.settings.show_review_widget,
                     review_widget_size: section.settings.review_widget_size,
                     ribbon_size: section.settings.ribbon_size
@@ -331,6 +333,18 @@
       "id": "show_secondary_image",
       "default": false,
       "label": "t:sections.main-collection-product-grid.settings.show_secondary_image.label"
+    },
+        {
+      "type": "checkbox",
+      "id": "show_discount_badge",
+      "default": true,
+      "label": "t:sections.main-product.blocks.price.settings.show_discount_badge.label"
+    },
+    {
+      "type": "color",
+      "id": "discount_badge_color",
+      "default": "#b30000",
+      "label": "t:sections.main-product.blocks.price.settings.discount_badge_color.label"
     },
     {
       "type": "checkbox",
