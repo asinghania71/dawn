@@ -37,17 +37,7 @@
         assign wrapper_class = 'title-wrapper--self-padded-tablet-down page-width'
       endif
     -%}
-    {% render 'section-heading',
-      title: section.settings.title,
-      heading_size: section.settings.heading_size,
-      heading_alignment: section.settings.heading_alignment,
-      description: section.settings.description,
-      description_style: section.settings.description_style,
-      description_alignment: section.settings.description_alignment,
-      link_url: link_url,
-      link_text: 'sections.collection_list.view_all' | t,
-      wrapper_classes: wrapper_class
-    %}
+    {% render 'section-heading', title: section.settings.title, heading_size: section.settings.heading_size, heading_alignment: section.settings.heading_alignment, description: section.settings.description, description_style: section.settings.description_style, description_alignment: section.settings.description_alignment, link_url: link_url, link_text: 'sections.collection_list.view_all', wrapper_classes: wrapper_class %}
 
     <slider-component class="slider-mobile-gutter{% if section.settings.full_width %} slider-component-full-width{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <ul
@@ -378,3 +368,28 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'section-heading',
+          title: section.settings.title,
+          heading_size: section.settings.heading_size,
+          heading_alignment: section.settings.heading_alignment,
+          description: section.settings.description,
+          description_style: section.settings.description_style,
+          description_alignment: section.settings.description_alignment,
+          link_url: link_url,
+          link_text: 'sections.collection_list.view_all' | t,
+          wrapper_classes: wrapper_class
+        %}
+  to: "{% render 'section-heading', title: section.settings.title, heading_size: section.settings.heading_size,
+    heading_alignment: section.settings.heading_alignment, description: section.settings.description,
+    description_style: section.settings.description_style, description_alignment:
+    section.settings.description_alignment, link_url: link_url, link_text: 'sections.collection_list.view_all',
+    wrapper_classes: wrapper_class %}"
+  position: 1712..2134
+{% endcomment %}
